@@ -1,4 +1,6 @@
+"use client";
 import React, { forwardRef } from "react";
+
 export type FormInputProps = {
   id?: string;
   name?: string;
@@ -7,6 +9,7 @@ export type FormInputProps = {
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string | null;
   required?: boolean;
   autoComplete?: string;
@@ -22,6 +25,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       type = "text",
       placeholder,
       value,
+      onBlur,
       onChange,
       error,
       required,
@@ -50,6 +54,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             ref={ref}
             type={type}
             value={value}
+            onBlur={onBlur}
             onChange={onChange}
             placeholder={placeholder}
             aria-invalid={Boolean(error)}
