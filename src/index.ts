@@ -1,4 +1,3 @@
-// src/index.ts
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -8,6 +7,7 @@ import helmet from "helmet";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
+import authRoutes from "./routes/auth";
 
 const PORT = Number(process.env.PORT || 4000);
 const MONGO_URI = process.env.MONGO_URI || "";
@@ -24,12 +24,15 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:3000",
     credentials: true,
   })
 );
+
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -38,10 +41,12 @@ app.use(
 );
 
 app.get("/api/health", (_req, res) => {
-  const state = mongoose.connection.readyState; // 0 disconnected, 1 connected, 2 connecting, 3 disconnecting
+  const state = mongoose.connection.readyState;
   res.json({ ok: true, mongoState: state });
 });
+
 // ROUTERS
+app.use("/api/auth", authRoutes);
 
 async function start() {
   try {
