@@ -6,7 +6,7 @@ import User from "../models/User";
 import { signToken } from "../utils/jwt";
 
 const SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS) || 12;
-const TOKEN_MAX_AGE = Number(process.env.JWT_MAX_AGE_MS) || 1000 * 60 * 60; // 1h
+const TOKEN_MAX_AGE = Number(process.env.JWT_MAX_AGE_MS) || 1000 * 60 * 60;
 const MAX_ACCOUNTS = Number(process.env.MAX_ACCOUNTS) || 1000;
 
 const registerSchema = Joi.object({
@@ -58,6 +58,32 @@ export async function register(req: Request, res: Response) {
       return res.status(409).json({ message: "Email already in use" });
     }
     console.error("register error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+export async function login(req: Request, res: Response) {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).json({ message: "Missing credentials" });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+
+    const ok = await user.comparePassword(password);
+    if (!ok) return res.status(401).json({ message: "Invalid credentials" });
+
+    const token = signToken({ id: user._id });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 1000 * 60 * 60,
+      })
+      .json({ id: user._id, email: user.email });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 }
