@@ -67,7 +67,9 @@ export async function login(req: Request, res: Response) {
     if (!email || !password)
       return res.status(400).json({ message: "Missing credentials" });
 
-    const user = await User.findOne({ email });
+    const emailNorm = String(email).trim().toLowerCase();
+
+    const user = await User.findOne({ email: emailNorm });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
     const ok = await user.comparePassword(password);
@@ -83,7 +85,7 @@ export async function login(req: Request, res: Response) {
       })
       .json({ id: user._id, email: user.email });
   } catch (err) {
-    console.error(err);
+    console.error("login error:", err);
     res.status(500).json({ message: "Server error" });
   }
 }
