@@ -1,11 +1,11 @@
 "use client";
 import { FormInput } from "@/components/FormInput";
-import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
+
 export default function LoginComponent() {
   const router = useRouter();
   type FormValues = { email: string; password: string };
@@ -20,27 +20,41 @@ export default function LoginComponent() {
       setStatus(null);
       setSubmitting(true);
       try {
+        console.log("Wysyłam request logowania...", values);
         const res = await api.post("/api/auth/login", values);
-        if (res.status === 201) {
-          router.push("/login");
+        console.log("Odpowiedź serwera:", res.status, res.data);
+
+        if (res.status === 200 || res.status === 201) {
+          console.log("zalogowany", res.data);
+          setStatus(null);
+
+          router.push("/");
         } else {
-          setStatus("Nieoczekiwany status z serwera");
+          setStatus("Nieoczekiwany status z serwera: " + res.status);
+          console.warn("Nieoczekiwany status", res);
         }
       } catch (err: any) {
-        if (err.resposne?.data?.message) {
-          setStatus(err.resposne.data.message);
-        } else {
-          setStatus("Błąd sieci. Spróbuj ponownie");
-        }
+        console.error("Błąd przy logowaniu (full error):", err);
+        console.error("err.response.status:", err?.response?.status);
+        console.error("err.response.data:", err?.response?.data);
+        const msg =
+          err?.response?.data?.message ??
+          err?.message ??
+          "Błąd sieci. Spróbuj ponownie";
+        setStatus(msg);
       } finally {
         setSubmitting(false);
       }
     },
   });
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-[#0B1020] px-4">
       <div className="w-full max-w-md mb-7">
-        <form className="bg-white/5 p-6 rounded-lg">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="bg-white/5 p-6 rounded-lg"
+        >
           <FormInput
             name="email"
             label="Email"
@@ -72,7 +86,11 @@ export default function LoginComponent() {
               }
               required
             />
-            {formik.status && <div>{formik.status}</div>}
+            {formik.status && (
+              <div className="mt-2 text-sm text-red-400" role="alert">
+                {formik.status}
+              </div>
+            )}
           </div>
 
           <button
@@ -85,7 +103,7 @@ export default function LoginComponent() {
 
           <Link
             href={"/register"}
-            className="text-[14px]  text-[#F3EAD7]/90 hover:text-[#F3EAD7] pt-5"
+            className="text-[14px]  text-[#F3EAD7]/90 hover:text-[#F3EAD7] pt-5 block mt-3"
           >
             Nie masz konta? Zarejestruj się
           </Link>

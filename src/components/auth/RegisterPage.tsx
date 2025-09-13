@@ -21,8 +21,7 @@ export default function RegisterComponent() {
       setSubmitting(true);
       try {
         const res = await api.post("/api/auth/register", values);
-        if (res.status === 201) {
-          router.push("/login");
+        if (res.status === 200 || res.status === 201) {
         } else {
           setStatus("Nieoczekiwany status z serwera");
         }
