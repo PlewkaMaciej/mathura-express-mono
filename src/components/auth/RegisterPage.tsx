@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "@/lib/axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 export default function RegisterComponent() {
   const router = useRouter();
   type FormValues = { email: string; password: string };

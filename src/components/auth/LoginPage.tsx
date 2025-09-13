@@ -4,8 +4,10 @@ import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import api from "@/lib/axios";
+import { useRouter } from "next/navigation";
 export default function LoginComponent() {
+  const router = useRouter();
   type FormValues = { email: string; password: string };
   const schema = Yup.object({
     email: Yup.string().email("Nieprawidłowy email").required("Wymagane"),
@@ -17,6 +19,22 @@ export default function LoginComponent() {
     onSubmit: async (values, { setSubmitting, setStatus }) => {
       setStatus(null);
       setSubmitting(true);
+      try {
+        const res = await api.post("/api/auth/login", values);
+        if (res.status === 201) {
+          router.push("/login");
+        } else {
+          setStatus("Nieoczekiwany status z serwera");
+        }
+      } catch (err: any) {
+        if (err.resposne?.data?.message) {
+          setStatus(err.resposne.data.message);
+        } else {
+          setStatus("Błąd sieci. Spróbuj ponownie");
+        }
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
   return (
