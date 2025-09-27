@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
-
+import { AxiosError } from "axios";
 export default function LoginComponent() {
   const router = useRouter();
   type FormValues = { email: string; password: string };
@@ -23,25 +23,29 @@ export default function LoginComponent() {
         console.log("Wysyłam request logowania...", values);
         const res = await api.post("/api/auth/login", values);
         console.log("Odpowiedź serwera:", res.status, res.data);
-
         if (res.status === 200 || res.status === 201) {
           console.log("zalogowany", res.data);
           setStatus(null);
-
           router.push("/");
         } else {
           setStatus("Nieoczekiwany status z serwera: " + res.status);
           console.warn("Nieoczekiwany status", res);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Błąd przy logowaniu (full error):", err);
-        console.error("err.response.status:", err?.response?.status);
-        console.error("err.response.data:", err?.response?.data);
-        const msg =
-          err?.response?.data?.message ??
-          err?.message ??
-          "Błąd sieci. Spróbuj ponownie";
-        setStatus(msg);
+        if (err instanceof AxiosError) {
+          console.error("err.response.status:", err.response?.status);
+          console.error("err.response.data:", err.response?.data);
+          const msg =
+            err.response?.data?.message ??
+            err.message ??
+            "Błąd sieci. Spróbuj ponownie";
+          setStatus(msg);
+        } else if (err instanceof Error) {
+          setStatus(err.message);
+        } else {
+          setStatus("Błąd sieci. Spróbuj ponownie");
+        }
       } finally {
         setSubmitting(false);
       }

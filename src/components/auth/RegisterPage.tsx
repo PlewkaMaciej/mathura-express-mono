@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 export default function RegisterComponent() {
   const router = useRouter();
   type FormValues = { email: string; password: string };
@@ -25,14 +26,14 @@ export default function RegisterComponent() {
         } else {
           setStatus("Nieoczekiwany status z serwera");
         }
-      } catch (err: any) {
-        if (err.response?.data?.message) {
-          setStatus(err.response.data.message);
+      } catch (err: unknown) {
+        const axiosError = err as AxiosError<{ message: string }>;
+        const message = axiosError.response?.data?.message;
+        if (message) {
+          setStatus(message);
         } else {
           setStatus("Błąd sieci. Spróbuj ponownie.");
         }
-      } finally {
-        setSubmitting(false);
       }
     },
   });

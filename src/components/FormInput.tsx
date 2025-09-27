@@ -17,7 +17,7 @@ export type FormInputProps = {
   className?: string;
 };
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  (
+  function FormInput(
     {
       id,
       name,
@@ -31,15 +31,14 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       required,
     },
     ref
-  ) => {
+  ) {
     return (
       <div className="w-full">
         {label && (
           <label
-            htmlFor="(id ?? name)"
+            htmlFor={id ?? name}
             className="block text-sm font-medium text-gray-200 mb-2"
           >
-            {" "}
             {label} {required ? "*" : null}
           </label>
         )}
