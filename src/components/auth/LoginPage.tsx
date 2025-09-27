@@ -20,22 +20,16 @@ export default function LoginComponent() {
       setStatus(null);
       setSubmitting(true);
       try {
-        console.log("Wysyłam request logowania...", values);
         const res = await api.post("/api/auth/login", values);
-        console.log("Odpowiedź serwera:", res.status, res.data);
+
         if (res.status === 200 || res.status === 201) {
-          console.log("zalogowany", res.data);
           setStatus(null);
           router.push("/");
         } else {
           setStatus("Nieoczekiwany status z serwera: " + res.status);
-          console.warn("Nieoczekiwany status", res);
         }
       } catch (err: unknown) {
-        console.error("Błąd przy logowaniu (full error):", err);
         if (err instanceof AxiosError) {
-          console.error("err.response.status:", err.response?.status);
-          console.error("err.response.data:", err.response?.data);
           const msg =
             err.response?.data?.message ??
             err.message ??
