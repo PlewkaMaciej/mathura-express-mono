@@ -11,7 +11,7 @@ export default function Register() {
         <SignUp
           path="/register"
           routing="path"
-          signInUrl="/rgister"
+          signInUrl="/register"
           appearance={clerkSignAppearance}
         />
       </div>
