@@ -1,3 +1,4 @@
+"use client";
 export default function Footer() {
   return (
     <footer className="w-full border-t border-[#2C3B55] bg-[#0D2238] text-[#F3EAD7]">
