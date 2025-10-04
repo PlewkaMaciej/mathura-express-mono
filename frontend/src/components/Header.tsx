@@ -8,7 +8,7 @@ const NAV = [
   { href: "/library", label: "Biblioteka" },
   { href: "/generator", label: "Generator" },
   { href: "/pricing", label: "Cennik" },
-  { href: "/login", label: "Zaloguj" },
+  { href: "/sign-in", label: "Zaloguj" },
 ];
 
 function NavItem({ href, label }: { href: string; label: string }) {

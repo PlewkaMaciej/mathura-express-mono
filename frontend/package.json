@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/localizations": "^3.25.5",
+    "@clerk/nextjs": "^6.33.1",
+    "@clerk/themes": "^2.4.23",
     "axios": "^1.11.0",
     "better-react-mathjax": "^2.3.0",
     "formik": "^2.4.6",
