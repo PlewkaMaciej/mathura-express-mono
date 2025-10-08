@@ -16,6 +16,7 @@
     "prisma": "^6.17.0"
   },
   "dependencies": {
-    "@prisma/client": "^6.17.0"
+    "@prisma/client": "^6.17.0",
+    "@prisma/extension-accelerate": "^2.0.2"
   }
 }
