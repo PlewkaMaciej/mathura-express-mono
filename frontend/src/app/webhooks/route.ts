@@ -2,7 +2,7 @@ import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 
-export const runtime = "nextjs";
+export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
