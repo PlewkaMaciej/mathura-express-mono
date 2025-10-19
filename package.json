@@ -12,6 +12,13 @@
     "install:all": "npm install"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "prisma": "^6.17.1"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.33.3",
+    "@prisma/client": "^6.17.1",
+    "@prisma/extension-accelerate": "^2.0.2",
+    "sqlite3": "^5.1.7"
   }
 }
