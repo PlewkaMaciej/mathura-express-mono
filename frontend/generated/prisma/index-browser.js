@@ -127,12 +127,19 @@ exports.Prisma.UserScalarFieldEnum = {
   updateDate: 'updateDate'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.UserMaturaScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  content: 'content',
-  authorId: 'authorId',
-  createdAt: 'createdAt'
+  userId: 'userId',
+  maturaId: 'maturaId',
+  snapshot: 'snapshot',
+  status: 'status',
+  createdAt: 'createdAt',
+  finishedAt: 'finishedAt'
+};
+
+exports.Prisma.MaturaScalarFieldEnum = {
+  id: 'id',
+  sections: 'sections'
 };
 
 exports.Prisma.SortOrder = {
@@ -140,15 +147,31 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Post: 'Post'
+  UserMatura: 'UserMatura',
+  Matura: 'Matura'
 };
 
 /**

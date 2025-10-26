@@ -17,21 +17,30 @@ datasource db {
 
 
 model User {
-  id          String   @id @default(cuid())
-  clerkId     String   @unique   
+  id          String       @id @default(cuid())
+  clerkId     String       @unique
   firstName   String?
   lastName    String?
-  email       String   @unique
-  createDate  DateTime @default(now())
-  updateDate  DateTime @updatedAt
-  posts       Post[]   @relation("UserPosts")
+  email       String       @unique
+  createDate  DateTime     @default(now())
+  updateDate  DateTime     @updatedAt
+  userMaturas UserMatura[] 
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  authorId  String
-  author    User     @relation("UserPosts", fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
+model UserMatura {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  maturaId   String
+  matura     Matura   @relation(fields: [maturaId], references: [id])
+  snapshot   Json
+  status     String   @default("ACTIVE")
+  createdAt  DateTime @default(now())
+  finishedAt DateTime?
 }
+model Matura {
+  id          String        @id @default(cuid())
+  sections    Json
+  userMaturas UserMatura[]
+}
+

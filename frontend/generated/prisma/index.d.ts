@@ -19,10 +19,15 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Post
+ * Model UserMatura
  * 
  */
-export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+export type UserMatura = $Result.DefaultSelection<Prisma.$UserMaturaPayload>
+/**
+ * Model Matura
+ * 
+ */
+export type Matura = $Result.DefaultSelection<Prisma.$MaturaPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,14 +158,24 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.post`: Exposes CRUD operations for the **Post** model.
+   * `prisma.userMatura`: Exposes CRUD operations for the **UserMatura** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Posts
-    * const posts = await prisma.post.findMany()
+    * // Fetch zero or more UserMaturas
+    * const userMaturas = await prisma.userMatura.findMany()
     * ```
     */
-  get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+  get userMatura(): Prisma.UserMaturaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.matura`: Exposes CRUD operations for the **Matura** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Maturas
+    * const maturas = await prisma.matura.findMany()
+    * ```
+    */
+  get matura(): Prisma.MaturaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -602,7 +617,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Post: 'Post'
+    UserMatura: 'UserMatura',
+    Matura: 'Matura'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -621,7 +637,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "post"
+      modelProps: "user" | "userMatura" | "matura"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -699,77 +715,151 @@ export namespace Prisma {
           }
         }
       }
-      Post: {
-        payload: Prisma.$PostPayload<ExtArgs>
-        fields: Prisma.PostFieldRefs
+      UserMatura: {
+        payload: Prisma.$UserMaturaPayload<ExtArgs>
+        fields: Prisma.UserMaturaFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PostFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
+            args: Prisma.UserMaturaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PostFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.UserMaturaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
           }
           findFirst: {
-            args: Prisma.PostFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
+            args: Prisma.UserMaturaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PostFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.UserMaturaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
           }
           findMany: {
-            args: Prisma.PostFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+            args: Prisma.UserMaturaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>[]
           }
           create: {
-            args: Prisma.PostCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.UserMaturaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
           }
           createMany: {
-            args: Prisma.PostCreateManyArgs<ExtArgs>
+            args: Prisma.UserMaturaCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PostCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+            args: Prisma.UserMaturaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>[]
           }
           delete: {
-            args: Prisma.PostDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.UserMaturaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
           }
           update: {
-            args: Prisma.PostUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.UserMaturaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
           }
           deleteMany: {
-            args: Prisma.PostDeleteManyArgs<ExtArgs>
+            args: Prisma.UserMaturaDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PostUpdateManyArgs<ExtArgs>
+            args: Prisma.UserMaturaUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PostUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+            args: Prisma.UserMaturaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>[]
           }
           upsert: {
-            args: Prisma.PostUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.UserMaturaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
           }
           aggregate: {
-            args: Prisma.PostAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePost>
+            args: Prisma.UserMaturaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserMatura>
           }
           groupBy: {
-            args: Prisma.PostGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PostGroupByOutputType>[]
+            args: Prisma.UserMaturaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserMaturaGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PostCountArgs<ExtArgs>
-            result: $Utils.Optional<PostCountAggregateOutputType> | number
+            args: Prisma.UserMaturaCountArgs<ExtArgs>
+            result: $Utils.Optional<UserMaturaCountAggregateOutputType> | number
+          }
+        }
+      }
+      Matura: {
+        payload: Prisma.$MaturaPayload<ExtArgs>
+        fields: Prisma.MaturaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaturaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaturaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          findFirst: {
+            args: Prisma.MaturaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaturaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          findMany: {
+            args: Prisma.MaturaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>[]
+          }
+          create: {
+            args: Prisma.MaturaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          createMany: {
+            args: Prisma.MaturaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaturaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>[]
+          }
+          delete: {
+            args: Prisma.MaturaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          update: {
+            args: Prisma.MaturaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaturaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaturaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaturaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaturaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          aggregate: {
+            args: Prisma.MaturaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMatura>
+          }
+          groupBy: {
+            args: Prisma.MaturaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaturaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaturaCountArgs<ExtArgs>
+            result: $Utils.Optional<MaturaCountAggregateOutputType> | number
           }
         }
       }
@@ -870,7 +960,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
-    post?: PostOmit
+    userMatura?: UserMaturaOmit
+    matura?: MaturaOmit
   }
 
   /* Types for Logging */
@@ -951,11 +1042,11 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    posts: number
+    userMaturas: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | UserCountOutputTypeCountPostsArgs
+    userMaturas?: boolean | UserCountOutputTypeCountUserMaturasArgs
   }
 
   // Custom InputTypes
@@ -972,8 +1063,39 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostWhereInput
+  export type UserCountOutputTypeCountUserMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMaturaWhereInput
+  }
+
+
+  /**
+   * Count Type MaturaCountOutputType
+   */
+
+  export type MaturaCountOutputType = {
+    userMaturas: number
+  }
+
+  export type MaturaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMaturas?: boolean | MaturaCountOutputTypeCountUserMaturasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MaturaCountOutputType without action
+   */
+  export type MaturaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaturaCountOutputType
+     */
+    select?: MaturaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MaturaCountOutputType without action
+   */
+  export type MaturaCountOutputTypeCountUserMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMaturaWhereInput
   }
 
 
@@ -1161,7 +1283,7 @@ export namespace Prisma {
     email?: boolean
     createDate?: boolean
     updateDate?: boolean
-    posts?: boolean | User$postsArgs<ExtArgs>
+    userMaturas?: boolean | User$userMaturasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1197,7 +1319,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | User$postsArgs<ExtArgs>
+    userMaturas?: boolean | User$userMaturasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1206,7 +1328,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      posts: Prisma.$PostPayload<ExtArgs>[]
+      userMaturas: Prisma.$UserMaturaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1610,7 +1732,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userMaturas<T extends User$userMaturasArgs<ExtArgs> = {}>(args?: Subset<T, User$userMaturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2033,27 +2155,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.posts
+   * User.userMaturas
    */
-  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$userMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    cursor?: PostWhereUniqueInput
+    include?: UserMaturaInclude<ExtArgs> | null
+    where?: UserMaturaWhereInput
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    cursor?: UserMaturaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
   }
 
   /**
@@ -2076,350 +2198,377 @@ export namespace Prisma {
 
 
   /**
-   * Model Post
+   * Model UserMatura
    */
 
-  export type AggregatePost = {
-    _count: PostCountAggregateOutputType | null
-    _min: PostMinAggregateOutputType | null
-    _max: PostMaxAggregateOutputType | null
+  export type AggregateUserMatura = {
+    _count: UserMaturaCountAggregateOutputType | null
+    _min: UserMaturaMinAggregateOutputType | null
+    _max: UserMaturaMaxAggregateOutputType | null
   }
 
-  export type PostMinAggregateOutputType = {
+  export type UserMaturaMinAggregateOutputType = {
     id: string | null
-    title: string | null
-    content: string | null
-    authorId: string | null
+    userId: string | null
+    maturaId: string | null
+    status: string | null
     createdAt: Date | null
+    finishedAt: Date | null
   }
 
-  export type PostMaxAggregateOutputType = {
+  export type UserMaturaMaxAggregateOutputType = {
     id: string | null
-    title: string | null
-    content: string | null
-    authorId: string | null
+    userId: string | null
+    maturaId: string | null
+    status: string | null
     createdAt: Date | null
+    finishedAt: Date | null
   }
 
-  export type PostCountAggregateOutputType = {
+  export type UserMaturaCountAggregateOutputType = {
     id: number
-    title: number
-    content: number
-    authorId: number
+    userId: number
+    maturaId: number
+    snapshot: number
+    status: number
     createdAt: number
+    finishedAt: number
     _all: number
   }
 
 
-  export type PostMinAggregateInputType = {
+  export type UserMaturaMinAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    authorId?: true
+    userId?: true
+    maturaId?: true
+    status?: true
     createdAt?: true
+    finishedAt?: true
   }
 
-  export type PostMaxAggregateInputType = {
+  export type UserMaturaMaxAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    authorId?: true
+    userId?: true
+    maturaId?: true
+    status?: true
     createdAt?: true
+    finishedAt?: true
   }
 
-  export type PostCountAggregateInputType = {
+  export type UserMaturaCountAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    authorId?: true
+    userId?: true
+    maturaId?: true
+    snapshot?: true
+    status?: true
     createdAt?: true
+    finishedAt?: true
     _all?: true
   }
 
-  export type PostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Post to aggregate.
+     * Filter which UserMatura to aggregate.
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of UserMaturas to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: UserMaturaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` UserMaturas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` UserMaturas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Posts
+     * Count returned UserMaturas
     **/
-    _count?: true | PostCountAggregateInputType
+    _count?: true | UserMaturaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PostMinAggregateInputType
+    _min?: UserMaturaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PostMaxAggregateInputType
+    _max?: UserMaturaMaxAggregateInputType
   }
 
-  export type GetPostAggregateType<T extends PostAggregateArgs> = {
-        [P in keyof T & keyof AggregatePost]: P extends '_count' | 'count'
+  export type GetUserMaturaAggregateType<T extends UserMaturaAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserMatura]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePost[P]>
-      : GetScalarType<T[P], AggregatePost[P]>
+        : GetScalarType<T[P], AggregateUserMatura[P]>
+      : GetScalarType<T[P], AggregateUserMatura[P]>
   }
 
 
 
 
-  export type PostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithAggregationInput | PostOrderByWithAggregationInput[]
-    by: PostScalarFieldEnum[] | PostScalarFieldEnum
-    having?: PostScalarWhereWithAggregatesInput
+  export type UserMaturaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMaturaWhereInput
+    orderBy?: UserMaturaOrderByWithAggregationInput | UserMaturaOrderByWithAggregationInput[]
+    by: UserMaturaScalarFieldEnum[] | UserMaturaScalarFieldEnum
+    having?: UserMaturaScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PostCountAggregateInputType | true
-    _min?: PostMinAggregateInputType
-    _max?: PostMaxAggregateInputType
+    _count?: UserMaturaCountAggregateInputType | true
+    _min?: UserMaturaMinAggregateInputType
+    _max?: UserMaturaMaxAggregateInputType
   }
 
-  export type PostGroupByOutputType = {
+  export type UserMaturaGroupByOutputType = {
     id: string
-    title: string
-    content: string | null
-    authorId: string
+    userId: string
+    maturaId: string
+    snapshot: JsonValue
+    status: string
     createdAt: Date
-    _count: PostCountAggregateOutputType | null
-    _min: PostMinAggregateOutputType | null
-    _max: PostMaxAggregateOutputType | null
+    finishedAt: Date | null
+    _count: UserMaturaCountAggregateOutputType | null
+    _min: UserMaturaMinAggregateOutputType | null
+    _max: UserMaturaMaxAggregateOutputType | null
   }
 
-  type GetPostGroupByPayload<T extends PostGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserMaturaGroupByPayload<T extends UserMaturaGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PostGroupByOutputType, T['by']> &
+      PickEnumerable<UserMaturaGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PostGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserMaturaGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PostGroupByOutputType[P]>
-            : GetScalarType<T[P], PostGroupByOutputType[P]>
+              : GetScalarType<T[P], UserMaturaGroupByOutputType[P]>
+            : GetScalarType<T[P], UserMaturaGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserMaturaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    snapshot?: boolean
+    status?: boolean
     createdAt?: boolean
-    author?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["post"]>
+    finishedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMatura"]>
 
-  export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserMaturaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    snapshot?: boolean
+    status?: boolean
     createdAt?: boolean
-    author?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["post"]>
+    finishedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMatura"]>
 
-  export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserMaturaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    snapshot?: boolean
+    status?: boolean
     createdAt?: boolean
-    author?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["post"]>
+    finishedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMatura"]>
 
-  export type PostSelectScalar = {
+  export type UserMaturaSelectScalar = {
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    snapshot?: boolean
+    status?: boolean
     createdAt?: boolean
+    finishedAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "authorId" | "createdAt", ExtArgs["result"]["post"]>
-  export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | UserDefaultArgs<ExtArgs>
+  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "snapshot" | "status" | "createdAt" | "finishedAt", ExtArgs["result"]["userMatura"]>
+  export type UserMaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
   }
-  export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | UserDefaultArgs<ExtArgs>
+  export type UserMaturaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
   }
-  export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | UserDefaultArgs<ExtArgs>
+  export type UserMaturaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
   }
 
-  export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Post"
+  export type $UserMaturaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserMatura"
     objects: {
-      author: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+      matura: Prisma.$MaturaPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
-      content: string | null
-      authorId: string
+      userId: string
+      maturaId: string
+      snapshot: Prisma.JsonValue
+      status: string
       createdAt: Date
-    }, ExtArgs["result"]["post"]>
+      finishedAt: Date | null
+    }, ExtArgs["result"]["userMatura"]>
     composites: {}
   }
 
-  type PostGetPayload<S extends boolean | null | undefined | PostDefaultArgs> = $Result.GetResult<Prisma.$PostPayload, S>
+  type UserMaturaGetPayload<S extends boolean | null | undefined | UserMaturaDefaultArgs> = $Result.GetResult<Prisma.$UserMaturaPayload, S>
 
-  type PostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PostCountAggregateInputType | true
+  type UserMaturaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserMaturaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserMaturaCountAggregateInputType | true
     }
 
-  export interface PostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Post'], meta: { name: 'Post' } }
+  export interface UserMaturaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserMatura'], meta: { name: 'UserMatura' } }
     /**
-     * Find zero or one Post that matches the filter.
-     * @param {PostFindUniqueArgs} args - Arguments to find a Post
+     * Find zero or one UserMatura that matches the filter.
+     * @param {UserMaturaFindUniqueArgs} args - Arguments to find a UserMatura
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findUnique({
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PostFindUniqueArgs>(args: SelectSubset<T, PostFindUniqueArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends UserMaturaFindUniqueArgs>(args: SelectSubset<T, UserMaturaFindUniqueArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Post that matches the filter or throw an error with `error.code='P2025'`
+     * Find one UserMatura that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PostFindUniqueOrThrowArgs} args - Arguments to find a Post
+     * @param {UserMaturaFindUniqueOrThrowArgs} args - Arguments to find a UserMatura
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findUniqueOrThrow({
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PostFindUniqueOrThrowArgs>(args: SelectSubset<T, PostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends UserMaturaFindUniqueOrThrowArgs>(args: SelectSubset<T, UserMaturaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Post that matches the filter.
+     * Find the first UserMatura that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindFirstArgs} args - Arguments to find a Post
+     * @param {UserMaturaFindFirstArgs} args - Arguments to find a UserMatura
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findFirst({
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PostFindFirstArgs>(args?: SelectSubset<T, PostFindFirstArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends UserMaturaFindFirstArgs>(args?: SelectSubset<T, UserMaturaFindFirstArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Post that matches the filter or
+     * Find the first UserMatura that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindFirstOrThrowArgs} args - Arguments to find a Post
+     * @param {UserMaturaFindFirstOrThrowArgs} args - Arguments to find a UserMatura
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findFirstOrThrow({
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PostFindFirstOrThrowArgs>(args?: SelectSubset<T, PostFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends UserMaturaFindFirstOrThrowArgs>(args?: SelectSubset<T, UserMaturaFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Posts that matches the filter.
+     * Find zero or more UserMaturas that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {UserMaturaFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Posts
-     * const posts = await prisma.post.findMany()
+     * // Get all UserMaturas
+     * const userMaturas = await prisma.userMatura.findMany()
      * 
-     * // Get first 10 Posts
-     * const posts = await prisma.post.findMany({ take: 10 })
+     * // Get first 10 UserMaturas
+     * const userMaturas = await prisma.userMatura.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const postWithIdOnly = await prisma.post.findMany({ select: { id: true } })
+     * const userMaturaWithIdOnly = await prisma.userMatura.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PostFindManyArgs>(args?: SelectSubset<T, PostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends UserMaturaFindManyArgs>(args?: SelectSubset<T, UserMaturaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Post.
-     * @param {PostCreateArgs} args - Arguments to create a Post.
+     * Create a UserMatura.
+     * @param {UserMaturaCreateArgs} args - Arguments to create a UserMatura.
      * @example
-     * // Create one Post
-     * const Post = await prisma.post.create({
+     * // Create one UserMatura
+     * const UserMatura = await prisma.userMatura.create({
      *   data: {
-     *     // ... data to create a Post
+     *     // ... data to create a UserMatura
      *   }
      * })
      * 
      */
-    create<T extends PostCreateArgs>(args: SelectSubset<T, PostCreateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends UserMaturaCreateArgs>(args: SelectSubset<T, UserMaturaCreateArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Posts.
-     * @param {PostCreateManyArgs} args - Arguments to create many Posts.
+     * Create many UserMaturas.
+     * @param {UserMaturaCreateManyArgs} args - Arguments to create many UserMaturas.
      * @example
-     * // Create many Posts
-     * const post = await prisma.post.createMany({
+     * // Create many UserMaturas
+     * const userMatura = await prisma.userMatura.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PostCreateManyArgs>(args?: SelectSubset<T, PostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends UserMaturaCreateManyArgs>(args?: SelectSubset<T, UserMaturaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Posts and returns the data saved in the database.
-     * @param {PostCreateManyAndReturnArgs} args - Arguments to create many Posts.
+     * Create many UserMaturas and returns the data saved in the database.
+     * @param {UserMaturaCreateManyAndReturnArgs} args - Arguments to create many UserMaturas.
      * @example
-     * // Create many Posts
-     * const post = await prisma.post.createManyAndReturn({
+     * // Create many UserMaturas
+     * const userMatura = await prisma.userMatura.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Posts and only return the `id`
-     * const postWithIdOnly = await prisma.post.createManyAndReturn({
+     * // Create many UserMaturas and only return the `id`
+     * const userMaturaWithIdOnly = await prisma.userMatura.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -2429,28 +2578,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PostCreateManyAndReturnArgs>(args?: SelectSubset<T, PostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends UserMaturaCreateManyAndReturnArgs>(args?: SelectSubset<T, UserMaturaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Post.
-     * @param {PostDeleteArgs} args - Arguments to delete one Post.
+     * Delete a UserMatura.
+     * @param {UserMaturaDeleteArgs} args - Arguments to delete one UserMatura.
      * @example
-     * // Delete one Post
-     * const Post = await prisma.post.delete({
+     * // Delete one UserMatura
+     * const UserMatura = await prisma.userMatura.delete({
      *   where: {
-     *     // ... filter to delete one Post
+     *     // ... filter to delete one UserMatura
      *   }
      * })
      * 
      */
-    delete<T extends PostDeleteArgs>(args: SelectSubset<T, PostDeleteArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends UserMaturaDeleteArgs>(args: SelectSubset<T, UserMaturaDeleteArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Post.
-     * @param {PostUpdateArgs} args - Arguments to update one Post.
+     * Update one UserMatura.
+     * @param {UserMaturaUpdateArgs} args - Arguments to update one UserMatura.
      * @example
-     * // Update one Post
-     * const post = await prisma.post.update({
+     * // Update one UserMatura
+     * const userMatura = await prisma.userMatura.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2460,30 +2609,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PostUpdateArgs>(args: SelectSubset<T, PostUpdateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends UserMaturaUpdateArgs>(args: SelectSubset<T, UserMaturaUpdateArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Posts.
-     * @param {PostDeleteManyArgs} args - Arguments to filter Posts to delete.
+     * Delete zero or more UserMaturas.
+     * @param {UserMaturaDeleteManyArgs} args - Arguments to filter UserMaturas to delete.
      * @example
-     * // Delete a few Posts
-     * const { count } = await prisma.post.deleteMany({
+     * // Delete a few UserMaturas
+     * const { count } = await prisma.userMatura.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PostDeleteManyArgs>(args?: SelectSubset<T, PostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends UserMaturaDeleteManyArgs>(args?: SelectSubset<T, UserMaturaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Posts.
+     * Update zero or more UserMaturas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserMaturaUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Posts
-     * const post = await prisma.post.updateMany({
+     * // Update many UserMaturas
+     * const userMatura = await prisma.userMatura.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2493,14 +2642,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PostUpdateManyArgs>(args: SelectSubset<T, PostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends UserMaturaUpdateManyArgs>(args: SelectSubset<T, UserMaturaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Posts and returns the data updated in the database.
-     * @param {PostUpdateManyAndReturnArgs} args - Arguments to update many Posts.
+     * Update zero or more UserMaturas and returns the data updated in the database.
+     * @param {UserMaturaUpdateManyAndReturnArgs} args - Arguments to update many UserMaturas.
      * @example
-     * // Update many Posts
-     * const post = await prisma.post.updateManyAndReturn({
+     * // Update many UserMaturas
+     * const userMatura = await prisma.userMatura.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2509,8 +2658,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Posts and only return the `id`
-     * const postWithIdOnly = await prisma.post.updateManyAndReturn({
+     * // Update zero or more UserMaturas and only return the `id`
+     * const userMaturaWithIdOnly = await prisma.userMatura.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -2523,56 +2672,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PostUpdateManyAndReturnArgs>(args: SelectSubset<T, PostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends UserMaturaUpdateManyAndReturnArgs>(args: SelectSubset<T, UserMaturaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Post.
-     * @param {PostUpsertArgs} args - Arguments to update or create a Post.
+     * Create or update one UserMatura.
+     * @param {UserMaturaUpsertArgs} args - Arguments to update or create a UserMatura.
      * @example
-     * // Update or create a Post
-     * const post = await prisma.post.upsert({
+     * // Update or create a UserMatura
+     * const userMatura = await prisma.userMatura.upsert({
      *   create: {
-     *     // ... data to create a Post
+     *     // ... data to create a UserMatura
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Post we want to update
+     *     // ... the filter for the UserMatura we want to update
      *   }
      * })
      */
-    upsert<T extends PostUpsertArgs>(args: SelectSubset<T, PostUpsertArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends UserMaturaUpsertArgs>(args: SelectSubset<T, UserMaturaUpsertArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Posts.
+     * Count the number of UserMaturas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostCountArgs} args - Arguments to filter Posts to count.
+     * @param {UserMaturaCountArgs} args - Arguments to filter UserMaturas to count.
      * @example
-     * // Count the number of Posts
-     * const count = await prisma.post.count({
+     * // Count the number of UserMaturas
+     * const count = await prisma.userMatura.count({
      *   where: {
-     *     // ... the filter for the Posts we want to count
+     *     // ... the filter for the UserMaturas we want to count
      *   }
      * })
     **/
-    count<T extends PostCountArgs>(
-      args?: Subset<T, PostCountArgs>,
+    count<T extends UserMaturaCountArgs>(
+      args?: Subset<T, UserMaturaCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PostCountAggregateOutputType>
+          : GetScalarType<T['select'], UserMaturaCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Post.
+     * Allows you to perform aggregations operations on a UserMatura.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserMaturaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2592,13 +2741,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PostAggregateArgs>(args: Subset<T, PostAggregateArgs>): Prisma.PrismaPromise<GetPostAggregateType<T>>
+    aggregate<T extends UserMaturaAggregateArgs>(args: Subset<T, UserMaturaAggregateArgs>): Prisma.PrismaPromise<GetUserMaturaAggregateType<T>>
 
     /**
-     * Group by Post.
+     * Group by UserMatura.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostGroupByArgs} args - Group by arguments.
+     * @param {UserMaturaGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2613,14 +2762,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PostGroupByArgs,
+      T extends UserMaturaGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PostGroupByArgs['orderBy'] }
-        : { orderBy?: PostGroupByArgs['orderBy'] },
+        ? { orderBy: UserMaturaGroupByArgs['orderBy'] }
+        : { orderBy?: UserMaturaGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2669,22 +2818,23 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserMaturaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserMaturaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Post model
+   * Fields of the UserMatura model
    */
-  readonly fields: PostFieldRefs;
+  readonly fields: UserMaturaFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Post.
+   * The delegate class that acts as a "Promise-like" for UserMatura.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserMaturaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    matura<T extends MaturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaturaDefaultArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2711,423 +2861,1450 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Post model
+   * Fields of the UserMatura model
    */
-  interface PostFieldRefs {
-    readonly id: FieldRef<"Post", 'String'>
-    readonly title: FieldRef<"Post", 'String'>
-    readonly content: FieldRef<"Post", 'String'>
-    readonly authorId: FieldRef<"Post", 'String'>
-    readonly createdAt: FieldRef<"Post", 'DateTime'>
+  interface UserMaturaFieldRefs {
+    readonly id: FieldRef<"UserMatura", 'String'>
+    readonly userId: FieldRef<"UserMatura", 'String'>
+    readonly maturaId: FieldRef<"UserMatura", 'String'>
+    readonly snapshot: FieldRef<"UserMatura", 'Json'>
+    readonly status: FieldRef<"UserMatura", 'String'>
+    readonly createdAt: FieldRef<"UserMatura", 'DateTime'>
+    readonly finishedAt: FieldRef<"UserMatura", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Post findUnique
+   * UserMatura findUnique
    */
-  export type PostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which UserMatura to fetch.
      */
-    where: PostWhereUniqueInput
+    where: UserMaturaWhereUniqueInput
   }
 
   /**
-   * Post findUniqueOrThrow
+   * UserMatura findUniqueOrThrow
    */
-  export type PostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which UserMatura to fetch.
      */
-    where: PostWhereUniqueInput
+    where: UserMaturaWhereUniqueInput
   }
 
   /**
-   * Post findFirst
+   * UserMatura findFirst
    */
-  export type PostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which UserMatura to fetch.
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of UserMaturas to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Posts.
+     * Sets the position for searching for UserMaturas.
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: UserMaturaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` UserMaturas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` UserMaturas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Posts.
+     * Filter by unique combinations of UserMaturas.
      */
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
   }
 
   /**
-   * Post findFirstOrThrow
+   * UserMatura findFirstOrThrow
    */
-  export type PostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which UserMatura to fetch.
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of UserMaturas to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Posts.
+     * Sets the position for searching for UserMaturas.
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: UserMaturaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` UserMaturas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` UserMaturas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Posts.
+     * Filter by unique combinations of UserMaturas.
      */
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
   }
 
   /**
-   * Post findMany
+   * UserMatura findMany
    */
-  export type PostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * Filter, which Posts to fetch.
+     * Filter, which UserMaturas to fetch.
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of UserMaturas to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Posts.
+     * Sets the position for listing UserMaturas.
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: UserMaturaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` UserMaturas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` UserMaturas.
      */
     skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
   }
 
   /**
-   * Post create
+   * UserMatura create
    */
-  export type PostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * The data needed to create a Post.
+     * The data needed to create a UserMatura.
      */
-    data: XOR<PostCreateInput, PostUncheckedCreateInput>
+    data: XOR<UserMaturaCreateInput, UserMaturaUncheckedCreateInput>
   }
 
   /**
-   * Post createMany
+   * UserMatura createMany
    */
-  export type PostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Posts.
+     * The data used to create many UserMaturas.
      */
-    data: PostCreateManyInput | PostCreateManyInput[]
+    data: UserMaturaCreateManyInput | UserMaturaCreateManyInput[]
   }
 
   /**
-   * Post createManyAndReturn
+   * UserMatura createManyAndReturn
    */
-  export type PostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelectCreateManyAndReturn<ExtArgs> | null
+    select?: UserMaturaSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
-     * The data used to create many Posts.
+     * The data used to create many UserMaturas.
      */
-    data: PostCreateManyInput | PostCreateManyInput[]
+    data: UserMaturaCreateManyInput | UserMaturaCreateManyInput[]
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: UserMaturaIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Post update
+   * UserMatura update
    */
-  export type PostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * The data needed to update a Post.
+     * The data needed to update a UserMatura.
      */
-    data: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+    data: XOR<UserMaturaUpdateInput, UserMaturaUncheckedUpdateInput>
     /**
-     * Choose, which Post to update.
+     * Choose, which UserMatura to update.
      */
-    where: PostWhereUniqueInput
+    where: UserMaturaWhereUniqueInput
   }
 
   /**
-   * Post updateMany
+   * UserMatura updateMany
    */
-  export type PostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Posts.
+     * The data used to update UserMaturas.
      */
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyInput>
     /**
-     * Filter which Posts to update
+     * Filter which UserMaturas to update
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
-     * Limit how many Posts to update.
+     * Limit how many UserMaturas to update.
      */
     limit?: number
   }
 
   /**
-   * Post updateManyAndReturn
+   * UserMatura updateManyAndReturn
    */
-  export type PostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: UserMaturaSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
-     * The data used to update Posts.
+     * The data used to update UserMaturas.
      */
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyInput>
     /**
-     * Filter which Posts to update
+     * Filter which UserMaturas to update
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
-     * Limit how many Posts to update.
+     * Limit how many UserMaturas to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: UserMaturaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Post upsert
+   * UserMatura upsert
    */
-  export type PostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * The filter to search for the Post to update in case it exists.
+     * The filter to search for the UserMatura to update in case it exists.
      */
-    where: PostWhereUniqueInput
+    where: UserMaturaWhereUniqueInput
     /**
-     * In case the Post found by the `where` argument doesn't exist, create a new Post with this data.
+     * In case the UserMatura found by the `where` argument doesn't exist, create a new UserMatura with this data.
      */
-    create: XOR<PostCreateInput, PostUncheckedCreateInput>
+    create: XOR<UserMaturaCreateInput, UserMaturaUncheckedCreateInput>
     /**
-     * In case the Post was found with the provided `where` argument, update it with this data.
+     * In case the UserMatura was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+    update: XOR<UserMaturaUpdateInput, UserMaturaUncheckedUpdateInput>
   }
 
   /**
-   * Post delete
+   * UserMatura delete
    */
-  export type PostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
     /**
-     * Filter which Post to delete.
+     * Filter which UserMatura to delete.
      */
-    where: PostWhereUniqueInput
+    where: UserMaturaWhereUniqueInput
   }
 
   /**
-   * Post deleteMany
+   * UserMatura deleteMany
    */
-  export type PostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Posts to delete
+     * Filter which UserMaturas to delete
      */
-    where?: PostWhereInput
+    where?: UserMaturaWhereInput
     /**
-     * Limit how many Posts to delete.
+     * Limit how many UserMaturas to delete.
      */
     limit?: number
   }
 
   /**
-   * Post without action
+   * UserMatura without action
    */
-  export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserMaturaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserMatura
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserMaturaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserMatura
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserMaturaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
+    include?: UserMaturaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Matura
+   */
+
+  export type AggregateMatura = {
+    _count: MaturaCountAggregateOutputType | null
+    _min: MaturaMinAggregateOutputType | null
+    _max: MaturaMaxAggregateOutputType | null
+  }
+
+  export type MaturaMinAggregateOutputType = {
+    id: string | null
+  }
+
+  export type MaturaMaxAggregateOutputType = {
+    id: string | null
+  }
+
+  export type MaturaCountAggregateOutputType = {
+    id: number
+    sections: number
+    _all: number
+  }
+
+
+  export type MaturaMinAggregateInputType = {
+    id?: true
+  }
+
+  export type MaturaMaxAggregateInputType = {
+    id?: true
+  }
+
+  export type MaturaCountAggregateInputType = {
+    id?: true
+    sections?: true
+    _all?: true
+  }
+
+  export type MaturaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Matura to aggregate.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Maturas
+    **/
+    _count?: true | MaturaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaturaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaturaMaxAggregateInputType
+  }
+
+  export type GetMaturaAggregateType<T extends MaturaAggregateArgs> = {
+        [P in keyof T & keyof AggregateMatura]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMatura[P]>
+      : GetScalarType<T[P], AggregateMatura[P]>
+  }
+
+
+
+
+  export type MaturaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaturaWhereInput
+    orderBy?: MaturaOrderByWithAggregationInput | MaturaOrderByWithAggregationInput[]
+    by: MaturaScalarFieldEnum[] | MaturaScalarFieldEnum
+    having?: MaturaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaturaCountAggregateInputType | true
+    _min?: MaturaMinAggregateInputType
+    _max?: MaturaMaxAggregateInputType
+  }
+
+  export type MaturaGroupByOutputType = {
+    id: string
+    sections: JsonValue
+    _count: MaturaCountAggregateOutputType | null
+    _min: MaturaMinAggregateOutputType | null
+    _max: MaturaMaxAggregateOutputType | null
+  }
+
+  type GetMaturaGroupByPayload<T extends MaturaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaturaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaturaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaturaGroupByOutputType[P]>
+            : GetScalarType<T[P], MaturaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaturaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sections?: boolean
+    userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
+    _count?: boolean | MaturaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["matura"]>
+
+  export type MaturaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sections?: boolean
+  }, ExtArgs["result"]["matura"]>
+
+  export type MaturaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sections?: boolean
+  }, ExtArgs["result"]["matura"]>
+
+  export type MaturaSelectScalar = {
+    id?: boolean
+    sections?: boolean
+  }
+
+  export type MaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sections", ExtArgs["result"]["matura"]>
+  export type MaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
+    _count?: boolean | MaturaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MaturaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MaturaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $MaturaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Matura"
+    objects: {
+      userMaturas: Prisma.$UserMaturaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sections: Prisma.JsonValue
+    }, ExtArgs["result"]["matura"]>
+    composites: {}
+  }
+
+  type MaturaGetPayload<S extends boolean | null | undefined | MaturaDefaultArgs> = $Result.GetResult<Prisma.$MaturaPayload, S>
+
+  type MaturaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaturaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaturaCountAggregateInputType | true
+    }
+
+  export interface MaturaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Matura'], meta: { name: 'Matura' } }
+    /**
+     * Find zero or one Matura that matches the filter.
+     * @param {MaturaFindUniqueArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaturaFindUniqueArgs>(args: SelectSubset<T, MaturaFindUniqueArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Matura that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaturaFindUniqueOrThrowArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaturaFindUniqueOrThrowArgs>(args: SelectSubset<T, MaturaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Matura that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaFindFirstArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaturaFindFirstArgs>(args?: SelectSubset<T, MaturaFindFirstArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Matura that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaFindFirstOrThrowArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaturaFindFirstOrThrowArgs>(args?: SelectSubset<T, MaturaFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Maturas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Maturas
+     * const maturas = await prisma.matura.findMany()
+     * 
+     * // Get first 10 Maturas
+     * const maturas = await prisma.matura.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maturaWithIdOnly = await prisma.matura.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaturaFindManyArgs>(args?: SelectSubset<T, MaturaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Matura.
+     * @param {MaturaCreateArgs} args - Arguments to create a Matura.
+     * @example
+     * // Create one Matura
+     * const Matura = await prisma.matura.create({
+     *   data: {
+     *     // ... data to create a Matura
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaturaCreateArgs>(args: SelectSubset<T, MaturaCreateArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Maturas.
+     * @param {MaturaCreateManyArgs} args - Arguments to create many Maturas.
+     * @example
+     * // Create many Maturas
+     * const matura = await prisma.matura.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaturaCreateManyArgs>(args?: SelectSubset<T, MaturaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Maturas and returns the data saved in the database.
+     * @param {MaturaCreateManyAndReturnArgs} args - Arguments to create many Maturas.
+     * @example
+     * // Create many Maturas
+     * const matura = await prisma.matura.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Maturas and only return the `id`
+     * const maturaWithIdOnly = await prisma.matura.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaturaCreateManyAndReturnArgs>(args?: SelectSubset<T, MaturaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Matura.
+     * @param {MaturaDeleteArgs} args - Arguments to delete one Matura.
+     * @example
+     * // Delete one Matura
+     * const Matura = await prisma.matura.delete({
+     *   where: {
+     *     // ... filter to delete one Matura
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaturaDeleteArgs>(args: SelectSubset<T, MaturaDeleteArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Matura.
+     * @param {MaturaUpdateArgs} args - Arguments to update one Matura.
+     * @example
+     * // Update one Matura
+     * const matura = await prisma.matura.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaturaUpdateArgs>(args: SelectSubset<T, MaturaUpdateArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Maturas.
+     * @param {MaturaDeleteManyArgs} args - Arguments to filter Maturas to delete.
+     * @example
+     * // Delete a few Maturas
+     * const { count } = await prisma.matura.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaturaDeleteManyArgs>(args?: SelectSubset<T, MaturaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Maturas
+     * const matura = await prisma.matura.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaturaUpdateManyArgs>(args: SelectSubset<T, MaturaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maturas and returns the data updated in the database.
+     * @param {MaturaUpdateManyAndReturnArgs} args - Arguments to update many Maturas.
+     * @example
+     * // Update many Maturas
+     * const matura = await prisma.matura.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Maturas and only return the `id`
+     * const maturaWithIdOnly = await prisma.matura.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaturaUpdateManyAndReturnArgs>(args: SelectSubset<T, MaturaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Matura.
+     * @param {MaturaUpsertArgs} args - Arguments to update or create a Matura.
+     * @example
+     * // Update or create a Matura
+     * const matura = await prisma.matura.upsert({
+     *   create: {
+     *     // ... data to create a Matura
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Matura we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaturaUpsertArgs>(args: SelectSubset<T, MaturaUpsertArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Maturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaCountArgs} args - Arguments to filter Maturas to count.
+     * @example
+     * // Count the number of Maturas
+     * const count = await prisma.matura.count({
+     *   where: {
+     *     // ... the filter for the Maturas we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaturaCountArgs>(
+      args?: Subset<T, MaturaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaturaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Matura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaturaAggregateArgs>(args: Subset<T, MaturaAggregateArgs>): Prisma.PrismaPromise<GetMaturaAggregateType<T>>
+
+    /**
+     * Group by Matura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaturaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaturaGroupByArgs['orderBy'] }
+        : { orderBy?: MaturaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaturaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaturaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Matura model
+   */
+  readonly fields: MaturaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Matura.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaturaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userMaturas<T extends Matura$userMaturasArgs<ExtArgs> = {}>(args?: Subset<T, Matura$userMaturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Matura model
+   */
+  interface MaturaFieldRefs {
+    readonly id: FieldRef<"Matura", 'String'>
+    readonly sections: FieldRef<"Matura", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Matura findUnique
+   */
+  export type MaturaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura findUniqueOrThrow
+   */
+  export type MaturaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura findFirst
+   */
+  export type MaturaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maturas.
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maturas.
+     */
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura findFirstOrThrow
+   */
+  export type MaturaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maturas.
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maturas.
+     */
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura findMany
+   */
+  export type MaturaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Maturas to fetch.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Maturas.
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura create
+   */
+  export type MaturaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Matura.
+     */
+    data: XOR<MaturaCreateInput, MaturaUncheckedCreateInput>
+  }
+
+  /**
+   * Matura createMany
+   */
+  export type MaturaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Maturas.
+     */
+    data: MaturaCreateManyInput | MaturaCreateManyInput[]
+  }
+
+  /**
+   * Matura createManyAndReturn
+   */
+  export type MaturaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Maturas.
+     */
+    data: MaturaCreateManyInput | MaturaCreateManyInput[]
+  }
+
+  /**
+   * Matura update
+   */
+  export type MaturaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Matura.
+     */
+    data: XOR<MaturaUpdateInput, MaturaUncheckedUpdateInput>
+    /**
+     * Choose, which Matura to update.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura updateMany
+   */
+  export type MaturaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Maturas.
+     */
+    data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyInput>
+    /**
+     * Filter which Maturas to update
+     */
+    where?: MaturaWhereInput
+    /**
+     * Limit how many Maturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Matura updateManyAndReturn
+   */
+  export type MaturaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * The data used to update Maturas.
+     */
+    data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyInput>
+    /**
+     * Filter which Maturas to update
+     */
+    where?: MaturaWhereInput
+    /**
+     * Limit how many Maturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Matura upsert
+   */
+  export type MaturaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Matura to update in case it exists.
+     */
+    where: MaturaWhereUniqueInput
+    /**
+     * In case the Matura found by the `where` argument doesn't exist, create a new Matura with this data.
+     */
+    create: XOR<MaturaCreateInput, MaturaUncheckedCreateInput>
+    /**
+     * In case the Matura was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaturaUpdateInput, MaturaUncheckedUpdateInput>
+  }
+
+  /**
+   * Matura delete
+   */
+  export type MaturaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter which Matura to delete.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura deleteMany
+   */
+  export type MaturaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Maturas to delete
+     */
+    where?: MaturaWhereInput
+    /**
+     * Limit how many Maturas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Matura.userMaturas
+   */
+  export type Matura$userMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    where?: UserMaturaWhereInput
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    cursor?: UserMaturaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura without action
+   */
+  export type MaturaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
   }
 
 
@@ -3155,15 +4332,25 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const PostScalarFieldEnum: {
+  export const UserMaturaScalarFieldEnum: {
     id: 'id',
-    title: 'title',
-    content: 'content',
-    authorId: 'authorId',
-    createdAt: 'createdAt'
+    userId: 'userId',
+    maturaId: 'maturaId',
+    snapshot: 'snapshot',
+    status: 'status',
+    createdAt: 'createdAt',
+    finishedAt: 'finishedAt'
   };
 
-  export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+  export type UserMaturaScalarFieldEnum = (typeof UserMaturaScalarFieldEnum)[keyof typeof UserMaturaScalarFieldEnum]
+
+
+  export const MaturaScalarFieldEnum: {
+    id: 'id',
+    sections: 'sections'
+  };
+
+  export type MaturaScalarFieldEnum = (typeof MaturaScalarFieldEnum)[keyof typeof MaturaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3174,12 +4361,36 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   /**
@@ -3198,6 +4409,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -3222,7 +4447,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
-    posts?: PostListRelationFilter
+    userMaturas?: UserMaturaListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3233,7 +4458,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
-    posts?: PostOrderByRelationAggregateInput
+    userMaturas?: UserMaturaOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3247,7 +4472,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
-    posts?: PostListRelationFilter
+    userMaturas?: UserMaturaListRelationFilter
   }, "id" | "clerkId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3276,59 +4501,112 @@ export namespace Prisma {
     updateDate?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
-  export type PostWhereInput = {
-    AND?: PostWhereInput | PostWhereInput[]
-    OR?: PostWhereInput[]
-    NOT?: PostWhereInput | PostWhereInput[]
-    id?: StringFilter<"Post"> | string
-    title?: StringFilter<"Post"> | string
-    content?: StringNullableFilter<"Post"> | string | null
-    authorId?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+  export type UserMaturaWhereInput = {
+    AND?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    OR?: UserMaturaWhereInput[]
+    NOT?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    id?: StringFilter<"UserMatura"> | string
+    userId?: StringFilter<"UserMatura"> | string
+    maturaId?: StringFilter<"UserMatura"> | string
+    snapshot?: JsonFilter<"UserMatura">
+    status?: StringFilter<"UserMatura"> | string
+    createdAt?: DateTimeFilter<"UserMatura"> | Date | string
+    finishedAt?: DateTimeNullableFilter<"UserMatura"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
   }
 
-  export type PostOrderByWithRelationInput = {
+  export type UserMaturaOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrderInput | SortOrder
-    authorId?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    snapshot?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
-    author?: UserOrderByWithRelationInput
+    finishedAt?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    matura?: MaturaOrderByWithRelationInput
   }
 
-  export type PostWhereUniqueInput = Prisma.AtLeast<{
+  export type UserMaturaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: PostWhereInput | PostWhereInput[]
-    OR?: PostWhereInput[]
-    NOT?: PostWhereInput | PostWhereInput[]
-    title?: StringFilter<"Post"> | string
-    content?: StringNullableFilter<"Post"> | string | null
-    authorId?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    AND?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    OR?: UserMaturaWhereInput[]
+    NOT?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    userId?: StringFilter<"UserMatura"> | string
+    maturaId?: StringFilter<"UserMatura"> | string
+    snapshot?: JsonFilter<"UserMatura">
+    status?: StringFilter<"UserMatura"> | string
+    createdAt?: DateTimeFilter<"UserMatura"> | Date | string
+    finishedAt?: DateTimeNullableFilter<"UserMatura"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
   }, "id">
 
-  export type PostOrderByWithAggregationInput = {
+  export type UserMaturaOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrderInput | SortOrder
-    authorId?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    snapshot?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
-    _count?: PostCountOrderByAggregateInput
-    _max?: PostMaxOrderByAggregateInput
-    _min?: PostMinOrderByAggregateInput
+    finishedAt?: SortOrderInput | SortOrder
+    _count?: UserMaturaCountOrderByAggregateInput
+    _max?: UserMaturaMaxOrderByAggregateInput
+    _min?: UserMaturaMinOrderByAggregateInput
   }
 
-  export type PostScalarWhereWithAggregatesInput = {
-    AND?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
-    OR?: PostScalarWhereWithAggregatesInput[]
-    NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Post"> | string
-    title?: StringWithAggregatesFilter<"Post"> | string
-    content?: StringNullableWithAggregatesFilter<"Post"> | string | null
-    authorId?: StringWithAggregatesFilter<"Post"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  export type UserMaturaScalarWhereWithAggregatesInput = {
+    AND?: UserMaturaScalarWhereWithAggregatesInput | UserMaturaScalarWhereWithAggregatesInput[]
+    OR?: UserMaturaScalarWhereWithAggregatesInput[]
+    NOT?: UserMaturaScalarWhereWithAggregatesInput | UserMaturaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserMatura"> | string
+    userId?: StringWithAggregatesFilter<"UserMatura"> | string
+    maturaId?: StringWithAggregatesFilter<"UserMatura"> | string
+    snapshot?: JsonWithAggregatesFilter<"UserMatura">
+    status?: StringWithAggregatesFilter<"UserMatura"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserMatura"> | Date | string
+    finishedAt?: DateTimeNullableWithAggregatesFilter<"UserMatura"> | Date | string | null
+  }
+
+  export type MaturaWhereInput = {
+    AND?: MaturaWhereInput | MaturaWhereInput[]
+    OR?: MaturaWhereInput[]
+    NOT?: MaturaWhereInput | MaturaWhereInput[]
+    id?: StringFilter<"Matura"> | string
+    sections?: JsonFilter<"Matura">
+    userMaturas?: UserMaturaListRelationFilter
+  }
+
+  export type MaturaOrderByWithRelationInput = {
+    id?: SortOrder
+    sections?: SortOrder
+    userMaturas?: UserMaturaOrderByRelationAggregateInput
+  }
+
+  export type MaturaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaturaWhereInput | MaturaWhereInput[]
+    OR?: MaturaWhereInput[]
+    NOT?: MaturaWhereInput | MaturaWhereInput[]
+    sections?: JsonFilter<"Matura">
+    userMaturas?: UserMaturaListRelationFilter
+  }, "id">
+
+  export type MaturaOrderByWithAggregationInput = {
+    id?: SortOrder
+    sections?: SortOrder
+    _count?: MaturaCountOrderByAggregateInput
+    _max?: MaturaMaxOrderByAggregateInput
+    _min?: MaturaMinOrderByAggregateInput
+  }
+
+  export type MaturaScalarWhereWithAggregatesInput = {
+    AND?: MaturaScalarWhereWithAggregatesInput | MaturaScalarWhereWithAggregatesInput[]
+    OR?: MaturaScalarWhereWithAggregatesInput[]
+    NOT?: MaturaScalarWhereWithAggregatesInput | MaturaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Matura"> | string
+    sections?: JsonWithAggregatesFilter<"Matura">
   }
 
   export type UserCreateInput = {
@@ -3339,7 +4617,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
-    posts?: PostCreateNestedManyWithoutAuthorInput
+    userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3350,7 +4628,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
-    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3361,7 +4639,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    posts?: PostUpdateManyWithoutAuthorNestedInput
+    userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3372,7 +4650,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3405,59 +4683,111 @@ export namespace Prisma {
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostCreateInput = {
+  export type UserMaturaCreateInput = {
     id?: string
-    title: string
-    content?: string | null
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
-    author: UserCreateNestedOneWithoutPostsInput
+    finishedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutUserMaturasInput
+    matura: MaturaCreateNestedOneWithoutUserMaturasInput
   }
 
-  export type PostUncheckedCreateInput = {
+  export type UserMaturaUncheckedCreateInput = {
     id?: string
-    title: string
-    content?: string | null
-    authorId: string
+    userId: string
+    maturaId: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
-  export type PostUpdateInput = {
+  export type UserMaturaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+    matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
   }
 
-  export type PostUncheckedUpdateInput = {
+  export type UserMaturaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    authorId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type PostCreateManyInput = {
+  export type UserMaturaCreateManyInput = {
     id?: string
-    title: string
-    content?: string | null
-    authorId: string
+    userId: string
+    maturaId: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
-  export type PostUpdateManyMutationInput = {
+  export type UserMaturaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type PostUncheckedUpdateManyInput = {
+  export type UserMaturaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    authorId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MaturaCreateInput = {
+    id?: string
+    sections: JsonNullValueInput | InputJsonValue
+    userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaUncheckedCreateInput = {
+    id?: string
+    sections: JsonNullValueInput | InputJsonValue
+    userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sections?: JsonNullValueInput | InputJsonValue
+    userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sections?: JsonNullValueInput | InputJsonValue
+    userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaCreateManyInput = {
+    id?: string
+    sections: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MaturaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sections?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MaturaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sections?: JsonNullValueInput | InputJsonValue
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3499,10 +4829,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type PostListRelationFilter = {
-    every?: PostWhereInput
-    some?: PostWhereInput
-    none?: PostWhereInput
+  export type UserMaturaListRelationFilter = {
+    every?: UserMaturaWhereInput
+    some?: UserMaturaWhereInput
+    none?: UserMaturaWhereInput
   }
 
   export type SortOrderInput = {
@@ -3510,7 +4840,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type PostOrderByRelationAggregateInput = {
+  export type UserMaturaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3591,48 +4921,134 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
 
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
 
-  export type PostCountOrderByAggregateInput = {
+  export type MaturaScalarRelationFilter = {
+    is?: MaturaWhereInput
+    isNot?: MaturaWhereInput
+  }
+
+  export type UserMaturaCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    snapshot?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrder
   }
 
-  export type PostMaxOrderByAggregateInput = {
+  export type UserMaturaMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrder
   }
 
-  export type PostMinOrderByAggregateInput = {
+  export type UserMaturaMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type PostCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
-    createMany?: PostCreateManyAuthorInputEnvelope
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
-    createMany?: PostCreateManyAuthorInputEnvelope
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  export type MaturaCountOrderByAggregateInput = {
+    id?: SortOrder
+    sections?: SortOrder
+  }
+
+  export type MaturaMaxOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type MaturaMinOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type UserMaturaCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
+  export type UserMaturaUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3647,46 +5063,106 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type PostUpdateManyWithoutAuthorNestedInput = {
-    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
-    upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    createMany?: PostCreateManyAuthorInputEnvelope
-    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    update?: PostUpdateWithWhereUniqueWithoutAuthorInput | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    updateMany?: PostUpdateManyWithWhereWithoutAuthorInput | PostUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  export type UserMaturaUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutUserInput | UserMaturaUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutUserInput | UserMaturaUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutUserInput | UserMaturaUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
   }
 
-  export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
-    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
-    upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    createMany?: PostCreateManyAuthorInputEnvelope
-    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    update?: PostUpdateWithWhereUniqueWithoutAuthorInput | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    updateMany?: PostUpdateManyWithWhereWithoutAuthorInput | PostUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  export type UserMaturaUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutUserInput | UserMaturaUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutUserInput | UserMaturaUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutUserInput | UserMaturaUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutPostsInput = {
-    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+  export type UserCreateNestedOneWithoutUserMaturasInput = {
+    create?: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserMaturasInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutPostsNestedInput = {
-    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
-    upsert?: UserUpsertWithoutPostsInput
+  export type MaturaCreateNestedOneWithoutUserMaturasInput = {
+    create?: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: MaturaCreateOrConnectWithoutUserMaturasInput
+    connect?: MaturaWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutUserMaturasNestedInput = {
+    create?: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserMaturasInput
+    upsert?: UserUpsertWithoutUserMaturasInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserMaturasInput, UserUpdateWithoutUserMaturasInput>, UserUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type MaturaUpdateOneRequiredWithoutUserMaturasNestedInput = {
+    create?: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: MaturaCreateOrConnectWithoutUserMaturasInput
+    upsert?: MaturaUpsertWithoutUserMaturasInput
+    connect?: MaturaWhereUniqueInput
+    update?: XOR<XOR<MaturaUpdateToOneWithWhereWithoutUserMaturasInput, MaturaUpdateWithoutUserMaturasInput>, MaturaUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type UserMaturaCreateNestedManyWithoutMaturaInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
+  export type UserMaturaUncheckedCreateNestedManyWithoutMaturaInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
+  export type UserMaturaUpdateManyWithoutMaturaNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutMaturaInput | UserMaturaUpsertWithWhereUniqueWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutMaturaInput | UserMaturaUpdateWithWhereUniqueWithoutMaturaInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutMaturaInput | UserMaturaUpdateManyWithWhereWithoutMaturaInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutMaturaInput | UserMaturaUpsertWithWhereUniqueWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutMaturaInput | UserMaturaUpdateWithWhereUniqueWithoutMaturaInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutMaturaInput | UserMaturaUpdateManyWithWhereWithoutMaturaInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3798,57 +5274,106 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type PostCreateWithoutAuthorInput = {
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type UserMaturaCreateWithoutUserInput = {
     id?: string
-    title: string
-    content?: string | null
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
+    finishedAt?: Date | string | null
+    matura: MaturaCreateNestedOneWithoutUserMaturasInput
   }
 
-  export type PostUncheckedCreateWithoutAuthorInput = {
+  export type UserMaturaUncheckedCreateWithoutUserInput = {
     id?: string
-    title: string
-    content?: string | null
+    maturaId: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
-  export type PostCreateOrConnectWithoutAuthorInput = {
-    where: PostWhereUniqueInput
-    create: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
+  export type UserMaturaCreateOrConnectWithoutUserInput = {
+    where: UserMaturaWhereUniqueInput
+    create: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput>
   }
 
-  export type PostCreateManyAuthorInputEnvelope = {
-    data: PostCreateManyAuthorInput | PostCreateManyAuthorInput[]
+  export type UserMaturaCreateManyUserInputEnvelope = {
+    data: UserMaturaCreateManyUserInput | UserMaturaCreateManyUserInput[]
   }
 
-  export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: PostWhereUniqueInput
-    update: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
-    create: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
+  export type UserMaturaUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserMaturaWhereUniqueInput
+    update: XOR<UserMaturaUpdateWithoutUserInput, UserMaturaUncheckedUpdateWithoutUserInput>
+    create: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput>
   }
 
-  export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: PostWhereUniqueInput
-    data: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
+  export type UserMaturaUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserMaturaWhereUniqueInput
+    data: XOR<UserMaturaUpdateWithoutUserInput, UserMaturaUncheckedUpdateWithoutUserInput>
   }
 
-  export type PostUpdateManyWithWhereWithoutAuthorInput = {
-    where: PostScalarWhereInput
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutAuthorInput>
+  export type UserMaturaUpdateManyWithWhereWithoutUserInput = {
+    where: UserMaturaScalarWhereInput
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type PostScalarWhereInput = {
-    AND?: PostScalarWhereInput | PostScalarWhereInput[]
-    OR?: PostScalarWhereInput[]
-    NOT?: PostScalarWhereInput | PostScalarWhereInput[]
-    id?: StringFilter<"Post"> | string
-    title?: StringFilter<"Post"> | string
-    content?: StringNullableFilter<"Post"> | string | null
-    authorId?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
+  export type UserMaturaScalarWhereInput = {
+    AND?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+    OR?: UserMaturaScalarWhereInput[]
+    NOT?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+    id?: StringFilter<"UserMatura"> | string
+    userId?: StringFilter<"UserMatura"> | string
+    maturaId?: StringFilter<"UserMatura"> | string
+    snapshot?: JsonFilter<"UserMatura">
+    status?: StringFilter<"UserMatura"> | string
+    createdAt?: DateTimeFilter<"UserMatura"> | Date | string
+    finishedAt?: DateTimeNullableFilter<"UserMatura"> | Date | string | null
   }
 
-  export type UserCreateWithoutPostsInput = {
+  export type UserCreateWithoutUserMaturasInput = {
     id?: string
     clerkId: string
     firstName?: string | null
@@ -3858,7 +5383,7 @@ export namespace Prisma {
     updateDate?: Date | string
   }
 
-  export type UserUncheckedCreateWithoutPostsInput = {
+  export type UserUncheckedCreateWithoutUserMaturasInput = {
     id?: string
     clerkId: string
     firstName?: string | null
@@ -3868,68 +5393,191 @@ export namespace Prisma {
     updateDate?: Date | string
   }
 
-  export type UserCreateOrConnectWithoutPostsInput = {
+  export type UserCreateOrConnectWithoutUserMaturasInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    create: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
   }
 
-  export type UserUpsertWithoutPostsInput = {
-    update: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
-    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutPostsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
-  }
-
-  export type UserUpdateWithoutPostsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkId?: StringFieldUpdateOperationsInput | string
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUncheckedUpdateWithoutPostsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkId?: StringFieldUpdateOperationsInput | string
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostCreateManyAuthorInput = {
+  export type MaturaCreateWithoutUserMaturasInput = {
     id?: string
-    title: string
-    content?: string | null
+    sections: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MaturaUncheckedCreateWithoutUserMaturasInput = {
+    id?: string
+    sections: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MaturaCreateOrConnectWithoutUserMaturasInput = {
+    where: MaturaWhereUniqueInput
+    create: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+  }
+
+  export type UserUpsertWithoutUserMaturasInput = {
+    update: XOR<UserUpdateWithoutUserMaturasInput, UserUncheckedUpdateWithoutUserMaturasInput>
+    create: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserMaturasInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserMaturasInput, UserUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type UserUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaturaUpsertWithoutUserMaturasInput = {
+    update: XOR<MaturaUpdateWithoutUserMaturasInput, MaturaUncheckedUpdateWithoutUserMaturasInput>
+    create: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+    where?: MaturaWhereInput
+  }
+
+  export type MaturaUpdateToOneWithWhereWithoutUserMaturasInput = {
+    where?: MaturaWhereInput
+    data: XOR<MaturaUpdateWithoutUserMaturasInput, MaturaUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type MaturaUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sections?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type MaturaUncheckedUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sections?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type UserMaturaCreateWithoutMaturaInput = {
+    id?: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
+    finishedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutUserMaturasInput
   }
 
-  export type PostUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type UserMaturaUncheckedCreateWithoutMaturaInput = {
+    id?: string
+    userId: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
-  export type PostUncheckedUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type UserMaturaCreateOrConnectWithoutMaturaInput = {
+    where: UserMaturaWhereUniqueInput
+    create: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput>
   }
 
-  export type PostUncheckedUpdateManyWithoutAuthorInput = {
+  export type UserMaturaCreateManyMaturaInputEnvelope = {
+    data: UserMaturaCreateManyMaturaInput | UserMaturaCreateManyMaturaInput[]
+  }
+
+  export type UserMaturaUpsertWithWhereUniqueWithoutMaturaInput = {
+    where: UserMaturaWhereUniqueInput
+    update: XOR<UserMaturaUpdateWithoutMaturaInput, UserMaturaUncheckedUpdateWithoutMaturaInput>
+    create: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput>
+  }
+
+  export type UserMaturaUpdateWithWhereUniqueWithoutMaturaInput = {
+    where: UserMaturaWhereUniqueInput
+    data: XOR<UserMaturaUpdateWithoutMaturaInput, UserMaturaUncheckedUpdateWithoutMaturaInput>
+  }
+
+  export type UserMaturaUpdateManyWithWhereWithoutMaturaInput = {
+    where: UserMaturaScalarWhereInput
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyWithoutMaturaInput>
+  }
+
+  export type UserMaturaCreateManyUserInput = {
+    id?: string
+    maturaId: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    finishedAt?: Date | string | null
+  }
+
+  export type UserMaturaUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: NullableStringFieldUpdateOperationsInput | string | null
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserMaturaCreateManyMaturaInput = {
+    id?: string
+    userId: string
+    snapshot: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    finishedAt?: Date | string | null
+  }
+
+  export type UserMaturaUpdateWithoutMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateWithoutMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    snapshot?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 
