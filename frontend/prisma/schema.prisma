@@ -33,11 +33,12 @@ model UserMatura {
   user       User     @relation(fields: [userId], references: [id])
   maturaId   String
   matura     Matura   @relation(fields: [maturaId], references: [id])
-  snapshot   Json
+  snapshot   Json    
   status     String   @default("ACTIVE")
   createdAt  DateTime @default(now())
   finishedAt DateTime?
 }
+
 model Matura {
   id          String        @id @default(cuid())
   sections    Json
