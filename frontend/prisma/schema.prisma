@@ -35,3 +35,8 @@ model Post {
   author    User     @relation("UserPosts", fields: [authorId], references: [id])
   createdAt DateTime @default(now())
 }
+
+model Video {
+  id  Int    @id @default(autoincrement())
+  url String
+}
