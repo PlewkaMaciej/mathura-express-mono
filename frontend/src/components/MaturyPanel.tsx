@@ -1,32 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const MaturyPanel = () => {
-  const [matury, setMatury] = useState<any[]>([]);
+type ExamListItem = {
+  id: string;
+  createdAt: string;
+  status: string;
+  score: number;
+  maxPoints: number;
+};
+
+export default function MaturyPanel() {
+  const [matury, setMatury] = useState<ExamListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  const load = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/maturas/generate", { cache: "no-store" });
+      if (!res.ok) throw new Error(`Failed to fetch matury: ${res.statusText}`);
+      const data: ExamListItem[] = await res.json();
+      setMatury(data);
+    } catch (e: any) {
+      setError(e.message ?? "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchMatury = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch("/api/maturas/generate");
-        if (!res.ok)
-          throw new Error(`Failed to fetch matury: ${res.statusText}`);
-        const data = await res.json();
-        setMatury(data);
-      } catch (e: any) {
-        console.error("Błąd podczas pobierania matur:", e);
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMatury();
+    load();
   }, []);
 
   const generateNewMatura = async () => {
@@ -40,8 +47,7 @@ const MaturyPanel = () => {
       const data = await res.json();
       if (data?.examId) router.push(`/singleMatura/${data.examId}`);
     } catch (e: any) {
-      console.error("Błąd podczas generowania matury:", e);
-      setError(e.message);
+      setError(e.message ?? "Błąd generowania");
     }
   };
 
@@ -68,64 +74,50 @@ const MaturyPanel = () => {
             <div className="text-center">Ładowanie matur...</div>
           ) : error ? (
             <div className="text-center text-red-500">Błąd: {error}</div>
-          ) : (
-            <div>
-              {matury.length > 0 ? (
-                <ul className="space-y-4">
-                  {matury.map((matura: any, index: number) => (
-                    <li
-                      key={matura.id}
-                      className="
-                        group relative overflow-hidden
-                        flex items-center justify-between gap-4
-                        rounded-2xl bg-[#1E2330] p-4 shadow-md ring-1 ring-white/5
-                        transition hover:ring-white/15 hover:shadow-lg
-                        before:absolute before:inset-0 before:rounded-2xl before:p-[1px]
-                        before:bg-[linear-gradient(120deg,rgba(124,249,194,.25),transparent)]
-                        before:opacity-0 group-hover:before:opacity-100 before:transition
-                        before:pointer-events-none
-                      "
-                    >
-                      <span className="relative z-10 text-[#A7B5DD] w-10">
-                        {index + 1}.
-                      </span>
+          ) : matury.length ? (
+            <ul className="space-y-4">
+              {matury.map((matura, index) => (
+                <li
+                  key={matura.id}
+                  className="group relative overflow-hidden flex items-center justify-between gap-4 rounded-2xl bg-[#1E2330] p-4 shadow-md ring-1 ring-white/5 transition hover:ring-white/15 hover:shadow-lg before:absolute before:inset-0 before:rounded-2xl before:p-[1px] before:bg-[linear-gradient(120deg,rgba(124,249,194,.25),transparent)] before:opacity-0 group-hover:before:opacity-100 before:transition before:pointer-events-none"
+                >
+                  <span className="relative z-10 text-[#A7B5DD] w-10">
+                    {index + 1}.
+                  </span>
 
-                      <div className="relative z-10 flex-1">
-                        <div className="text-sm text-gray-400">
-                          Data: {new Date(matura.createdAt).toLocaleString()}
-                        </div>
-                        <div className="text-sm text-[#7CF9C2] mt-1">
-                          {matura.status === "ACTIVE"
-                            ? "Aktywny"
-                            : "Nieaktywny"}
-                        </div>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          router.push(`/singleMatura/${matura.id}`)
-                        }
-                        className="
-                          relative z-10 cursor-pointer ml-2 px-4 py-2 rounded-xl
-                          bg-[#7CF9C2] text-[#0B1020] font-medium
-                          shadow-md ring-1 ring-black/5
-                          transition-transform duration-200
-                          hover:scale-[1.03] hover:shadow-lg hover:bg-[#6fe7b4]
-                          active:scale-[0.98]
-                          focus:outline-none focus:ring-2 focus:ring-[#7CF9C2]/40
-                        "
-                        title="Przejdź do szczegółów matury"
+                  <div className="relative z-10 flex-1">
+                    <div className="text-sm text-gray-400">
+                      Data: {new Date(matura.createdAt).toLocaleString()}
+                    </div>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full ${
+                          matura.status === "ACTIVE"
+                            ? "bg-[#163F2E] text-[#7CF9C2]"
+                            : "bg-[#392A2A] text-[#FF6F61]"
+                        }`}
                       >
-                        Zobacz szczegóły
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="text-center">Brak matur do wyświetlenia.</div>
-              )}
-            </div>
+                        {matura.status}
+                      </span>
+                      <span className="text-sm text-[#7CF9C2] font-semibold">
+                        {matura.score}/{matura.maxPoints} pkt
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => router.push(`/singleMatura/${matura.id}`)}
+                    className="relative z-10 cursor-pointer ml-2 px-4 py-2 rounded-xl bg-[#7CF9C2] text-[#0B1020] font-medium shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:scale-[1.03] hover:shadow-lg hover:bg-[#6fe7b4] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#7CF9C2]/40"
+                    title="Przejdź do szczegółów matury"
+                  >
+                    Zobacz szczegóły
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="text-center">Brak matur do wyświetlenia.</div>
           )}
         </section>
 
@@ -133,17 +125,7 @@ const MaturyPanel = () => {
           <button
             type="button"
             onClick={generateNewMatura}
-            className="
-              cursor-pointer px-6 py-3 rounded-full
-              bg-[#7CF9C2] text-[#0B1020] font-semibold
-              shadow-[0_10px_30px_-10px_rgba(124,249,194,.55)]
-              backdrop-blur-sm
-              transition-all duration-200
-              hover:shadow-[0_14px_36px_-10px_rgba(124,249,194,.75)]
-              hover:scale-[1.04]
-              active:scale-[0.98]
-              focus:outline-none focus:ring-4 focus:ring-[#7CF9C2]/40
-            "
+            className="cursor-pointer px-6 py-3 rounded-full bg-[#7CF9C2] text-[#0B1020] font-semibold shadow-[0_10px_30px_-10px_rgba(124,249,194,.55)] backdrop-blur-sm transition-all duration-200 hover:shadow-[0_14px_36px_-10px_rgba(124,249,194,.75)] hover:scale-[1.04] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-[#7CF9C2]/40"
           >
             Wygeneruj nową maturę
           </button>
@@ -151,6 +133,4 @@ const MaturyPanel = () => {
       </main>
     </div>
   );
-};
-
-export default MaturyPanel;
+}

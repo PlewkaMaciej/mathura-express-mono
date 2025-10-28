@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.1
- * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ * Prisma Client JS version: 6.18.0
+ * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
  */
 Prisma.prismaVersion = {
-  client: "6.17.1",
-  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+  client: "6.18.0",
+  engine: "34b5a692b7bd79939a9a2c3ef97d816e749cda2f"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -105,12 +105,16 @@ exports.Prisma.UserMaturaScalarFieldEnum = {
   maturaId: 'maturaId',
   snapshot: 'snapshot',
   status: 'status',
+  score: 'score',
+  maxPoints: 'maxPoints',
+  answered: 'answered',
   createdAt: 'createdAt',
   finishedAt: 'finishedAt'
 };
 
 exports.Prisma.MaturaScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   sections: 'sections'
 };
 
@@ -120,6 +124,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -178,8 +187,8 @@ const config = {
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
-  "clientVersion": "6.17.1",
-  "engineVersion": "272a37d34178c2894197e17273bf937f25acdeac",
+  "clientVersion": "6.18.0",
+  "engineVersion": "34b5a692b7bd79939a9a2c3ef97d816e749cda2f",
   "datasourceNames": [
     "db"
   ],
@@ -193,13 +202,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id          String       @id @default(cuid())\n  clerkId     String       @unique\n  firstName   String?\n  lastName    String?\n  email       String       @unique\n  createDate  DateTime     @default(now())\n  updateDate  DateTime     @updatedAt\n  userMaturas UserMatura[]\n}\n\nmodel UserMatura {\n  id         String    @id @default(cuid())\n  userId     String\n  user       User      @relation(fields: [userId], references: [id])\n  maturaId   String\n  matura     Matura    @relation(fields: [maturaId], references: [id])\n  snapshot   Json\n  status     String    @default(\"ACTIVE\")\n  createdAt  DateTime  @default(now())\n  finishedAt DateTime?\n}\n\nmodel Matura {\n  id          String       @id @default(cuid())\n  sections    Json\n  userMaturas UserMatura[]\n}\n",
-  "inlineSchemaHash": "2c32367d071216fbd80abc0cbb4ff5e4d4856193414b79223e77351c20b7f246",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id          String       @id @default(cuid())\n  clerkId     String       @unique\n  firstName   String?\n  lastName    String?\n  email       String       @unique\n  createDate  DateTime     @default(now())\n  updateDate  DateTime     @updatedAt\n  userMaturas UserMatura[]\n}\n\nmodel UserMatura {\n  id         String    @id @default(cuid())\n  userId     String\n  user       User      @relation(fields: [userId], references: [id])\n  maturaId   String\n  matura     Matura    @relation(fields: [maturaId], references: [id])\n  snapshot   Json\n  status     String    @default(\"ACTIVE\")\n  score      Int       @default(0)\n  maxPoints  Int       @default(0)\n  answered   Int       @default(0)\n  createdAt  DateTime  @default(now())\n  finishedAt DateTime?\n}\n\nmodel Matura {\n  id          String       @id @default(cuid())\n  name        String       @default(\"Matura\")\n  sections    Json?\n  userMaturas UserMatura[]\n}\n",
+  "inlineSchemaHash": "6be5cd087dff69bf22f8a39b4ac41b4f0f75e84daf4db46776db0a108522e14c",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"clerkId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updateDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userMaturas\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"UserToUserMatura\"}],\"dbName\":null},\"UserMatura\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserMatura\"},{\"name\":\"maturaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"matura\",\"kind\":\"object\",\"type\":\"Matura\",\"relationName\":\"MaturaToUserMatura\"},{\"name\":\"snapshot\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"finishedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Matura\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"userMaturas\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"MaturaToUserMatura\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"clerkId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updateDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userMaturas\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"UserToUserMatura\"}],\"dbName\":null},\"UserMatura\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserMatura\"},{\"name\":\"maturaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"matura\",\"kind\":\"object\",\"type\":\"Matura\",\"relationName\":\"MaturaToUserMatura\"},{\"name\":\"snapshot\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"maxPoints\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"answered\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"finishedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Matura\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"userMaturas\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"MaturaToUserMatura\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

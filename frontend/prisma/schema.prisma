@@ -26,22 +26,25 @@ model User {
   updateDate  DateTime     @updatedAt
   userMaturas UserMatura[] 
 }
-
 model UserMatura {
   id         String   @id @default(cuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id])
   maturaId   String
   matura     Matura   @relation(fields: [maturaId], references: [id])
-  snapshot   Json    
+  snapshot   Json
   status     String   @default("ACTIVE")
+  score      Int      @default(0)
+  maxPoints  Int      @default(0)
+  answered   Int      @default(0)
   createdAt  DateTime @default(now())
   finishedAt DateTime?
 }
-
 model Matura {
-  id          String        @id @default(cuid())
-  sections    Json
+  id          String   @id @default(cuid())
+  name        String   @default("Matura")
+  sections    Json?    
   userMaturas UserMatura[]
 }
+
 

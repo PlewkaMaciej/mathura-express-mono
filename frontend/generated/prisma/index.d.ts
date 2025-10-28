@@ -234,8 +234,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.17.1
-   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+   * Prisma Client JS version: 6.18.0
+   * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
    */
   export type PrismaVersion = {
     client: string
@@ -248,6 +248,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -2203,8 +2204,22 @@ export namespace Prisma {
 
   export type AggregateUserMatura = {
     _count: UserMaturaCountAggregateOutputType | null
+    _avg: UserMaturaAvgAggregateOutputType | null
+    _sum: UserMaturaSumAggregateOutputType | null
     _min: UserMaturaMinAggregateOutputType | null
     _max: UserMaturaMaxAggregateOutputType | null
+  }
+
+  export type UserMaturaAvgAggregateOutputType = {
+    score: number | null
+    maxPoints: number | null
+    answered: number | null
+  }
+
+  export type UserMaturaSumAggregateOutputType = {
+    score: number | null
+    maxPoints: number | null
+    answered: number | null
   }
 
   export type UserMaturaMinAggregateOutputType = {
@@ -2212,6 +2227,9 @@ export namespace Prisma {
     userId: string | null
     maturaId: string | null
     status: string | null
+    score: number | null
+    maxPoints: number | null
+    answered: number | null
     createdAt: Date | null
     finishedAt: Date | null
   }
@@ -2221,6 +2239,9 @@ export namespace Prisma {
     userId: string | null
     maturaId: string | null
     status: string | null
+    score: number | null
+    maxPoints: number | null
+    answered: number | null
     createdAt: Date | null
     finishedAt: Date | null
   }
@@ -2231,17 +2252,35 @@ export namespace Prisma {
     maturaId: number
     snapshot: number
     status: number
+    score: number
+    maxPoints: number
+    answered: number
     createdAt: number
     finishedAt: number
     _all: number
   }
 
 
+  export type UserMaturaAvgAggregateInputType = {
+    score?: true
+    maxPoints?: true
+    answered?: true
+  }
+
+  export type UserMaturaSumAggregateInputType = {
+    score?: true
+    maxPoints?: true
+    answered?: true
+  }
+
   export type UserMaturaMinAggregateInputType = {
     id?: true
     userId?: true
     maturaId?: true
     status?: true
+    score?: true
+    maxPoints?: true
+    answered?: true
     createdAt?: true
     finishedAt?: true
   }
@@ -2251,6 +2290,9 @@ export namespace Prisma {
     userId?: true
     maturaId?: true
     status?: true
+    score?: true
+    maxPoints?: true
+    answered?: true
     createdAt?: true
     finishedAt?: true
   }
@@ -2261,6 +2303,9 @@ export namespace Prisma {
     maturaId?: true
     snapshot?: true
     status?: true
+    score?: true
+    maxPoints?: true
+    answered?: true
     createdAt?: true
     finishedAt?: true
     _all?: true
@@ -2304,6 +2349,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserMaturaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserMaturaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMaturaMinAggregateInputType
@@ -2334,6 +2391,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserMaturaCountAggregateInputType | true
+    _avg?: UserMaturaAvgAggregateInputType
+    _sum?: UserMaturaSumAggregateInputType
     _min?: UserMaturaMinAggregateInputType
     _max?: UserMaturaMaxAggregateInputType
   }
@@ -2344,9 +2403,14 @@ export namespace Prisma {
     maturaId: string
     snapshot: JsonValue
     status: string
+    score: number
+    maxPoints: number
+    answered: number
     createdAt: Date
     finishedAt: Date | null
     _count: UserMaturaCountAggregateOutputType | null
+    _avg: UserMaturaAvgAggregateOutputType | null
+    _sum: UserMaturaSumAggregateOutputType | null
     _min: UserMaturaMinAggregateOutputType | null
     _max: UserMaturaMaxAggregateOutputType | null
   }
@@ -2371,6 +2435,9 @@ export namespace Prisma {
     maturaId?: boolean
     snapshot?: boolean
     status?: boolean
+    score?: boolean
+    maxPoints?: boolean
+    answered?: boolean
     createdAt?: boolean
     finishedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2383,6 +2450,9 @@ export namespace Prisma {
     maturaId?: boolean
     snapshot?: boolean
     status?: boolean
+    score?: boolean
+    maxPoints?: boolean
+    answered?: boolean
     createdAt?: boolean
     finishedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2395,6 +2465,9 @@ export namespace Prisma {
     maturaId?: boolean
     snapshot?: boolean
     status?: boolean
+    score?: boolean
+    maxPoints?: boolean
+    answered?: boolean
     createdAt?: boolean
     finishedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2407,11 +2480,14 @@ export namespace Prisma {
     maturaId?: boolean
     snapshot?: boolean
     status?: boolean
+    score?: boolean
+    maxPoints?: boolean
+    answered?: boolean
     createdAt?: boolean
     finishedAt?: boolean
   }
 
-  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "snapshot" | "status" | "createdAt" | "finishedAt", ExtArgs["result"]["userMatura"]>
+  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "snapshot" | "status" | "score" | "maxPoints" | "answered" | "createdAt" | "finishedAt", ExtArgs["result"]["userMatura"]>
   export type UserMaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     matura?: boolean | MaturaDefaultArgs<ExtArgs>
@@ -2437,6 +2513,9 @@ export namespace Prisma {
       maturaId: string
       snapshot: Prisma.JsonValue
       status: string
+      score: number
+      maxPoints: number
+      answered: number
       createdAt: Date
       finishedAt: Date | null
     }, ExtArgs["result"]["userMatura"]>
@@ -2869,6 +2948,9 @@ export namespace Prisma {
     readonly maturaId: FieldRef<"UserMatura", 'String'>
     readonly snapshot: FieldRef<"UserMatura", 'Json'>
     readonly status: FieldRef<"UserMatura", 'String'>
+    readonly score: FieldRef<"UserMatura", 'Int'>
+    readonly maxPoints: FieldRef<"UserMatura", 'Int'>
+    readonly answered: FieldRef<"UserMatura", 'Int'>
     readonly createdAt: FieldRef<"UserMatura", 'DateTime'>
     readonly finishedAt: FieldRef<"UserMatura", 'DateTime'>
   }
@@ -3295,14 +3377,17 @@ export namespace Prisma {
 
   export type MaturaMinAggregateOutputType = {
     id: string | null
+    name: string | null
   }
 
   export type MaturaMaxAggregateOutputType = {
     id: string | null
+    name: string | null
   }
 
   export type MaturaCountAggregateOutputType = {
     id: number
+    name: number
     sections: number
     _all: number
   }
@@ -3310,14 +3395,17 @@ export namespace Prisma {
 
   export type MaturaMinAggregateInputType = {
     id?: true
+    name?: true
   }
 
   export type MaturaMaxAggregateInputType = {
     id?: true
+    name?: true
   }
 
   export type MaturaCountAggregateInputType = {
     id?: true
+    name?: true
     sections?: true
     _all?: true
   }
@@ -3396,7 +3484,8 @@ export namespace Prisma {
 
   export type MaturaGroupByOutputType = {
     id: string
-    sections: JsonValue
+    name: string
+    sections: JsonValue | null
     _count: MaturaCountAggregateOutputType | null
     _min: MaturaMinAggregateOutputType | null
     _max: MaturaMaxAggregateOutputType | null
@@ -3418,6 +3507,7 @@ export namespace Prisma {
 
   export type MaturaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    name?: boolean
     sections?: boolean
     userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
     _count?: boolean | MaturaCountOutputTypeDefaultArgs<ExtArgs>
@@ -3425,20 +3515,23 @@ export namespace Prisma {
 
   export type MaturaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    name?: boolean
     sections?: boolean
   }, ExtArgs["result"]["matura"]>
 
   export type MaturaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    name?: boolean
     sections?: boolean
   }, ExtArgs["result"]["matura"]>
 
   export type MaturaSelectScalar = {
     id?: boolean
+    name?: boolean
     sections?: boolean
   }
 
-  export type MaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sections", ExtArgs["result"]["matura"]>
+  export type MaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "sections", ExtArgs["result"]["matura"]>
   export type MaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
     _count?: boolean | MaturaCountOutputTypeDefaultArgs<ExtArgs>
@@ -3453,7 +3546,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      sections: Prisma.JsonValue
+      name: string
+      sections: Prisma.JsonValue | null
     }, ExtArgs["result"]["matura"]>
     composites: {}
   }
@@ -3879,6 +3973,7 @@ export namespace Prisma {
    */
   interface MaturaFieldRefs {
     readonly id: FieldRef<"Matura", 'String'>
+    readonly name: FieldRef<"Matura", 'String'>
     readonly sections: FieldRef<"Matura", 'Json'>
   }
     
@@ -4098,7 +4193,7 @@ export namespace Prisma {
     /**
      * The data needed to create a Matura.
      */
-    data: XOR<MaturaCreateInput, MaturaUncheckedCreateInput>
+    data?: XOR<MaturaCreateInput, MaturaUncheckedCreateInput>
   }
 
   /**
@@ -4338,6 +4433,9 @@ export namespace Prisma {
     maturaId: 'maturaId',
     snapshot: 'snapshot',
     status: 'status',
+    score: 'score',
+    maxPoints: 'maxPoints',
+    answered: 'answered',
     createdAt: 'createdAt',
     finishedAt: 'finishedAt'
   };
@@ -4347,6 +4445,7 @@ export namespace Prisma {
 
   export const MaturaScalarFieldEnum: {
     id: 'id',
+    name: 'name',
     sections: 'sections'
   };
 
@@ -4366,6 +4465,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const NullsOrder: {
@@ -4430,6 +4537,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
   /**
    * Deep Input Types
@@ -4510,6 +4624,9 @@ export namespace Prisma {
     maturaId?: StringFilter<"UserMatura"> | string
     snapshot?: JsonFilter<"UserMatura">
     status?: StringFilter<"UserMatura"> | string
+    score?: IntFilter<"UserMatura"> | number
+    maxPoints?: IntFilter<"UserMatura"> | number
+    answered?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     finishedAt?: DateTimeNullableFilter<"UserMatura"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4522,6 +4639,9 @@ export namespace Prisma {
     maturaId?: SortOrder
     snapshot?: SortOrder
     status?: SortOrder
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
     createdAt?: SortOrder
     finishedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
@@ -4537,6 +4657,9 @@ export namespace Prisma {
     maturaId?: StringFilter<"UserMatura"> | string
     snapshot?: JsonFilter<"UserMatura">
     status?: StringFilter<"UserMatura"> | string
+    score?: IntFilter<"UserMatura"> | number
+    maxPoints?: IntFilter<"UserMatura"> | number
+    answered?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     finishedAt?: DateTimeNullableFilter<"UserMatura"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4549,11 +4672,16 @@ export namespace Prisma {
     maturaId?: SortOrder
     snapshot?: SortOrder
     status?: SortOrder
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
     createdAt?: SortOrder
     finishedAt?: SortOrderInput | SortOrder
     _count?: UserMaturaCountOrderByAggregateInput
+    _avg?: UserMaturaAvgOrderByAggregateInput
     _max?: UserMaturaMaxOrderByAggregateInput
     _min?: UserMaturaMinOrderByAggregateInput
+    _sum?: UserMaturaSumOrderByAggregateInput
   }
 
   export type UserMaturaScalarWhereWithAggregatesInput = {
@@ -4565,6 +4693,9 @@ export namespace Prisma {
     maturaId?: StringWithAggregatesFilter<"UserMatura"> | string
     snapshot?: JsonWithAggregatesFilter<"UserMatura">
     status?: StringWithAggregatesFilter<"UserMatura"> | string
+    score?: IntWithAggregatesFilter<"UserMatura"> | number
+    maxPoints?: IntWithAggregatesFilter<"UserMatura"> | number
+    answered?: IntWithAggregatesFilter<"UserMatura"> | number
     createdAt?: DateTimeWithAggregatesFilter<"UserMatura"> | Date | string
     finishedAt?: DateTimeNullableWithAggregatesFilter<"UserMatura"> | Date | string | null
   }
@@ -4574,13 +4705,15 @@ export namespace Prisma {
     OR?: MaturaWhereInput[]
     NOT?: MaturaWhereInput | MaturaWhereInput[]
     id?: StringFilter<"Matura"> | string
-    sections?: JsonFilter<"Matura">
+    name?: StringFilter<"Matura"> | string
+    sections?: JsonNullableFilter<"Matura">
     userMaturas?: UserMaturaListRelationFilter
   }
 
   export type MaturaOrderByWithRelationInput = {
     id?: SortOrder
-    sections?: SortOrder
+    name?: SortOrder
+    sections?: SortOrderInput | SortOrder
     userMaturas?: UserMaturaOrderByRelationAggregateInput
   }
 
@@ -4589,13 +4722,15 @@ export namespace Prisma {
     AND?: MaturaWhereInput | MaturaWhereInput[]
     OR?: MaturaWhereInput[]
     NOT?: MaturaWhereInput | MaturaWhereInput[]
-    sections?: JsonFilter<"Matura">
+    name?: StringFilter<"Matura"> | string
+    sections?: JsonNullableFilter<"Matura">
     userMaturas?: UserMaturaListRelationFilter
   }, "id">
 
   export type MaturaOrderByWithAggregationInput = {
     id?: SortOrder
-    sections?: SortOrder
+    name?: SortOrder
+    sections?: SortOrderInput | SortOrder
     _count?: MaturaCountOrderByAggregateInput
     _max?: MaturaMaxOrderByAggregateInput
     _min?: MaturaMinOrderByAggregateInput
@@ -4606,7 +4741,8 @@ export namespace Prisma {
     OR?: MaturaScalarWhereWithAggregatesInput[]
     NOT?: MaturaScalarWhereWithAggregatesInput | MaturaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Matura"> | string
-    sections?: JsonWithAggregatesFilter<"Matura">
+    name?: StringWithAggregatesFilter<"Matura"> | string
+    sections?: JsonNullableWithAggregatesFilter<"Matura">
   }
 
   export type UserCreateInput = {
@@ -4687,6 +4823,9 @@ export namespace Prisma {
     id?: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
     user: UserCreateNestedOneWithoutUserMaturasInput
@@ -4699,6 +4838,9 @@ export namespace Prisma {
     maturaId: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
   }
@@ -4707,6 +4849,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -4719,6 +4864,9 @@ export namespace Prisma {
     maturaId?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -4729,6 +4877,9 @@ export namespace Prisma {
     maturaId: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
   }
@@ -4737,6 +4888,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -4747,47 +4901,57 @@ export namespace Prisma {
     maturaId?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaturaCreateInput = {
     id?: string
-    sections: JsonNullValueInput | InputJsonValue
+    name?: string
+    sections?: NullableJsonNullValueInput | InputJsonValue
     userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
   }
 
   export type MaturaUncheckedCreateInput = {
     id?: string
-    sections: JsonNullValueInput | InputJsonValue
+    name?: string
+    sections?: NullableJsonNullValueInput | InputJsonValue
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
   }
 
   export type MaturaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sections?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    sections?: NullableJsonNullValueInput | InputJsonValue
     userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
   }
 
   export type MaturaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sections?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    sections?: NullableJsonNullValueInput | InputJsonValue
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
   }
 
   export type MaturaCreateManyInput = {
     id?: string
-    sections: JsonNullValueInput | InputJsonValue
+    name?: string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MaturaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sections?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MaturaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sections?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4940,6 +5104,17 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -4967,8 +5142,17 @@ export namespace Prisma {
     maturaId?: SortOrder
     snapshot?: SortOrder
     status?: SortOrder
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
     createdAt?: SortOrder
     finishedAt?: SortOrder
+  }
+
+  export type UserMaturaAvgOrderByAggregateInput = {
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
   }
 
   export type UserMaturaMaxOrderByAggregateInput = {
@@ -4976,6 +5160,9 @@ export namespace Prisma {
     userId?: SortOrder
     maturaId?: SortOrder
     status?: SortOrder
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
     createdAt?: SortOrder
     finishedAt?: SortOrder
   }
@@ -4985,8 +5172,17 @@ export namespace Prisma {
     userId?: SortOrder
     maturaId?: SortOrder
     status?: SortOrder
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
     createdAt?: SortOrder
     finishedAt?: SortOrder
+  }
+
+  export type UserMaturaSumOrderByAggregateInput = {
+    score?: SortOrder
+    maxPoints?: SortOrder
+    answered?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -5010,6 +5206,22 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -5023,18 +5235,60 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type MaturaCountOrderByAggregateInput = {
     id?: SortOrder
+    name?: SortOrder
     sections?: SortOrder
   }
 
   export type MaturaMaxOrderByAggregateInput = {
     id?: SortOrder
+    name?: SortOrder
   }
 
   export type MaturaMinOrderByAggregateInput = {
     id?: SortOrder
+    name?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type UserMaturaCreateNestedManyWithoutUserInput = {
@@ -5101,6 +5355,14 @@ export namespace Prisma {
     create?: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
     connectOrCreate?: MaturaCreateOrConnectWithoutUserMaturasInput
     connect?: MaturaWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -5303,6 +5565,33 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -5316,11 +5605,32 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type UserMaturaCreateWithoutUserInput = {
     id?: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
     matura: MaturaCreateNestedOneWithoutUserMaturasInput
@@ -5331,6 +5641,9 @@ export namespace Prisma {
     maturaId: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
   }
@@ -5369,6 +5682,9 @@ export namespace Prisma {
     maturaId?: StringFilter<"UserMatura"> | string
     snapshot?: JsonFilter<"UserMatura">
     status?: StringFilter<"UserMatura"> | string
+    score?: IntFilter<"UserMatura"> | number
+    maxPoints?: IntFilter<"UserMatura"> | number
+    answered?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     finishedAt?: DateTimeNullableFilter<"UserMatura"> | Date | string | null
   }
@@ -5400,12 +5716,14 @@ export namespace Prisma {
 
   export type MaturaCreateWithoutUserMaturasInput = {
     id?: string
-    sections: JsonNullValueInput | InputJsonValue
+    name?: string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MaturaUncheckedCreateWithoutUserMaturasInput = {
     id?: string
-    sections: JsonNullValueInput | InputJsonValue
+    name?: string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MaturaCreateOrConnectWithoutUserMaturasInput = {
@@ -5457,18 +5775,23 @@ export namespace Prisma {
 
   export type MaturaUpdateWithoutUserMaturasInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sections?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MaturaUncheckedUpdateWithoutUserMaturasInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sections?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    sections?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserMaturaCreateWithoutMaturaInput = {
     id?: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
     user: UserCreateNestedOneWithoutUserMaturasInput
@@ -5479,6 +5802,9 @@ export namespace Prisma {
     userId: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
   }
@@ -5513,6 +5839,9 @@ export namespace Prisma {
     maturaId: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
   }
@@ -5521,6 +5850,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -5531,6 +5863,9 @@ export namespace Prisma {
     maturaId?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -5540,6 +5875,9 @@ export namespace Prisma {
     maturaId?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -5549,6 +5887,9 @@ export namespace Prisma {
     userId: string
     snapshot: JsonNullValueInput | InputJsonValue
     status?: string
+    score?: number
+    maxPoints?: number
+    answered?: number
     createdAt?: Date | string
     finishedAt?: Date | string | null
   }
@@ -5557,6 +5898,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -5567,6 +5911,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -5576,6 +5923,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     snapshot?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    maxPoints?: IntFieldUpdateOperationsInput | number
+    answered?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
