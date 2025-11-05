@@ -18,8 +18,6 @@ export async function GET(req: NextRequest) {
 
       return NextResponse.json(video);
     }
-
-    // jeśli brak id – zwracamy wszystkie wideo
     const videos = await prisma.video.findMany();
     return NextResponse.json(videos);
   } catch (error) {

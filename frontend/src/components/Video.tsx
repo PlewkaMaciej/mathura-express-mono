@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Button from "./Items/Button";
+import { usePathname, useSearchParams } from "next/navigation";
 
 interface VideoType {
   id: number;
@@ -11,16 +12,13 @@ interface VideoType {
 
 export default function Video() {
   const [video, setVideo] = useState<VideoType | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const res = await fetch("/api/videos?id=1");
+        const res = await fetch(`/api/videos?id=${searchParams.get("id")}`);
         const data = await res.json();
-
-        console.log(data); // obiekt { id: 1, url: "..." }
-        console.log(data.url); // URL wideo
-
         setVideo(data);
       } catch (err) {
         console.error("Błąd przy pobieraniu wideo:", err);
