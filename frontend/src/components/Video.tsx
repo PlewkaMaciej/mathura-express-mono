@@ -26,7 +26,7 @@ export default function Video() {
     };
 
     fetchVideo();
-  }, []);
+  }, [searchParams]);
 
   const OpenQuestion = () => {
     console.log("xd");

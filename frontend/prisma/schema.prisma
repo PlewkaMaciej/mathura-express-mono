@@ -24,19 +24,26 @@ model User {
   email       String   @unique
   createDate  DateTime @default(now())
   updateDate  DateTime @updatedAt
-  posts       Post[]   @relation("UserPosts")
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  authorId  String
-  author    User     @relation("UserPosts", fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
 }
 
 model Video {
-  id  Int    @id @default(autoincrement())
-  url String
+  id         Int        @id @default(autoincrement())
+  url        String
+  questions  Question[] @relation("VideoQuestions")
+}
+
+model Question {
+  id         Int        @id @default(autoincrement())
+  text       String
+  answers    Answer[]   @relation("QuestionAnswers")
+  videoId    Int
+  video      Video      @relation("VideoQuestions", fields: [videoId], references: [id])
+  time       Int
+}
+
+model Answer {
+  id          Int       @id @default(autoincrement())
+  text        String
+  questionId  Int
+  question    Question  @relation("QuestionAnswers", fields: [questionId], references: [id])
 }

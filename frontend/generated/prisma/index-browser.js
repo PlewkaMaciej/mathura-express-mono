@@ -127,17 +127,22 @@ exports.Prisma.UserScalarFieldEnum = {
   updateDate: 'updateDate'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  authorId: 'authorId',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.VideoScalarFieldEnum = {
   id: 'id',
   url: 'url'
+};
+
+exports.Prisma.QuestionScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  videoId: 'videoId',
+  time: 'time'
+};
+
+exports.Prisma.AnswerScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  questionId: 'questionId'
 };
 
 exports.Prisma.SortOrder = {
@@ -153,8 +158,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Post: 'Post',
-  Video: 'Video'
+  Video: 'Video',
+  Question: 'Question',
+  Answer: 'Answer'
 };
 
 /**
