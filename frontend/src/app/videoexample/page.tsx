@@ -1,4 +1,4 @@
-import Video from "@/components/Video";
+import Video from "@/components/video/Video";
 
 export default function videoexample() {
   return (
