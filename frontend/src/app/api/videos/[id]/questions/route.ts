@@ -1,33 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "../../../../../lib/prisma";
+import prisma from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const videoId = Number(params.id);
+    const videoId = Number((await context.params).id); // czemu to dziala xD? a bez promisa i context.params nie
 
-    if (isNaN(videoId)) {
+    if (!Number.isFinite(videoId)) {
       return NextResponse.json({ error: "Invalid video ID" }, { status: 400 });
     }
 
     const { title, text, time } = await req.json();
 
-    const createdQuestion = await prisma.question.create({
+    if (!title || !text) {
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    const created = await prisma.question.create({
       data: {
         title,
         text,
-        time,
-        video: {
-          connect: { id: videoId },
-        },
+        time: Number.isFinite(time) ? Math.floor(time) : 0,
+        video: { connect: { id: videoId } },
       },
     });
 
-    return NextResponse.json(createdQuestion, { status: 201 });
+    return NextResponse.json(created, { status: 201 });
   } catch (error) {
-    console.error("Error creating question:", error);
+    console.error("SERVER ERROR:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

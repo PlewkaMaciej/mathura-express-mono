@@ -36,7 +36,7 @@ const Question = ({ time = 0, videoId }: QuestionProps) => {
             body: JSON.stringify({
               title: values.title,
               text: values.text,
-              time: Math.floor(time),
+              time: Math.floor(time), // sekunda filmu
             }),
           });
         }}
@@ -106,6 +106,7 @@ const Question = ({ time = 0, videoId }: QuestionProps) => {
               />
             </div>
 
+            {/* Przycisk */}
             <div className="col-span-2 flex justify-end">
               <Button type="submit">Zadaj pytanie</Button>
             </div>
