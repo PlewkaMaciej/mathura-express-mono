@@ -34,6 +34,7 @@ model Video {
 
 model Question {
   id         Int        @id @default(autoincrement())
+  title String
   text       String
   answers    Answer[]   @relation("QuestionAnswers")
   videoId    Int

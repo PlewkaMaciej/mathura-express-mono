@@ -3,10 +3,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "../Items/Button";
+
 interface QuestionProps {
-  time: number;
+  time?: number;
+  videoId: string; // ← potrzebne, aby wysłać pytanie do właściwego filmu
 }
-const Question = ({ time }: QuestionProps) => {
+
+const Question = ({ time = 0, videoId }: QuestionProps) => {
   return (
     <div className="max-w-4xl mx-auto p-10 bg-white rounded-2xl shadow-xl border border-gray-200">
       <h2 className="text-3xl font-semibold mb-10 text-gray-900 text-center">
@@ -16,18 +19,26 @@ const Question = ({ time }: QuestionProps) => {
       <Formik
         initialValues={{
           title: "",
-          question: "",
+          text: "",
         }}
         validationSchema={Yup.object({
           title: Yup.string()
             .required("Tytuł jest wymagany")
             .min(3, "Tytuł musi mieć minimum 3 znaki"),
-          question: Yup.string()
+          text: Yup.string()
             .required("Pytanie jest wymagane")
             .min(5, "Pytanie musi mieć minimum 5 znaków"),
         })}
-        onSubmit={(values) => {
-          console.log("Wysłano:", values, time);
+        onSubmit={async (values) => {
+          await fetch(`/api/videos/${videoId}/questions`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: values.title,
+              text: values.text,
+              time: Math.floor(time),
+            }),
+          });
         }}
       >
         {() => (
@@ -48,7 +59,6 @@ const Question = ({ time }: QuestionProps) => {
                   focus:outline-none 
                   focus:ring-2 
                   focus:ring-color-primary 
-                  focus:border-color-primary
                   shadow-sm
                   transition-all
                   text-lg
@@ -63,13 +73,14 @@ const Question = ({ time }: QuestionProps) => {
               />
             </div>
 
+            {/* Pytanie */}
             <div className="flex flex-col gap-2 col-span-2">
               <label className="font-semibold text-gray-800 text-lg">
                 Zadaj pytanie
               </label>
 
               <Field
-                name="question"
+                name="text"
                 as="textarea"
                 className="
                   border border-gray-300 
@@ -79,7 +90,6 @@ const Question = ({ time }: QuestionProps) => {
                   focus:outline-none 
                   focus:ring-2 
                   focus:ring-color-primary 
-                  focus:border-color-primary
                   shadow-sm
                   transition-all
                   text-lg
@@ -90,14 +100,14 @@ const Question = ({ time }: QuestionProps) => {
               />
 
               <ErrorMessage
-                name="question"
+                name="text"
                 component="div"
                 className="text-red-500 text-sm"
               />
             </div>
 
             <div className="col-span-2 flex justify-end">
-              <Button>Zadaj pytanie</Button>
+              <Button type="submit">Zadaj pytanie</Button>
             </div>
           </Form>
         )}

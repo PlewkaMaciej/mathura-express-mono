@@ -134,6 +134,7 @@ exports.Prisma.VideoScalarFieldEnum = {
 
 exports.Prisma.QuestionScalarFieldEnum = {
   id: 'id',
+  title: 'title',
   text: 'text',
   videoId: 'videoId',
   time: 'time'

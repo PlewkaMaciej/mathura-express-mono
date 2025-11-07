@@ -72,7 +72,10 @@ export default function Video() {
               ×
             </button>
 
-            <Question time={videoRef.current?.currentTime} />
+            <Question
+              time={videoRef.current?.currentTime ?? 0}
+              videoId={searchParams.get("id") ?? ""}
+            />
           </div>
         </div>
       )}

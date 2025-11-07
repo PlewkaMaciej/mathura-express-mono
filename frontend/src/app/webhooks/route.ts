@@ -1,4 +1,4 @@
-import prisma from "../../../lib/prisma";
+import prisma from "../../lib/prisma";
 import { NextRequest } from "next/server";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 
@@ -46,6 +46,6 @@ export async function POST(req: NextRequest) {
     return new Response("Error verifying webhook", { status: 500 });
   }
 }
-export async function GET(req:NextRequest) {
+export async function GET(req: NextRequest) {
   return new Response("Webhook received", { status: 200 });
 }
