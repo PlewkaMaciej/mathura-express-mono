@@ -9,7 +9,7 @@ export async function POST(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const videoId = Number((await context.params).id); // czemu to dziala xD? a bez promisa i context.params nie
+    const videoId = Number((await context.params).id);
 
     if (!Number.isFinite(videoId)) {
       return NextResponse.json({ error: "Invalid video ID" }, { status: 400 });

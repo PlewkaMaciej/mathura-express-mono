@@ -3,13 +3,16 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "../Items/Button";
+import { useState } from "react";
 
 interface QuestionProps {
   time?: number;
-  videoId: string; // ← potrzebne, aby wysłać pytanie do właściwego filmu
+  videoId: string;
+  buttonStateProps: [string, React.Dispatch<React.SetStateAction<string>>];
 }
 
-const Question = ({ time = 0, videoId }: QuestionProps) => {
+const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
+  const [buttonState, setButtonState] = buttonStateProps;
   return (
     <div className="max-w-4xl mx-auto p-10 bg-white rounded-2xl shadow-xl border border-gray-200">
       <h2 className="text-3xl font-semibold mb-10 text-gray-900 text-center">
@@ -36,9 +39,10 @@ const Question = ({ time = 0, videoId }: QuestionProps) => {
             body: JSON.stringify({
               title: values.title,
               text: values.text,
-              time: Math.floor(time), // sekunda filmu
+              time: Math.floor(time),
             }),
           });
+          setButtonState("");
         }}
       >
         {() => (
@@ -106,7 +110,6 @@ const Question = ({ time = 0, videoId }: QuestionProps) => {
               />
             </div>
 
-            {/* Przycisk */}
             <div className="col-span-2 flex justify-end">
               <Button type="submit">Zadaj pytanie</Button>
             </div>
