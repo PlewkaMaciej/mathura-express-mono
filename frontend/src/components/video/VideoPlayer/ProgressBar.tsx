@@ -1,13 +1,12 @@
 "use client";
-
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface Props {
   visible: boolean;
   duration: number;
   currentTime: number;
   questionTimes: number[];
-  onSeekPercent: (percent: number) => void; // 0..1
+  onSeekPercent: (percent: number) => void;
 }
 
 export default function ProgressBar({
@@ -18,9 +17,8 @@ export default function ProgressBar({
   onSeekPercent,
 }: Props) {
   const [isDragging, setIsDragging] = useState(false);
+  const [dragPercent, setDragPercent] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
@@ -29,56 +27,72 @@ export default function ProgressBar({
     return Math.min(1, Math.max(0, percent));
   };
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const percent = getPercentFromClientX(e.clientX);
-    onSeekPercent(percent);
-    setIsDragging(true);
+  useEffect(() => {
+    if (!isDragging) return;
 
-    const handleMouseMove = (moveEvent: MouseEvent) => {
-      const newPercent = getPercentFromClientX(moveEvent.clientX);
-      onSeekPercent(newPercent);
+    const handleMouseMove = (e: MouseEvent) => {
+      const newPercent = getPercentFromClientX(e.clientX);
+      setDragPercent(newPercent);
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      onSeekPercent(dragPercent);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, dragPercent, onSeekPercent]);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const percent = getPercentFromClientX(e.clientX);
+    setDragPercent(percent);
+    setIsDragging(true);
   };
+
+  const displayPercent = isDragging
+    ? dragPercent
+    : duration > 0
+      ? currentTime / duration
+      : 0;
 
   return (
     <div
       ref={containerRef}
-      onMouseDown={handleMouseDown}
-      className={`absolute left-4 right-4 bottom-10 h-1.5 rounded-full cursor-pointer overflow-visible transition-opacity duration-300 ${
+      onPointerDown={handleMouseDown}
+      className={`absolute left-0 z-50 right-0 bottom-8 h-2 cursor-pointer transition-opacity duration-300 ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      <div className="w-full h-full bg-gray-800/50 rounded-full" />
+      <div className="w-full h-full bg-gray-700/50 rounded-full" />
+
       <div
-        className="absolute top-0 left-0 h-full bg-white rounded-full"
-        style={{ width: `${progressPercent}%` }}
+        className="absolute top-0 left-0 h-full bg-yellow-500 rounded-full"
+        style={{ width: `${displayPercent * 100}%` }}
       />
+
       {duration > 0 &&
         questionTimes.map((t, i) => {
           const left = `${(t / duration) * 100}%`;
           return (
             <div
               key={i}
-              className="absolute top-0 w-1 h-1.5 bg-yellow-400 rounded-full"
+              className="absolute top-0 w-1 h-full bg-white rounded-full pointer-events-none"
               style={{ left: `calc(${left} - 0.5px)` }}
             />
           );
         })}
+
       <div
-        className={`absolute top-1/2 w-3 h-3 bg-red-500 rounded-full shadow-lg -translate-y-1/2 cursor-pointer ${
-          isDragging ? "" : "transition-all duration-150"
+        className={`absolute top-1/2 w-3 h-3 bg-white rounded-full shadow-lg -translate-y-1/2 transform transition-transform duration-100 ${
+          isDragging ? "scale-125" : "scale-100"
         }`}
-        style={{ left: `${progressPercent}%` }}
+        style={{ left: `${displayPercent * 100}%` }}
       />
     </div>
   );

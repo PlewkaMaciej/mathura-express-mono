@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, RefObject } from "react";
-import PlayPauseButton from "./PlayPauseButton";
 import ProgressBar from "./ProgressBar";
 
 interface Props {
@@ -27,9 +26,8 @@ export default function VideoControls({
   onSeekPercent,
   volume,
   onVolumeChange,
-  onFullscreen,
 }: Props) {
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     let t: ReturnType<typeof setTimeout> | null = null;
@@ -37,33 +35,34 @@ export default function VideoControls({
     const show = () => {
       setVisible(true);
       if (t) clearTimeout(t);
-      t = setTimeout(() => setVisible(false), 2000);
+      t = setTimeout(() => setVisible(false), 2500);
     };
+
     const container = videoRef.current;
     if (!container) return;
-    const onMove = () => show();
 
+    const onMove = () => show();
     container.addEventListener("mousemove", onMove);
-    window.addEventListener("keydown", onMove);
 
     show();
 
     return () => {
       container.removeEventListener("mousemove", onMove);
-      window.removeEventListener("keydown", onMove);
       if (t) clearTimeout(t);
     };
   }, [videoRef]);
 
+  const handleFullscreen = () => {
+    if (!videoRef.current) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      videoRef.current.requestFullscreen();
+    }
+  };
+
   return (
     <>
-      <PlayPauseButton
-        visible={visible}
-        isPlaying={isPlaying}
-        togglePlay={togglePlay}
-      />
-
-      {/* PROGRESS BAR */}
       <ProgressBar
         visible={visible}
         duration={duration}
@@ -72,27 +71,44 @@ export default function VideoControls({
         onSeekPercent={onSeekPercent}
       />
 
-      {/* POD PASKIEM: głośność, fullscreen i czas */}
       <div
-        className={`absolute left-4 right-4 bottom-4 flex justify-between items-center transition-opacity duration-300 ${
+        className={`absolute left-0 right-0 bottom-0 px-4 py-2 flex justify-between items-center transition-opacity duration-300 ${
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Lewa strona: przycisk play/pause */}
         <button
           onClick={togglePlay}
-          className="text-white bg-black/50 p-1 rounded"
+          className="text-white hover:scale-110 transition-transform p-1 focus:outline-none active:outline-none"
         >
-          {isPlaying ? "⏸️" : "▶️"}
+          {isPlaying ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="white"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <rect x="6" y="5" width="4" height="14" rx="1" />
+              <rect x="14" y="5" width="4" height="14" rx="1" />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="white"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          )}
         </button>
 
-        {/* Środek: czas */}
-        <span className="text-white text-sm">
-          {Math.floor(currentTime)}s / {Math.floor(duration)}s
+        <span className="text-white text-sm select-none">
+          {Math.floor(currentTime)} / {Math.floor(duration)} s
         </span>
 
-        {/* Prawa strona: głośność i fullscreen */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-3">
           <input
             type="range"
             min={0}
@@ -100,11 +116,11 @@ export default function VideoControls({
             step={0.01}
             value={volume}
             onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-            className="w-24"
+            className="w-28 h-1 accent-yellow-500 rounded-lg cursor-pointer"
           />
           <button
-            onClick={onFullscreen}
-            className="text-white bg-black/50 p-1 rounded"
+            onClick={handleFullscreen}
+            className="text-white text-xl hover:text-yellow-500 transition-colors"
           >
             ⛶
           </button>

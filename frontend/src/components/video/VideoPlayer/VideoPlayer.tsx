@@ -98,10 +98,6 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
         onVolumeChange={handleVolumeChange}
         onFullscreen={toggleFullscreen}
       />
-
-      <div className="mt-2 text-sm text-gray-600">
-        {Math.floor(currentTime)}s / {Math.floor(duration)}s
-      </div>
     </div>
   );
 }
