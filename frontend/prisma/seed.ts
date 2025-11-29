@@ -29,7 +29,7 @@ async function main() {
             },
           ],
         },
-
+  
         // ZADANIE 2 — 3 warianty
         {
           name: "Zadanie 2",

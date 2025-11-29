@@ -67,7 +67,6 @@ function recompute(snapshot: Snapshot) {
   return { score, answered, maxPoints, finished };
 }
 
-// --- handler ---
 export async function POST(req: Request, ctx: { params: { examId: string } }) {
   const { userId: clerkId } = await auth();
   if (!clerkId) {

@@ -32,9 +32,7 @@ type PublicTask = {
 };
 type PublicSection = { name: string; tasks: PublicTask[] };
 
-export const dynamic = "force-dynamic";
-const TEMPLATE_ID = "cmhaw3gp10000w1pg1ugqs9z5";
-
+const TEMPLATE_ID = "cmhwbf4x80000w1qcq2zn9u3j";
 
 const clean = <T>(v: T) => JSON.parse(JSON.stringify(v));
 const pickOne = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
@@ -42,17 +40,14 @@ const pickOne = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
 function toPublicSection(sec: SnapshotSection): PublicSection {
   return {
     name: sec.name,
-    tasks: sec.tasks.map((t) => {
-      const answered = t.userAnswer != null;
-      return {
-        content: t.content,
-        options: t.options,
-        points: t.points,
-        userAnswer: t.userAnswer ?? null,
-        isCorrect: answered ? t.userAnswer === t.correctKey : null,
-        correctOption: answered ? t.correctKey : null,
-      };
-    }),
+    tasks: sec.tasks.map((t) => ({
+      content: t.content,
+      options: t.options,
+      points: t.points,
+      userAnswer: t.userAnswer ?? null,
+      isCorrect: t.userAnswer !== null ? t.userAnswer === t.correctKey : null,
+      correctOption: t.userAnswer !== null ? t.correctKey : null,
+    })),
   };
 }
 
@@ -72,21 +67,20 @@ function computeTotals(snapshot: Snapshot) {
 async function ensureUser(clerkId: string) {
   let user = await prisma.user.findUnique({ where: { clerkId } });
   if (!user) {
-    const cu = await currentUser();
+    const userData = await currentUser();
     user = await prisma.user.create({
       data: {
         clerkId,
         email:
-          cu?.emailAddresses?.[0]?.emailAddress ??
+          userData?.emailAddresses?.[0]?.emailAddress ??
           `${clerkId}@placeholder.local`,
-        firstName: cu?.firstName ?? null,
-        lastName: cu?.lastName ?? null,
+        firstName: userData?.firstName ?? null,
+        lastName: userData?.lastName ?? null,
       },
     });
   }
   return user;
 }
-
 
 export async function GET() {
   const { userId } = await auth();
@@ -116,7 +110,6 @@ export async function GET() {
   return NextResponse.json(mapped, { status: 200 });
 }
 
-
 export async function POST() {
   const { userId } = await auth();
   if (!userId)
@@ -134,7 +127,6 @@ export async function POST() {
       { error: "Template has no sections" },
       { status: 400 }
     );
-
 
   const snapshot: Snapshot = sectionsTpl.map((sec) => ({
     name: sec.name,
