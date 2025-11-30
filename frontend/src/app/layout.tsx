@@ -1,10 +1,10 @@
-// app/layout.tsx
 import "./globals.css";
 import type { ReactNode } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { clerkLocale } from "../../clerkStyles/clerkLocale";
+import { ToastProvider } from "@/components/Toast/ToastProvider";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -16,6 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <ToastProvider />
         </ClerkProvider>
       </body>
     </html>

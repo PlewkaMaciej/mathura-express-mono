@@ -1,10 +1,11 @@
-// app/admin-panel/AdminTaskForm.tsx
 "use client";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
+import type React from "react";
 import { SectionType } from "@/types/sections-task-types";
+import { toast } from "react-hot-toast";
 
 type TaskType = "open" | "closed";
 
@@ -99,13 +100,27 @@ export function AdminTaskForm() {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async (values, { resetForm }) => {
-        await fetch("/api/tasks", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-        resetForm();
+      onSubmit={async (values, { resetForm, setSubmitting }) => {
+        try {
+          const res = await fetch("/api/tasks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+          });
+
+          if (!res.ok) {
+            toast.error("Nie udało się zapisać zadania 😢");
+            return;
+          }
+
+          toast.success("Zadanie zostało zapisane!");
+          resetForm();
+        } catch (e) {
+          console.error(e);
+          toast.error("Wystąpił błąd przy zapisie zadania");
+        } finally {
+          setSubmitting(false);
+        }
       }}
     >
       {({ values, isSubmitting, setFieldValue }) => {
@@ -113,46 +128,55 @@ export function AdminTaskForm() {
           sections.find((section) => section.id === values.sectionId)
             ?.subsections ?? [];
 
+        const inputBaseClasses =
+          "w-full rounded-lg bg-[#0E1630] border border-[#273258] px-3 py-2.5 text-base text-[#F5F7FF] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0";
+
         return (
-          <Form className="space-y-4 max-w-xl">
+          <Form className="space-y-4 max-w-xl text-[#F5F7FF] text-base">
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium">Nazwa zadania</label>
+              <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+                Nazwa zadania
+              </label>
               <Field
                 name="name"
                 type="text"
-                className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                className={inputBaseClasses}
                 placeholder="Np. Równania liniowe – zadanie 1"
               />
               <ErrorMessage
                 name="name"
                 component="div"
-                className="text-xs text-red-400 mt-1"
+                className="text-xs text-[#f97373] mt-1"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium">Treść zadania</label>
+              <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+                Treść zadania
+              </label>
               <Field
                 as="textarea"
                 name="content"
                 rows={5}
-                className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857] resize-none"
+                className={`${inputBaseClasses} resize-none`}
                 placeholder="Wpisz treść zadania..."
               />
               <ErrorMessage
                 name="content"
                 component="div"
-                className="text-xs text-red-400 mt-1"
+                className="text-xs text-[#f97373] mt-1"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium">Dział</label>
+                <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+                  Dział
+                </label>
                 <Field
                   as="select"
                   name="sectionId"
-                  className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                  className={inputBaseClasses}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     const id = e.target.value;
                     setFieldValue("sectionId", id);
@@ -169,16 +193,18 @@ export function AdminTaskForm() {
                 <ErrorMessage
                   name="sectionId"
                   component="div"
-                  className="text-xs text-red-400 mt-1"
+                  className="text-xs text-[#f97373] mt-1"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium">Poddział</label>
+                <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+                  Poddział
+                </label>
                 <Field
                   as="select"
                   name="subSectionId"
-                  className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                  className={inputBaseClasses}
                   disabled={!values.sectionId}
                 >
                   <option value="">
@@ -195,23 +221,25 @@ export function AdminTaskForm() {
                 <ErrorMessage
                   name="subSectionId"
                   component="div"
-                  className="text-xs text-red-400 mt-1"
+                  className="text-xs text-[#f97373] mt-1"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium">Typ zadania</label>
-              <div className="flex gap-4 text-sm">
+              <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+                Typ zadania
+              </label>
+              <div className="flex gap-4 text-base">
                 <label className="inline-flex items-center gap-2">
                   <Field
                     type="radio"
                     name="taskType"
                     value="open"
                     checked={values.taskType === "open"}
-                    className="accent-[#FFC857]"
+                    className="accent-[#7CF9C2]"
                   />
-                  Zadanie otwarte
+                  <span className="text-[#F5F7FF]">Zadanie otwarte</span>
                 </label>
                 <label className="inline-flex items-center gap-2">
                   <Field
@@ -219,33 +247,35 @@ export function AdminTaskForm() {
                     name="taskType"
                     value="closed"
                     checked={values.taskType === "closed"}
-                    className="accent-[#FFC857]"
+                    className="accent-[#7CF9C2]"
                   />
-                  Zadanie zamknięte (ABCD)
+                  <span className="text-[#F5F7FF]">
+                    Zadanie zamknięte (ABCD)
+                  </span>
                 </label>
               </div>
               <ErrorMessage
                 name="taskType"
                 component="div"
-                className="text-xs text-red-400 mt-1"
+                className="text-xs text-[#f97373] mt-1"
               />
             </div>
 
             {values.taskType === "open" && (
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium">
+                <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
                   Poprawna odpowiedź
                 </label>
                 <Field
                   name="openAnswer"
                   type="text"
-                  className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                  className={inputBaseClasses}
                   placeholder="Np. 4"
                 />
                 <ErrorMessage
                   name="openAnswer"
                   component="div"
-                  className="text-xs text-red-400 mt-1"
+                  className="text-xs text-[#f97373] mt-1"
                 />
               </div>
             )}
@@ -254,79 +284,79 @@ export function AdminTaskForm() {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="block text-sm font-medium">
+                    <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
                       Odpowiedź A
                     </label>
                     <Field
                       name="answerA"
                       type="text"
-                      className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                      className={inputBaseClasses}
                       placeholder="Treść odpowiedzi A"
                     />
                     <ErrorMessage
                       name="answerA"
                       component="div"
-                      className="text-xs text-red-400 mt-1"
+                      className="text-xs text-[#f97373] mt-1"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="block text-sm font-medium">
+                    <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
                       Odpowiedź B
                     </label>
                     <Field
                       name="answerB"
                       type="text"
-                      className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                      className={inputBaseClasses}
                       placeholder="Treść odpowiedzi B"
                     />
                     <ErrorMessage
                       name="answerB"
                       component="div"
-                      className="text-xs text-red-400 mt-1"
+                      className="text-xs text-[#f97373] mt-1"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="block text-sm font-medium">
+                    <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
                       Odpowiedź C
                     </label>
                     <Field
                       name="answerC"
                       type="text"
-                      className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                      className={inputBaseClasses}
                       placeholder="Treść odpowiedzi C"
                     />
                     <ErrorMessage
                       name="answerC"
                       component="div"
-                      className="text-xs text-red-400 mt-1"
+                      className="text-xs text-[#f97373] mt-1"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="block text-sm font-medium">
+                    <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
                       Odpowiedź D
                     </label>
                     <Field
                       name="answerD"
                       type="text"
-                      className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                      className={inputBaseClasses}
                       placeholder="Treść odpowiedzi D"
                     />
                     <ErrorMessage
                       name="answerD"
                       component="div"
-                      className="text-xs text-red-400 mt-1"
+                      className="text-xs text-[#f97373] mt-1"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-sm font-medium">
+                  <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
                     Poprawna odpowiedź (A/B/C/D)
                   </label>
                   <Field
                     as="select"
                     name="correctAnswer"
-                    className="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-sm outline-none focus:border-[#FFC857]"
+                    className={inputBaseClasses}
                   >
                     <option value="">Wybierz poprawną odpowiedź</option>
                     <option value="A">A</option>
@@ -337,7 +367,7 @@ export function AdminTaskForm() {
                   <ErrorMessage
                     name="correctAnswer"
                     component="div"
-                    className="text-xs text-red-400 mt-1"
+                    className="text-xs text-[#f97373] mt-1"
                   />
                 </div>
               </div>
@@ -346,7 +376,7 @@ export function AdminTaskForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="mt-4 inline-flex items-center justify-center rounded-xl bg-[#FFC857] px-5 py-2.5 text-sm font-semibold text-slate-950 hover:bg-[#ffd774] disabled:opacity-60"
+              className="mt-4 inline-flex items-center justify-center rounded-lg bg-[#7CF9C2] px-6 py-3 text-[1.02rem] font-semibold text-[#0B1020] shadow-[0_10px_30px_-10px_rgba(124,249,194,.7)] hover:brightness-95 hover:-translate-y-0.5 active:translate-y-0 transition disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {isSubmitting ? "Zapisywanie..." : "Zapisz zadanie"}
             </button>
