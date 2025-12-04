@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -22,14 +16,59 @@ model User {
   email      String   @unique
   createDate DateTime @default(now())
   updateDate DateTime @updatedAt
-  posts      Post[]   @relation("UserPosts")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  authorId  String
-  author    User     @relation("UserPosts", fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
+model Alltasks {
+  id       String    @id @default(cuid())
+  sections Section[]
+}
+
+model Section {
+  id          String       @id @default(cuid())
+  name        String
+  alltasksId  String
+  alltasks    Alltasks     @relation(fields: [alltasksId], references: [id])
+  subsections SubSection[]
+}
+
+model SubSection {
+  id                   String        @id @default(cuid())
+  name                 String
+  sectionId            String
+  section              Section       @relation(fields: [sectionId], references: [id])
+  mustBeShuffle        Boolean
+  closedTasksToShuffle Int?
+  openTasksToShuffle   Int?
+  openTasks            OpenTasks[]
+  closedTasks          ClosedTasks[]
+}
+
+model OpenTasks {
+  id           String     @id @default(cuid())
+  name         String
+  content      String
+  answer       Int
+  subSectionId String
+  subSection   SubSection @relation(fields: [subSectionId], references: [id])
+  openTaskId   String?
+}
+
+model ClosedTasks {
+  id            String     @id @default(cuid())
+  name          String
+  content       String
+  answers       Answers[]
+  correctAnswer String
+  subSectionId  String
+  subSection    SubSection @relation(fields: [subSectionId], references: [id])
+}
+
+model Answers {
+  id           String      @id @default(cuid())
+  A            String
+  B            String
+  C            String
+  D            String
+  closedTaskId String
+  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id])
 }

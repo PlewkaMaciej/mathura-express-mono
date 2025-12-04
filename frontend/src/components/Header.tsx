@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 const NAV = [
   { href: "/library", label: "Biblioteka" },
   { href: "/generator", label: "Generator" },
@@ -14,6 +14,7 @@ const NAV = [
 function NavItem({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
   const active = pathname === href;
+
   return (
     <Link
       href={href}
@@ -31,14 +32,12 @@ function NavItem({ href, label }: { href: string; label: string }) {
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { user, isLoaded } = useUser();
+  const isAdmin = isLoaded && user?.publicMetadata?.role === "admin";
   return (
     <header className="sticky top-0 z-50 border-b border-[#2C3B55] bg-[rgba(11,27,43,0.85)] backdrop-blur">
-     
-     
       <div className="mx-auto w-full max-w-[1600px] h-16 md:h-20 px-6 2xl:px-10 flex items-center justify-between">
-      <div className="flex justify-between">
-     
-     </div>
+        <div className="flex justify-between"></div>
         <Link
           href="/"
           className="text-[#F3EAD7] font-semibold tracking-tight text-[20px] md:text-[22px]"
@@ -49,7 +48,10 @@ export default function Header() {
           {NAV.map((i) => (
             <NavItem key={i.href} {...i} />
           ))}
-          <UserButton showName/>
+          {isAdmin && (
+            <NavItem href="/admin-panel" label="Panel administratora" />
+          )}
+          <UserButton showName />
         </nav>
         <button
           className="md:hidden text-[#F3EAD7]/90 p-3 rounded hover:bg-white/5"
@@ -73,11 +75,18 @@ export default function Header() {
                 {i.label}
               </Link>
             ))}
-            
+            {isAdmin && (
+              <Link
+                href={"/admin-panel"}
+                className="text-[18px] py-3 text-[#F3EAD7]/90 hover:text-[#F3EAD7]"
+                onClick={() => setOpen(false)}
+              >
+                {"Panel Administratora"}
+              </Link>
+            )}
           </div>
         </div>
       )}
-      
     </header>
   );
 }

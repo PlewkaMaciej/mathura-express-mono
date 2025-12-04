@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.1
- * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ * Prisma Client JS version: 6.18.0
+ * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
  */
 Prisma.prismaVersion = {
-  client: "6.17.1",
-  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+  client: "6.18.0",
+  engine: "34b5a692b7bd79939a9a2c3ef97d816e749cda2f"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -127,12 +127,49 @@ exports.Prisma.UserScalarFieldEnum = {
   updateDate: 'updateDate'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.AlltasksScalarFieldEnum = {
+  id: 'id'
+};
+
+exports.Prisma.SectionScalarFieldEnum = {
   id: 'id',
-  title: 'title',
+  name: 'name',
+  alltasksId: 'alltasksId'
+};
+
+exports.Prisma.SubSectionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  sectionId: 'sectionId',
+  mustBeShuffle: 'mustBeShuffle',
+  closedTasksToShuffle: 'closedTasksToShuffle',
+  openTasksToShuffle: 'openTasksToShuffle'
+};
+
+exports.Prisma.OpenTasksScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   content: 'content',
-  authorId: 'authorId',
-  createdAt: 'createdAt'
+  answer: 'answer',
+  subSectionId: 'subSectionId',
+  openTaskId: 'openTaskId'
+};
+
+exports.Prisma.ClosedTasksScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  content: 'content',
+  correctAnswer: 'correctAnswer',
+  subSectionId: 'subSectionId'
+};
+
+exports.Prisma.AnswersScalarFieldEnum = {
+  id: 'id',
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  D: 'D',
+  closedTaskId: 'closedTaskId'
 };
 
 exports.Prisma.SortOrder = {
@@ -148,7 +185,12 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Post: 'Post'
+  Alltasks: 'Alltasks',
+  Section: 'Section',
+  SubSection: 'SubSection',
+  OpenTasks: 'OpenTasks',
+  ClosedTasks: 'ClosedTasks',
+  Answers: 'Answers'
 };
 
 /**
