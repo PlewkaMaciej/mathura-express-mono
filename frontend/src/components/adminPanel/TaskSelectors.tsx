@@ -3,21 +3,22 @@
 import { Field, ErrorMessage } from "formik";
 import type React from "react";
 import type { SectionType } from "@/types/sections-task-types";
-
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 interface TaskSelectorsProps {
-  input: string;
   sections: SectionType[];
   currentSubsections: { id: string; name: string }[];
   valuesSectionId: string;
   setFieldValue: (field: string, value: unknown) => void;
+  input: string;
 }
 
 export function TaskSelectors({
-  input,
   sections,
   currentSubsections,
   valuesSectionId,
   setFieldValue,
+  input, 
 }: TaskSelectorsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -1,12 +1,19 @@
 "use client";
 
+import clsx from "clsx";
 import { Field, ErrorMessage } from "formik";
+import { twMerge } from "tailwind-merge";
 
 interface NameContentFieldsProps {
   input: string;
 }
 
 export function NameContentFields({ input }: NameContentFieldsProps) {
+  const input1 = twMerge(
+    clsx(
+      "border-[#FFF002] px-3 py-2.5 text-base text-[#FFF002] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0"
+    )
+  );
   return (
     <>
       <div className="space-y-1.5">

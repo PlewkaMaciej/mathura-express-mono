@@ -10,6 +10,7 @@ import { FormValues } from "./adminTaskFormTypes";
 import { NameContentFields } from "./NameContentFields";
 import { TaskSelectors } from "./TaskSelectors";
 import { AnswerFields } from "./AnswerFields";
+import clsx from "clsx";
 import { SubSectionType } from "@/types/sections-task-types";
 export function AdminTaskForm() {
   const [sections, setSections] = useState<SectionType[]>([]);
@@ -37,8 +38,9 @@ export function AdminTaskForm() {
     correctAnswer: "",
   };
 
-  const input =
-    "w-full rounded-lg bg-[#0E1630] border border-[#273258] px-3 py-2.5 text-base text-[#F5F7FF] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0";
+  const input = clsx(
+    "w-full rounded-lg bg-[#0E1630] border border-[#FFF002] px-3 py-2.5 text-base text-[#FFF002] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0"
+  );
 
   return (
     <Formik
