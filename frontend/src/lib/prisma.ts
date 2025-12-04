@@ -11,5 +11,3 @@ const prisma =
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export default prisma;
-
-// wspoldzielona instalacja prismacient do komukinacja z baza danych

@@ -3,7 +3,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "../Items/Button";
-import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
 
 interface QuestionProps {
   time?: number;
@@ -12,7 +12,11 @@ interface QuestionProps {
 }
 
 const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
+  // ✅ OK
+
   const [buttonState, setButtonState] = buttonStateProps;
+  const { userId, isLoaded } = useAuth();
+
   return (
     <div className="max-w-4xl mx-auto p-10 bg-white rounded-2xl shadow-xl border border-gray-200">
       <h2 className="text-3xl font-semibold mb-10 text-gray-900 text-center">
@@ -33,6 +37,8 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
             .min(5, "Pytanie musi mieć minimum 5 znaków"),
         })}
         onSubmit={async (values) => {
+          if (!isLoaded || !userId) return;
+
           await fetch(`/api/videos/${videoId}/questions`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -40,8 +46,10 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
               title: values.title,
               text: values.text,
               time: Math.floor(time),
+              userId: userId,
             }),
           });
+
           setButtonState("");
         }}
       >

@@ -82,14 +82,14 @@ export default function ProgressBar({
           return (
             <div
               key={i}
-              className="absolute top-0 w-1 h-full bg-white rounded-full pointer-events-none"
+              className="absolute top-0 w-1 h-full bg-black rounded-full pointer-events-none"
               style={{ left: `calc(${left} - 0.5px)` }}
             />
           );
         })}
 
       <div
-        className={`absolute top-1/2 w-3 h-3 bg-white rounded-full shadow-lg -translate-y-1/2 transform transition-transform duration-100 ${
+        className={`absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg -translate-y-1/2 transform transition-transform duration-100 ${
           isDragging ? "scale-125" : "scale-100"
         }`}
         style={{ left: `${displayPercent * 100}%` }}

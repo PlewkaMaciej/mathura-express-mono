@@ -15,7 +15,7 @@ interface Props {
 
 export default function VideoPlayer({ video, questionTimes }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
-
+  const videoMother = useRef<HTMLDivElement>(null);
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -63,18 +63,16 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
     setCurrentTime(v.currentTime);
   };
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) videoRef.current?.requestFullscreen();
-    else document.exitFullscreen();
-  };
-
   const handleVolumeChange = (vol: number) => {
     setVolume(vol);
     if (videoRef.current) videoRef.current.volume = vol;
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-2xl mx-auto group">
+    <div
+      ref={videoMother}
+      className="relative flex flex-col items-center w-full max-w-2xl mx-auto group"
+    >
       <video
         ref={videoRef}
         controls={false}
@@ -96,7 +94,7 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
         onSeekPercent={handleProgressClick}
         volume={volume}
         onVolumeChange={handleVolumeChange}
-        onFullscreen={toggleFullscreen}
+        videoMother={videoMother}
       />
     </div>
   );

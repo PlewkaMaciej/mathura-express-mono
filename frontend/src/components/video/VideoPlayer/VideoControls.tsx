@@ -5,6 +5,7 @@ import ProgressBar from "./ProgressBar";
 
 interface Props {
   videoRef: RefObject<HTMLVideoElement | null>;
+  videoMother: RefObject<HTMLDivElement | null>;
   isPlaying: boolean;
   togglePlay: () => void;
   duration: number;
@@ -13,11 +14,11 @@ interface Props {
   onSeekPercent: (percent: number) => void;
   volume: number;
   onVolumeChange: (vol: number) => void;
-  onFullscreen: () => void;
 }
 
 export default function VideoControls({
   videoRef,
+  videoMother,
   isPlaying,
   togglePlay,
   duration,
@@ -53,11 +54,12 @@ export default function VideoControls({
   }, [videoRef]);
 
   const handleFullscreen = () => {
-    if (!videoRef.current) return;
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
+    if (!videoMother.current) return;
+
+    if (!document.fullscreenElement) {
+      videoMother.current.requestFullscreen();
     } else {
-      videoRef.current.requestFullscreen();
+      document.exitFullscreen();
     }
   };
 
@@ -84,9 +86,9 @@ export default function VideoControls({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
-              fill="white"
+              fill="black"
               viewBox="0 0 24 24"
-              stroke="white"
+              stroke="black"
             >
               <rect x="6" y="5" width="4" height="14" rx="1" />
               <rect x="14" y="5" width="4" height="14" rx="1" />
@@ -95,16 +97,16 @@ export default function VideoControls({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
-              fill="white"
+              fill="black"
               viewBox="0 0 24 24"
-              stroke="white"
+              stroke="black"
             >
               <polygon points="5,3 19,12 5,21" />
             </svg>
           )}
         </button>
 
-        <span className="text-white text-sm select-none">
+        <span className="text-black text-sm select-none">
           {Math.floor(currentTime)} / {Math.floor(duration)} s
         </span>
 
@@ -120,7 +122,7 @@ export default function VideoControls({
           />
           <button
             onClick={handleFullscreen}
-            className="text-white text-xl hover:text-yellow-500 transition-colors"
+            className="text-black text-xl hover:text-yellow-500 transition-colors"
           >
             ⛶
           </button>
