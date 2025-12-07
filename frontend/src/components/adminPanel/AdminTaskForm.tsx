@@ -39,7 +39,7 @@ export function AdminTaskForm() {
   };
 
   const input = clsx(
-    "w-full rounded-lg bg-[#0E1630] border border-[#FFF002] px-3 py-2.5 text-base text-[#FFF002] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0"
+    "w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#7CF9C2] placeholder:text-[#B8FFE2] outline-none focus:border-[#7CF9C2] focus:ring-0"
   );
 
   return (
