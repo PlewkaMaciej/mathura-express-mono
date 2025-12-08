@@ -12,8 +12,7 @@ interface QuestionProps {
 }
 
 const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
-  // ✅ OK
-
+  
   const [buttonState, setButtonState] = buttonStateProps;
   const { userId, isLoaded } = useAuth();
 
@@ -85,7 +84,6 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
               />
             </div>
 
-            {/* Pytanie */}
             <div className="flex flex-col gap-2 col-span-2">
               <label className="font-semibold text-gray-800 text-lg">
                 Zadaj pytanie

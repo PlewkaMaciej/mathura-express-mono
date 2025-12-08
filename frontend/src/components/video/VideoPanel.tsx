@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Items/Button";
 import { useSearchParams } from "next/navigation";
 import Question from "./Question";
@@ -9,21 +9,19 @@ import VideoPlayer from "./VideoPlayer/VideoPlayer";
 interface VideoType {
   id: number;
   url: string;
+  questions: any[];
   videoUrl: string;
 }
 
 export default function Video() {
   const [video, setVideo] = useState<VideoType | null>(null);
   const [buttonStatus, setButtonStatus] = useState<string>("");
-  const [questionTimes, setQuestionTimes] = useState<number[]>([]);
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchVideo = async () => {
-      setQuestionTimes([120, 160, 300]);
-
       try {
         const res = await fetch(`/api/videos?id=${searchParams.get("id")}`);
         const data = await res.json();
@@ -37,15 +35,13 @@ export default function Video() {
   }, [searchParams]);
 
   const OpenQuestion = () => {
-    setButtonStatus((prev) =>
-      prev === "questionPanel" ? "" : "questionPanel"
-    );
+    setButtonStatus((prev) => (prev === "questionPanel" ? "" : "questionPanel"));
   };
 
   return (
     <div className="flex flex-col items-center justify-start py-10 px-4">
       {video ? (
-        <VideoPlayer video={video} questionTimes={questionTimes} />
+        <VideoPlayer video={video} onTimeUpdate={setCurrentTime} />
       ) : (
         <p>Ładowanie wideo...</p>
       )}
@@ -74,7 +70,7 @@ export default function Video() {
 
             <Question
               buttonStateProps={[buttonStatus, setButtonStatus]}
-              time={videoRef.current?.currentTime ?? 0}
+              time={currentTime}
               videoId={searchParams.get("id") ?? ""}
             />
           </div>

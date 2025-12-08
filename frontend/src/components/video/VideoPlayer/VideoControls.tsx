@@ -10,7 +10,7 @@ interface Props {
   togglePlay: () => void;
   duration: number;
   currentTime: number;
-  questionTimes: number[];
+  questions:any[];
   onSeekPercent: (percent: number) => void;
   volume: number;
   onVolumeChange: (vol: number) => void;
@@ -23,7 +23,7 @@ export default function VideoControls({
   togglePlay,
   duration,
   currentTime,
-  questionTimes,
+  questions,   
   onSeekPercent,
   volume,
   onVolumeChange,
@@ -69,8 +69,8 @@ export default function VideoControls({
         visible={visible}
         duration={duration}
         currentTime={currentTime}
-        questionTimes={questionTimes}
         onSeekPercent={onSeekPercent}
+        questions={questions}
       />
 
       <div

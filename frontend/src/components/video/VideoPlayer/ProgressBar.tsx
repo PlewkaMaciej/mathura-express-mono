@@ -5,7 +5,7 @@ interface Props {
   visible: boolean;
   duration: number;
   currentTime: number;
-  questionTimes: number[];
+  questions:any[]
   onSeekPercent: (percent: number) => void;
 }
 
@@ -13,7 +13,8 @@ export default function ProgressBar({
   visible,
   duration,
   currentTime,
-  questionTimes,
+  questions,
+
   onSeekPercent,
 }: Props) {
   const [isDragging, setIsDragging] = useState(false);
@@ -76,9 +77,10 @@ export default function ProgressBar({
         style={{ width: `${displayPercent * 100}%` }}
       />
 
+
       {duration > 0 &&
-        questionTimes.map((t, i) => {
-          const left = `${(t / duration) * 100}%`;
+        questions.map((question, i) => {
+          const left = `${(question.time / duration) * 100}%`;
           return (
             <div
               key={i}

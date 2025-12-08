@@ -11,7 +11,7 @@ export async function POST(
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  console.log("xd");
+
   try {
     const { id } = await context.params;
     const videoId = Number(id);
@@ -36,15 +36,29 @@ export async function POST(
       ? Math.max(0, Math.floor(timeNum))
       : 0;
 
-    const created = await prisma.question.create({
-      data: {
-        title,
-        text,
-        time: timeValue,
-        videoId,
-        userId,
-      },
+    // Ensure there's a DB user corresponding to the Clerk userId
+    const dbUser = await prisma.user.findUnique({
+      where: { clerkId: userId },
     });
+
+    if (!dbUser) {
+      console.error("No DB user found for clerkId:", userId);
+      return NextResponse.json(
+        { error: "User record not found in database" },
+        { status: 404 }
+      );
+    }
+
+const created = await prisma.question.create({
+  data: {
+    title,
+    text,
+    time: timeValue,
+    video: { connect: { id: videoId } },
+    user: { connect: { id: dbUser.id } }, 
+  },
+});
+
 
     return NextResponse.json(created, { status: 201 });
   } catch (error) {

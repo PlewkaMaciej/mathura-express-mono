@@ -6,14 +6,15 @@ import VideoControls from "./VideoControls";
 interface VideoType {
   id: number;
   url: string;
+  questions: any[];
 }
 
 interface Props {
   video: VideoType;
-  questionTimes: number[];
+  onTimeUpdate?: (t: number) => void;
 }
 
-export default function VideoPlayer({ video, questionTimes }: Props) {
+export default function VideoPlayer({ video, onTimeUpdate }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMother = useRef<HTMLDivElement>(null);
   const [duration, setDuration] = useState<number>(0);
@@ -26,7 +27,11 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
     if (!v) return;
 
     const onLoaded = () => setDuration(v.duration || 0);
-    const onTime = () => setCurrentTime(v.currentTime || 0);
+    const onTime = () => {
+      const t = v.currentTime || 0;
+      setCurrentTime(t);
+      if (onTimeUpdate) onTimeUpdate(t);
+    };
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
 
@@ -36,8 +41,10 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
     v.addEventListener("pause", onPause);
 
     if (v.readyState >= 1) {
+      const t = v.currentTime || 0;
       setDuration(v.duration || 0);
-      setCurrentTime(v.currentTime || 0);
+      setCurrentTime(t);
+      if (onTimeUpdate) onTimeUpdate(t);
       setIsPlaying(!v.paused);
     }
 
@@ -47,7 +54,7 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
       v.removeEventListener("play", onPlay);
       v.removeEventListener("pause", onPause);
     };
-  }, [video.url]);
+  }, [video.url, onTimeUpdate]);
 
   const togglePlay = () => {
     const v = videoRef.current;
@@ -61,6 +68,7 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
     if (!v || duration === 0) return;
     v.currentTime = percent * duration;
     setCurrentTime(v.currentTime);
+    if (onTimeUpdate) onTimeUpdate(v.currentTime);
   };
 
   const handleVolumeChange = (vol: number) => {
@@ -85,12 +93,12 @@ export default function VideoPlayer({ video, questionTimes }: Props) {
       </video>
 
       <VideoControls
+        questions={video.questions}
         togglePlay={togglePlay}
         videoRef={videoRef}
         isPlaying={isPlaying}
         duration={duration}
         currentTime={currentTime}
-        questionTimes={questionTimes}
         onSeekPercent={handleProgressClick}
         volume={volume}
         onVolumeChange={handleVolumeChange}
