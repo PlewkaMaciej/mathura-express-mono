@@ -33,8 +33,11 @@ model Question {
   videoId  Int
   video    Video    @relation("VideoQuestions", fields: [videoId], references: [id])
   time     Int
-  clerkId   String
-  user    User     @relation(fields: [clerkId], references: [id])
+  userId   String
+  isPublic Boolean  @default(false)
+  userName String
+  lastName  String
+  user    User     @relation(fields: [userId], references: [id])
 }
 
 model Answer {

@@ -10,20 +10,20 @@ interface Props {
   togglePlay: () => void;
   duration: number;
   currentTime: number;
-  questions:any[];
+  questions: any[];
   onSeekPercent: (percent: number) => void;
   volume: number;
   onVolumeChange: (vol: number) => void;
+  togglePlayButton?: React.ReactNode;
 }
 
 export default function VideoControls({
   videoRef,
   videoMother,
-  isPlaying,
-  togglePlay,
+  togglePlayButton,
   duration,
   currentTime,
-  questions,   
+  questions,
   onSeekPercent,
   volume,
   onVolumeChange,
@@ -78,34 +78,7 @@ export default function VideoControls({
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <button
-          onClick={togglePlay}
-          className="text-white hover:scale-110 transition-transform p-1 focus:outline-none active:outline-none"
-        >
-          {isPlaying ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="black"
-              viewBox="0 0 24 24"
-              stroke="black"
-            >
-              <rect x="6" y="5" width="4" height="14" rx="1" />
-              <rect x="14" y="5" width="4" height="14" rx="1" />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="black"
-              viewBox="0 0 24 24"
-              stroke="black"
-            >
-              <polygon points="5,3 19,12 5,21" />
-            </svg>
-          )}
-        </button>
-
+        {togglePlayButton}
         <span className="text-black text-sm select-none">
           {Math.floor(currentTime)} / {Math.floor(duration)} s
         </span>

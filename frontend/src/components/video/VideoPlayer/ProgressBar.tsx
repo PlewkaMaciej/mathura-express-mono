@@ -5,7 +5,7 @@ interface Props {
   visible: boolean;
   duration: number;
   currentTime: number;
-  questions:any[]
+  questions: any[];
   onSeekPercent: (percent: number) => void;
 }
 
@@ -20,7 +20,7 @@ export default function ProgressBar({
   const [isDragging, setIsDragging] = useState(false);
   const [dragPercent, setDragPercent] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const timeRef = useRef<NodeJS.Timeout | null>(null);
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
@@ -55,7 +55,17 @@ export default function ProgressBar({
     setDragPercent(percent);
     setIsDragging(true);
   };
-
+  const handleMouseEnter = () => {
+    timeRef.current = setTimeout(() => {
+      console.log("Mouse entered progress bar");
+    }, 50);
+  };
+  const handleMouseLeave = () => {
+    if (timeRef.current) {
+      clearTimeout(timeRef.current);
+      timeRef.current = null;
+    }
+  };
   const displayPercent = isDragging
     ? dragPercent
     : duration > 0
@@ -67,7 +77,7 @@ export default function ProgressBar({
       ref={containerRef}
       onPointerDown={handleMouseDown}
       className={`absolute left-0 z-50 right-0 bottom-8 h-2 cursor-pointer transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0 pointer-events-none"
+        visible || timeRef ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
       <div className="w-full h-full bg-gray-700/50 rounded-full" />
@@ -77,14 +87,15 @@ export default function ProgressBar({
         style={{ width: `${displayPercent * 100}%` }}
       />
 
-
       {duration > 0 &&
         questions.map((question, i) => {
           const left = `${(question.time / duration) * 100}%`;
           return (
             <div
               key={i}
-              className="absolute top-0 w-1 h-full bg-black rounded-full pointer-events-none"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="absolute top-0 w-3 z-10 h-full bg-black rounded-full cursor-pointer"
               style={{ left: `calc(${left} - 0.5px)` }}
             />
           );

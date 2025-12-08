@@ -18,10 +18,13 @@ CREATE TABLE "Video" (
 -- CreateTable
 CREATE TABLE "Question" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "videoId" INTEGER NOT NULL,
     "time" INTEGER NOT NULL,
-    CONSTRAINT "Question_videoId_fkey" FOREIGN KEY ("videoId") REFERENCES "Video" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "userId" TEXT NOT NULL,
+    CONSTRAINT "Question_videoId_fkey" FOREIGN KEY ("videoId") REFERENCES "Video" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Question_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

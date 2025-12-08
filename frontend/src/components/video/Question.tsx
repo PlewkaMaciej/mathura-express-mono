@@ -4,15 +4,19 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "../Items/Button";
 import { useAuth } from "@clerk/nextjs";
-
 interface QuestionProps {
   time?: number;
   videoId: string;
   buttonStateProps: [string, React.Dispatch<React.SetStateAction<string>>];
+  onQuestionSubmitted?: () => void;
 }
 
-const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
-  
+const Question = ({
+  time = 0,
+  videoId,
+  buttonStateProps,
+  onQuestionSubmitted,
+}: QuestionProps) => {
   const [buttonState, setButtonState] = buttonStateProps;
   const { userId, isLoaded } = useAuth();
 
@@ -26,6 +30,7 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
         initialValues={{
           title: "",
           text: "",
+          isPublic: false,
         }}
         validationSchema={Yup.object({
           title: Yup.string()
@@ -37,7 +42,7 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
         })}
         onSubmit={async (values) => {
           if (!isLoaded || !userId) return;
-
+          console.log("Submitting question:", values, "at time:", time);
           await fetch(`/api/videos/${videoId}/questions`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -46,8 +51,13 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
               text: values.text,
               time: Math.floor(time),
               userId: userId,
+              isPublic: values.isPublic,
             }),
           });
+
+          if (onQuestionSubmitted) {
+            onQuestionSubmitted();
+          }
 
           setButtonState("");
         }}
@@ -114,6 +124,13 @@ const Question = ({ time = 0, videoId, buttonStateProps }: QuestionProps) => {
                 component="div"
                 className="text-red-500 text-sm"
               />
+            </div>
+
+            <div className="col-span-2 flex items-center gap-2">
+              <Field name="isPublic" type="checkbox" className="w-5 h-5" />
+              <label className="text-gray-700 font-medium">
+                Czy chcesz aby to pytanie było publiczne?
+              </label>
             </div>
 
             <div className="col-span-2 flex justify-end">

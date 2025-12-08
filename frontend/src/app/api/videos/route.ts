@@ -3,7 +3,7 @@ import prisma from "../../../lib/prisma";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const idParam = searchParams.get("id"); 
+  const idParam = searchParams.get("id");
 
   try {
     if (idParam) {
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         include: {
           questions: {
             include: {
-              answers: true, 
+              answers: true,
             },
           },
         },

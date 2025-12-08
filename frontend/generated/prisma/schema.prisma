@@ -26,15 +26,18 @@ model Video {
 }
 
 model Question {
-  id      Int      @id @default(autoincrement())
-  title   String
-  text    String
-  answers Answer[] @relation("QuestionAnswers")
-  videoId Int
-  video   Video    @relation("VideoQuestions", fields: [videoId], references: [id])
-  time    Int
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
+  id       Int      @id @default(autoincrement())
+  title    String
+  text     String
+  answers  Answer[] @relation("QuestionAnswers")
+  videoId  Int
+  video    Video    @relation("VideoQuestions", fields: [videoId], references: [id])
+  time     Int
+  userId   String
+  isPublic Boolean  @default(false)
+  userName String
+  lastName String
+  user     User     @relation(fields: [userId], references: [id])
 }
 
 model Answer {

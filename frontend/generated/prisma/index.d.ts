@@ -50,7 +50,7 @@ export type Answer = $Result.DefaultSelection<Prisma.$AnswerPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -82,6 +82,13 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
+
+  /**
+   * Add a middleware
+   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
+   * @see https://pris.ly/d/extensions
+   */
+  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -249,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.17.1
-   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+   * Prisma Client JS version: 6.5.0
+   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
    */
   export type PrismaVersion = {
     client: string
@@ -996,24 +1003,16 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Shorthand for `emit: 'stdout'`
+     * // Defaults to stdout
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events only
+     * // Emit as events
      * log: [
-     *   { emit: 'event', level: 'query' },
-     *   { emit: 'event', level: 'info' },
-     *   { emit: 'event', level: 'warn' }
-     *   { emit: 'event', level: 'error' }
+     *   { emit: 'stdout', level: 'query' },
+     *   { emit: 'stdout', level: 'info' },
+     *   { emit: 'stdout', level: 'warn' }
+     *   { emit: 'stdout', level: 'error' }
      * ]
-     * 
-     * / Emit as events and log to stdout
-     * og: [
-     *  { emit: 'stdout', level: 'query' },
-     *  { emit: 'stdout', level: 'info' },
-     *  { emit: 'stdout', level: 'warn' }
-     *  { emit: 'stdout', level: 'error' }
-     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1028,10 +1027,6 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
-    /**
-     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
-     */
-    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1062,15 +1057,10 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
-
-  export type GetLogType<T> = CheckIsLogLevel<
-    T extends LogDefinition ? T['level'] : T
-  >;
-
-  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
-    ? GetLogType<T[number]>
-    : never;
+  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
+  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
+    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
+    : never
 
   export type QueryEvent = {
     timestamp: Date
@@ -1110,6 +1100,25 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
+
+  /**
+   * These options are being passed into the middleware as "params"
+   */
+  export type MiddlewareParams = {
+    model?: ModelName
+    action: PrismaAction
+    args: any
+    dataPath: string[]
+    runInTransaction: boolean
+  }
+
+  /**
+   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
+   */
+  export type Middleware<T = any> = (
+    params: MiddlewareParams,
+    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
+  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -1882,7 +1891,7 @@ export namespace Prisma {
 
   /**
    * Fields of the User model
-   */
+   */ 
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly clerkId: FieldRef<"User", 'String'>
@@ -2950,7 +2959,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Video model
-   */
+   */ 
   interface VideoFieldRefs {
     readonly id: FieldRef<"Video", 'Int'>
     readonly url: FieldRef<"Video", 'String'>
@@ -3412,7 +3421,10 @@ export namespace Prisma {
     text: string | null
     videoId: number | null
     time: number | null
-    clerkId: string | null
+    userId: string | null
+    isPublic: boolean | null
+    userName: string | null
+    lastName: string | null
   }
 
   export type QuestionMaxAggregateOutputType = {
@@ -3421,7 +3433,10 @@ export namespace Prisma {
     text: string | null
     videoId: number | null
     time: number | null
-    clerkId: string | null
+    userId: string | null
+    isPublic: boolean | null
+    userName: string | null
+    lastName: string | null
   }
 
   export type QuestionCountAggregateOutputType = {
@@ -3430,7 +3445,10 @@ export namespace Prisma {
     text: number
     videoId: number
     time: number
-    clerkId: number
+    userId: number
+    isPublic: number
+    userName: number
+    lastName: number
     _all: number
   }
 
@@ -3453,7 +3471,10 @@ export namespace Prisma {
     text?: true
     videoId?: true
     time?: true
-    clerkId?: true
+    userId?: true
+    isPublic?: true
+    userName?: true
+    lastName?: true
   }
 
   export type QuestionMaxAggregateInputType = {
@@ -3462,7 +3483,10 @@ export namespace Prisma {
     text?: true
     videoId?: true
     time?: true
-    clerkId?: true
+    userId?: true
+    isPublic?: true
+    userName?: true
+    lastName?: true
   }
 
   export type QuestionCountAggregateInputType = {
@@ -3471,7 +3495,10 @@ export namespace Prisma {
     text?: true
     videoId?: true
     time?: true
-    clerkId?: true
+    userId?: true
+    isPublic?: true
+    userName?: true
+    lastName?: true
     _all?: true
   }
 
@@ -3567,7 +3594,10 @@ export namespace Prisma {
     text: string
     videoId: number
     time: number
-    clerkId: string
+    userId: string
+    isPublic: boolean
+    userName: string
+    lastName: string
     _count: QuestionCountAggregateOutputType | null
     _avg: QuestionAvgAggregateOutputType | null
     _sum: QuestionSumAggregateOutputType | null
@@ -3595,7 +3625,10 @@ export namespace Prisma {
     text?: boolean
     videoId?: boolean
     time?: boolean
-    clerkId?: boolean
+    userId?: boolean
+    isPublic?: boolean
+    userName?: boolean
+    lastName?: boolean
     answers?: boolean | Question$answersArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3608,7 +3641,10 @@ export namespace Prisma {
     text?: boolean
     videoId?: boolean
     time?: boolean
-    clerkId?: boolean
+    userId?: boolean
+    isPublic?: boolean
+    userName?: boolean
+    lastName?: boolean
     video?: boolean | VideoDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
@@ -3619,7 +3655,10 @@ export namespace Prisma {
     text?: boolean
     videoId?: boolean
     time?: boolean
-    clerkId?: boolean
+    userId?: boolean
+    isPublic?: boolean
+    userName?: boolean
+    lastName?: boolean
     video?: boolean | VideoDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
@@ -3630,10 +3669,13 @@ export namespace Prisma {
     text?: boolean
     videoId?: boolean
     time?: boolean
-    clerkId?: boolean
+    userId?: boolean
+    isPublic?: boolean
+    userName?: boolean
+    lastName?: boolean
   }
 
-  export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "text" | "videoId" | "time" | "clerkId", ExtArgs["result"]["question"]>
+  export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "text" | "videoId" | "time" | "userId" | "isPublic" | "userName" | "lastName", ExtArgs["result"]["question"]>
   export type QuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     answers?: boolean | Question$answersArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
@@ -3662,7 +3704,10 @@ export namespace Prisma {
       text: string
       videoId: number
       time: number
-      clerkId: string
+      userId: string
+      isPublic: boolean
+      userName: string
+      lastName: string
     }, ExtArgs["result"]["question"]>
     composites: {}
   }
@@ -4087,14 +4132,17 @@ export namespace Prisma {
 
   /**
    * Fields of the Question model
-   */
+   */ 
   interface QuestionFieldRefs {
     readonly id: FieldRef<"Question", 'Int'>
     readonly title: FieldRef<"Question", 'String'>
     readonly text: FieldRef<"Question", 'String'>
     readonly videoId: FieldRef<"Question", 'Int'>
     readonly time: FieldRef<"Question", 'Int'>
-    readonly clerkId: FieldRef<"Question", 'String'>
+    readonly userId: FieldRef<"Question", 'String'>
+    readonly isPublic: FieldRef<"Question", 'Boolean'>
+    readonly userName: FieldRef<"Question", 'String'>
+    readonly lastName: FieldRef<"Question", 'String'>
   }
     
 
@@ -5182,7 +5230,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Answer model
-   */
+   */ 
   interface AnswerFieldRefs {
     readonly id: FieldRef<"Answer", 'Int'>
     readonly text: FieldRef<"Answer", 'String'>
@@ -5637,7 +5685,10 @@ export namespace Prisma {
     text: 'text',
     videoId: 'videoId',
     time: 'time',
-    clerkId: 'clerkId'
+    userId: 'userId',
+    isPublic: 'isPublic',
+    userName: 'userName',
+    lastName: 'lastName'
   };
 
   export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
@@ -5669,7 +5720,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references
+   * Field references 
    */
 
 
@@ -5691,6 +5742,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -5820,7 +5878,10 @@ export namespace Prisma {
     text?: StringFilter<"Question"> | string
     videoId?: IntFilter<"Question"> | number
     time?: IntFilter<"Question"> | number
-    clerkId?: StringFilter<"Question"> | string
+    userId?: StringFilter<"Question"> | string
+    isPublic?: BoolFilter<"Question"> | boolean
+    userName?: StringFilter<"Question"> | string
+    lastName?: StringFilter<"Question"> | string
     answers?: AnswerListRelationFilter
     video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5832,7 +5893,10 @@ export namespace Prisma {
     text?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
-    clerkId?: SortOrder
+    userId?: SortOrder
+    isPublic?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
     answers?: AnswerOrderByRelationAggregateInput
     video?: VideoOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
@@ -5847,7 +5911,10 @@ export namespace Prisma {
     text?: StringFilter<"Question"> | string
     videoId?: IntFilter<"Question"> | number
     time?: IntFilter<"Question"> | number
-    clerkId?: StringFilter<"Question"> | string
+    userId?: StringFilter<"Question"> | string
+    isPublic?: BoolFilter<"Question"> | boolean
+    userName?: StringFilter<"Question"> | string
+    lastName?: StringFilter<"Question"> | string
     answers?: AnswerListRelationFilter
     video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5859,7 +5926,10 @@ export namespace Prisma {
     text?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
-    clerkId?: SortOrder
+    userId?: SortOrder
+    isPublic?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
     _count?: QuestionCountOrderByAggregateInput
     _avg?: QuestionAvgOrderByAggregateInput
     _max?: QuestionMaxOrderByAggregateInput
@@ -5876,7 +5946,10 @@ export namespace Prisma {
     text?: StringWithAggregatesFilter<"Question"> | string
     videoId?: IntWithAggregatesFilter<"Question"> | number
     time?: IntWithAggregatesFilter<"Question"> | number
-    clerkId?: StringWithAggregatesFilter<"Question"> | string
+    userId?: StringWithAggregatesFilter<"Question"> | string
+    isPublic?: BoolWithAggregatesFilter<"Question"> | boolean
+    userName?: StringWithAggregatesFilter<"Question"> | string
+    lastName?: StringWithAggregatesFilter<"Question"> | string
   }
 
   export type AnswerWhereInput = {
@@ -6040,6 +6113,9 @@ export namespace Prisma {
     title: string
     text: string
     time: number
+    isPublic?: boolean
+    userName: string
+    lastName: string
     answers?: AnswerCreateNestedManyWithoutQuestionInput
     video: VideoCreateNestedOneWithoutQuestionsInput
     user: UserCreateNestedOneWithoutQuestionsInput
@@ -6051,7 +6127,10 @@ export namespace Prisma {
     text: string
     videoId: number
     time: number
-    clerkId: string
+    userId: string
+    isPublic?: boolean
+    userName: string
+    lastName: string
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
   }
 
@@ -6059,6 +6138,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUpdateManyWithoutQuestionNestedInput
     video?: VideoUpdateOneRequiredWithoutQuestionsNestedInput
     user?: UserUpdateOneRequiredWithoutQuestionsNestedInput
@@ -6070,7 +6152,10 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     videoId?: IntFieldUpdateOperationsInput | number
     time?: IntFieldUpdateOperationsInput | number
-    clerkId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
@@ -6080,13 +6165,19 @@ export namespace Prisma {
     text: string
     videoId: number
     time: number
-    clerkId: string
+    userId: string
+    isPublic?: boolean
+    userName: string
+    lastName: string
   }
 
   export type QuestionUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuestionUncheckedUpdateManyInput = {
@@ -6095,7 +6186,10 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     videoId?: IntFieldUpdateOperationsInput | number
     time?: IntFieldUpdateOperationsInput | number
-    clerkId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnswerCreateInput = {
@@ -6318,6 +6412,11 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type AnswerListRelationFilter = {
     every?: AnswerWhereInput
     some?: AnswerWhereInput
@@ -6344,7 +6443,10 @@ export namespace Prisma {
     text?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
-    clerkId?: SortOrder
+    userId?: SortOrder
+    isPublic?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
   }
 
   export type QuestionAvgOrderByAggregateInput = {
@@ -6359,7 +6461,10 @@ export namespace Prisma {
     text?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
-    clerkId?: SortOrder
+    userId?: SortOrder
+    isPublic?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
   }
 
   export type QuestionMinOrderByAggregateInput = {
@@ -6368,13 +6473,24 @@ export namespace Prisma {
     text?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
-    clerkId?: SortOrder
+    userId?: SortOrder
+    isPublic?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
   }
 
   export type QuestionSumOrderByAggregateInput = {
     id?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type QuestionScalarRelationFilter = {
@@ -6538,6 +6654,10 @@ export namespace Prisma {
     connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
     createMany?: AnswerCreateManyQuestionInputEnvelope
     connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type AnswerUpdateManyWithoutQuestionNestedInput = {
@@ -6734,10 +6854,26 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type QuestionCreateWithoutUserInput = {
     title: string
     text: string
     time: number
+    isPublic?: boolean
+    userName: string
+    lastName: string
     answers?: AnswerCreateNestedManyWithoutQuestionInput
     video: VideoCreateNestedOneWithoutQuestionsInput
   }
@@ -6748,6 +6884,9 @@ export namespace Prisma {
     text: string
     videoId: number
     time: number
+    isPublic?: boolean
+    userName: string
+    lastName: string
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
   }
 
@@ -6785,13 +6924,19 @@ export namespace Prisma {
     text?: StringFilter<"Question"> | string
     videoId?: IntFilter<"Question"> | number
     time?: IntFilter<"Question"> | number
-    clerkId?: StringFilter<"Question"> | string
+    userId?: StringFilter<"Question"> | string
+    isPublic?: BoolFilter<"Question"> | boolean
+    userName?: StringFilter<"Question"> | string
+    lastName?: StringFilter<"Question"> | string
   }
 
   export type QuestionCreateWithoutVideoInput = {
     title: string
     text: string
     time: number
+    isPublic?: boolean
+    userName: string
+    lastName: string
     answers?: AnswerCreateNestedManyWithoutQuestionInput
     user: UserCreateNestedOneWithoutQuestionsInput
   }
@@ -6801,7 +6946,10 @@ export namespace Prisma {
     title: string
     text: string
     time: number
-    clerkId: string
+    userId: string
+    isPublic?: boolean
+    userName: string
+    lastName: string
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
   }
 
@@ -6967,6 +7115,9 @@ export namespace Prisma {
     title: string
     text: string
     time: number
+    isPublic?: boolean
+    userName: string
+    lastName: string
     video: VideoCreateNestedOneWithoutQuestionsInput
     user: UserCreateNestedOneWithoutQuestionsInput
   }
@@ -6977,7 +7128,10 @@ export namespace Prisma {
     text: string
     videoId: number
     time: number
-    clerkId: string
+    userId: string
+    isPublic?: boolean
+    userName: string
+    lastName: string
   }
 
   export type QuestionCreateOrConnectWithoutAnswersInput = {
@@ -7000,6 +7154,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     video?: VideoUpdateOneRequiredWithoutQuestionsNestedInput
     user?: UserUpdateOneRequiredWithoutQuestionsNestedInput
   }
@@ -7010,7 +7167,10 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     videoId?: IntFieldUpdateOperationsInput | number
     time?: IntFieldUpdateOperationsInput | number
-    clerkId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuestionCreateManyUserInput = {
@@ -7019,12 +7179,18 @@ export namespace Prisma {
     text: string
     videoId: number
     time: number
+    isPublic?: boolean
+    userName: string
+    lastName: string
   }
 
   export type QuestionUpdateWithoutUserInput = {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUpdateManyWithoutQuestionNestedInput
     video?: VideoUpdateOneRequiredWithoutQuestionsNestedInput
   }
@@ -7035,6 +7201,9 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     videoId?: IntFieldUpdateOperationsInput | number
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
@@ -7044,6 +7213,9 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     videoId?: IntFieldUpdateOperationsInput | number
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuestionCreateManyVideoInput = {
@@ -7051,13 +7223,19 @@ export namespace Prisma {
     title: string
     text: string
     time: number
-    clerkId: string
+    userId: string
+    isPublic?: boolean
+    userName: string
+    lastName: string
   }
 
   export type QuestionUpdateWithoutVideoInput = {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUpdateManyWithoutQuestionNestedInput
     user?: UserUpdateOneRequiredWithoutQuestionsNestedInput
   }
@@ -7067,7 +7245,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
-    clerkId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
@@ -7076,7 +7257,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     time?: IntFieldUpdateOperationsInput | number
-    clerkId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnswerCreateManyQuestionInput = {

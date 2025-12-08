@@ -20,22 +20,24 @@ export default function Video() {
 
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const fetchVideo = async () => {
-      try {
-        const res = await fetch(`/api/videos?id=${searchParams.get("id")}`);
-        const data = await res.json();
-        setVideo(data);
-      } catch (err) {
-        console.error("Błąd przy pobieraniu wideo:", err);
-      }
-    };
+  const fetchVideo = async () => {
+    try {
+      const res = await fetch(`/api/videos?id=${searchParams.get("id")}`);
+      const data = await res.json();
+      setVideo(data);
+    } catch (err) {
+      console.error("Błąd przy pobieraniu wideo:", err);
+    }
+  };
 
+  useEffect(() => {
     fetchVideo();
   }, [searchParams]);
 
   const OpenQuestion = () => {
-    setButtonStatus((prev) => (prev === "questionPanel" ? "" : "questionPanel"));
+    setButtonStatus((prev) =>
+      prev === "questionPanel" ? "" : "questionPanel"
+    );
   };
 
   return (
@@ -72,6 +74,7 @@ export default function Video() {
               buttonStateProps={[buttonStatus, setButtonStatus]}
               time={currentTime}
               videoId={searchParams.get("id") ?? ""}
+              onQuestionSubmitted={fetchVideo}
             />
           </div>
         </div>

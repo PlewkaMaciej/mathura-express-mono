@@ -93,6 +93,35 @@ export default function VideoPlayer({ video, onTimeUpdate }: Props) {
       </video>
 
       <VideoControls
+        togglePlayButton={
+          <button
+            onClick={togglePlay}
+            className="text-white hover:scale-110 transition-transform p-1 focus:outline-none active:outline-none"
+          >
+            {isPlaying ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="black"
+                viewBox="0 0 24 24"
+                stroke="black"
+              >
+                <rect x="6" y="5" width="4" height="14" rx="1" />
+                <rect x="14" y="5" width="4" height="14" rx="1" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="black"
+                viewBox="0 0 24 24"
+                stroke="black"
+              >
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            )}
+          </button>
+        }
         questions={video.questions}
         togglePlay={togglePlay}
         videoRef={videoRef}
