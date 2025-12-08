@@ -9,13 +9,14 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  clerkId    String   @unique
-  firstName  String?
-  lastName   String?
-  email      String   @unique
-  createDate DateTime @default(now())
-  updateDate DateTime @updatedAt
+  id          String       @id @default(cuid())
+  clerkId     String       @unique
+  firstName   String?
+  lastName    String?
+  email       String       @unique
+  createDate  DateTime     @default(now())
+  updateDate  DateTime     @updatedAt
+  userMaturas UserMatura[]
 }
 
 model Alltasks {
@@ -47,10 +48,11 @@ model OpenTasks {
   id           String     @id @default(cuid())
   name         String
   content      String
-  answer       Int
+  answer       String
   subSectionId String
   subSection   SubSection @relation(fields: [subSectionId], references: [id])
   openTaskId   String?
+  maturas      Matura[]
 }
 
 model ClosedTasks {
@@ -61,6 +63,7 @@ model ClosedTasks {
   correctAnswer String
   subSectionId  String
   subSection    SubSection @relation(fields: [subSectionId], references: [id])
+  maturas       Matura[]
 }
 
 model Answers {
@@ -71,4 +74,23 @@ model Answers {
   D            String
   closedTaskId String
   closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id])
+}
+
+model Matura {
+  id          String        @id @default(cuid())
+  name        String
+  createdAt   DateTime      @default(now())
+  status      Boolean       @default(false)
+  closedTasks ClosedTasks[]
+  openTasks   OpenTasks[]
+  userMaturas UserMatura[]
+}
+
+model UserMatura {
+  id        String   @id @default(cuid())
+  userId    String
+  maturaId  String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  matura    Matura   @relation(fields: [maturaId], references: [id])
 }

@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.18.0
- * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
+ * Prisma Client JS version: 6.17.1
+ * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
  */
 Prisma.prismaVersion = {
-  client: "6.18.0",
-  engine: "34b5a692b7bd79939a9a2c3ef97d816e749cda2f"
+  client: "6.17.1",
+  engine: "272a37d34178c2894197e17273bf937f25acdeac"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -172,6 +172,20 @@ exports.Prisma.AnswersScalarFieldEnum = {
   closedTaskId: 'closedTaskId'
 };
 
+exports.Prisma.MaturaScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  status: 'status'
+};
+
+exports.Prisma.UserMaturaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  maturaId: 'maturaId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -190,7 +204,9 @@ exports.Prisma.ModelName = {
   SubSection: 'SubSection',
   OpenTasks: 'OpenTasks',
   ClosedTasks: 'ClosedTasks',
-  Answers: 'Answers'
+  Answers: 'Answers',
+  Matura: 'Matura',
+  UserMatura: 'UserMatura'
 };
 
 /**

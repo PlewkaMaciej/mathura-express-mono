@@ -21,7 +21,7 @@ export async function POST(req: Request) {
         data: {
           name,
           content,
-          answer: Number(openAnswer),
+          answer: String(openAnswer),
           subSectionId,
         },
       });

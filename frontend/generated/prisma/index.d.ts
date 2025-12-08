@@ -48,6 +48,16 @@ export type ClosedTasks = $Result.DefaultSelection<Prisma.$ClosedTasksPayload>
  * 
  */
 export type Answers = $Result.DefaultSelection<Prisma.$AnswersPayload>
+/**
+ * Model Matura
+ * 
+ */
+export type Matura = $Result.DefaultSelection<Prisma.$MaturaPayload>
+/**
+ * Model UserMatura
+ * 
+ */
+export type UserMatura = $Result.DefaultSelection<Prisma.$UserMaturaPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -236,6 +246,26 @@ export class PrismaClient<
     * ```
     */
   get answers(): Prisma.AnswersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.matura`: Exposes CRUD operations for the **Matura** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Maturas
+    * const maturas = await prisma.matura.findMany()
+    * ```
+    */
+  get matura(): Prisma.MaturaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userMatura`: Exposes CRUD operations for the **UserMatura** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserMaturas
+    * const userMaturas = await prisma.userMatura.findMany()
+    * ```
+    */
+  get userMatura(): Prisma.UserMaturaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -294,8 +324,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.18.0
-   * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
+   * Prisma Client JS version: 6.17.1
+   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
    */
   export type PrismaVersion = {
     client: string
@@ -308,7 +338,6 @@ export namespace Prisma {
    */
 
 
-  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -683,7 +712,9 @@ export namespace Prisma {
     SubSection: 'SubSection',
     OpenTasks: 'OpenTasks',
     ClosedTasks: 'ClosedTasks',
-    Answers: 'Answers'
+    Answers: 'Answers',
+    Matura: 'Matura',
+    UserMatura: 'UserMatura'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -702,7 +733,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "alltasks" | "section" | "subSection" | "openTasks" | "closedTasks" | "answers"
+      modelProps: "user" | "alltasks" | "section" | "subSection" | "openTasks" | "closedTasks" | "answers" | "matura" | "userMatura"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1224,6 +1255,154 @@ export namespace Prisma {
           }
         }
       }
+      Matura: {
+        payload: Prisma.$MaturaPayload<ExtArgs>
+        fields: Prisma.MaturaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaturaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaturaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          findFirst: {
+            args: Prisma.MaturaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaturaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          findMany: {
+            args: Prisma.MaturaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>[]
+          }
+          create: {
+            args: Prisma.MaturaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          createMany: {
+            args: Prisma.MaturaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaturaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>[]
+          }
+          delete: {
+            args: Prisma.MaturaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          update: {
+            args: Prisma.MaturaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaturaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaturaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaturaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaturaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaturaPayload>
+          }
+          aggregate: {
+            args: Prisma.MaturaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMatura>
+          }
+          groupBy: {
+            args: Prisma.MaturaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaturaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaturaCountArgs<ExtArgs>
+            result: $Utils.Optional<MaturaCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserMatura: {
+        payload: Prisma.$UserMaturaPayload<ExtArgs>
+        fields: Prisma.UserMaturaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserMaturaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserMaturaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
+          }
+          findFirst: {
+            args: Prisma.UserMaturaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserMaturaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
+          }
+          findMany: {
+            args: Prisma.UserMaturaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>[]
+          }
+          create: {
+            args: Prisma.UserMaturaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
+          }
+          createMany: {
+            args: Prisma.UserMaturaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserMaturaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>[]
+          }
+          delete: {
+            args: Prisma.UserMaturaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
+          }
+          update: {
+            args: Prisma.UserMaturaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserMaturaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserMaturaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserMaturaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserMaturaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMaturaPayload>
+          }
+          aggregate: {
+            args: Prisma.UserMaturaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserMatura>
+          }
+          groupBy: {
+            args: Prisma.UserMaturaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserMaturaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserMaturaCountArgs<ExtArgs>
+            result: $Utils.Optional<UserMaturaCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1327,6 +1506,8 @@ export namespace Prisma {
     openTasks?: OpenTasksOmit
     closedTasks?: ClosedTasksOmit
     answers?: AnswersOmit
+    matura?: MaturaOmit
+    userMatura?: UserMaturaOmit
   }
 
   /* Types for Logging */
@@ -1400,6 +1581,37 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    userMaturas: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMaturas?: boolean | UserCountOutputTypeCountUserMaturasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMaturaWhereInput
+  }
 
 
   /**
@@ -1505,15 +1717,48 @@ export namespace Prisma {
 
 
   /**
+   * Count Type OpenTasksCountOutputType
+   */
+
+  export type OpenTasksCountOutputType = {
+    maturas: number
+  }
+
+  export type OpenTasksCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maturas?: boolean | OpenTasksCountOutputTypeCountMaturasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OpenTasksCountOutputType without action
+   */
+  export type OpenTasksCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpenTasksCountOutputType
+     */
+    select?: OpenTasksCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OpenTasksCountOutputType without action
+   */
+  export type OpenTasksCountOutputTypeCountMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaturaWhereInput
+  }
+
+
+  /**
    * Count Type ClosedTasksCountOutputType
    */
 
   export type ClosedTasksCountOutputType = {
     answers: number
+    maturas: number
   }
 
   export type ClosedTasksCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     answers?: boolean | ClosedTasksCountOutputTypeCountAnswersArgs
+    maturas?: boolean | ClosedTasksCountOutputTypeCountMaturasArgs
   }
 
   // Custom InputTypes
@@ -1532,6 +1777,62 @@ export namespace Prisma {
    */
   export type ClosedTasksCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnswersWhereInput
+  }
+
+  /**
+   * ClosedTasksCountOutputType without action
+   */
+  export type ClosedTasksCountOutputTypeCountMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaturaWhereInput
+  }
+
+
+  /**
+   * Count Type MaturaCountOutputType
+   */
+
+  export type MaturaCountOutputType = {
+    closedTasks: number
+    openTasks: number
+    userMaturas: number
+  }
+
+  export type MaturaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    closedTasks?: boolean | MaturaCountOutputTypeCountClosedTasksArgs
+    openTasks?: boolean | MaturaCountOutputTypeCountOpenTasksArgs
+    userMaturas?: boolean | MaturaCountOutputTypeCountUserMaturasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MaturaCountOutputType without action
+   */
+  export type MaturaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaturaCountOutputType
+     */
+    select?: MaturaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MaturaCountOutputType without action
+   */
+  export type MaturaCountOutputTypeCountClosedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClosedTasksWhereInput
+  }
+
+  /**
+   * MaturaCountOutputType without action
+   */
+  export type MaturaCountOutputTypeCountOpenTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpenTasksWhereInput
+  }
+
+  /**
+   * MaturaCountOutputType without action
+   */
+  export type MaturaCountOutputTypeCountUserMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMaturaWhereInput
   }
 
 
@@ -1719,6 +2020,8 @@ export namespace Prisma {
     email?: boolean
     createDate?: boolean
     updateDate?: boolean
+    userMaturas?: boolean | User$userMaturasArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1752,10 +2055,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMaturas?: boolean | User$userMaturasArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      userMaturas: Prisma.$UserMaturaPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       clerkId: string
@@ -2158,6 +2469,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    userMaturas<T extends User$userMaturasArgs<ExtArgs> = {}>(args?: Subset<T, User$userMaturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2211,6 +2523,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2229,6 +2545,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2246,6 +2566,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2295,6 +2619,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -2343,6 +2671,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -2385,6 +2717,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -2431,6 +2767,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -2498,6 +2838,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2524,6 +2868,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2544,6 +2892,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.userMaturas
+   */
+  export type User$userMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    where?: UserMaturaWhereInput
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    cursor?: UserMaturaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2555,6 +2927,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -5805,25 +6181,15 @@ export namespace Prisma {
 
   export type AggregateOpenTasks = {
     _count: OpenTasksCountAggregateOutputType | null
-    _avg: OpenTasksAvgAggregateOutputType | null
-    _sum: OpenTasksSumAggregateOutputType | null
     _min: OpenTasksMinAggregateOutputType | null
     _max: OpenTasksMaxAggregateOutputType | null
-  }
-
-  export type OpenTasksAvgAggregateOutputType = {
-    answer: number | null
-  }
-
-  export type OpenTasksSumAggregateOutputType = {
-    answer: number | null
   }
 
   export type OpenTasksMinAggregateOutputType = {
     id: string | null
     name: string | null
     content: string | null
-    answer: number | null
+    answer: string | null
     subSectionId: string | null
     openTaskId: string | null
   }
@@ -5832,7 +6198,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     content: string | null
-    answer: number | null
+    answer: string | null
     subSectionId: string | null
     openTaskId: string | null
   }
@@ -5847,14 +6213,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type OpenTasksAvgAggregateInputType = {
-    answer?: true
-  }
-
-  export type OpenTasksSumAggregateInputType = {
-    answer?: true
-  }
 
   export type OpenTasksMinAggregateInputType = {
     id?: true
@@ -5922,18 +6280,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: OpenTasksAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: OpenTasksSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: OpenTasksMinAggregateInputType
@@ -5964,8 +6310,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: OpenTasksCountAggregateInputType | true
-    _avg?: OpenTasksAvgAggregateInputType
-    _sum?: OpenTasksSumAggregateInputType
     _min?: OpenTasksMinAggregateInputType
     _max?: OpenTasksMaxAggregateInputType
   }
@@ -5974,12 +6318,10 @@ export namespace Prisma {
     id: string
     name: string
     content: string
-    answer: number
+    answer: string
     subSectionId: string
     openTaskId: string | null
     _count: OpenTasksCountAggregateOutputType | null
-    _avg: OpenTasksAvgAggregateOutputType | null
-    _sum: OpenTasksSumAggregateOutputType | null
     _min: OpenTasksMinAggregateOutputType | null
     _max: OpenTasksMaxAggregateOutputType | null
   }
@@ -6006,6 +6348,8 @@ export namespace Prisma {
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
+    maturas?: boolean | OpenTasks$maturasArgs<ExtArgs>
+    _count?: boolean | OpenTasksCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["openTasks"]>
 
   export type OpenTasksSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6040,6 +6384,8 @@ export namespace Prisma {
   export type OpenTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "answer" | "subSectionId" | "openTaskId", ExtArgs["result"]["openTasks"]>
   export type OpenTasksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
+    maturas?: boolean | OpenTasks$maturasArgs<ExtArgs>
+    _count?: boolean | OpenTasksCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OpenTasksIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
@@ -6052,12 +6398,13 @@ export namespace Prisma {
     name: "OpenTasks"
     objects: {
       subSection: Prisma.$SubSectionPayload<ExtArgs>
+      maturas: Prisma.$MaturaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       content: string
-      answer: number
+      answer: string
       subSectionId: string
       openTaskId: string | null
     }, ExtArgs["result"]["openTasks"]>
@@ -6455,6 +6802,7 @@ export namespace Prisma {
   export interface Prisma__OpenTasksClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     subSection<T extends SubSectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubSectionDefaultArgs<ExtArgs>>): Prisma__SubSectionClient<$Result.GetResult<Prisma.$SubSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maturas<T extends OpenTasks$maturasArgs<ExtArgs> = {}>(args?: Subset<T, OpenTasks$maturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6487,7 +6835,7 @@ export namespace Prisma {
     readonly id: FieldRef<"OpenTasks", 'String'>
     readonly name: FieldRef<"OpenTasks", 'String'>
     readonly content: FieldRef<"OpenTasks", 'String'>
-    readonly answer: FieldRef<"OpenTasks", 'Int'>
+    readonly answer: FieldRef<"OpenTasks", 'String'>
     readonly subSectionId: FieldRef<"OpenTasks", 'String'>
     readonly openTaskId: FieldRef<"OpenTasks", 'String'>
   }
@@ -6884,6 +7232,30 @@ export namespace Prisma {
   }
 
   /**
+   * OpenTasks.maturas
+   */
+  export type OpenTasks$maturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    where?: MaturaWhereInput
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    cursor?: MaturaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
    * OpenTasks without action
    */
   export type OpenTasksDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7068,6 +7440,7 @@ export namespace Prisma {
     subSectionId?: boolean
     answers?: boolean | ClosedTasks$answersArgs<ExtArgs>
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
+    maturas?: boolean | ClosedTasks$maturasArgs<ExtArgs>
     _count?: boolean | ClosedTasksCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["closedTasks"]>
 
@@ -7101,6 +7474,7 @@ export namespace Prisma {
   export type ClosedTasksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     answers?: boolean | ClosedTasks$answersArgs<ExtArgs>
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
+    maturas?: boolean | ClosedTasks$maturasArgs<ExtArgs>
     _count?: boolean | ClosedTasksCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClosedTasksIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7115,6 +7489,7 @@ export namespace Prisma {
     objects: {
       answers: Prisma.$AnswersPayload<ExtArgs>[]
       subSection: Prisma.$SubSectionPayload<ExtArgs>
+      maturas: Prisma.$MaturaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7518,6 +7893,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     answers<T extends ClosedTasks$answersArgs<ExtArgs> = {}>(args?: Subset<T, ClosedTasks$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subSection<T extends SubSectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubSectionDefaultArgs<ExtArgs>>): Prisma__SubSectionClient<$Result.GetResult<Prisma.$SubSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maturas<T extends ClosedTasks$maturasArgs<ExtArgs> = {}>(args?: Subset<T, ClosedTasks$maturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7967,6 +8343,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AnswersScalarFieldEnum | AnswersScalarFieldEnum[]
+  }
+
+  /**
+   * ClosedTasks.maturas
+   */
+  export type ClosedTasks$maturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    where?: MaturaWhereInput
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    cursor?: MaturaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
   }
 
   /**
@@ -9058,6 +9458,2168 @@ export namespace Prisma {
 
 
   /**
+   * Model Matura
+   */
+
+  export type AggregateMatura = {
+    _count: MaturaCountAggregateOutputType | null
+    _min: MaturaMinAggregateOutputType | null
+    _max: MaturaMaxAggregateOutputType | null
+  }
+
+  export type MaturaMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    status: boolean | null
+  }
+
+  export type MaturaMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    status: boolean | null
+  }
+
+  export type MaturaCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    status: number
+    _all: number
+  }
+
+
+  export type MaturaMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    status?: true
+  }
+
+  export type MaturaMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    status?: true
+  }
+
+  export type MaturaCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    status?: true
+    _all?: true
+  }
+
+  export type MaturaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Matura to aggregate.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Maturas
+    **/
+    _count?: true | MaturaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaturaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaturaMaxAggregateInputType
+  }
+
+  export type GetMaturaAggregateType<T extends MaturaAggregateArgs> = {
+        [P in keyof T & keyof AggregateMatura]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMatura[P]>
+      : GetScalarType<T[P], AggregateMatura[P]>
+  }
+
+
+
+
+  export type MaturaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaturaWhereInput
+    orderBy?: MaturaOrderByWithAggregationInput | MaturaOrderByWithAggregationInput[]
+    by: MaturaScalarFieldEnum[] | MaturaScalarFieldEnum
+    having?: MaturaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaturaCountAggregateInputType | true
+    _min?: MaturaMinAggregateInputType
+    _max?: MaturaMaxAggregateInputType
+  }
+
+  export type MaturaGroupByOutputType = {
+    id: string
+    name: string
+    createdAt: Date
+    status: boolean
+    _count: MaturaCountAggregateOutputType | null
+    _min: MaturaMinAggregateOutputType | null
+    _max: MaturaMaxAggregateOutputType | null
+  }
+
+  type GetMaturaGroupByPayload<T extends MaturaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaturaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaturaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaturaGroupByOutputType[P]>
+            : GetScalarType<T[P], MaturaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaturaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    status?: boolean
+    closedTasks?: boolean | Matura$closedTasksArgs<ExtArgs>
+    openTasks?: boolean | Matura$openTasksArgs<ExtArgs>
+    userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
+    _count?: boolean | MaturaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["matura"]>
+
+  export type MaturaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["matura"]>
+
+  export type MaturaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["matura"]>
+
+  export type MaturaSelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    status?: boolean
+  }
+
+  export type MaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "status", ExtArgs["result"]["matura"]>
+  export type MaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    closedTasks?: boolean | Matura$closedTasksArgs<ExtArgs>
+    openTasks?: boolean | Matura$openTasksArgs<ExtArgs>
+    userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
+    _count?: boolean | MaturaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MaturaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MaturaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $MaturaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Matura"
+    objects: {
+      closedTasks: Prisma.$ClosedTasksPayload<ExtArgs>[]
+      openTasks: Prisma.$OpenTasksPayload<ExtArgs>[]
+      userMaturas: Prisma.$UserMaturaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      createdAt: Date
+      status: boolean
+    }, ExtArgs["result"]["matura"]>
+    composites: {}
+  }
+
+  type MaturaGetPayload<S extends boolean | null | undefined | MaturaDefaultArgs> = $Result.GetResult<Prisma.$MaturaPayload, S>
+
+  type MaturaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaturaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaturaCountAggregateInputType | true
+    }
+
+  export interface MaturaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Matura'], meta: { name: 'Matura' } }
+    /**
+     * Find zero or one Matura that matches the filter.
+     * @param {MaturaFindUniqueArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaturaFindUniqueArgs>(args: SelectSubset<T, MaturaFindUniqueArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Matura that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaturaFindUniqueOrThrowArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaturaFindUniqueOrThrowArgs>(args: SelectSubset<T, MaturaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Matura that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaFindFirstArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaturaFindFirstArgs>(args?: SelectSubset<T, MaturaFindFirstArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Matura that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaFindFirstOrThrowArgs} args - Arguments to find a Matura
+     * @example
+     * // Get one Matura
+     * const matura = await prisma.matura.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaturaFindFirstOrThrowArgs>(args?: SelectSubset<T, MaturaFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Maturas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Maturas
+     * const maturas = await prisma.matura.findMany()
+     * 
+     * // Get first 10 Maturas
+     * const maturas = await prisma.matura.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maturaWithIdOnly = await prisma.matura.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaturaFindManyArgs>(args?: SelectSubset<T, MaturaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Matura.
+     * @param {MaturaCreateArgs} args - Arguments to create a Matura.
+     * @example
+     * // Create one Matura
+     * const Matura = await prisma.matura.create({
+     *   data: {
+     *     // ... data to create a Matura
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaturaCreateArgs>(args: SelectSubset<T, MaturaCreateArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Maturas.
+     * @param {MaturaCreateManyArgs} args - Arguments to create many Maturas.
+     * @example
+     * // Create many Maturas
+     * const matura = await prisma.matura.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaturaCreateManyArgs>(args?: SelectSubset<T, MaturaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Maturas and returns the data saved in the database.
+     * @param {MaturaCreateManyAndReturnArgs} args - Arguments to create many Maturas.
+     * @example
+     * // Create many Maturas
+     * const matura = await prisma.matura.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Maturas and only return the `id`
+     * const maturaWithIdOnly = await prisma.matura.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaturaCreateManyAndReturnArgs>(args?: SelectSubset<T, MaturaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Matura.
+     * @param {MaturaDeleteArgs} args - Arguments to delete one Matura.
+     * @example
+     * // Delete one Matura
+     * const Matura = await prisma.matura.delete({
+     *   where: {
+     *     // ... filter to delete one Matura
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaturaDeleteArgs>(args: SelectSubset<T, MaturaDeleteArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Matura.
+     * @param {MaturaUpdateArgs} args - Arguments to update one Matura.
+     * @example
+     * // Update one Matura
+     * const matura = await prisma.matura.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaturaUpdateArgs>(args: SelectSubset<T, MaturaUpdateArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Maturas.
+     * @param {MaturaDeleteManyArgs} args - Arguments to filter Maturas to delete.
+     * @example
+     * // Delete a few Maturas
+     * const { count } = await prisma.matura.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaturaDeleteManyArgs>(args?: SelectSubset<T, MaturaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Maturas
+     * const matura = await prisma.matura.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaturaUpdateManyArgs>(args: SelectSubset<T, MaturaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maturas and returns the data updated in the database.
+     * @param {MaturaUpdateManyAndReturnArgs} args - Arguments to update many Maturas.
+     * @example
+     * // Update many Maturas
+     * const matura = await prisma.matura.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Maturas and only return the `id`
+     * const maturaWithIdOnly = await prisma.matura.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaturaUpdateManyAndReturnArgs>(args: SelectSubset<T, MaturaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Matura.
+     * @param {MaturaUpsertArgs} args - Arguments to update or create a Matura.
+     * @example
+     * // Update or create a Matura
+     * const matura = await prisma.matura.upsert({
+     *   create: {
+     *     // ... data to create a Matura
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Matura we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaturaUpsertArgs>(args: SelectSubset<T, MaturaUpsertArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Maturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaCountArgs} args - Arguments to filter Maturas to count.
+     * @example
+     * // Count the number of Maturas
+     * const count = await prisma.matura.count({
+     *   where: {
+     *     // ... the filter for the Maturas we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaturaCountArgs>(
+      args?: Subset<T, MaturaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaturaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Matura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaturaAggregateArgs>(args: Subset<T, MaturaAggregateArgs>): Prisma.PrismaPromise<GetMaturaAggregateType<T>>
+
+    /**
+     * Group by Matura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaturaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaturaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaturaGroupByArgs['orderBy'] }
+        : { orderBy?: MaturaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaturaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaturaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Matura model
+   */
+  readonly fields: MaturaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Matura.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaturaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    closedTasks<T extends Matura$closedTasksArgs<ExtArgs> = {}>(args?: Subset<T, Matura$closedTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClosedTasksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    openTasks<T extends Matura$openTasksArgs<ExtArgs> = {}>(args?: Subset<T, Matura$openTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpenTasksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userMaturas<T extends Matura$userMaturasArgs<ExtArgs> = {}>(args?: Subset<T, Matura$userMaturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Matura model
+   */
+  interface MaturaFieldRefs {
+    readonly id: FieldRef<"Matura", 'String'>
+    readonly name: FieldRef<"Matura", 'String'>
+    readonly createdAt: FieldRef<"Matura", 'DateTime'>
+    readonly status: FieldRef<"Matura", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Matura findUnique
+   */
+  export type MaturaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura findUniqueOrThrow
+   */
+  export type MaturaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura findFirst
+   */
+  export type MaturaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maturas.
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maturas.
+     */
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura findFirstOrThrow
+   */
+  export type MaturaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Matura to fetch.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maturas.
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maturas.
+     */
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura findMany
+   */
+  export type MaturaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which Maturas to fetch.
+     */
+    where?: MaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maturas to fetch.
+     */
+    orderBy?: MaturaOrderByWithRelationInput | MaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Maturas.
+     */
+    cursor?: MaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maturas.
+     */
+    skip?: number
+    distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura create
+   */
+  export type MaturaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Matura.
+     */
+    data: XOR<MaturaCreateInput, MaturaUncheckedCreateInput>
+  }
+
+  /**
+   * Matura createMany
+   */
+  export type MaturaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Maturas.
+     */
+    data: MaturaCreateManyInput | MaturaCreateManyInput[]
+  }
+
+  /**
+   * Matura createManyAndReturn
+   */
+  export type MaturaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Maturas.
+     */
+    data: MaturaCreateManyInput | MaturaCreateManyInput[]
+  }
+
+  /**
+   * Matura update
+   */
+  export type MaturaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Matura.
+     */
+    data: XOR<MaturaUpdateInput, MaturaUncheckedUpdateInput>
+    /**
+     * Choose, which Matura to update.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura updateMany
+   */
+  export type MaturaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Maturas.
+     */
+    data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyInput>
+    /**
+     * Filter which Maturas to update
+     */
+    where?: MaturaWhereInput
+    /**
+     * Limit how many Maturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Matura updateManyAndReturn
+   */
+  export type MaturaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * The data used to update Maturas.
+     */
+    data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyInput>
+    /**
+     * Filter which Maturas to update
+     */
+    where?: MaturaWhereInput
+    /**
+     * Limit how many Maturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Matura upsert
+   */
+  export type MaturaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Matura to update in case it exists.
+     */
+    where: MaturaWhereUniqueInput
+    /**
+     * In case the Matura found by the `where` argument doesn't exist, create a new Matura with this data.
+     */
+    create: XOR<MaturaCreateInput, MaturaUncheckedCreateInput>
+    /**
+     * In case the Matura was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaturaUpdateInput, MaturaUncheckedUpdateInput>
+  }
+
+  /**
+   * Matura delete
+   */
+  export type MaturaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+    /**
+     * Filter which Matura to delete.
+     */
+    where: MaturaWhereUniqueInput
+  }
+
+  /**
+   * Matura deleteMany
+   */
+  export type MaturaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Maturas to delete
+     */
+    where?: MaturaWhereInput
+    /**
+     * Limit how many Maturas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Matura.closedTasks
+   */
+  export type Matura$closedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClosedTasks
+     */
+    select?: ClosedTasksSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClosedTasks
+     */
+    omit?: ClosedTasksOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClosedTasksInclude<ExtArgs> | null
+    where?: ClosedTasksWhereInput
+    orderBy?: ClosedTasksOrderByWithRelationInput | ClosedTasksOrderByWithRelationInput[]
+    cursor?: ClosedTasksWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClosedTasksScalarFieldEnum | ClosedTasksScalarFieldEnum[]
+  }
+
+  /**
+   * Matura.openTasks
+   */
+  export type Matura$openTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpenTasks
+     */
+    select?: OpenTasksSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OpenTasks
+     */
+    omit?: OpenTasksOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpenTasksInclude<ExtArgs> | null
+    where?: OpenTasksWhereInput
+    orderBy?: OpenTasksOrderByWithRelationInput | OpenTasksOrderByWithRelationInput[]
+    cursor?: OpenTasksWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OpenTasksScalarFieldEnum | OpenTasksScalarFieldEnum[]
+  }
+
+  /**
+   * Matura.userMaturas
+   */
+  export type Matura$userMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    where?: UserMaturaWhereInput
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    cursor?: UserMaturaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
+  }
+
+  /**
+   * Matura without action
+   */
+  export type MaturaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Matura
+     */
+    select?: MaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Matura
+     */
+    omit?: MaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaturaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserMatura
+   */
+
+  export type AggregateUserMatura = {
+    _count: UserMaturaCountAggregateOutputType | null
+    _min: UserMaturaMinAggregateOutputType | null
+    _max: UserMaturaMaxAggregateOutputType | null
+  }
+
+  export type UserMaturaMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    maturaId: string | null
+    createdAt: Date | null
+  }
+
+  export type UserMaturaMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    maturaId: string | null
+    createdAt: Date | null
+  }
+
+  export type UserMaturaCountAggregateOutputType = {
+    id: number
+    userId: number
+    maturaId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UserMaturaMinAggregateInputType = {
+    id?: true
+    userId?: true
+    maturaId?: true
+    createdAt?: true
+  }
+
+  export type UserMaturaMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    maturaId?: true
+    createdAt?: true
+  }
+
+  export type UserMaturaCountAggregateInputType = {
+    id?: true
+    userId?: true
+    maturaId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UserMaturaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMatura to aggregate.
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMaturas to fetch.
+     */
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserMaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMaturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMaturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserMaturas
+    **/
+    _count?: true | UserMaturaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMaturaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaturaMaxAggregateInputType
+  }
+
+  export type GetUserMaturaAggregateType<T extends UserMaturaAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserMatura]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserMatura[P]>
+      : GetScalarType<T[P], AggregateUserMatura[P]>
+  }
+
+
+
+
+  export type UserMaturaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMaturaWhereInput
+    orderBy?: UserMaturaOrderByWithAggregationInput | UserMaturaOrderByWithAggregationInput[]
+    by: UserMaturaScalarFieldEnum[] | UserMaturaScalarFieldEnum
+    having?: UserMaturaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserMaturaCountAggregateInputType | true
+    _min?: UserMaturaMinAggregateInputType
+    _max?: UserMaturaMaxAggregateInputType
+  }
+
+  export type UserMaturaGroupByOutputType = {
+    id: string
+    userId: string
+    maturaId: string
+    createdAt: Date
+    _count: UserMaturaCountAggregateOutputType | null
+    _min: UserMaturaMinAggregateOutputType | null
+    _max: UserMaturaMaxAggregateOutputType | null
+  }
+
+  type GetUserMaturaGroupByPayload<T extends UserMaturaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserMaturaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserMaturaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserMaturaGroupByOutputType[P]>
+            : GetScalarType<T[P], UserMaturaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserMaturaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMatura"]>
+
+  export type UserMaturaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMatura"]>
+
+  export type UserMaturaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMatura"]>
+
+  export type UserMaturaSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    maturaId?: boolean
+    createdAt?: boolean
+  }
+
+  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "createdAt", ExtArgs["result"]["userMatura"]>
+  export type UserMaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }
+  export type UserMaturaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }
+  export type UserMaturaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    matura?: boolean | MaturaDefaultArgs<ExtArgs>
+  }
+
+  export type $UserMaturaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserMatura"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      matura: Prisma.$MaturaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      maturaId: string
+      createdAt: Date
+    }, ExtArgs["result"]["userMatura"]>
+    composites: {}
+  }
+
+  type UserMaturaGetPayload<S extends boolean | null | undefined | UserMaturaDefaultArgs> = $Result.GetResult<Prisma.$UserMaturaPayload, S>
+
+  type UserMaturaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserMaturaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserMaturaCountAggregateInputType | true
+    }
+
+  export interface UserMaturaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserMatura'], meta: { name: 'UserMatura' } }
+    /**
+     * Find zero or one UserMatura that matches the filter.
+     * @param {UserMaturaFindUniqueArgs} args - Arguments to find a UserMatura
+     * @example
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserMaturaFindUniqueArgs>(args: SelectSubset<T, UserMaturaFindUniqueArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserMatura that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserMaturaFindUniqueOrThrowArgs} args - Arguments to find a UserMatura
+     * @example
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserMaturaFindUniqueOrThrowArgs>(args: SelectSubset<T, UserMaturaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMatura that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaFindFirstArgs} args - Arguments to find a UserMatura
+     * @example
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserMaturaFindFirstArgs>(args?: SelectSubset<T, UserMaturaFindFirstArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMatura that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaFindFirstOrThrowArgs} args - Arguments to find a UserMatura
+     * @example
+     * // Get one UserMatura
+     * const userMatura = await prisma.userMatura.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserMaturaFindFirstOrThrowArgs>(args?: SelectSubset<T, UserMaturaFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserMaturas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserMaturas
+     * const userMaturas = await prisma.userMatura.findMany()
+     * 
+     * // Get first 10 UserMaturas
+     * const userMaturas = await prisma.userMatura.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userMaturaWithIdOnly = await prisma.userMatura.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserMaturaFindManyArgs>(args?: SelectSubset<T, UserMaturaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserMatura.
+     * @param {UserMaturaCreateArgs} args - Arguments to create a UserMatura.
+     * @example
+     * // Create one UserMatura
+     * const UserMatura = await prisma.userMatura.create({
+     *   data: {
+     *     // ... data to create a UserMatura
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserMaturaCreateArgs>(args: SelectSubset<T, UserMaturaCreateArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserMaturas.
+     * @param {UserMaturaCreateManyArgs} args - Arguments to create many UserMaturas.
+     * @example
+     * // Create many UserMaturas
+     * const userMatura = await prisma.userMatura.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserMaturaCreateManyArgs>(args?: SelectSubset<T, UserMaturaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserMaturas and returns the data saved in the database.
+     * @param {UserMaturaCreateManyAndReturnArgs} args - Arguments to create many UserMaturas.
+     * @example
+     * // Create many UserMaturas
+     * const userMatura = await prisma.userMatura.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserMaturas and only return the `id`
+     * const userMaturaWithIdOnly = await prisma.userMatura.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserMaturaCreateManyAndReturnArgs>(args?: SelectSubset<T, UserMaturaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserMatura.
+     * @param {UserMaturaDeleteArgs} args - Arguments to delete one UserMatura.
+     * @example
+     * // Delete one UserMatura
+     * const UserMatura = await prisma.userMatura.delete({
+     *   where: {
+     *     // ... filter to delete one UserMatura
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserMaturaDeleteArgs>(args: SelectSubset<T, UserMaturaDeleteArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserMatura.
+     * @param {UserMaturaUpdateArgs} args - Arguments to update one UserMatura.
+     * @example
+     * // Update one UserMatura
+     * const userMatura = await prisma.userMatura.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserMaturaUpdateArgs>(args: SelectSubset<T, UserMaturaUpdateArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserMaturas.
+     * @param {UserMaturaDeleteManyArgs} args - Arguments to filter UserMaturas to delete.
+     * @example
+     * // Delete a few UserMaturas
+     * const { count } = await prisma.userMatura.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserMaturaDeleteManyArgs>(args?: SelectSubset<T, UserMaturaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMaturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserMaturas
+     * const userMatura = await prisma.userMatura.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserMaturaUpdateManyArgs>(args: SelectSubset<T, UserMaturaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMaturas and returns the data updated in the database.
+     * @param {UserMaturaUpdateManyAndReturnArgs} args - Arguments to update many UserMaturas.
+     * @example
+     * // Update many UserMaturas
+     * const userMatura = await prisma.userMatura.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserMaturas and only return the `id`
+     * const userMaturaWithIdOnly = await prisma.userMatura.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserMaturaUpdateManyAndReturnArgs>(args: SelectSubset<T, UserMaturaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserMatura.
+     * @param {UserMaturaUpsertArgs} args - Arguments to update or create a UserMatura.
+     * @example
+     * // Update or create a UserMatura
+     * const userMatura = await prisma.userMatura.upsert({
+     *   create: {
+     *     // ... data to create a UserMatura
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserMatura we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserMaturaUpsertArgs>(args: SelectSubset<T, UserMaturaUpsertArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserMaturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaCountArgs} args - Arguments to filter UserMaturas to count.
+     * @example
+     * // Count the number of UserMaturas
+     * const count = await prisma.userMatura.count({
+     *   where: {
+     *     // ... the filter for the UserMaturas we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserMaturaCountArgs>(
+      args?: Subset<T, UserMaturaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserMaturaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserMatura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserMaturaAggregateArgs>(args: Subset<T, UserMaturaAggregateArgs>): Prisma.PrismaPromise<GetUserMaturaAggregateType<T>>
+
+    /**
+     * Group by UserMatura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMaturaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserMaturaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserMaturaGroupByArgs['orderBy'] }
+        : { orderBy?: UserMaturaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserMaturaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserMaturaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserMatura model
+   */
+  readonly fields: UserMaturaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserMatura.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserMaturaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    matura<T extends MaturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaturaDefaultArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserMatura model
+   */
+  interface UserMaturaFieldRefs {
+    readonly id: FieldRef<"UserMatura", 'String'>
+    readonly userId: FieldRef<"UserMatura", 'String'>
+    readonly maturaId: FieldRef<"UserMatura", 'String'>
+    readonly createdAt: FieldRef<"UserMatura", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserMatura findUnique
+   */
+  export type UserMaturaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMatura to fetch.
+     */
+    where: UserMaturaWhereUniqueInput
+  }
+
+  /**
+   * UserMatura findUniqueOrThrow
+   */
+  export type UserMaturaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMatura to fetch.
+     */
+    where: UserMaturaWhereUniqueInput
+  }
+
+  /**
+   * UserMatura findFirst
+   */
+  export type UserMaturaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMatura to fetch.
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMaturas to fetch.
+     */
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMaturas.
+     */
+    cursor?: UserMaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMaturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMaturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMaturas.
+     */
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
+  }
+
+  /**
+   * UserMatura findFirstOrThrow
+   */
+  export type UserMaturaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMatura to fetch.
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMaturas to fetch.
+     */
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMaturas.
+     */
+    cursor?: UserMaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMaturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMaturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMaturas.
+     */
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
+  }
+
+  /**
+   * UserMatura findMany
+   */
+  export type UserMaturaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMaturas to fetch.
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMaturas to fetch.
+     */
+    orderBy?: UserMaturaOrderByWithRelationInput | UserMaturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserMaturas.
+     */
+    cursor?: UserMaturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMaturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMaturas.
+     */
+    skip?: number
+    distinct?: UserMaturaScalarFieldEnum | UserMaturaScalarFieldEnum[]
+  }
+
+  /**
+   * UserMatura create
+   */
+  export type UserMaturaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserMatura.
+     */
+    data: XOR<UserMaturaCreateInput, UserMaturaUncheckedCreateInput>
+  }
+
+  /**
+   * UserMatura createMany
+   */
+  export type UserMaturaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserMaturas.
+     */
+    data: UserMaturaCreateManyInput | UserMaturaCreateManyInput[]
+  }
+
+  /**
+   * UserMatura createManyAndReturn
+   */
+  export type UserMaturaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserMaturas.
+     */
+    data: UserMaturaCreateManyInput | UserMaturaCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMatura update
+   */
+  export type UserMaturaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserMatura.
+     */
+    data: XOR<UserMaturaUpdateInput, UserMaturaUncheckedUpdateInput>
+    /**
+     * Choose, which UserMatura to update.
+     */
+    where: UserMaturaWhereUniqueInput
+  }
+
+  /**
+   * UserMatura updateMany
+   */
+  export type UserMaturaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserMaturas.
+     */
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMaturas to update
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * Limit how many UserMaturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMatura updateManyAndReturn
+   */
+  export type UserMaturaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * The data used to update UserMaturas.
+     */
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMaturas to update
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * Limit how many UserMaturas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMatura upsert
+   */
+  export type UserMaturaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserMatura to update in case it exists.
+     */
+    where: UserMaturaWhereUniqueInput
+    /**
+     * In case the UserMatura found by the `where` argument doesn't exist, create a new UserMatura with this data.
+     */
+    create: XOR<UserMaturaCreateInput, UserMaturaUncheckedCreateInput>
+    /**
+     * In case the UserMatura was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserMaturaUpdateInput, UserMaturaUncheckedUpdateInput>
+  }
+
+  /**
+   * UserMatura delete
+   */
+  export type UserMaturaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+    /**
+     * Filter which UserMatura to delete.
+     */
+    where: UserMaturaWhereUniqueInput
+  }
+
+  /**
+   * UserMatura deleteMany
+   */
+  export type UserMaturaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMaturas to delete
+     */
+    where?: UserMaturaWhereInput
+    /**
+     * Limit how many UserMaturas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMatura without action
+   */
+  export type UserMaturaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMatura
+     */
+    select?: UserMaturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMatura
+     */
+    omit?: UserMaturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMaturaInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9144,6 +11706,26 @@ export namespace Prisma {
   export type AnswersScalarFieldEnum = (typeof AnswersScalarFieldEnum)[keyof typeof AnswersScalarFieldEnum]
 
 
+  export const MaturaScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt',
+    status: 'status'
+  };
+
+  export type MaturaScalarFieldEnum = (typeof MaturaScalarFieldEnum)[keyof typeof MaturaScalarFieldEnum]
+
+
+  export const UserMaturaScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    maturaId: 'maturaId',
+    createdAt: 'createdAt'
+  };
+
+  export type UserMaturaScalarFieldEnum = (typeof UserMaturaScalarFieldEnum)[keyof typeof UserMaturaScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -9214,6 +11796,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
+    userMaturas?: UserMaturaListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9224,6 +11807,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
+    userMaturas?: UserMaturaOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9237,6 +11821,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
+    userMaturas?: UserMaturaListRelationFilter
   }, "id" | "clerkId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9423,10 +12008,11 @@ export namespace Prisma {
     id?: StringFilter<"OpenTasks"> | string
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
-    answer?: IntFilter<"OpenTasks"> | number
+    answer?: StringFilter<"OpenTasks"> | string
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
+    maturas?: MaturaListRelationFilter
   }
 
   export type OpenTasksOrderByWithRelationInput = {
@@ -9437,6 +12023,7 @@ export namespace Prisma {
     subSectionId?: SortOrder
     openTaskId?: SortOrderInput | SortOrder
     subSection?: SubSectionOrderByWithRelationInput
+    maturas?: MaturaOrderByRelationAggregateInput
   }
 
   export type OpenTasksWhereUniqueInput = Prisma.AtLeast<{
@@ -9446,10 +12033,11 @@ export namespace Prisma {
     NOT?: OpenTasksWhereInput | OpenTasksWhereInput[]
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
-    answer?: IntFilter<"OpenTasks"> | number
+    answer?: StringFilter<"OpenTasks"> | string
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
+    maturas?: MaturaListRelationFilter
   }, "id">
 
   export type OpenTasksOrderByWithAggregationInput = {
@@ -9460,10 +12048,8 @@ export namespace Prisma {
     subSectionId?: SortOrder
     openTaskId?: SortOrderInput | SortOrder
     _count?: OpenTasksCountOrderByAggregateInput
-    _avg?: OpenTasksAvgOrderByAggregateInput
     _max?: OpenTasksMaxOrderByAggregateInput
     _min?: OpenTasksMinOrderByAggregateInput
-    _sum?: OpenTasksSumOrderByAggregateInput
   }
 
   export type OpenTasksScalarWhereWithAggregatesInput = {
@@ -9473,7 +12059,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"OpenTasks"> | string
     name?: StringWithAggregatesFilter<"OpenTasks"> | string
     content?: StringWithAggregatesFilter<"OpenTasks"> | string
-    answer?: IntWithAggregatesFilter<"OpenTasks"> | number
+    answer?: StringWithAggregatesFilter<"OpenTasks"> | string
     subSectionId?: StringWithAggregatesFilter<"OpenTasks"> | string
     openTaskId?: StringNullableWithAggregatesFilter<"OpenTasks"> | string | null
   }
@@ -9489,6 +12075,7 @@ export namespace Prisma {
     subSectionId?: StringFilter<"ClosedTasks"> | string
     answers?: AnswersListRelationFilter
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
+    maturas?: MaturaListRelationFilter
   }
 
   export type ClosedTasksOrderByWithRelationInput = {
@@ -9499,6 +12086,7 @@ export namespace Prisma {
     subSectionId?: SortOrder
     answers?: AnswersOrderByRelationAggregateInput
     subSection?: SubSectionOrderByWithRelationInput
+    maturas?: MaturaOrderByRelationAggregateInput
   }
 
   export type ClosedTasksWhereUniqueInput = Prisma.AtLeast<{
@@ -9512,6 +12100,7 @@ export namespace Prisma {
     subSectionId?: StringFilter<"ClosedTasks"> | string
     answers?: AnswersListRelationFilter
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
+    maturas?: MaturaListRelationFilter
   }, "id">
 
   export type ClosedTasksOrderByWithAggregationInput = {
@@ -9596,6 +12185,115 @@ export namespace Prisma {
     closedTaskId?: StringWithAggregatesFilter<"Answers"> | string
   }
 
+  export type MaturaWhereInput = {
+    AND?: MaturaWhereInput | MaturaWhereInput[]
+    OR?: MaturaWhereInput[]
+    NOT?: MaturaWhereInput | MaturaWhereInput[]
+    id?: StringFilter<"Matura"> | string
+    name?: StringFilter<"Matura"> | string
+    createdAt?: DateTimeFilter<"Matura"> | Date | string
+    status?: BoolFilter<"Matura"> | boolean
+    closedTasks?: ClosedTasksListRelationFilter
+    openTasks?: OpenTasksListRelationFilter
+    userMaturas?: UserMaturaListRelationFilter
+  }
+
+  export type MaturaOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    status?: SortOrder
+    closedTasks?: ClosedTasksOrderByRelationAggregateInput
+    openTasks?: OpenTasksOrderByRelationAggregateInput
+    userMaturas?: UserMaturaOrderByRelationAggregateInput
+  }
+
+  export type MaturaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaturaWhereInput | MaturaWhereInput[]
+    OR?: MaturaWhereInput[]
+    NOT?: MaturaWhereInput | MaturaWhereInput[]
+    name?: StringFilter<"Matura"> | string
+    createdAt?: DateTimeFilter<"Matura"> | Date | string
+    status?: BoolFilter<"Matura"> | boolean
+    closedTasks?: ClosedTasksListRelationFilter
+    openTasks?: OpenTasksListRelationFilter
+    userMaturas?: UserMaturaListRelationFilter
+  }, "id">
+
+  export type MaturaOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    status?: SortOrder
+    _count?: MaturaCountOrderByAggregateInput
+    _max?: MaturaMaxOrderByAggregateInput
+    _min?: MaturaMinOrderByAggregateInput
+  }
+
+  export type MaturaScalarWhereWithAggregatesInput = {
+    AND?: MaturaScalarWhereWithAggregatesInput | MaturaScalarWhereWithAggregatesInput[]
+    OR?: MaturaScalarWhereWithAggregatesInput[]
+    NOT?: MaturaScalarWhereWithAggregatesInput | MaturaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Matura"> | string
+    name?: StringWithAggregatesFilter<"Matura"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Matura"> | Date | string
+    status?: BoolWithAggregatesFilter<"Matura"> | boolean
+  }
+
+  export type UserMaturaWhereInput = {
+    AND?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    OR?: UserMaturaWhereInput[]
+    NOT?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    id?: StringFilter<"UserMatura"> | string
+    userId?: StringFilter<"UserMatura"> | string
+    maturaId?: StringFilter<"UserMatura"> | string
+    createdAt?: DateTimeFilter<"UserMatura"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
+  }
+
+  export type UserMaturaOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    matura?: MaturaOrderByWithRelationInput
+  }
+
+  export type UserMaturaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    OR?: UserMaturaWhereInput[]
+    NOT?: UserMaturaWhereInput | UserMaturaWhereInput[]
+    userId?: StringFilter<"UserMatura"> | string
+    maturaId?: StringFilter<"UserMatura"> | string
+    createdAt?: DateTimeFilter<"UserMatura"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
+  }, "id">
+
+  export type UserMaturaOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    createdAt?: SortOrder
+    _count?: UserMaturaCountOrderByAggregateInput
+    _max?: UserMaturaMaxOrderByAggregateInput
+    _min?: UserMaturaMinOrderByAggregateInput
+  }
+
+  export type UserMaturaScalarWhereWithAggregatesInput = {
+    AND?: UserMaturaScalarWhereWithAggregatesInput | UserMaturaScalarWhereWithAggregatesInput[]
+    OR?: UserMaturaScalarWhereWithAggregatesInput[]
+    NOT?: UserMaturaScalarWhereWithAggregatesInput | UserMaturaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserMatura"> | string
+    userId?: StringWithAggregatesFilter<"UserMatura"> | string
+    maturaId?: StringWithAggregatesFilter<"UserMatura"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserMatura"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     clerkId: string
@@ -9604,6 +12302,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9614,6 +12313,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9624,6 +12324,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9634,6 +12335,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9817,43 +12519,47 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: number
+    answer: string
     openTaskId?: string | null
     subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
+    maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
   }
 
   export type OpenTasksUncheckedCreateInput = {
     id?: string
     name: string
     content: string
-    answer: number
+    answer: string
     subSectionId: string
     openTaskId?: string | null
+    maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
   }
 
   export type OpenTasksUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
+    maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
   }
 
   export type OpenTasksUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
   }
 
   export type OpenTasksCreateManyInput = {
     id?: string
     name: string
     content: string
-    answer: number
+    answer: string
     subSectionId: string
     openTaskId?: string | null
   }
@@ -9862,7 +12568,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -9870,7 +12576,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9882,6 +12588,7 @@ export namespace Prisma {
     correctAnswer: string
     answers?: AnswersCreateNestedManyWithoutClosedTaskInput
     subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
+    maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
   }
 
   export type ClosedTasksUncheckedCreateInput = {
@@ -9891,6 +12598,7 @@ export namespace Prisma {
     correctAnswer: string
     subSectionId: string
     answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
+    maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
   }
 
   export type ClosedTasksUpdateInput = {
@@ -9900,6 +12608,7 @@ export namespace Prisma {
     correctAnswer?: StringFieldUpdateOperationsInput | string
     answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
     subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
+    maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateInput = {
@@ -9909,6 +12618,7 @@ export namespace Prisma {
     correctAnswer?: StringFieldUpdateOperationsInput | string
     subSectionId?: StringFieldUpdateOperationsInput | string
     answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
+    maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
   }
 
   export type ClosedTasksCreateManyInput = {
@@ -9996,6 +12706,114 @@ export namespace Prisma {
     closedTaskId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type MaturaCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    closedTasks?: ClosedTasksCreateNestedManyWithoutMaturasInput
+    openTasks?: OpenTasksCreateNestedManyWithoutMaturasInput
+    userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaUncheckedCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    closedTasks?: ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput
+    openTasks?: OpenTasksUncheckedCreateNestedManyWithoutMaturasInput
+    userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    closedTasks?: ClosedTasksUpdateManyWithoutMaturasNestedInput
+    openTasks?: OpenTasksUpdateManyWithoutMaturasNestedInput
+    userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    closedTasks?: ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput
+    openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
+    userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaCreateManyInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+  }
+
+  export type MaturaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MaturaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserMaturaCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutUserMaturasInput
+    matura: MaturaCreateNestedOneWithoutUserMaturasInput
+  }
+
+  export type UserMaturaUncheckedCreateInput = {
+    id?: string
+    userId: string
+    maturaId: string
+    createdAt?: Date | string
+  }
+
+  export type UserMaturaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+    matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMaturaCreateManyInput = {
+    id?: string
+    userId: string
+    maturaId: string
+    createdAt?: Date | string
+  }
+
+  export type UserMaturaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMaturaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -10035,9 +12853,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type UserMaturaListRelationFilter = {
+    every?: UserMaturaWhereInput
+    some?: UserMaturaWhereInput
+    none?: UserMaturaWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type UserMaturaOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -10275,20 +13103,19 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type SubSectionScalarRelationFilter = {
     is?: SubSectionWhereInput
     isNot?: SubSectionWhereInput
+  }
+
+  export type MaturaListRelationFilter = {
+    every?: MaturaWhereInput
+    some?: MaturaWhereInput
+    none?: MaturaWhereInput
+  }
+
+  export type MaturaOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type OpenTasksCountOrderByAggregateInput = {
@@ -10298,10 +13125,6 @@ export namespace Prisma {
     answer?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
-  }
-
-  export type OpenTasksAvgOrderByAggregateInput = {
-    answer?: SortOrder
   }
 
   export type OpenTasksMaxOrderByAggregateInput = {
@@ -10320,26 +13143,6 @@ export namespace Prisma {
     answer?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
-  }
-
-  export type OpenTasksSumOrderByAggregateInput = {
-    answer?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type AnswersListRelationFilter = {
@@ -10408,6 +13211,72 @@ export namespace Prisma {
     closedTaskId?: SortOrder
   }
 
+  export type MaturaCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    status?: SortOrder
+  }
+
+  export type MaturaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    status?: SortOrder
+  }
+
+  export type MaturaMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    status?: SortOrder
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type MaturaScalarRelationFilter = {
+    is?: MaturaWhereInput
+    isNot?: MaturaWhereInput
+  }
+
+  export type UserMaturaCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMaturaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMaturaMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    maturaId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMaturaCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
+  export type UserMaturaUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -10418,6 +13287,34 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type UserMaturaUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutUserInput | UserMaturaUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutUserInput | UserMaturaUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutUserInput | UserMaturaUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput> | UserMaturaCreateWithoutUserInput[] | UserMaturaUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutUserInput | UserMaturaCreateOrConnectWithoutUserInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutUserInput | UserMaturaUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMaturaCreateManyUserInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutUserInput | UserMaturaUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutUserInput | UserMaturaUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
   }
 
   export type SectionCreateNestedManyWithoutAlltasksInput = {
@@ -10634,12 +13531,16 @@ export namespace Prisma {
     connect?: SubSectionWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type MaturaCreateNestedManyWithoutOpenTasksInput = {
+    create?: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput> | MaturaCreateWithoutOpenTasksInput[] | MaturaUncheckedCreateWithoutOpenTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutOpenTasksInput | MaturaCreateOrConnectWithoutOpenTasksInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+  }
+
+  export type MaturaUncheckedCreateNestedManyWithoutOpenTasksInput = {
+    create?: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput> | MaturaCreateWithoutOpenTasksInput[] | MaturaUncheckedCreateWithoutOpenTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutOpenTasksInput | MaturaCreateOrConnectWithoutOpenTasksInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
   }
 
   export type SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput = {
@@ -10648,6 +13549,32 @@ export namespace Prisma {
     upsert?: SubSectionUpsertWithoutOpenTasksInput
     connect?: SubSectionWhereUniqueInput
     update?: XOR<XOR<SubSectionUpdateToOneWithWhereWithoutOpenTasksInput, SubSectionUpdateWithoutOpenTasksInput>, SubSectionUncheckedUpdateWithoutOpenTasksInput>
+  }
+
+  export type MaturaUpdateManyWithoutOpenTasksNestedInput = {
+    create?: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput> | MaturaCreateWithoutOpenTasksInput[] | MaturaUncheckedCreateWithoutOpenTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutOpenTasksInput | MaturaCreateOrConnectWithoutOpenTasksInput[]
+    upsert?: MaturaUpsertWithWhereUniqueWithoutOpenTasksInput | MaturaUpsertWithWhereUniqueWithoutOpenTasksInput[]
+    set?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    disconnect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    delete?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    update?: MaturaUpdateWithWhereUniqueWithoutOpenTasksInput | MaturaUpdateWithWhereUniqueWithoutOpenTasksInput[]
+    updateMany?: MaturaUpdateManyWithWhereWithoutOpenTasksInput | MaturaUpdateManyWithWhereWithoutOpenTasksInput[]
+    deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+  }
+
+  export type MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput = {
+    create?: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput> | MaturaCreateWithoutOpenTasksInput[] | MaturaUncheckedCreateWithoutOpenTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutOpenTasksInput | MaturaCreateOrConnectWithoutOpenTasksInput[]
+    upsert?: MaturaUpsertWithWhereUniqueWithoutOpenTasksInput | MaturaUpsertWithWhereUniqueWithoutOpenTasksInput[]
+    set?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    disconnect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    delete?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    update?: MaturaUpdateWithWhereUniqueWithoutOpenTasksInput | MaturaUpdateWithWhereUniqueWithoutOpenTasksInput[]
+    updateMany?: MaturaUpdateManyWithWhereWithoutOpenTasksInput | MaturaUpdateManyWithWhereWithoutOpenTasksInput[]
+    deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
   }
 
   export type AnswersCreateNestedManyWithoutClosedTaskInput = {
@@ -10663,11 +13590,23 @@ export namespace Prisma {
     connect?: SubSectionWhereUniqueInput
   }
 
+  export type MaturaCreateNestedManyWithoutClosedTasksInput = {
+    create?: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput> | MaturaCreateWithoutClosedTasksInput[] | MaturaUncheckedCreateWithoutClosedTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutClosedTasksInput | MaturaCreateOrConnectWithoutClosedTasksInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+  }
+
   export type AnswersUncheckedCreateNestedManyWithoutClosedTaskInput = {
     create?: XOR<AnswersCreateWithoutClosedTaskInput, AnswersUncheckedCreateWithoutClosedTaskInput> | AnswersCreateWithoutClosedTaskInput[] | AnswersUncheckedCreateWithoutClosedTaskInput[]
     connectOrCreate?: AnswersCreateOrConnectWithoutClosedTaskInput | AnswersCreateOrConnectWithoutClosedTaskInput[]
     createMany?: AnswersCreateManyClosedTaskInputEnvelope
     connect?: AnswersWhereUniqueInput | AnswersWhereUniqueInput[]
+  }
+
+  export type MaturaUncheckedCreateNestedManyWithoutClosedTasksInput = {
+    create?: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput> | MaturaCreateWithoutClosedTasksInput[] | MaturaUncheckedCreateWithoutClosedTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutClosedTasksInput | MaturaCreateOrConnectWithoutClosedTasksInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
   }
 
   export type AnswersUpdateManyWithoutClosedTaskNestedInput = {
@@ -10692,6 +13631,19 @@ export namespace Prisma {
     update?: XOR<XOR<SubSectionUpdateToOneWithWhereWithoutClosedTasksInput, SubSectionUpdateWithoutClosedTasksInput>, SubSectionUncheckedUpdateWithoutClosedTasksInput>
   }
 
+  export type MaturaUpdateManyWithoutClosedTasksNestedInput = {
+    create?: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput> | MaturaCreateWithoutClosedTasksInput[] | MaturaUncheckedCreateWithoutClosedTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutClosedTasksInput | MaturaCreateOrConnectWithoutClosedTasksInput[]
+    upsert?: MaturaUpsertWithWhereUniqueWithoutClosedTasksInput | MaturaUpsertWithWhereUniqueWithoutClosedTasksInput[]
+    set?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    disconnect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    delete?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    update?: MaturaUpdateWithWhereUniqueWithoutClosedTasksInput | MaturaUpdateWithWhereUniqueWithoutClosedTasksInput[]
+    updateMany?: MaturaUpdateManyWithWhereWithoutClosedTasksInput | MaturaUpdateManyWithWhereWithoutClosedTasksInput[]
+    deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+  }
+
   export type AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput = {
     create?: XOR<AnswersCreateWithoutClosedTaskInput, AnswersUncheckedCreateWithoutClosedTaskInput> | AnswersCreateWithoutClosedTaskInput[] | AnswersUncheckedCreateWithoutClosedTaskInput[]
     connectOrCreate?: AnswersCreateOrConnectWithoutClosedTaskInput | AnswersCreateOrConnectWithoutClosedTaskInput[]
@@ -10706,6 +13658,19 @@ export namespace Prisma {
     deleteMany?: AnswersScalarWhereInput | AnswersScalarWhereInput[]
   }
 
+  export type MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput = {
+    create?: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput> | MaturaCreateWithoutClosedTasksInput[] | MaturaUncheckedCreateWithoutClosedTasksInput[]
+    connectOrCreate?: MaturaCreateOrConnectWithoutClosedTasksInput | MaturaCreateOrConnectWithoutClosedTasksInput[]
+    upsert?: MaturaUpsertWithWhereUniqueWithoutClosedTasksInput | MaturaUpsertWithWhereUniqueWithoutClosedTasksInput[]
+    set?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    disconnect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    delete?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+    update?: MaturaUpdateWithWhereUniqueWithoutClosedTasksInput | MaturaUpdateWithWhereUniqueWithoutClosedTasksInput[]
+    updateMany?: MaturaUpdateManyWithWhereWithoutClosedTasksInput | MaturaUpdateManyWithWhereWithoutClosedTasksInput[]
+    deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+  }
+
   export type ClosedTasksCreateNestedOneWithoutAnswersInput = {
     create?: XOR<ClosedTasksCreateWithoutAnswersInput, ClosedTasksUncheckedCreateWithoutAnswersInput>
     connectOrCreate?: ClosedTasksCreateOrConnectWithoutAnswersInput
@@ -10718,6 +13683,152 @@ export namespace Prisma {
     upsert?: ClosedTasksUpsertWithoutAnswersInput
     connect?: ClosedTasksWhereUniqueInput
     update?: XOR<XOR<ClosedTasksUpdateToOneWithWhereWithoutAnswersInput, ClosedTasksUpdateWithoutAnswersInput>, ClosedTasksUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type ClosedTasksCreateNestedManyWithoutMaturasInput = {
+    create?: XOR<ClosedTasksCreateWithoutMaturasInput, ClosedTasksUncheckedCreateWithoutMaturasInput> | ClosedTasksCreateWithoutMaturasInput[] | ClosedTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: ClosedTasksCreateOrConnectWithoutMaturasInput | ClosedTasksCreateOrConnectWithoutMaturasInput[]
+    connect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+  }
+
+  export type OpenTasksCreateNestedManyWithoutMaturasInput = {
+    create?: XOR<OpenTasksCreateWithoutMaturasInput, OpenTasksUncheckedCreateWithoutMaturasInput> | OpenTasksCreateWithoutMaturasInput[] | OpenTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: OpenTasksCreateOrConnectWithoutMaturasInput | OpenTasksCreateOrConnectWithoutMaturasInput[]
+    connect?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+  }
+
+  export type UserMaturaCreateNestedManyWithoutMaturaInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
+  export type ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput = {
+    create?: XOR<ClosedTasksCreateWithoutMaturasInput, ClosedTasksUncheckedCreateWithoutMaturasInput> | ClosedTasksCreateWithoutMaturasInput[] | ClosedTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: ClosedTasksCreateOrConnectWithoutMaturasInput | ClosedTasksCreateOrConnectWithoutMaturasInput[]
+    connect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+  }
+
+  export type OpenTasksUncheckedCreateNestedManyWithoutMaturasInput = {
+    create?: XOR<OpenTasksCreateWithoutMaturasInput, OpenTasksUncheckedCreateWithoutMaturasInput> | OpenTasksCreateWithoutMaturasInput[] | OpenTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: OpenTasksCreateOrConnectWithoutMaturasInput | OpenTasksCreateOrConnectWithoutMaturasInput[]
+    connect?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+  }
+
+  export type UserMaturaUncheckedCreateNestedManyWithoutMaturaInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+  }
+
+  export type ClosedTasksUpdateManyWithoutMaturasNestedInput = {
+    create?: XOR<ClosedTasksCreateWithoutMaturasInput, ClosedTasksUncheckedCreateWithoutMaturasInput> | ClosedTasksCreateWithoutMaturasInput[] | ClosedTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: ClosedTasksCreateOrConnectWithoutMaturasInput | ClosedTasksCreateOrConnectWithoutMaturasInput[]
+    upsert?: ClosedTasksUpsertWithWhereUniqueWithoutMaturasInput | ClosedTasksUpsertWithWhereUniqueWithoutMaturasInput[]
+    set?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    disconnect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    delete?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    connect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    update?: ClosedTasksUpdateWithWhereUniqueWithoutMaturasInput | ClosedTasksUpdateWithWhereUniqueWithoutMaturasInput[]
+    updateMany?: ClosedTasksUpdateManyWithWhereWithoutMaturasInput | ClosedTasksUpdateManyWithWhereWithoutMaturasInput[]
+    deleteMany?: ClosedTasksScalarWhereInput | ClosedTasksScalarWhereInput[]
+  }
+
+  export type OpenTasksUpdateManyWithoutMaturasNestedInput = {
+    create?: XOR<OpenTasksCreateWithoutMaturasInput, OpenTasksUncheckedCreateWithoutMaturasInput> | OpenTasksCreateWithoutMaturasInput[] | OpenTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: OpenTasksCreateOrConnectWithoutMaturasInput | OpenTasksCreateOrConnectWithoutMaturasInput[]
+    upsert?: OpenTasksUpsertWithWhereUniqueWithoutMaturasInput | OpenTasksUpsertWithWhereUniqueWithoutMaturasInput[]
+    set?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    disconnect?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    delete?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    connect?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    update?: OpenTasksUpdateWithWhereUniqueWithoutMaturasInput | OpenTasksUpdateWithWhereUniqueWithoutMaturasInput[]
+    updateMany?: OpenTasksUpdateManyWithWhereWithoutMaturasInput | OpenTasksUpdateManyWithWhereWithoutMaturasInput[]
+    deleteMany?: OpenTasksScalarWhereInput | OpenTasksScalarWhereInput[]
+  }
+
+  export type UserMaturaUpdateManyWithoutMaturaNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutMaturaInput | UserMaturaUpsertWithWhereUniqueWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutMaturaInput | UserMaturaUpdateWithWhereUniqueWithoutMaturaInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutMaturaInput | UserMaturaUpdateManyWithWhereWithoutMaturaInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+  }
+
+  export type ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput = {
+    create?: XOR<ClosedTasksCreateWithoutMaturasInput, ClosedTasksUncheckedCreateWithoutMaturasInput> | ClosedTasksCreateWithoutMaturasInput[] | ClosedTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: ClosedTasksCreateOrConnectWithoutMaturasInput | ClosedTasksCreateOrConnectWithoutMaturasInput[]
+    upsert?: ClosedTasksUpsertWithWhereUniqueWithoutMaturasInput | ClosedTasksUpsertWithWhereUniqueWithoutMaturasInput[]
+    set?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    disconnect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    delete?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    connect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
+    update?: ClosedTasksUpdateWithWhereUniqueWithoutMaturasInput | ClosedTasksUpdateWithWhereUniqueWithoutMaturasInput[]
+    updateMany?: ClosedTasksUpdateManyWithWhereWithoutMaturasInput | ClosedTasksUpdateManyWithWhereWithoutMaturasInput[]
+    deleteMany?: ClosedTasksScalarWhereInput | ClosedTasksScalarWhereInput[]
+  }
+
+  export type OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput = {
+    create?: XOR<OpenTasksCreateWithoutMaturasInput, OpenTasksUncheckedCreateWithoutMaturasInput> | OpenTasksCreateWithoutMaturasInput[] | OpenTasksUncheckedCreateWithoutMaturasInput[]
+    connectOrCreate?: OpenTasksCreateOrConnectWithoutMaturasInput | OpenTasksCreateOrConnectWithoutMaturasInput[]
+    upsert?: OpenTasksUpsertWithWhereUniqueWithoutMaturasInput | OpenTasksUpsertWithWhereUniqueWithoutMaturasInput[]
+    set?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    disconnect?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    delete?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    connect?: OpenTasksWhereUniqueInput | OpenTasksWhereUniqueInput[]
+    update?: OpenTasksUpdateWithWhereUniqueWithoutMaturasInput | OpenTasksUpdateWithWhereUniqueWithoutMaturasInput[]
+    updateMany?: OpenTasksUpdateManyWithWhereWithoutMaturasInput | OpenTasksUpdateManyWithWhereWithoutMaturasInput[]
+    deleteMany?: OpenTasksScalarWhereInput | OpenTasksScalarWhereInput[]
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput> | UserMaturaCreateWithoutMaturaInput[] | UserMaturaUncheckedCreateWithoutMaturaInput[]
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutMaturaInput | UserMaturaCreateOrConnectWithoutMaturaInput[]
+    upsert?: UserMaturaUpsertWithWhereUniqueWithoutMaturaInput | UserMaturaUpsertWithWhereUniqueWithoutMaturaInput[]
+    createMany?: UserMaturaCreateManyMaturaInputEnvelope
+    set?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    disconnect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    delete?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    connect?: UserMaturaWhereUniqueInput | UserMaturaWhereUniqueInput[]
+    update?: UserMaturaUpdateWithWhereUniqueWithoutMaturaInput | UserMaturaUpdateWithWhereUniqueWithoutMaturaInput[]
+    updateMany?: UserMaturaUpdateManyWithWhereWithoutMaturaInput | UserMaturaUpdateManyWithWhereWithoutMaturaInput[]
+    deleteMany?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutUserMaturasInput = {
+    create?: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserMaturasInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MaturaCreateNestedOneWithoutUserMaturasInput = {
+    create?: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: MaturaCreateOrConnectWithoutUserMaturasInput
+    connect?: MaturaWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserMaturasNestedInput = {
+    create?: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserMaturasInput
+    upsert?: UserUpsertWithoutUserMaturasInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserMaturasInput, UserUpdateWithoutUserMaturasInput>, UserUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type MaturaUpdateOneRequiredWithoutUserMaturasNestedInput = {
+    create?: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+    connectOrCreate?: MaturaCreateOrConnectWithoutUserMaturasInput
+    upsert?: MaturaUpsertWithoutUserMaturasInput
+    connect?: MaturaWhereUniqueInput
+    update?: XOR<XOR<MaturaUpdateToOneWithWhereWithoutUserMaturasInput, MaturaUpdateWithoutUserMaturasInput>, MaturaUncheckedUpdateWithoutUserMaturasInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10869,31 +13980,51 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+  export type UserMaturaCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    matura: MaturaCreateNestedOneWithoutUserMaturasInput
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type UserMaturaUncheckedCreateWithoutUserInput = {
+    id?: string
+    maturaId: string
+    createdAt?: Date | string
+  }
+
+  export type UserMaturaCreateOrConnectWithoutUserInput = {
+    where: UserMaturaWhereUniqueInput
+    create: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserMaturaCreateManyUserInputEnvelope = {
+    data: UserMaturaCreateManyUserInput | UserMaturaCreateManyUserInput[]
+  }
+
+  export type UserMaturaUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserMaturaWhereUniqueInput
+    update: XOR<UserMaturaUpdateWithoutUserInput, UserMaturaUncheckedUpdateWithoutUserInput>
+    create: XOR<UserMaturaCreateWithoutUserInput, UserMaturaUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserMaturaUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserMaturaWhereUniqueInput
+    data: XOR<UserMaturaUpdateWithoutUserInput, UserMaturaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserMaturaUpdateManyWithWhereWithoutUserInput = {
+    where: UserMaturaScalarWhereInput
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserMaturaScalarWhereInput = {
+    AND?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+    OR?: UserMaturaScalarWhereInput[]
+    NOT?: UserMaturaScalarWhereInput | UserMaturaScalarWhereInput[]
+    id?: StringFilter<"UserMatura"> | string
+    userId?: StringFilter<"UserMatura"> | string
+    maturaId?: StringFilter<"UserMatura"> | string
+    createdAt?: DateTimeFilter<"UserMatura"> | Date | string
   }
 
   export type SectionCreateWithoutAlltasksInput = {
@@ -11052,16 +14183,18 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: number
+    answer: string
     openTaskId?: string | null
+    maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
   }
 
   export type OpenTasksUncheckedCreateWithoutSubSectionInput = {
     id?: string
     name: string
     content: string
-    answer: number
+    answer: string
     openTaskId?: string | null
+    maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
   }
 
   export type OpenTasksCreateOrConnectWithoutSubSectionInput = {
@@ -11079,6 +14212,7 @@ export namespace Prisma {
     content: string
     correctAnswer: string
     answers?: AnswersCreateNestedManyWithoutClosedTaskInput
+    maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
   }
 
   export type ClosedTasksUncheckedCreateWithoutSubSectionInput = {
@@ -11087,6 +14221,7 @@ export namespace Prisma {
     content: string
     correctAnswer: string
     answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
+    maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
   }
 
   export type ClosedTasksCreateOrConnectWithoutSubSectionInput = {
@@ -11144,7 +14279,7 @@ export namespace Prisma {
     id?: StringFilter<"OpenTasks"> | string
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
-    answer?: IntFilter<"OpenTasks"> | number
+    answer?: StringFilter<"OpenTasks"> | string
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
   }
@@ -11201,6 +14336,29 @@ export namespace Prisma {
     create: XOR<SubSectionCreateWithoutOpenTasksInput, SubSectionUncheckedCreateWithoutOpenTasksInput>
   }
 
+  export type MaturaCreateWithoutOpenTasksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    closedTasks?: ClosedTasksCreateNestedManyWithoutMaturasInput
+    userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaUncheckedCreateWithoutOpenTasksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    closedTasks?: ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput
+    userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaCreateOrConnectWithoutOpenTasksInput = {
+    where: MaturaWhereUniqueInput
+    create: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput>
+  }
+
   export type SubSectionUpsertWithoutOpenTasksInput = {
     update: XOR<SubSectionUpdateWithoutOpenTasksInput, SubSectionUncheckedUpdateWithoutOpenTasksInput>
     create: XOR<SubSectionCreateWithoutOpenTasksInput, SubSectionUncheckedCreateWithoutOpenTasksInput>
@@ -11230,6 +14388,32 @@ export namespace Prisma {
     closedTasksToShuffle?: NullableIntFieldUpdateOperationsInput | number | null
     openTasksToShuffle?: NullableIntFieldUpdateOperationsInput | number | null
     closedTasks?: ClosedTasksUncheckedUpdateManyWithoutSubSectionNestedInput
+  }
+
+  export type MaturaUpsertWithWhereUniqueWithoutOpenTasksInput = {
+    where: MaturaWhereUniqueInput
+    update: XOR<MaturaUpdateWithoutOpenTasksInput, MaturaUncheckedUpdateWithoutOpenTasksInput>
+    create: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput>
+  }
+
+  export type MaturaUpdateWithWhereUniqueWithoutOpenTasksInput = {
+    where: MaturaWhereUniqueInput
+    data: XOR<MaturaUpdateWithoutOpenTasksInput, MaturaUncheckedUpdateWithoutOpenTasksInput>
+  }
+
+  export type MaturaUpdateManyWithWhereWithoutOpenTasksInput = {
+    where: MaturaScalarWhereInput
+    data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyWithoutOpenTasksInput>
+  }
+
+  export type MaturaScalarWhereInput = {
+    AND?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+    OR?: MaturaScalarWhereInput[]
+    NOT?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+    id?: StringFilter<"Matura"> | string
+    name?: StringFilter<"Matura"> | string
+    createdAt?: DateTimeFilter<"Matura"> | Date | string
+    status?: BoolFilter<"Matura"> | boolean
   }
 
   export type AnswersCreateWithoutClosedTaskInput = {
@@ -11280,6 +14464,29 @@ export namespace Prisma {
   export type SubSectionCreateOrConnectWithoutClosedTasksInput = {
     where: SubSectionWhereUniqueInput
     create: XOR<SubSectionCreateWithoutClosedTasksInput, SubSectionUncheckedCreateWithoutClosedTasksInput>
+  }
+
+  export type MaturaCreateWithoutClosedTasksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    openTasks?: OpenTasksCreateNestedManyWithoutMaturasInput
+    userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaUncheckedCreateWithoutClosedTasksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    openTasks?: OpenTasksUncheckedCreateNestedManyWithoutMaturasInput
+    userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
+  }
+
+  export type MaturaCreateOrConnectWithoutClosedTasksInput = {
+    where: MaturaWhereUniqueInput
+    create: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput>
   }
 
   export type AnswersUpsertWithWhereUniqueWithoutClosedTaskInput = {
@@ -11341,12 +14548,29 @@ export namespace Prisma {
     openTasks?: OpenTasksUncheckedUpdateManyWithoutSubSectionNestedInput
   }
 
+  export type MaturaUpsertWithWhereUniqueWithoutClosedTasksInput = {
+    where: MaturaWhereUniqueInput
+    update: XOR<MaturaUpdateWithoutClosedTasksInput, MaturaUncheckedUpdateWithoutClosedTasksInput>
+    create: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput>
+  }
+
+  export type MaturaUpdateWithWhereUniqueWithoutClosedTasksInput = {
+    where: MaturaWhereUniqueInput
+    data: XOR<MaturaUpdateWithoutClosedTasksInput, MaturaUncheckedUpdateWithoutClosedTasksInput>
+  }
+
+  export type MaturaUpdateManyWithWhereWithoutClosedTasksInput = {
+    where: MaturaScalarWhereInput
+    data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyWithoutClosedTasksInput>
+  }
+
   export type ClosedTasksCreateWithoutAnswersInput = {
     id?: string
     name: string
     content: string
     correctAnswer: string
     subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
+    maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
   }
 
   export type ClosedTasksUncheckedCreateWithoutAnswersInput = {
@@ -11355,6 +14579,7 @@ export namespace Prisma {
     content: string
     correctAnswer: string
     subSectionId: string
+    maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
   }
 
   export type ClosedTasksCreateOrConnectWithoutAnswersInput = {
@@ -11379,6 +14604,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
     subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
+    maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateWithoutAnswersInput = {
@@ -11387,6 +14613,254 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
     subSectionId?: StringFieldUpdateOperationsInput | string
+    maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
+  }
+
+  export type ClosedTasksCreateWithoutMaturasInput = {
+    id?: string
+    name: string
+    content: string
+    correctAnswer: string
+    answers?: AnswersCreateNestedManyWithoutClosedTaskInput
+    subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
+  }
+
+  export type ClosedTasksUncheckedCreateWithoutMaturasInput = {
+    id?: string
+    name: string
+    content: string
+    correctAnswer: string
+    subSectionId: string
+    answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
+  }
+
+  export type ClosedTasksCreateOrConnectWithoutMaturasInput = {
+    where: ClosedTasksWhereUniqueInput
+    create: XOR<ClosedTasksCreateWithoutMaturasInput, ClosedTasksUncheckedCreateWithoutMaturasInput>
+  }
+
+  export type OpenTasksCreateWithoutMaturasInput = {
+    id?: string
+    name: string
+    content: string
+    answer: string
+    openTaskId?: string | null
+    subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
+  }
+
+  export type OpenTasksUncheckedCreateWithoutMaturasInput = {
+    id?: string
+    name: string
+    content: string
+    answer: string
+    subSectionId: string
+    openTaskId?: string | null
+  }
+
+  export type OpenTasksCreateOrConnectWithoutMaturasInput = {
+    where: OpenTasksWhereUniqueInput
+    create: XOR<OpenTasksCreateWithoutMaturasInput, OpenTasksUncheckedCreateWithoutMaturasInput>
+  }
+
+  export type UserMaturaCreateWithoutMaturaInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutUserMaturasInput
+  }
+
+  export type UserMaturaUncheckedCreateWithoutMaturaInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type UserMaturaCreateOrConnectWithoutMaturaInput = {
+    where: UserMaturaWhereUniqueInput
+    create: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput>
+  }
+
+  export type UserMaturaCreateManyMaturaInputEnvelope = {
+    data: UserMaturaCreateManyMaturaInput | UserMaturaCreateManyMaturaInput[]
+  }
+
+  export type ClosedTasksUpsertWithWhereUniqueWithoutMaturasInput = {
+    where: ClosedTasksWhereUniqueInput
+    update: XOR<ClosedTasksUpdateWithoutMaturasInput, ClosedTasksUncheckedUpdateWithoutMaturasInput>
+    create: XOR<ClosedTasksCreateWithoutMaturasInput, ClosedTasksUncheckedCreateWithoutMaturasInput>
+  }
+
+  export type ClosedTasksUpdateWithWhereUniqueWithoutMaturasInput = {
+    where: ClosedTasksWhereUniqueInput
+    data: XOR<ClosedTasksUpdateWithoutMaturasInput, ClosedTasksUncheckedUpdateWithoutMaturasInput>
+  }
+
+  export type ClosedTasksUpdateManyWithWhereWithoutMaturasInput = {
+    where: ClosedTasksScalarWhereInput
+    data: XOR<ClosedTasksUpdateManyMutationInput, ClosedTasksUncheckedUpdateManyWithoutMaturasInput>
+  }
+
+  export type OpenTasksUpsertWithWhereUniqueWithoutMaturasInput = {
+    where: OpenTasksWhereUniqueInput
+    update: XOR<OpenTasksUpdateWithoutMaturasInput, OpenTasksUncheckedUpdateWithoutMaturasInput>
+    create: XOR<OpenTasksCreateWithoutMaturasInput, OpenTasksUncheckedCreateWithoutMaturasInput>
+  }
+
+  export type OpenTasksUpdateWithWhereUniqueWithoutMaturasInput = {
+    where: OpenTasksWhereUniqueInput
+    data: XOR<OpenTasksUpdateWithoutMaturasInput, OpenTasksUncheckedUpdateWithoutMaturasInput>
+  }
+
+  export type OpenTasksUpdateManyWithWhereWithoutMaturasInput = {
+    where: OpenTasksScalarWhereInput
+    data: XOR<OpenTasksUpdateManyMutationInput, OpenTasksUncheckedUpdateManyWithoutMaturasInput>
+  }
+
+  export type UserMaturaUpsertWithWhereUniqueWithoutMaturaInput = {
+    where: UserMaturaWhereUniqueInput
+    update: XOR<UserMaturaUpdateWithoutMaturaInput, UserMaturaUncheckedUpdateWithoutMaturaInput>
+    create: XOR<UserMaturaCreateWithoutMaturaInput, UserMaturaUncheckedCreateWithoutMaturaInput>
+  }
+
+  export type UserMaturaUpdateWithWhereUniqueWithoutMaturaInput = {
+    where: UserMaturaWhereUniqueInput
+    data: XOR<UserMaturaUpdateWithoutMaturaInput, UserMaturaUncheckedUpdateWithoutMaturaInput>
+  }
+
+  export type UserMaturaUpdateManyWithWhereWithoutMaturaInput = {
+    where: UserMaturaScalarWhereInput
+    data: XOR<UserMaturaUpdateManyMutationInput, UserMaturaUncheckedUpdateManyWithoutMaturaInput>
+  }
+
+  export type UserCreateWithoutUserMaturasInput = {
+    id?: string
+    clerkId: string
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    createDate?: Date | string
+    updateDate?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutUserMaturasInput = {
+    id?: string
+    clerkId: string
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    createDate?: Date | string
+    updateDate?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutUserMaturasInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+  }
+
+  export type MaturaCreateWithoutUserMaturasInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    closedTasks?: ClosedTasksCreateNestedManyWithoutMaturasInput
+    openTasks?: OpenTasksCreateNestedManyWithoutMaturasInput
+  }
+
+  export type MaturaUncheckedCreateWithoutUserMaturasInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    status?: boolean
+    closedTasks?: ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput
+    openTasks?: OpenTasksUncheckedCreateNestedManyWithoutMaturasInput
+  }
+
+  export type MaturaCreateOrConnectWithoutUserMaturasInput = {
+    where: MaturaWhereUniqueInput
+    create: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+  }
+
+  export type UserUpsertWithoutUserMaturasInput = {
+    update: XOR<UserUpdateWithoutUserMaturasInput, UserUncheckedUpdateWithoutUserMaturasInput>
+    create: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserMaturasInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserMaturasInput, UserUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type UserUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaturaUpsertWithoutUserMaturasInput = {
+    update: XOR<MaturaUpdateWithoutUserMaturasInput, MaturaUncheckedUpdateWithoutUserMaturasInput>
+    create: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
+    where?: MaturaWhereInput
+  }
+
+  export type MaturaUpdateToOneWithWhereWithoutUserMaturasInput = {
+    where?: MaturaWhereInput
+    data: XOR<MaturaUpdateWithoutUserMaturasInput, MaturaUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type MaturaUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    closedTasks?: ClosedTasksUpdateManyWithoutMaturasNestedInput
+    openTasks?: OpenTasksUpdateManyWithoutMaturasNestedInput
+  }
+
+  export type MaturaUncheckedUpdateWithoutUserMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    closedTasks?: ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput
+    openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
+  }
+
+  export type UserMaturaCreateManyUserInput = {
+    id?: string
+    maturaId: string
+    createdAt?: Date | string
+  }
+
+  export type UserMaturaUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionCreateManyAlltasksInput = {
@@ -11451,7 +14925,7 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: number
+    answer: string
     openTaskId?: string | null
   }
 
@@ -11466,23 +14940,25 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
   }
 
   export type OpenTasksUncheckedUpdateWithoutSubSectionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
   }
 
   export type OpenTasksUncheckedUpdateManyWithoutSubSectionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: IntFieldUpdateOperationsInput | number
+    answer?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -11492,6 +14968,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
     answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
+    maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateWithoutSubSectionInput = {
@@ -11500,6 +14977,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
     answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
+    maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateManyWithoutSubSectionInput = {
@@ -11507,6 +14985,31 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MaturaUpdateWithoutOpenTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    closedTasks?: ClosedTasksUpdateManyWithoutMaturasNestedInput
+    userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaUncheckedUpdateWithoutOpenTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    closedTasks?: ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput
+    userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaUncheckedUpdateManyWithoutOpenTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswersCreateManyClosedTaskInput = {
@@ -11539,6 +15042,108 @@ export namespace Prisma {
     B?: StringFieldUpdateOperationsInput | string
     C?: StringFieldUpdateOperationsInput | string
     D?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MaturaUpdateWithoutClosedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    openTasks?: OpenTasksUpdateManyWithoutMaturasNestedInput
+    userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaUncheckedUpdateWithoutClosedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
+    userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
+  }
+
+  export type MaturaUncheckedUpdateManyWithoutClosedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserMaturaCreateManyMaturaInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type ClosedTasksUpdateWithoutMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    correctAnswer?: StringFieldUpdateOperationsInput | string
+    answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
+    subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
+  }
+
+  export type ClosedTasksUncheckedUpdateWithoutMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    correctAnswer?: StringFieldUpdateOperationsInput | string
+    subSectionId?: StringFieldUpdateOperationsInput | string
+    answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
+  }
+
+  export type ClosedTasksUncheckedUpdateManyWithoutMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    correctAnswer?: StringFieldUpdateOperationsInput | string
+    subSectionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OpenTasksUpdateWithoutMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
+  }
+
+  export type OpenTasksUncheckedUpdateWithoutMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    subSectionId?: StringFieldUpdateOperationsInput | string
+    openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OpenTasksUncheckedUpdateManyWithoutMaturasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    subSectionId?: StringFieldUpdateOperationsInput | string
+    openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserMaturaUpdateWithoutMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateWithoutMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMaturaUncheckedUpdateManyWithoutMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
