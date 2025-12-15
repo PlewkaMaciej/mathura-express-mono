@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     let selectedOpenTaskIds: string[] = [];
     for (const singleSubsection of subsectionWithMustShuffle) {
       if (
-        singleSubsection.closedTasksToShuffle &&
+        singleSubsection.closedTasksToShuffle !== null &&
         singleSubsection.closedTasksToShuffle > 0
       ) {
         const ids = pickRandom(
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
         selectedClosedTaskIds.push(...ids);
       }
       if (
-        singleSubsection.openTasksToShuffle &&
+        singleSubsection.openTasksToShuffle !== null &&
         singleSubsection.openTasksToShuffle > 0
       ) {
         const ids = pickRandom(
