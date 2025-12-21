@@ -5,13 +5,7 @@ import Button from "../Items/Button";
 import { useSearchParams } from "next/navigation";
 import Question from "./Question";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
-
-interface VideoType {
-  id: number;
-  url: string;
-  questions: any[];
-  videoUrl: string;
-}
+import { VideoType } from "@/types/video";
 
 export default function Video() {
   const [video, setVideo] = useState<VideoType | null>(null);

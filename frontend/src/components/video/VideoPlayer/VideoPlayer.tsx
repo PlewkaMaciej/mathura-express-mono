@@ -2,12 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import VideoControls from "./VideoControls";
-
-interface VideoType {
-  id: number;
-  url: string;
-  questions: any[];
-}
+import { VideoType, QuestionType } from "@/types/video";
 
 interface Props {
   video: VideoType;

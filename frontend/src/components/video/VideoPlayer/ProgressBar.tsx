@@ -1,11 +1,13 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
 
+import { useState, useRef, useEffect } from "react";
+import { QuestionType } from "@/types/video";
+import Button from "@/components/Items/Button";
 interface Props {
   visible: boolean;
   duration: number;
   currentTime: number;
-  questions: any[];
+  questions: QuestionType[];
   onSeekPercent: (percent: number) => void;
 }
 
@@ -14,13 +16,16 @@ export default function ProgressBar({
   duration,
   currentTime,
   questions,
-
   onSeekPercent,
 }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPercent, setDragPercent] = useState(0);
+
+  const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const timeRef = useRef<NodeJS.Timeout | null>(null);
+
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
@@ -32,8 +37,7 @@ export default function ProgressBar({
     if (!isDragging) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      const newPercent = getPercentFromClientX(e.clientX);
-      setDragPercent(newPercent);
+      setDragPercent(getPercentFromClientX(e.clientX));
     };
 
     const handleMouseUp = () => {
@@ -51,21 +55,28 @@ export default function ProgressBar({
   }, [isDragging, dragPercent, onSeekPercent]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const percent = getPercentFromClientX(e.clientX);
-    setDragPercent(percent);
+    setDragPercent(getPercentFromClientX(e.clientX));
     setIsDragging(true);
   };
-  const handleMouseEnter = () => {
-    timeRef.current = setTimeout(() => {
-      console.log("Mouse entered progress bar");
-    }, 50);
+
+  const showWithDelay = (index: number) => {
+    if (isDragging) return;
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      setActiveQuestion(index);
+    }, 120);
   };
-  const handleMouseLeave = () => {
-    if (timeRef.current) {
-      clearTimeout(timeRef.current);
-      timeRef.current = null;
-    }
+
+  const hideWithDelay = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      setActiveQuestion(null);
+    }, 250);
   };
+
   const displayPercent = isDragging
     ? dragPercent
     : duration > 0
@@ -76,9 +87,9 @@ export default function ProgressBar({
     <div
       ref={containerRef}
       onPointerDown={handleMouseDown}
-      className={`absolute left-0 z-50 right-0 bottom-8 h-2 cursor-pointer transition-opacity duration-300 ${
-        visible || timeRef ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className={`absolute left-0 right-0 bottom-8 z-50 h-2 cursor-pointer transition-opacity duration-300
+        ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
+      `}
     >
       <div className="w-full h-full bg-gray-700/50 rounded-full" />
 
@@ -90,21 +101,79 @@ export default function ProgressBar({
       {duration > 0 &&
         questions.map((question, i) => {
           const left = `${(question.time / duration) * 100}%`;
+
           return (
             <div
               key={i}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              className="absolute top-0 w-3 z-10 h-full bg-black rounded-full cursor-pointer"
-              style={{ left: `calc(${left} - 0.5px)` }}
-            />
+              onMouseEnter={() => showWithDelay(i)}
+              onMouseLeave={hideWithDelay}
+              onClick={() => onSeekPercent(question.time / duration)}
+              className="absolute top-0 w-3 h-full bg-black rounded-full cursor-pointer group"
+              style={{ left: `calc(${left} - 1px)` }}
+            >
+              <div
+                className={`
+                        absolute -top-24 left-1/2 -translate-x-1/2
+                        w-56
+                        pointer-events-none
+                        transition-all duration-200 ease-out
+    ${
+      activeQuestion === i
+        ? "opacity-100 translate-y-0 scale-100"
+        : "opacity-0 translate-y-2 scale-95"
+    }
+  `}
+              >
+                <div
+                  className="
+                          relative
+                          rounded-xl
+                          bg-zinc-900
+                          text-white
+                          shadow-2xl
+                          px-4 py-3
+  "
+                >
+                  <div className="text-sm font-semibold leading-snug line-clamp-2">
+                    {question.title}
+                  </div>
+
+                  <div className="my-2 h-px bg-white/10" />
+
+                  <button
+                    className="
+        w-full
+        rounded-lg
+        bg-yellow-500
+        px-3 py-1.5
+        text-xs font-semibold text-black
+        transition-colors
+        hover:bg-yellow-400
+        active:bg-yellow-600
+      "
+                  >
+                    Przejdź do pytania
+                  </button>
+
+                  <div
+                    className="
+        absolute left-1/2 -bottom-1.5
+        h-3 w-3
+        -translate-x-1/2 rotate-45
+        bg-zinc-900
+      "
+                  />
+                </div>
+              </div>
+            </div>
           );
         })}
 
       <div
-        className={`absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg -translate-y-1/2 transform transition-transform duration-100 ${
-          isDragging ? "scale-125" : "scale-100"
-        }`}
+        className={`absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg
+          -translate-y-1/2 transition-transform duration-100
+          ${isDragging ? "scale-125" : "scale-100"}
+        `}
         style={{ left: `${displayPercent * 100}%` }}
       />
     </div>
