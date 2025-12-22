@@ -144,7 +144,10 @@ exports.Prisma.QuestionScalarFieldEnum = {
 exports.Prisma.AnswerScalarFieldEnum = {
   id: 'id',
   text: 'text',
-  questionId: 'questionId'
+  questionId: 'questionId',
+  userId: 'userId',
+  userName: 'userName',
+  lastName: 'lastName'
 };
 
 exports.Prisma.SortOrder = {

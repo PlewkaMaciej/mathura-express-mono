@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { QuestionType } from "@/types/video";
-import Button from "@/components/Items/Button";
+import { QuestionType } from "@/components/video/types/video";
+import { cn } from "@/lib/cn";
+import { useRouter } from "next/navigation";
+
 interface Props {
   visible: boolean;
   duration: number;
@@ -20,25 +22,28 @@ export default function ProgressBar({
 }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPercent, setDragPercent] = useState(0);
-
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const router = useRouter();
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : null;
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
-    const percent = (clientX - rect.left) / rect.width;
-    return Math.min(1, Math.max(0, percent));
+    return Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
   };
 
   useEffect(() => {
     if (!isDragging) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) =>
       setDragPercent(getPercentFromClientX(e.clientX));
-    };
 
     const handleMouseUp = () => {
       setIsDragging(false);
@@ -61,20 +66,13 @@ export default function ProgressBar({
 
   const showWithDelay = (index: number) => {
     if (isDragging) return;
-
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-    timeoutRef.current = setTimeout(() => {
-      setActiveQuestion(index);
-    }, 120);
+    timeoutRef.current = setTimeout(() => setActiveQuestion(index), 500);
   };
 
   const hideWithDelay = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-    timeoutRef.current = setTimeout(() => {
-      setActiveQuestion(null);
-    }, 250);
+    timeoutRef.current = setTimeout(() => setActiveQuestion(null), 1200);
   };
 
   const displayPercent = isDragging
@@ -87,9 +85,10 @@ export default function ProgressBar({
     <div
       ref={containerRef}
       onPointerDown={handleMouseDown}
-      className={`absolute left-0 right-0 bottom-8 z-50 h-2 cursor-pointer transition-opacity duration-300
-        ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
-      `}
+      className={cn(
+        "absolute left-0 right-0 bottom-8 z-50 h-2 cursor-pointer transition-opacity duration-300",
+        visible ? "opacity-100" : "opacity-0 pointer-events-none"
+      )}
     >
       <div className="w-full h-full bg-gray-700/50 rounded-full" />
 
@@ -104,36 +103,22 @@ export default function ProgressBar({
 
           return (
             <div
-              key={i}
+              key={question.id}
               onMouseEnter={() => showWithDelay(i)}
               onMouseLeave={hideWithDelay}
-              onClick={() => onSeekPercent(question.time / duration)}
-              className="absolute top-0 w-3 h-full bg-black rounded-full cursor-pointer group"
+              className="absolute top-0 w-3 h-full bg-black rounded-full cursor-default"
               style={{ left: `calc(${left} - 1px)` }}
             >
               <div
-                className={`
-                        absolute -top-24 left-1/2 -translate-x-1/2
-                        w-56
-                        pointer-events-none
-                        transition-all duration-200 ease-out
-    ${
-      activeQuestion === i
-        ? "opacity-100 translate-y-0 scale-100"
-        : "opacity-0 translate-y-2 scale-95"
-    }
-  `}
+                className={cn(
+                  "absolute -top-24 left-1/2 -translate-x-1/2 w-56 transition-all duration-200 ease-out",
+                  activeQuestion === i
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 translate-y-2 scale-95 pointer-events-none"
+                )}
+                onPointerDown={(e) => e.stopPropagation()}
               >
-                <div
-                  className="
-                          relative
-                          rounded-xl
-                          bg-zinc-900
-                          text-white
-                          shadow-2xl
-                          px-4 py-3
-  "
-                >
+                <div className="relative rounded-xl bg-zinc-900 px-4 py-3 text-white shadow-2xl">
                   <div className="text-sm font-semibold leading-snug line-clamp-2">
                     {question.title}
                   </div>
@@ -141,28 +126,24 @@ export default function ProgressBar({
                   <div className="my-2 h-px bg-white/10" />
 
                   <button
-                    className="
-        w-full
-        rounded-lg
-        bg-yellow-500
-        px-3 py-1.5
-        text-xs font-semibold text-black
-        transition-colors
-        hover:bg-yellow-400
-        active:bg-yellow-600
-      "
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(
+                        `/videoexample/question?videoId=${searchParams?.get(
+                          "videoId"
+                        )}&questionId=${question.id}`
+                      );
+                    }}
+                    className={cn(
+                      "w-full rounded-lg bg-yellow-500 px-3 py-1.5 text-xs font-semibold text-black transition-colors",
+                      "hover:bg-yellow-400 active:bg-yellow-600"
+                    )}
                   >
                     Przejdź do pytania
                   </button>
 
-                  <div
-                    className="
-        absolute left-1/2 -bottom-1.5
-        h-3 w-3
-        -translate-x-1/2 rotate-45
-        bg-zinc-900
-      "
-                  />
+                  <div className="absolute left-1/2 -bottom-1.5 h-3 w-3 -translate-x-1/2 rotate-45 bg-zinc-900" />
                 </div>
               </div>
             </div>
@@ -170,10 +151,10 @@ export default function ProgressBar({
         })}
 
       <div
-        className={`absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg
-          -translate-y-1/2 transition-transform duration-100
-          ${isDragging ? "scale-125" : "scale-100"}
-        `}
+        className={cn(
+          "absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg -translate-y-1/2 transition-transform duration-100",
+          isDragging ? "scale-125" : "scale-100"
+        )}
         style={{ left: `${displayPercent * 100}%` }}
       />
     </div>

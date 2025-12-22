@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import VideoControls from "./VideoControls";
-import { VideoType, QuestionType } from "@/types/video";
+import { VideoType } from "@/components/video/types/video";
 
 interface Props {
   video: VideoType;
@@ -82,6 +82,8 @@ export default function VideoPlayer({ video, onTimeUpdate }: Props) {
         className="w-full rounded-xl shadow-lg"
         src={video.url}
         onClick={togglePlay}
+        draggable={false}
+        onDragStart={(e) => e.preventDefault()}
       >
         <source src={video.url} type="video/mp4" />
         Twoja przeglądarka nie obsługuje elementu video.

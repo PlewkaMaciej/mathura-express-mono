@@ -17,6 +17,7 @@ model User {
   createDate DateTime @default(now())
   updateDate DateTime @updatedAt
   questions  Question[]
+  answers    Answer[]
 }
 
 model Video {
@@ -45,4 +46,9 @@ model Answer {
   text       String
   questionId Int
   question   Question @relation("QuestionAnswers", fields: [questionId], references: [id])
+
+  user    User     @relation(fields: [userId], references: [id])
+userId String
+userName String
+  lastName  String
 }

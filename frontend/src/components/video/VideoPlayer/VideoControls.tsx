@@ -2,6 +2,7 @@
 
 import { useEffect, useState, RefObject } from "react";
 import ProgressBar from "./ProgressBar";
+import { QuestionType } from "@/components/video/types/video";
 
 interface Props {
   videoRef: RefObject<HTMLVideoElement | null>;
@@ -10,7 +11,7 @@ interface Props {
   togglePlay: () => void;
   duration: number;
   currentTime: number;
-  questions: any[];
+  questions: QuestionType[];
   onSeekPercent: (percent: number) => void;
   volume: number;
   onVolumeChange: (vol: number) => void;

@@ -1143,10 +1143,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     questions: number
+    answers: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     questions?: boolean | UserCountOutputTypeCountQuestionsArgs
+    answers?: boolean | UserCountOutputTypeCountAnswersArgs
   }
 
   // Custom InputTypes
@@ -1165,6 +1167,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuestionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
   }
 
 
@@ -1415,6 +1424,7 @@ export namespace Prisma {
     createDate?: boolean
     updateDate?: boolean
     questions?: boolean | User$questionsArgs<ExtArgs>
+    answers?: boolean | User$answersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1451,6 +1461,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     questions?: boolean | User$questionsArgs<ExtArgs>
+    answers?: boolean | User$answersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1460,6 +1471,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       questions: Prisma.$QuestionPayload<ExtArgs>[]
+      answers: Prisma.$AnswerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1864,6 +1876,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     questions<T extends User$questionsArgs<ExtArgs> = {}>(args?: Subset<T, User$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    answers<T extends User$answersArgs<ExtArgs> = {}>(args?: Subset<T, User$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2307,6 +2320,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: QuestionScalarFieldEnum | QuestionScalarFieldEnum[]
+  }
+
+  /**
+   * User.answers
+   */
+  export type User$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
   }
 
   /**
@@ -4605,18 +4642,27 @@ export namespace Prisma {
     id: number | null
     text: string | null
     questionId: number | null
+    userId: string | null
+    userName: string | null
+    lastName: string | null
   }
 
   export type AnswerMaxAggregateOutputType = {
     id: number | null
     text: string | null
     questionId: number | null
+    userId: string | null
+    userName: string | null
+    lastName: string | null
   }
 
   export type AnswerCountAggregateOutputType = {
     id: number
     text: number
     questionId: number
+    userId: number
+    userName: number
+    lastName: number
     _all: number
   }
 
@@ -4635,18 +4681,27 @@ export namespace Prisma {
     id?: true
     text?: true
     questionId?: true
+    userId?: true
+    userName?: true
+    lastName?: true
   }
 
   export type AnswerMaxAggregateInputType = {
     id?: true
     text?: true
     questionId?: true
+    userId?: true
+    userName?: true
+    lastName?: true
   }
 
   export type AnswerCountAggregateInputType = {
     id?: true
     text?: true
     questionId?: true
+    userId?: true
+    userName?: true
+    lastName?: true
     _all?: true
   }
 
@@ -4740,6 +4795,9 @@ export namespace Prisma {
     id: number
     text: string
     questionId: number
+    userId: string
+    userName: string
+    lastName: string
     _count: AnswerCountAggregateOutputType | null
     _avg: AnswerAvgAggregateOutputType | null
     _sum: AnswerSumAggregateOutputType | null
@@ -4765,49 +4823,71 @@ export namespace Prisma {
     id?: boolean
     text?: boolean
     questionId?: boolean
+    userId?: boolean
+    userName?: boolean
+    lastName?: boolean
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["answer"]>
 
   export type AnswerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
     questionId?: boolean
+    userId?: boolean
+    userName?: boolean
+    lastName?: boolean
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["answer"]>
 
   export type AnswerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
     questionId?: boolean
+    userId?: boolean
+    userName?: boolean
+    lastName?: boolean
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["answer"]>
 
   export type AnswerSelectScalar = {
     id?: boolean
     text?: boolean
     questionId?: boolean
+    userId?: boolean
+    userName?: boolean
+    lastName?: boolean
   }
 
-  export type AnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "questionId", ExtArgs["result"]["answer"]>
+  export type AnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "questionId" | "userId" | "userName" | "lastName", ExtArgs["result"]["answer"]>
   export type AnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AnswerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AnswerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $AnswerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Answer"
     objects: {
       question: Prisma.$QuestionPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       text: string
       questionId: number
+      userId: string
+      userName: string
+      lastName: string
     }, ExtArgs["result"]["answer"]>
     composites: {}
   }
@@ -5203,6 +5283,7 @@ export namespace Prisma {
   export interface Prisma__AnswerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     question<T extends QuestionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuestionDefaultArgs<ExtArgs>>): Prisma__QuestionClient<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5235,6 +5316,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Answer", 'Int'>
     readonly text: FieldRef<"Answer", 'String'>
     readonly questionId: FieldRef<"Answer", 'Int'>
+    readonly userId: FieldRef<"Answer", 'String'>
+    readonly userName: FieldRef<"Answer", 'String'>
+    readonly lastName: FieldRef<"Answer", 'String'>
   }
     
 
@@ -5697,7 +5781,10 @@ export namespace Prisma {
   export const AnswerScalarFieldEnum: {
     id: 'id',
     text: 'text',
-    questionId: 'questionId'
+    questionId: 'questionId',
+    userId: 'userId',
+    userName: 'userName',
+    lastName: 'lastName'
   };
 
   export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
@@ -5774,6 +5861,7 @@ export namespace Prisma {
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
     questions?: QuestionListRelationFilter
+    answers?: AnswerListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5785,6 +5873,7 @@ export namespace Prisma {
     createDate?: SortOrder
     updateDate?: SortOrder
     questions?: QuestionOrderByRelationAggregateInput
+    answers?: AnswerOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5799,6 +5888,7 @@ export namespace Prisma {
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
     questions?: QuestionListRelationFilter
+    answers?: AnswerListRelationFilter
   }, "id" | "clerkId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5959,14 +6049,22 @@ export namespace Prisma {
     id?: IntFilter<"Answer"> | number
     text?: StringFilter<"Answer"> | string
     questionId?: IntFilter<"Answer"> | number
+    userId?: StringFilter<"Answer"> | string
+    userName?: StringFilter<"Answer"> | string
+    lastName?: StringFilter<"Answer"> | string
     question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type AnswerOrderByWithRelationInput = {
     id?: SortOrder
     text?: SortOrder
     questionId?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
     question?: QuestionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type AnswerWhereUniqueInput = Prisma.AtLeast<{
@@ -5976,13 +6074,20 @@ export namespace Prisma {
     NOT?: AnswerWhereInput | AnswerWhereInput[]
     text?: StringFilter<"Answer"> | string
     questionId?: IntFilter<"Answer"> | number
+    userId?: StringFilter<"Answer"> | string
+    userName?: StringFilter<"Answer"> | string
+    lastName?: StringFilter<"Answer"> | string
     question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type AnswerOrderByWithAggregationInput = {
     id?: SortOrder
     text?: SortOrder
     questionId?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
     _count?: AnswerCountOrderByAggregateInput
     _avg?: AnswerAvgOrderByAggregateInput
     _max?: AnswerMaxOrderByAggregateInput
@@ -5997,6 +6102,9 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Answer"> | number
     text?: StringWithAggregatesFilter<"Answer"> | string
     questionId?: IntWithAggregatesFilter<"Answer"> | number
+    userId?: StringWithAggregatesFilter<"Answer"> | string
+    userName?: StringWithAggregatesFilter<"Answer"> | string
+    lastName?: StringWithAggregatesFilter<"Answer"> | string
   }
 
   export type UserCreateInput = {
@@ -6008,6 +6116,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     questions?: QuestionCreateNestedManyWithoutUserInput
+    answers?: AnswerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6019,6 +6128,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6030,6 +6140,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     questions?: QuestionUpdateManyWithoutUserNestedInput
+    answers?: AnswerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6041,6 +6152,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6194,40 +6306,60 @@ export namespace Prisma {
 
   export type AnswerCreateInput = {
     text: string
+    userName: string
+    lastName: string
     question: QuestionCreateNestedOneWithoutAnswersInput
+    user: UserCreateNestedOneWithoutAnswersInput
   }
 
   export type AnswerUncheckedCreateInput = {
     id?: number
     text: string
     questionId: number
+    userId: string
+    userName: string
+    lastName: string
   }
 
   export type AnswerUpdateInput = {
     text?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+    user?: UserUpdateOneRequiredWithoutAnswersNestedInput
   }
 
   export type AnswerUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
     questionId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnswerCreateManyInput = {
     id?: number
     text: string
     questionId: number
+    userId: string
+    userName: string
+    lastName: string
   }
 
   export type AnswerUpdateManyMutationInput = {
     text?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnswerUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
     questionId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6275,12 +6407,22 @@ export namespace Prisma {
     none?: QuestionWhereInput
   }
 
+  export type AnswerListRelationFilter = {
+    every?: AnswerWhereInput
+    some?: AnswerWhereInput
+    none?: AnswerWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type QuestionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AnswerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6417,12 +6559,6 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type AnswerListRelationFilter = {
-    every?: AnswerWhereInput
-    some?: AnswerWhereInput
-    none?: AnswerWhereInput
-  }
-
   export type VideoScalarRelationFilter = {
     is?: VideoWhereInput
     isNot?: VideoWhereInput
@@ -6431,10 +6567,6 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
-  }
-
-  export type AnswerOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type QuestionCountOrderByAggregateInput = {
@@ -6502,6 +6634,9 @@ export namespace Prisma {
     id?: SortOrder
     text?: SortOrder
     questionId?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
   }
 
   export type AnswerAvgOrderByAggregateInput = {
@@ -6513,12 +6648,18 @@ export namespace Prisma {
     id?: SortOrder
     text?: SortOrder
     questionId?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
   }
 
   export type AnswerMinOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
     questionId?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    lastName?: SortOrder
   }
 
   export type AnswerSumOrderByAggregateInput = {
@@ -6533,11 +6674,25 @@ export namespace Prisma {
     connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
   }
 
+  export type AnswerCreateNestedManyWithoutUserInput = {
+    create?: XOR<AnswerCreateWithoutUserInput, AnswerUncheckedCreateWithoutUserInput> | AnswerCreateWithoutUserInput[] | AnswerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutUserInput | AnswerCreateOrConnectWithoutUserInput[]
+    createMany?: AnswerCreateManyUserInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
   export type QuestionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<QuestionCreateWithoutUserInput, QuestionUncheckedCreateWithoutUserInput> | QuestionCreateWithoutUserInput[] | QuestionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutUserInput | QuestionCreateOrConnectWithoutUserInput[]
     createMany?: QuestionCreateManyUserInputEnvelope
     connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+  }
+
+  export type AnswerUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AnswerCreateWithoutUserInput, AnswerUncheckedCreateWithoutUserInput> | AnswerCreateWithoutUserInput[] | AnswerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutUserInput | AnswerCreateOrConnectWithoutUserInput[]
+    createMany?: AnswerCreateManyUserInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6566,6 +6721,20 @@ export namespace Prisma {
     deleteMany?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
   }
 
+  export type AnswerUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AnswerCreateWithoutUserInput, AnswerUncheckedCreateWithoutUserInput> | AnswerCreateWithoutUserInput[] | AnswerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutUserInput | AnswerCreateOrConnectWithoutUserInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutUserInput | AnswerUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AnswerCreateManyUserInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutUserInput | AnswerUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutUserInput | AnswerUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
   export type QuestionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<QuestionCreateWithoutUserInput, QuestionUncheckedCreateWithoutUserInput> | QuestionCreateWithoutUserInput[] | QuestionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutUserInput | QuestionCreateOrConnectWithoutUserInput[]
@@ -6578,6 +6747,20 @@ export namespace Prisma {
     update?: QuestionUpdateWithWhereUniqueWithoutUserInput | QuestionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: QuestionUpdateManyWithWhereWithoutUserInput | QuestionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AnswerCreateWithoutUserInput, AnswerUncheckedCreateWithoutUserInput> | AnswerCreateWithoutUserInput[] | AnswerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutUserInput | AnswerCreateOrConnectWithoutUserInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutUserInput | AnswerUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AnswerCreateManyUserInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutUserInput | AnswerUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutUserInput | AnswerUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
   }
 
   export type QuestionCreateNestedManyWithoutVideoInput = {
@@ -6710,12 +6893,26 @@ export namespace Prisma {
     connect?: QuestionWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutAnswersInput = {
+    create?: XOR<UserCreateWithoutAnswersInput, UserUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAnswersInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type QuestionUpdateOneRequiredWithoutAnswersNestedInput = {
     create?: XOR<QuestionCreateWithoutAnswersInput, QuestionUncheckedCreateWithoutAnswersInput>
     connectOrCreate?: QuestionCreateOrConnectWithoutAnswersInput
     upsert?: QuestionUpsertWithoutAnswersInput
     connect?: QuestionWhereUniqueInput
     update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutAnswersInput, QuestionUpdateWithoutAnswersInput>, QuestionUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAnswersNestedInput = {
+    create?: XOR<UserCreateWithoutAnswersInput, UserUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAnswersInput
+    upsert?: UserUpsertWithoutAnswersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAnswersInput, UserUpdateWithoutAnswersInput>, UserUncheckedUpdateWithoutAnswersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -6899,6 +7096,30 @@ export namespace Prisma {
     data: QuestionCreateManyUserInput | QuestionCreateManyUserInput[]
   }
 
+  export type AnswerCreateWithoutUserInput = {
+    text: string
+    userName: string
+    lastName: string
+    question: QuestionCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateWithoutUserInput = {
+    id?: number
+    text: string
+    questionId: number
+    userName: string
+    lastName: string
+  }
+
+  export type AnswerCreateOrConnectWithoutUserInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutUserInput, AnswerUncheckedCreateWithoutUserInput>
+  }
+
+  export type AnswerCreateManyUserInputEnvelope = {
+    data: AnswerCreateManyUserInput | AnswerCreateManyUserInput[]
+  }
+
   export type QuestionUpsertWithWhereUniqueWithoutUserInput = {
     where: QuestionWhereUniqueInput
     update: XOR<QuestionUpdateWithoutUserInput, QuestionUncheckedUpdateWithoutUserInput>
@@ -6928,6 +7149,34 @@ export namespace Prisma {
     isPublic?: BoolFilter<"Question"> | boolean
     userName?: StringFilter<"Question"> | string
     lastName?: StringFilter<"Question"> | string
+  }
+
+  export type AnswerUpsertWithWhereUniqueWithoutUserInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutUserInput, AnswerUncheckedUpdateWithoutUserInput>
+    create: XOR<AnswerCreateWithoutUserInput, AnswerUncheckedCreateWithoutUserInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutUserInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutUserInput, AnswerUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutUserInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AnswerScalarWhereInput = {
+    AND?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+    OR?: AnswerScalarWhereInput[]
+    NOT?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+    id?: IntFilter<"Answer"> | number
+    text?: StringFilter<"Answer"> | string
+    questionId?: IntFilter<"Answer"> | number
+    userId?: StringFilter<"Answer"> | string
+    userName?: StringFilter<"Answer"> | string
+    lastName?: StringFilter<"Answer"> | string
   }
 
   export type QuestionCreateWithoutVideoInput = {
@@ -6980,11 +7229,17 @@ export namespace Prisma {
 
   export type AnswerCreateWithoutQuestionInput = {
     text: string
+    userName: string
+    lastName: string
+    user: UserCreateNestedOneWithoutAnswersInput
   }
 
   export type AnswerUncheckedCreateWithoutQuestionInput = {
     id?: number
     text: string
+    userId: string
+    userName: string
+    lastName: string
   }
 
   export type AnswerCreateOrConnectWithoutQuestionInput = {
@@ -7018,6 +7273,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    answers?: AnswerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuestionsInput = {
@@ -7028,6 +7284,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuestionsInput = {
@@ -7049,15 +7306,6 @@ export namespace Prisma {
   export type AnswerUpdateManyWithWhereWithoutQuestionInput = {
     where: AnswerScalarWhereInput
     data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutQuestionInput>
-  }
-
-  export type AnswerScalarWhereInput = {
-    AND?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
-    OR?: AnswerScalarWhereInput[]
-    NOT?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
-    id?: IntFilter<"Answer"> | number
-    text?: StringFilter<"Answer"> | string
-    questionId?: IntFilter<"Answer"> | number
   }
 
   export type VideoUpsertWithoutQuestionsInput = {
@@ -7099,6 +7347,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuestionsInput = {
@@ -7109,6 +7358,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuestionCreateWithoutAnswersInput = {
@@ -7137,6 +7387,33 @@ export namespace Prisma {
   export type QuestionCreateOrConnectWithoutAnswersInput = {
     where: QuestionWhereUniqueInput
     create: XOR<QuestionCreateWithoutAnswersInput, QuestionUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type UserCreateWithoutAnswersInput = {
+    id?: string
+    clerkId: string
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    createDate?: Date | string
+    updateDate?: Date | string
+    questions?: QuestionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAnswersInput = {
+    id?: string
+    clerkId: string
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    createDate?: Date | string
+    updateDate?: Date | string
+    questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAnswersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAnswersInput, UserUncheckedCreateWithoutAnswersInput>
   }
 
   export type QuestionUpsertWithoutAnswersInput = {
@@ -7173,6 +7450,39 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserUpsertWithoutAnswersInput = {
+    update: XOR<UserUpdateWithoutAnswersInput, UserUncheckedUpdateWithoutAnswersInput>
+    create: XOR<UserCreateWithoutAnswersInput, UserUncheckedCreateWithoutAnswersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAnswersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAnswersInput, UserUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type UserUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    questions?: QuestionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type QuestionCreateManyUserInput = {
     id?: number
     title: string
@@ -7180,6 +7490,14 @@ export namespace Prisma {
     videoId: number
     time: number
     isPublic?: boolean
+    userName: string
+    lastName: string
+  }
+
+  export type AnswerCreateManyUserInput = {
+    id?: number
+    text: string
+    questionId: number
     userName: string
     lastName: string
   }
@@ -7214,6 +7532,29 @@ export namespace Prisma {
     videoId?: IntFieldUpdateOperationsInput | number
     time?: IntFieldUpdateOperationsInput | number
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AnswerUpdateWithoutUserInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    questionId?: IntFieldUpdateOperationsInput | number
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    questionId?: IntFieldUpdateOperationsInput | number
     userName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
   }
@@ -7266,20 +7607,32 @@ export namespace Prisma {
   export type AnswerCreateManyQuestionInput = {
     id?: number
     text: string
+    userId: string
+    userName: string
+    lastName: string
   }
 
   export type AnswerUpdateWithoutQuestionInput = {
     text?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutAnswersNestedInput
   }
 
   export type AnswerUncheckedUpdateWithoutQuestionInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnswerUncheckedUpdateManyWithoutQuestionInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
   }
 
 
