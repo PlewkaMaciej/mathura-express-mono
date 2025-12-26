@@ -58,6 +58,16 @@ export type Matura = $Result.DefaultSelection<Prisma.$MaturaPayload>
  * 
  */
 export type UserMatura = $Result.DefaultSelection<Prisma.$UserMaturaPayload>
+/**
+ * Model UserClosedAnswer
+ * 
+ */
+export type UserClosedAnswer = $Result.DefaultSelection<Prisma.$UserClosedAnswerPayload>
+/**
+ * Model UserOpenAnswer
+ * 
+ */
+export type UserOpenAnswer = $Result.DefaultSelection<Prisma.$UserOpenAnswerPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -266,6 +276,26 @@ export class PrismaClient<
     * ```
     */
   get userMatura(): Prisma.UserMaturaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userClosedAnswer`: Exposes CRUD operations for the **UserClosedAnswer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserClosedAnswers
+    * const userClosedAnswers = await prisma.userClosedAnswer.findMany()
+    * ```
+    */
+  get userClosedAnswer(): Prisma.UserClosedAnswerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userOpenAnswer`: Exposes CRUD operations for the **UserOpenAnswer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserOpenAnswers
+    * const userOpenAnswers = await prisma.userOpenAnswer.findMany()
+    * ```
+    */
+  get userOpenAnswer(): Prisma.UserOpenAnswerDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -714,7 +744,9 @@ export namespace Prisma {
     ClosedTasks: 'ClosedTasks',
     Answers: 'Answers',
     Matura: 'Matura',
-    UserMatura: 'UserMatura'
+    UserMatura: 'UserMatura',
+    UserClosedAnswer: 'UserClosedAnswer',
+    UserOpenAnswer: 'UserOpenAnswer'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -733,7 +765,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "alltasks" | "section" | "subSection" | "openTasks" | "closedTasks" | "answers" | "matura" | "userMatura"
+      modelProps: "user" | "alltasks" | "section" | "subSection" | "openTasks" | "closedTasks" | "answers" | "matura" | "userMatura" | "userClosedAnswer" | "userOpenAnswer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1403,6 +1435,154 @@ export namespace Prisma {
           }
         }
       }
+      UserClosedAnswer: {
+        payload: Prisma.$UserClosedAnswerPayload<ExtArgs>
+        fields: Prisma.UserClosedAnswerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserClosedAnswerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserClosedAnswerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>
+          }
+          findFirst: {
+            args: Prisma.UserClosedAnswerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserClosedAnswerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>
+          }
+          findMany: {
+            args: Prisma.UserClosedAnswerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>[]
+          }
+          create: {
+            args: Prisma.UserClosedAnswerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>
+          }
+          createMany: {
+            args: Prisma.UserClosedAnswerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserClosedAnswerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>[]
+          }
+          delete: {
+            args: Prisma.UserClosedAnswerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>
+          }
+          update: {
+            args: Prisma.UserClosedAnswerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserClosedAnswerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserClosedAnswerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserClosedAnswerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserClosedAnswerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClosedAnswerPayload>
+          }
+          aggregate: {
+            args: Prisma.UserClosedAnswerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserClosedAnswer>
+          }
+          groupBy: {
+            args: Prisma.UserClosedAnswerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserClosedAnswerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserClosedAnswerCountArgs<ExtArgs>
+            result: $Utils.Optional<UserClosedAnswerCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserOpenAnswer: {
+        payload: Prisma.$UserOpenAnswerPayload<ExtArgs>
+        fields: Prisma.UserOpenAnswerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserOpenAnswerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserOpenAnswerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>
+          }
+          findFirst: {
+            args: Prisma.UserOpenAnswerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserOpenAnswerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>
+          }
+          findMany: {
+            args: Prisma.UserOpenAnswerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>[]
+          }
+          create: {
+            args: Prisma.UserOpenAnswerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>
+          }
+          createMany: {
+            args: Prisma.UserOpenAnswerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserOpenAnswerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>[]
+          }
+          delete: {
+            args: Prisma.UserOpenAnswerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>
+          }
+          update: {
+            args: Prisma.UserOpenAnswerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserOpenAnswerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserOpenAnswerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserOpenAnswerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserOpenAnswerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOpenAnswerPayload>
+          }
+          aggregate: {
+            args: Prisma.UserOpenAnswerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserOpenAnswer>
+          }
+          groupBy: {
+            args: Prisma.UserOpenAnswerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserOpenAnswerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserOpenAnswerCountArgs<ExtArgs>
+            result: $Utils.Optional<UserOpenAnswerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1508,6 +1688,8 @@ export namespace Prisma {
     answers?: AnswersOmit
     matura?: MaturaOmit
     userMatura?: UserMaturaOmit
+    userClosedAnswer?: UserClosedAnswerOmit
+    userOpenAnswer?: UserOpenAnswerOmit
   }
 
   /* Types for Logging */
@@ -1722,10 +1904,12 @@ export namespace Prisma {
 
   export type OpenTasksCountOutputType = {
     maturas: number
+    userAnswers: number
   }
 
   export type OpenTasksCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maturas?: boolean | OpenTasksCountOutputTypeCountMaturasArgs
+    userAnswers?: boolean | OpenTasksCountOutputTypeCountUserAnswersArgs
   }
 
   // Custom InputTypes
@@ -1746,6 +1930,13 @@ export namespace Prisma {
     where?: MaturaWhereInput
   }
 
+  /**
+   * OpenTasksCountOutputType without action
+   */
+  export type OpenTasksCountOutputTypeCountUserAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOpenAnswerWhereInput
+  }
+
 
   /**
    * Count Type ClosedTasksCountOutputType
@@ -1754,11 +1945,13 @@ export namespace Prisma {
   export type ClosedTasksCountOutputType = {
     answers: number
     maturas: number
+    userAnswers: number
   }
 
   export type ClosedTasksCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     answers?: boolean | ClosedTasksCountOutputTypeCountAnswersArgs
     maturas?: boolean | ClosedTasksCountOutputTypeCountMaturasArgs
+    userAnswers?: boolean | ClosedTasksCountOutputTypeCountUserAnswersArgs
   }
 
   // Custom InputTypes
@@ -1784,6 +1977,13 @@ export namespace Prisma {
    */
   export type ClosedTasksCountOutputTypeCountMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaturaWhereInput
+  }
+
+  /**
+   * ClosedTasksCountOutputType without action
+   */
+  export type ClosedTasksCountOutputTypeCountUserAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserClosedAnswerWhereInput
   }
 
 
@@ -1833,6 +2033,46 @@ export namespace Prisma {
    */
   export type MaturaCountOutputTypeCountUserMaturasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserMaturaWhereInput
+  }
+
+
+  /**
+   * Count Type UserMaturaCountOutputType
+   */
+
+  export type UserMaturaCountOutputType = {
+    closedAnswers: number
+    openAnswers: number
+  }
+
+  export type UserMaturaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    closedAnswers?: boolean | UserMaturaCountOutputTypeCountClosedAnswersArgs
+    openAnswers?: boolean | UserMaturaCountOutputTypeCountOpenAnswersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserMaturaCountOutputType without action
+   */
+  export type UserMaturaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMaturaCountOutputType
+     */
+    select?: UserMaturaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserMaturaCountOutputType without action
+   */
+  export type UserMaturaCountOutputTypeCountClosedAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserClosedAnswerWhereInput
+  }
+
+  /**
+   * UserMaturaCountOutputType without action
+   */
+  export type UserMaturaCountOutputTypeCountOpenAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOpenAnswerWhereInput
   }
 
 
@@ -6181,8 +6421,18 @@ export namespace Prisma {
 
   export type AggregateOpenTasks = {
     _count: OpenTasksCountAggregateOutputType | null
+    _avg: OpenTasksAvgAggregateOutputType | null
+    _sum: OpenTasksSumAggregateOutputType | null
     _min: OpenTasksMinAggregateOutputType | null
     _max: OpenTasksMaxAggregateOutputType | null
+  }
+
+  export type OpenTasksAvgAggregateOutputType = {
+    points: number | null
+  }
+
+  export type OpenTasksSumAggregateOutputType = {
+    points: number | null
   }
 
   export type OpenTasksMinAggregateOutputType = {
@@ -6190,6 +6440,7 @@ export namespace Prisma {
     name: string | null
     content: string | null
     answer: string | null
+    points: number | null
     subSectionId: string | null
     openTaskId: string | null
   }
@@ -6199,6 +6450,7 @@ export namespace Prisma {
     name: string | null
     content: string | null
     answer: string | null
+    points: number | null
     subSectionId: string | null
     openTaskId: string | null
   }
@@ -6208,17 +6460,27 @@ export namespace Prisma {
     name: number
     content: number
     answer: number
+    points: number
     subSectionId: number
     openTaskId: number
     _all: number
   }
 
 
+  export type OpenTasksAvgAggregateInputType = {
+    points?: true
+  }
+
+  export type OpenTasksSumAggregateInputType = {
+    points?: true
+  }
+
   export type OpenTasksMinAggregateInputType = {
     id?: true
     name?: true
     content?: true
     answer?: true
+    points?: true
     subSectionId?: true
     openTaskId?: true
   }
@@ -6228,6 +6490,7 @@ export namespace Prisma {
     name?: true
     content?: true
     answer?: true
+    points?: true
     subSectionId?: true
     openTaskId?: true
   }
@@ -6237,6 +6500,7 @@ export namespace Prisma {
     name?: true
     content?: true
     answer?: true
+    points?: true
     subSectionId?: true
     openTaskId?: true
     _all?: true
@@ -6280,6 +6544,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: OpenTasksAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OpenTasksSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: OpenTasksMinAggregateInputType
@@ -6310,6 +6586,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: OpenTasksCountAggregateInputType | true
+    _avg?: OpenTasksAvgAggregateInputType
+    _sum?: OpenTasksSumAggregateInputType
     _min?: OpenTasksMinAggregateInputType
     _max?: OpenTasksMaxAggregateInputType
   }
@@ -6319,9 +6597,12 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points: number
     subSectionId: string
     openTaskId: string | null
     _count: OpenTasksCountAggregateOutputType | null
+    _avg: OpenTasksAvgAggregateOutputType | null
+    _sum: OpenTasksSumAggregateOutputType | null
     _min: OpenTasksMinAggregateOutputType | null
     _max: OpenTasksMaxAggregateOutputType | null
   }
@@ -6345,10 +6626,12 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     answer?: boolean
+    points?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
     maturas?: boolean | OpenTasks$maturasArgs<ExtArgs>
+    userAnswers?: boolean | OpenTasks$userAnswersArgs<ExtArgs>
     _count?: boolean | OpenTasksCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["openTasks"]>
 
@@ -6357,6 +6640,7 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     answer?: boolean
+    points?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
@@ -6367,6 +6651,7 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     answer?: boolean
+    points?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
@@ -6377,14 +6662,16 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     answer?: boolean
+    points?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
   }
 
-  export type OpenTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "answer" | "subSectionId" | "openTaskId", ExtArgs["result"]["openTasks"]>
+  export type OpenTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "answer" | "points" | "subSectionId" | "openTaskId", ExtArgs["result"]["openTasks"]>
   export type OpenTasksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
     maturas?: boolean | OpenTasks$maturasArgs<ExtArgs>
+    userAnswers?: boolean | OpenTasks$userAnswersArgs<ExtArgs>
     _count?: boolean | OpenTasksCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OpenTasksIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6399,12 +6686,14 @@ export namespace Prisma {
     objects: {
       subSection: Prisma.$SubSectionPayload<ExtArgs>
       maturas: Prisma.$MaturaPayload<ExtArgs>[]
+      userAnswers: Prisma.$UserOpenAnswerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       content: string
       answer: string
+      points: number
       subSectionId: string
       openTaskId: string | null
     }, ExtArgs["result"]["openTasks"]>
@@ -6803,6 +7092,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     subSection<T extends SubSectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubSectionDefaultArgs<ExtArgs>>): Prisma__SubSectionClient<$Result.GetResult<Prisma.$SubSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     maturas<T extends OpenTasks$maturasArgs<ExtArgs> = {}>(args?: Subset<T, OpenTasks$maturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userAnswers<T extends OpenTasks$userAnswersArgs<ExtArgs> = {}>(args?: Subset<T, OpenTasks$userAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6836,6 +7126,7 @@ export namespace Prisma {
     readonly name: FieldRef<"OpenTasks", 'String'>
     readonly content: FieldRef<"OpenTasks", 'String'>
     readonly answer: FieldRef<"OpenTasks", 'String'>
+    readonly points: FieldRef<"OpenTasks", 'Int'>
     readonly subSectionId: FieldRef<"OpenTasks", 'String'>
     readonly openTaskId: FieldRef<"OpenTasks", 'String'>
   }
@@ -7256,6 +7547,30 @@ export namespace Prisma {
   }
 
   /**
+   * OpenTasks.userAnswers
+   */
+  export type OpenTasks$userAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    where?: UserOpenAnswerWhereInput
+    orderBy?: UserOpenAnswerOrderByWithRelationInput | UserOpenAnswerOrderByWithRelationInput[]
+    cursor?: UserOpenAnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserOpenAnswerScalarFieldEnum | UserOpenAnswerScalarFieldEnum[]
+  }
+
+  /**
    * OpenTasks without action
    */
   export type OpenTasksDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7280,8 +7595,18 @@ export namespace Prisma {
 
   export type AggregateClosedTasks = {
     _count: ClosedTasksCountAggregateOutputType | null
+    _avg: ClosedTasksAvgAggregateOutputType | null
+    _sum: ClosedTasksSumAggregateOutputType | null
     _min: ClosedTasksMinAggregateOutputType | null
     _max: ClosedTasksMaxAggregateOutputType | null
+  }
+
+  export type ClosedTasksAvgAggregateOutputType = {
+    points: number | null
+  }
+
+  export type ClosedTasksSumAggregateOutputType = {
+    points: number | null
   }
 
   export type ClosedTasksMinAggregateOutputType = {
@@ -7289,6 +7614,7 @@ export namespace Prisma {
     name: string | null
     content: string | null
     correctAnswer: string | null
+    points: number | null
     subSectionId: string | null
   }
 
@@ -7297,6 +7623,7 @@ export namespace Prisma {
     name: string | null
     content: string | null
     correctAnswer: string | null
+    points: number | null
     subSectionId: string | null
   }
 
@@ -7305,16 +7632,26 @@ export namespace Prisma {
     name: number
     content: number
     correctAnswer: number
+    points: number
     subSectionId: number
     _all: number
   }
 
+
+  export type ClosedTasksAvgAggregateInputType = {
+    points?: true
+  }
+
+  export type ClosedTasksSumAggregateInputType = {
+    points?: true
+  }
 
   export type ClosedTasksMinAggregateInputType = {
     id?: true
     name?: true
     content?: true
     correctAnswer?: true
+    points?: true
     subSectionId?: true
   }
 
@@ -7323,6 +7660,7 @@ export namespace Prisma {
     name?: true
     content?: true
     correctAnswer?: true
+    points?: true
     subSectionId?: true
   }
 
@@ -7331,6 +7669,7 @@ export namespace Prisma {
     name?: true
     content?: true
     correctAnswer?: true
+    points?: true
     subSectionId?: true
     _all?: true
   }
@@ -7373,6 +7712,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ClosedTasksAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClosedTasksSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClosedTasksMinAggregateInputType
@@ -7403,6 +7754,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ClosedTasksCountAggregateInputType | true
+    _avg?: ClosedTasksAvgAggregateInputType
+    _sum?: ClosedTasksSumAggregateInputType
     _min?: ClosedTasksMinAggregateInputType
     _max?: ClosedTasksMaxAggregateInputType
   }
@@ -7412,8 +7765,11 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points: number
     subSectionId: string
     _count: ClosedTasksCountAggregateOutputType | null
+    _avg: ClosedTasksAvgAggregateOutputType | null
+    _sum: ClosedTasksSumAggregateOutputType | null
     _min: ClosedTasksMinAggregateOutputType | null
     _max: ClosedTasksMaxAggregateOutputType | null
   }
@@ -7437,10 +7793,12 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     correctAnswer?: boolean
+    points?: boolean
     subSectionId?: boolean
     answers?: boolean | ClosedTasks$answersArgs<ExtArgs>
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
     maturas?: boolean | ClosedTasks$maturasArgs<ExtArgs>
+    userAnswers?: boolean | ClosedTasks$userAnswersArgs<ExtArgs>
     _count?: boolean | ClosedTasksCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["closedTasks"]>
 
@@ -7449,6 +7807,7 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     correctAnswer?: boolean
+    points?: boolean
     subSectionId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["closedTasks"]>
@@ -7458,6 +7817,7 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     correctAnswer?: boolean
+    points?: boolean
     subSectionId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["closedTasks"]>
@@ -7467,14 +7827,16 @@ export namespace Prisma {
     name?: boolean
     content?: boolean
     correctAnswer?: boolean
+    points?: boolean
     subSectionId?: boolean
   }
 
-  export type ClosedTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "correctAnswer" | "subSectionId", ExtArgs["result"]["closedTasks"]>
+  export type ClosedTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "correctAnswer" | "points" | "subSectionId", ExtArgs["result"]["closedTasks"]>
   export type ClosedTasksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     answers?: boolean | ClosedTasks$answersArgs<ExtArgs>
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
     maturas?: boolean | ClosedTasks$maturasArgs<ExtArgs>
+    userAnswers?: boolean | ClosedTasks$userAnswersArgs<ExtArgs>
     _count?: boolean | ClosedTasksCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClosedTasksIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7490,12 +7852,14 @@ export namespace Prisma {
       answers: Prisma.$AnswersPayload<ExtArgs>[]
       subSection: Prisma.$SubSectionPayload<ExtArgs>
       maturas: Prisma.$MaturaPayload<ExtArgs>[]
+      userAnswers: Prisma.$UserClosedAnswerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       content: string
       correctAnswer: string
+      points: number
       subSectionId: string
     }, ExtArgs["result"]["closedTasks"]>
     composites: {}
@@ -7894,6 +8258,7 @@ export namespace Prisma {
     answers<T extends ClosedTasks$answersArgs<ExtArgs> = {}>(args?: Subset<T, ClosedTasks$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subSection<T extends SubSectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubSectionDefaultArgs<ExtArgs>>): Prisma__SubSectionClient<$Result.GetResult<Prisma.$SubSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     maturas<T extends ClosedTasks$maturasArgs<ExtArgs> = {}>(args?: Subset<T, ClosedTasks$maturasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userAnswers<T extends ClosedTasks$userAnswersArgs<ExtArgs> = {}>(args?: Subset<T, ClosedTasks$userAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7927,6 +8292,7 @@ export namespace Prisma {
     readonly name: FieldRef<"ClosedTasks", 'String'>
     readonly content: FieldRef<"ClosedTasks", 'String'>
     readonly correctAnswer: FieldRef<"ClosedTasks", 'String'>
+    readonly points: FieldRef<"ClosedTasks", 'Int'>
     readonly subSectionId: FieldRef<"ClosedTasks", 'String'>
   }
     
@@ -8367,6 +8733,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaturaScalarFieldEnum | MaturaScalarFieldEnum[]
+  }
+
+  /**
+   * ClosedTasks.userAnswers
+   */
+  export type ClosedTasks$userAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    where?: UserClosedAnswerWhereInput
+    orderBy?: UserClosedAnswerOrderByWithRelationInput | UserClosedAnswerOrderByWithRelationInput[]
+    cursor?: UserClosedAnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserClosedAnswerScalarFieldEnum | UserClosedAnswerScalarFieldEnum[]
   }
 
   /**
@@ -10574,14 +10964,25 @@ export namespace Prisma {
 
   export type AggregateUserMatura = {
     _count: UserMaturaCountAggregateOutputType | null
+    _avg: UserMaturaAvgAggregateOutputType | null
+    _sum: UserMaturaSumAggregateOutputType | null
     _min: UserMaturaMinAggregateOutputType | null
     _max: UserMaturaMaxAggregateOutputType | null
+  }
+
+  export type UserMaturaAvgAggregateOutputType = {
+    earnedPoints: number | null
+  }
+
+  export type UserMaturaSumAggregateOutputType = {
+    earnedPoints: number | null
   }
 
   export type UserMaturaMinAggregateOutputType = {
     id: string | null
     userId: string | null
     maturaId: string | null
+    earnedPoints: number | null
     createdAt: Date | null
   }
 
@@ -10589,6 +10990,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     maturaId: string | null
+    earnedPoints: number | null
     createdAt: Date | null
   }
 
@@ -10596,15 +10998,25 @@ export namespace Prisma {
     id: number
     userId: number
     maturaId: number
+    earnedPoints: number
     createdAt: number
     _all: number
   }
 
 
+  export type UserMaturaAvgAggregateInputType = {
+    earnedPoints?: true
+  }
+
+  export type UserMaturaSumAggregateInputType = {
+    earnedPoints?: true
+  }
+
   export type UserMaturaMinAggregateInputType = {
     id?: true
     userId?: true
     maturaId?: true
+    earnedPoints?: true
     createdAt?: true
   }
 
@@ -10612,6 +11024,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     maturaId?: true
+    earnedPoints?: true
     createdAt?: true
   }
 
@@ -10619,6 +11032,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     maturaId?: true
+    earnedPoints?: true
     createdAt?: true
     _all?: true
   }
@@ -10661,6 +11075,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserMaturaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserMaturaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMaturaMinAggregateInputType
@@ -10691,6 +11117,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserMaturaCountAggregateInputType | true
+    _avg?: UserMaturaAvgAggregateInputType
+    _sum?: UserMaturaSumAggregateInputType
     _min?: UserMaturaMinAggregateInputType
     _max?: UserMaturaMaxAggregateInputType
   }
@@ -10699,8 +11127,11 @@ export namespace Prisma {
     id: string
     userId: string
     maturaId: string
+    earnedPoints: number
     createdAt: Date
     _count: UserMaturaCountAggregateOutputType | null
+    _avg: UserMaturaAvgAggregateOutputType | null
+    _sum: UserMaturaSumAggregateOutputType | null
     _min: UserMaturaMinAggregateOutputType | null
     _max: UserMaturaMaxAggregateOutputType | null
   }
@@ -10723,15 +11154,20 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    earnedPoints?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     matura?: boolean | MaturaDefaultArgs<ExtArgs>
+    closedAnswers?: boolean | UserMatura$closedAnswersArgs<ExtArgs>
+    openAnswers?: boolean | UserMatura$openAnswersArgs<ExtArgs>
+    _count?: boolean | UserMaturaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMatura"]>
 
   export type UserMaturaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    earnedPoints?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     matura?: boolean | MaturaDefaultArgs<ExtArgs>
@@ -10741,6 +11177,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    earnedPoints?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     matura?: boolean | MaturaDefaultArgs<ExtArgs>
@@ -10750,13 +11187,17 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    earnedPoints?: boolean
     createdAt?: boolean
   }
 
-  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "createdAt", ExtArgs["result"]["userMatura"]>
+  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "earnedPoints" | "createdAt", ExtArgs["result"]["userMatura"]>
   export type UserMaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     matura?: boolean | MaturaDefaultArgs<ExtArgs>
+    closedAnswers?: boolean | UserMatura$closedAnswersArgs<ExtArgs>
+    openAnswers?: boolean | UserMatura$openAnswersArgs<ExtArgs>
+    _count?: boolean | UserMaturaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserMaturaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10772,11 +11213,14 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       matura: Prisma.$MaturaPayload<ExtArgs>
+      closedAnswers: Prisma.$UserClosedAnswerPayload<ExtArgs>[]
+      openAnswers: Prisma.$UserOpenAnswerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
       maturaId: string
+      earnedPoints: number
       createdAt: Date
     }, ExtArgs["result"]["userMatura"]>
     composites: {}
@@ -11174,6 +11618,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     matura<T extends MaturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaturaDefaultArgs<ExtArgs>>): Prisma__MaturaClient<$Result.GetResult<Prisma.$MaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    closedAnswers<T extends UserMatura$closedAnswersArgs<ExtArgs> = {}>(args?: Subset<T, UserMatura$closedAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    openAnswers<T extends UserMatura$openAnswersArgs<ExtArgs> = {}>(args?: Subset<T, UserMatura$openAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11206,6 +11652,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserMatura", 'String'>
     readonly userId: FieldRef<"UserMatura", 'String'>
     readonly maturaId: FieldRef<"UserMatura", 'String'>
+    readonly earnedPoints: FieldRef<"UserMatura", 'Int'>
     readonly createdAt: FieldRef<"UserMatura", 'DateTime'>
   }
     
@@ -11601,6 +12048,54 @@ export namespace Prisma {
   }
 
   /**
+   * UserMatura.closedAnswers
+   */
+  export type UserMatura$closedAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    where?: UserClosedAnswerWhereInput
+    orderBy?: UserClosedAnswerOrderByWithRelationInput | UserClosedAnswerOrderByWithRelationInput[]
+    cursor?: UserClosedAnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserClosedAnswerScalarFieldEnum | UserClosedAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserMatura.openAnswers
+   */
+  export type UserMatura$openAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    where?: UserOpenAnswerWhereInput
+    orderBy?: UserOpenAnswerOrderByWithRelationInput | UserOpenAnswerOrderByWithRelationInput[]
+    cursor?: UserOpenAnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserOpenAnswerScalarFieldEnum | UserOpenAnswerScalarFieldEnum[]
+  }
+
+  /**
    * UserMatura without action
    */
   export type UserMaturaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11616,6 +12111,2233 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserMaturaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserClosedAnswer
+   */
+
+  export type AggregateUserClosedAnswer = {
+    _count: UserClosedAnswerCountAggregateOutputType | null
+    _min: UserClosedAnswerMinAggregateOutputType | null
+    _max: UserClosedAnswerMaxAggregateOutputType | null
+  }
+
+  export type UserClosedAnswerMinAggregateOutputType = {
+    id: string | null
+    userMaturaId: string | null
+    closedTaskId: string | null
+    answer: string | null
+    isCorrect: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserClosedAnswerMaxAggregateOutputType = {
+    id: string | null
+    userMaturaId: string | null
+    closedTaskId: string | null
+    answer: string | null
+    isCorrect: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserClosedAnswerCountAggregateOutputType = {
+    id: number
+    userMaturaId: number
+    closedTaskId: number
+    answer: number
+    isCorrect: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserClosedAnswerMinAggregateInputType = {
+    id?: true
+    userMaturaId?: true
+    closedTaskId?: true
+    answer?: true
+    isCorrect?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserClosedAnswerMaxAggregateInputType = {
+    id?: true
+    userMaturaId?: true
+    closedTaskId?: true
+    answer?: true
+    isCorrect?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserClosedAnswerCountAggregateInputType = {
+    id?: true
+    userMaturaId?: true
+    closedTaskId?: true
+    answer?: true
+    isCorrect?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserClosedAnswerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserClosedAnswer to aggregate.
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClosedAnswers to fetch.
+     */
+    orderBy?: UserClosedAnswerOrderByWithRelationInput | UserClosedAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserClosedAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClosedAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClosedAnswers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserClosedAnswers
+    **/
+    _count?: true | UserClosedAnswerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserClosedAnswerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserClosedAnswerMaxAggregateInputType
+  }
+
+  export type GetUserClosedAnswerAggregateType<T extends UserClosedAnswerAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserClosedAnswer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserClosedAnswer[P]>
+      : GetScalarType<T[P], AggregateUserClosedAnswer[P]>
+  }
+
+
+
+
+  export type UserClosedAnswerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserClosedAnswerWhereInput
+    orderBy?: UserClosedAnswerOrderByWithAggregationInput | UserClosedAnswerOrderByWithAggregationInput[]
+    by: UserClosedAnswerScalarFieldEnum[] | UserClosedAnswerScalarFieldEnum
+    having?: UserClosedAnswerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserClosedAnswerCountAggregateInputType | true
+    _min?: UserClosedAnswerMinAggregateInputType
+    _max?: UserClosedAnswerMaxAggregateInputType
+  }
+
+  export type UserClosedAnswerGroupByOutputType = {
+    id: string
+    userMaturaId: string
+    closedTaskId: string
+    answer: string | null
+    isCorrect: boolean | null
+    createdAt: Date
+    updatedAt: Date
+    _count: UserClosedAnswerCountAggregateOutputType | null
+    _min: UserClosedAnswerMinAggregateOutputType | null
+    _max: UserClosedAnswerMaxAggregateOutputType | null
+  }
+
+  type GetUserClosedAnswerGroupByPayload<T extends UserClosedAnswerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserClosedAnswerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserClosedAnswerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserClosedAnswerGroupByOutputType[P]>
+            : GetScalarType<T[P], UserClosedAnswerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserClosedAnswerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMaturaId?: boolean
+    closedTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    closedTask?: boolean | ClosedTasksDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userClosedAnswer"]>
+
+  export type UserClosedAnswerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMaturaId?: boolean
+    closedTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    closedTask?: boolean | ClosedTasksDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userClosedAnswer"]>
+
+  export type UserClosedAnswerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMaturaId?: boolean
+    closedTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    closedTask?: boolean | ClosedTasksDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userClosedAnswer"]>
+
+  export type UserClosedAnswerSelectScalar = {
+    id?: boolean
+    userMaturaId?: boolean
+    closedTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserClosedAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMaturaId" | "closedTaskId" | "answer" | "isCorrect" | "createdAt" | "updatedAt", ExtArgs["result"]["userClosedAnswer"]>
+  export type UserClosedAnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    closedTask?: boolean | ClosedTasksDefaultArgs<ExtArgs>
+  }
+  export type UserClosedAnswerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    closedTask?: boolean | ClosedTasksDefaultArgs<ExtArgs>
+  }
+  export type UserClosedAnswerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    closedTask?: boolean | ClosedTasksDefaultArgs<ExtArgs>
+  }
+
+  export type $UserClosedAnswerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserClosedAnswer"
+    objects: {
+      userMatura: Prisma.$UserMaturaPayload<ExtArgs>
+      closedTask: Prisma.$ClosedTasksPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userMaturaId: string
+      closedTaskId: string
+      answer: string | null
+      isCorrect: boolean | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userClosedAnswer"]>
+    composites: {}
+  }
+
+  type UserClosedAnswerGetPayload<S extends boolean | null | undefined | UserClosedAnswerDefaultArgs> = $Result.GetResult<Prisma.$UserClosedAnswerPayload, S>
+
+  type UserClosedAnswerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserClosedAnswerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserClosedAnswerCountAggregateInputType | true
+    }
+
+  export interface UserClosedAnswerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserClosedAnswer'], meta: { name: 'UserClosedAnswer' } }
+    /**
+     * Find zero or one UserClosedAnswer that matches the filter.
+     * @param {UserClosedAnswerFindUniqueArgs} args - Arguments to find a UserClosedAnswer
+     * @example
+     * // Get one UserClosedAnswer
+     * const userClosedAnswer = await prisma.userClosedAnswer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserClosedAnswerFindUniqueArgs>(args: SelectSubset<T, UserClosedAnswerFindUniqueArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserClosedAnswer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserClosedAnswerFindUniqueOrThrowArgs} args - Arguments to find a UserClosedAnswer
+     * @example
+     * // Get one UserClosedAnswer
+     * const userClosedAnswer = await prisma.userClosedAnswer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserClosedAnswerFindUniqueOrThrowArgs>(args: SelectSubset<T, UserClosedAnswerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserClosedAnswer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerFindFirstArgs} args - Arguments to find a UserClosedAnswer
+     * @example
+     * // Get one UserClosedAnswer
+     * const userClosedAnswer = await prisma.userClosedAnswer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserClosedAnswerFindFirstArgs>(args?: SelectSubset<T, UserClosedAnswerFindFirstArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserClosedAnswer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerFindFirstOrThrowArgs} args - Arguments to find a UserClosedAnswer
+     * @example
+     * // Get one UserClosedAnswer
+     * const userClosedAnswer = await prisma.userClosedAnswer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserClosedAnswerFindFirstOrThrowArgs>(args?: SelectSubset<T, UserClosedAnswerFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserClosedAnswers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserClosedAnswers
+     * const userClosedAnswers = await prisma.userClosedAnswer.findMany()
+     * 
+     * // Get first 10 UserClosedAnswers
+     * const userClosedAnswers = await prisma.userClosedAnswer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userClosedAnswerWithIdOnly = await prisma.userClosedAnswer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserClosedAnswerFindManyArgs>(args?: SelectSubset<T, UserClosedAnswerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserClosedAnswer.
+     * @param {UserClosedAnswerCreateArgs} args - Arguments to create a UserClosedAnswer.
+     * @example
+     * // Create one UserClosedAnswer
+     * const UserClosedAnswer = await prisma.userClosedAnswer.create({
+     *   data: {
+     *     // ... data to create a UserClosedAnswer
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserClosedAnswerCreateArgs>(args: SelectSubset<T, UserClosedAnswerCreateArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserClosedAnswers.
+     * @param {UserClosedAnswerCreateManyArgs} args - Arguments to create many UserClosedAnswers.
+     * @example
+     * // Create many UserClosedAnswers
+     * const userClosedAnswer = await prisma.userClosedAnswer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserClosedAnswerCreateManyArgs>(args?: SelectSubset<T, UserClosedAnswerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserClosedAnswers and returns the data saved in the database.
+     * @param {UserClosedAnswerCreateManyAndReturnArgs} args - Arguments to create many UserClosedAnswers.
+     * @example
+     * // Create many UserClosedAnswers
+     * const userClosedAnswer = await prisma.userClosedAnswer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserClosedAnswers and only return the `id`
+     * const userClosedAnswerWithIdOnly = await prisma.userClosedAnswer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserClosedAnswerCreateManyAndReturnArgs>(args?: SelectSubset<T, UserClosedAnswerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserClosedAnswer.
+     * @param {UserClosedAnswerDeleteArgs} args - Arguments to delete one UserClosedAnswer.
+     * @example
+     * // Delete one UserClosedAnswer
+     * const UserClosedAnswer = await prisma.userClosedAnswer.delete({
+     *   where: {
+     *     // ... filter to delete one UserClosedAnswer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserClosedAnswerDeleteArgs>(args: SelectSubset<T, UserClosedAnswerDeleteArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserClosedAnswer.
+     * @param {UserClosedAnswerUpdateArgs} args - Arguments to update one UserClosedAnswer.
+     * @example
+     * // Update one UserClosedAnswer
+     * const userClosedAnswer = await prisma.userClosedAnswer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserClosedAnswerUpdateArgs>(args: SelectSubset<T, UserClosedAnswerUpdateArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserClosedAnswers.
+     * @param {UserClosedAnswerDeleteManyArgs} args - Arguments to filter UserClosedAnswers to delete.
+     * @example
+     * // Delete a few UserClosedAnswers
+     * const { count } = await prisma.userClosedAnswer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserClosedAnswerDeleteManyArgs>(args?: SelectSubset<T, UserClosedAnswerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserClosedAnswers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserClosedAnswers
+     * const userClosedAnswer = await prisma.userClosedAnswer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserClosedAnswerUpdateManyArgs>(args: SelectSubset<T, UserClosedAnswerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserClosedAnswers and returns the data updated in the database.
+     * @param {UserClosedAnswerUpdateManyAndReturnArgs} args - Arguments to update many UserClosedAnswers.
+     * @example
+     * // Update many UserClosedAnswers
+     * const userClosedAnswer = await prisma.userClosedAnswer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserClosedAnswers and only return the `id`
+     * const userClosedAnswerWithIdOnly = await prisma.userClosedAnswer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserClosedAnswerUpdateManyAndReturnArgs>(args: SelectSubset<T, UserClosedAnswerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserClosedAnswer.
+     * @param {UserClosedAnswerUpsertArgs} args - Arguments to update or create a UserClosedAnswer.
+     * @example
+     * // Update or create a UserClosedAnswer
+     * const userClosedAnswer = await prisma.userClosedAnswer.upsert({
+     *   create: {
+     *     // ... data to create a UserClosedAnswer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserClosedAnswer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserClosedAnswerUpsertArgs>(args: SelectSubset<T, UserClosedAnswerUpsertArgs<ExtArgs>>): Prisma__UserClosedAnswerClient<$Result.GetResult<Prisma.$UserClosedAnswerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserClosedAnswers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerCountArgs} args - Arguments to filter UserClosedAnswers to count.
+     * @example
+     * // Count the number of UserClosedAnswers
+     * const count = await prisma.userClosedAnswer.count({
+     *   where: {
+     *     // ... the filter for the UserClosedAnswers we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserClosedAnswerCountArgs>(
+      args?: Subset<T, UserClosedAnswerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserClosedAnswerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserClosedAnswer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserClosedAnswerAggregateArgs>(args: Subset<T, UserClosedAnswerAggregateArgs>): Prisma.PrismaPromise<GetUserClosedAnswerAggregateType<T>>
+
+    /**
+     * Group by UserClosedAnswer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClosedAnswerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserClosedAnswerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserClosedAnswerGroupByArgs['orderBy'] }
+        : { orderBy?: UserClosedAnswerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserClosedAnswerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserClosedAnswerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserClosedAnswer model
+   */
+  readonly fields: UserClosedAnswerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserClosedAnswer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClosedAnswerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userMatura<T extends UserMaturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserMaturaDefaultArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    closedTask<T extends ClosedTasksDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClosedTasksDefaultArgs<ExtArgs>>): Prisma__ClosedTasksClient<$Result.GetResult<Prisma.$ClosedTasksPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserClosedAnswer model
+   */
+  interface UserClosedAnswerFieldRefs {
+    readonly id: FieldRef<"UserClosedAnswer", 'String'>
+    readonly userMaturaId: FieldRef<"UserClosedAnswer", 'String'>
+    readonly closedTaskId: FieldRef<"UserClosedAnswer", 'String'>
+    readonly answer: FieldRef<"UserClosedAnswer", 'String'>
+    readonly isCorrect: FieldRef<"UserClosedAnswer", 'Boolean'>
+    readonly createdAt: FieldRef<"UserClosedAnswer", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserClosedAnswer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserClosedAnswer findUnique
+   */
+  export type UserClosedAnswerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClosedAnswer to fetch.
+     */
+    where: UserClosedAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserClosedAnswer findUniqueOrThrow
+   */
+  export type UserClosedAnswerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClosedAnswer to fetch.
+     */
+    where: UserClosedAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserClosedAnswer findFirst
+   */
+  export type UserClosedAnswerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClosedAnswer to fetch.
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClosedAnswers to fetch.
+     */
+    orderBy?: UserClosedAnswerOrderByWithRelationInput | UserClosedAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserClosedAnswers.
+     */
+    cursor?: UserClosedAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClosedAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClosedAnswers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserClosedAnswers.
+     */
+    distinct?: UserClosedAnswerScalarFieldEnum | UserClosedAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserClosedAnswer findFirstOrThrow
+   */
+  export type UserClosedAnswerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClosedAnswer to fetch.
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClosedAnswers to fetch.
+     */
+    orderBy?: UserClosedAnswerOrderByWithRelationInput | UserClosedAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserClosedAnswers.
+     */
+    cursor?: UserClosedAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClosedAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClosedAnswers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserClosedAnswers.
+     */
+    distinct?: UserClosedAnswerScalarFieldEnum | UserClosedAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserClosedAnswer findMany
+   */
+  export type UserClosedAnswerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClosedAnswers to fetch.
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClosedAnswers to fetch.
+     */
+    orderBy?: UserClosedAnswerOrderByWithRelationInput | UserClosedAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserClosedAnswers.
+     */
+    cursor?: UserClosedAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClosedAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClosedAnswers.
+     */
+    skip?: number
+    distinct?: UserClosedAnswerScalarFieldEnum | UserClosedAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserClosedAnswer create
+   */
+  export type UserClosedAnswerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserClosedAnswer.
+     */
+    data: XOR<UserClosedAnswerCreateInput, UserClosedAnswerUncheckedCreateInput>
+  }
+
+  /**
+   * UserClosedAnswer createMany
+   */
+  export type UserClosedAnswerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserClosedAnswers.
+     */
+    data: UserClosedAnswerCreateManyInput | UserClosedAnswerCreateManyInput[]
+  }
+
+  /**
+   * UserClosedAnswer createManyAndReturn
+   */
+  export type UserClosedAnswerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserClosedAnswers.
+     */
+    data: UserClosedAnswerCreateManyInput | UserClosedAnswerCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserClosedAnswer update
+   */
+  export type UserClosedAnswerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserClosedAnswer.
+     */
+    data: XOR<UserClosedAnswerUpdateInput, UserClosedAnswerUncheckedUpdateInput>
+    /**
+     * Choose, which UserClosedAnswer to update.
+     */
+    where: UserClosedAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserClosedAnswer updateMany
+   */
+  export type UserClosedAnswerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserClosedAnswers.
+     */
+    data: XOR<UserClosedAnswerUpdateManyMutationInput, UserClosedAnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which UserClosedAnswers to update
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * Limit how many UserClosedAnswers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserClosedAnswer updateManyAndReturn
+   */
+  export type UserClosedAnswerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * The data used to update UserClosedAnswers.
+     */
+    data: XOR<UserClosedAnswerUpdateManyMutationInput, UserClosedAnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which UserClosedAnswers to update
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * Limit how many UserClosedAnswers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserClosedAnswer upsert
+   */
+  export type UserClosedAnswerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserClosedAnswer to update in case it exists.
+     */
+    where: UserClosedAnswerWhereUniqueInput
+    /**
+     * In case the UserClosedAnswer found by the `where` argument doesn't exist, create a new UserClosedAnswer with this data.
+     */
+    create: XOR<UserClosedAnswerCreateInput, UserClosedAnswerUncheckedCreateInput>
+    /**
+     * In case the UserClosedAnswer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserClosedAnswerUpdateInput, UserClosedAnswerUncheckedUpdateInput>
+  }
+
+  /**
+   * UserClosedAnswer delete
+   */
+  export type UserClosedAnswerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+    /**
+     * Filter which UserClosedAnswer to delete.
+     */
+    where: UserClosedAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserClosedAnswer deleteMany
+   */
+  export type UserClosedAnswerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserClosedAnswers to delete
+     */
+    where?: UserClosedAnswerWhereInput
+    /**
+     * Limit how many UserClosedAnswers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserClosedAnswer without action
+   */
+  export type UserClosedAnswerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClosedAnswer
+     */
+    select?: UserClosedAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClosedAnswer
+     */
+    omit?: UserClosedAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClosedAnswerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserOpenAnswer
+   */
+
+  export type AggregateUserOpenAnswer = {
+    _count: UserOpenAnswerCountAggregateOutputType | null
+    _avg: UserOpenAnswerAvgAggregateOutputType | null
+    _sum: UserOpenAnswerSumAggregateOutputType | null
+    _min: UserOpenAnswerMinAggregateOutputType | null
+    _max: UserOpenAnswerMaxAggregateOutputType | null
+  }
+
+  export type UserOpenAnswerAvgAggregateOutputType = {
+    awardedPoints: number | null
+  }
+
+  export type UserOpenAnswerSumAggregateOutputType = {
+    awardedPoints: number | null
+  }
+
+  export type UserOpenAnswerMinAggregateOutputType = {
+    id: string | null
+    userMaturaId: string | null
+    openTaskId: string | null
+    answer: string | null
+    isCorrect: boolean | null
+    awardedPoints: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserOpenAnswerMaxAggregateOutputType = {
+    id: string | null
+    userMaturaId: string | null
+    openTaskId: string | null
+    answer: string | null
+    isCorrect: boolean | null
+    awardedPoints: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserOpenAnswerCountAggregateOutputType = {
+    id: number
+    userMaturaId: number
+    openTaskId: number
+    answer: number
+    isCorrect: number
+    awardedPoints: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserOpenAnswerAvgAggregateInputType = {
+    awardedPoints?: true
+  }
+
+  export type UserOpenAnswerSumAggregateInputType = {
+    awardedPoints?: true
+  }
+
+  export type UserOpenAnswerMinAggregateInputType = {
+    id?: true
+    userMaturaId?: true
+    openTaskId?: true
+    answer?: true
+    isCorrect?: true
+    awardedPoints?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserOpenAnswerMaxAggregateInputType = {
+    id?: true
+    userMaturaId?: true
+    openTaskId?: true
+    answer?: true
+    isCorrect?: true
+    awardedPoints?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserOpenAnswerCountAggregateInputType = {
+    id?: true
+    userMaturaId?: true
+    openTaskId?: true
+    answer?: true
+    isCorrect?: true
+    awardedPoints?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserOpenAnswerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserOpenAnswer to aggregate.
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOpenAnswers to fetch.
+     */
+    orderBy?: UserOpenAnswerOrderByWithRelationInput | UserOpenAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserOpenAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOpenAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOpenAnswers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserOpenAnswers
+    **/
+    _count?: true | UserOpenAnswerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserOpenAnswerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserOpenAnswerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserOpenAnswerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserOpenAnswerMaxAggregateInputType
+  }
+
+  export type GetUserOpenAnswerAggregateType<T extends UserOpenAnswerAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserOpenAnswer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserOpenAnswer[P]>
+      : GetScalarType<T[P], AggregateUserOpenAnswer[P]>
+  }
+
+
+
+
+  export type UserOpenAnswerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOpenAnswerWhereInput
+    orderBy?: UserOpenAnswerOrderByWithAggregationInput | UserOpenAnswerOrderByWithAggregationInput[]
+    by: UserOpenAnswerScalarFieldEnum[] | UserOpenAnswerScalarFieldEnum
+    having?: UserOpenAnswerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserOpenAnswerCountAggregateInputType | true
+    _avg?: UserOpenAnswerAvgAggregateInputType
+    _sum?: UserOpenAnswerSumAggregateInputType
+    _min?: UserOpenAnswerMinAggregateInputType
+    _max?: UserOpenAnswerMaxAggregateInputType
+  }
+
+  export type UserOpenAnswerGroupByOutputType = {
+    id: string
+    userMaturaId: string
+    openTaskId: string
+    answer: string | null
+    isCorrect: boolean | null
+    awardedPoints: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: UserOpenAnswerCountAggregateOutputType | null
+    _avg: UserOpenAnswerAvgAggregateOutputType | null
+    _sum: UserOpenAnswerSumAggregateOutputType | null
+    _min: UserOpenAnswerMinAggregateOutputType | null
+    _max: UserOpenAnswerMaxAggregateOutputType | null
+  }
+
+  type GetUserOpenAnswerGroupByPayload<T extends UserOpenAnswerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserOpenAnswerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserOpenAnswerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserOpenAnswerGroupByOutputType[P]>
+            : GetScalarType<T[P], UserOpenAnswerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserOpenAnswerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMaturaId?: boolean
+    openTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    awardedPoints?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOpenAnswer"]>
+
+  export type UserOpenAnswerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMaturaId?: boolean
+    openTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    awardedPoints?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOpenAnswer"]>
+
+  export type UserOpenAnswerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMaturaId?: boolean
+    openTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    awardedPoints?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOpenAnswer"]>
+
+  export type UserOpenAnswerSelectScalar = {
+    id?: boolean
+    userMaturaId?: boolean
+    openTaskId?: boolean
+    answer?: boolean
+    isCorrect?: boolean
+    awardedPoints?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserOpenAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMaturaId" | "openTaskId" | "answer" | "isCorrect" | "awardedPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["userOpenAnswer"]>
+  export type UserOpenAnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
+  }
+  export type UserOpenAnswerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
+  }
+  export type UserOpenAnswerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
+    openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
+  }
+
+  export type $UserOpenAnswerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserOpenAnswer"
+    objects: {
+      userMatura: Prisma.$UserMaturaPayload<ExtArgs>
+      openTask: Prisma.$OpenTasksPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userMaturaId: string
+      openTaskId: string
+      answer: string | null
+      isCorrect: boolean | null
+      awardedPoints: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userOpenAnswer"]>
+    composites: {}
+  }
+
+  type UserOpenAnswerGetPayload<S extends boolean | null | undefined | UserOpenAnswerDefaultArgs> = $Result.GetResult<Prisma.$UserOpenAnswerPayload, S>
+
+  type UserOpenAnswerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserOpenAnswerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserOpenAnswerCountAggregateInputType | true
+    }
+
+  export interface UserOpenAnswerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserOpenAnswer'], meta: { name: 'UserOpenAnswer' } }
+    /**
+     * Find zero or one UserOpenAnswer that matches the filter.
+     * @param {UserOpenAnswerFindUniqueArgs} args - Arguments to find a UserOpenAnswer
+     * @example
+     * // Get one UserOpenAnswer
+     * const userOpenAnswer = await prisma.userOpenAnswer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserOpenAnswerFindUniqueArgs>(args: SelectSubset<T, UserOpenAnswerFindUniqueArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserOpenAnswer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserOpenAnswerFindUniqueOrThrowArgs} args - Arguments to find a UserOpenAnswer
+     * @example
+     * // Get one UserOpenAnswer
+     * const userOpenAnswer = await prisma.userOpenAnswer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserOpenAnswerFindUniqueOrThrowArgs>(args: SelectSubset<T, UserOpenAnswerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserOpenAnswer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerFindFirstArgs} args - Arguments to find a UserOpenAnswer
+     * @example
+     * // Get one UserOpenAnswer
+     * const userOpenAnswer = await prisma.userOpenAnswer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserOpenAnswerFindFirstArgs>(args?: SelectSubset<T, UserOpenAnswerFindFirstArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserOpenAnswer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerFindFirstOrThrowArgs} args - Arguments to find a UserOpenAnswer
+     * @example
+     * // Get one UserOpenAnswer
+     * const userOpenAnswer = await prisma.userOpenAnswer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserOpenAnswerFindFirstOrThrowArgs>(args?: SelectSubset<T, UserOpenAnswerFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserOpenAnswers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserOpenAnswers
+     * const userOpenAnswers = await prisma.userOpenAnswer.findMany()
+     * 
+     * // Get first 10 UserOpenAnswers
+     * const userOpenAnswers = await prisma.userOpenAnswer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userOpenAnswerWithIdOnly = await prisma.userOpenAnswer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserOpenAnswerFindManyArgs>(args?: SelectSubset<T, UserOpenAnswerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserOpenAnswer.
+     * @param {UserOpenAnswerCreateArgs} args - Arguments to create a UserOpenAnswer.
+     * @example
+     * // Create one UserOpenAnswer
+     * const UserOpenAnswer = await prisma.userOpenAnswer.create({
+     *   data: {
+     *     // ... data to create a UserOpenAnswer
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserOpenAnswerCreateArgs>(args: SelectSubset<T, UserOpenAnswerCreateArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserOpenAnswers.
+     * @param {UserOpenAnswerCreateManyArgs} args - Arguments to create many UserOpenAnswers.
+     * @example
+     * // Create many UserOpenAnswers
+     * const userOpenAnswer = await prisma.userOpenAnswer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserOpenAnswerCreateManyArgs>(args?: SelectSubset<T, UserOpenAnswerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserOpenAnswers and returns the data saved in the database.
+     * @param {UserOpenAnswerCreateManyAndReturnArgs} args - Arguments to create many UserOpenAnswers.
+     * @example
+     * // Create many UserOpenAnswers
+     * const userOpenAnswer = await prisma.userOpenAnswer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserOpenAnswers and only return the `id`
+     * const userOpenAnswerWithIdOnly = await prisma.userOpenAnswer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserOpenAnswerCreateManyAndReturnArgs>(args?: SelectSubset<T, UserOpenAnswerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserOpenAnswer.
+     * @param {UserOpenAnswerDeleteArgs} args - Arguments to delete one UserOpenAnswer.
+     * @example
+     * // Delete one UserOpenAnswer
+     * const UserOpenAnswer = await prisma.userOpenAnswer.delete({
+     *   where: {
+     *     // ... filter to delete one UserOpenAnswer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserOpenAnswerDeleteArgs>(args: SelectSubset<T, UserOpenAnswerDeleteArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserOpenAnswer.
+     * @param {UserOpenAnswerUpdateArgs} args - Arguments to update one UserOpenAnswer.
+     * @example
+     * // Update one UserOpenAnswer
+     * const userOpenAnswer = await prisma.userOpenAnswer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserOpenAnswerUpdateArgs>(args: SelectSubset<T, UserOpenAnswerUpdateArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserOpenAnswers.
+     * @param {UserOpenAnswerDeleteManyArgs} args - Arguments to filter UserOpenAnswers to delete.
+     * @example
+     * // Delete a few UserOpenAnswers
+     * const { count } = await prisma.userOpenAnswer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserOpenAnswerDeleteManyArgs>(args?: SelectSubset<T, UserOpenAnswerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserOpenAnswers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserOpenAnswers
+     * const userOpenAnswer = await prisma.userOpenAnswer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserOpenAnswerUpdateManyArgs>(args: SelectSubset<T, UserOpenAnswerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserOpenAnswers and returns the data updated in the database.
+     * @param {UserOpenAnswerUpdateManyAndReturnArgs} args - Arguments to update many UserOpenAnswers.
+     * @example
+     * // Update many UserOpenAnswers
+     * const userOpenAnswer = await prisma.userOpenAnswer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserOpenAnswers and only return the `id`
+     * const userOpenAnswerWithIdOnly = await prisma.userOpenAnswer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserOpenAnswerUpdateManyAndReturnArgs>(args: SelectSubset<T, UserOpenAnswerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserOpenAnswer.
+     * @param {UserOpenAnswerUpsertArgs} args - Arguments to update or create a UserOpenAnswer.
+     * @example
+     * // Update or create a UserOpenAnswer
+     * const userOpenAnswer = await prisma.userOpenAnswer.upsert({
+     *   create: {
+     *     // ... data to create a UserOpenAnswer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserOpenAnswer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserOpenAnswerUpsertArgs>(args: SelectSubset<T, UserOpenAnswerUpsertArgs<ExtArgs>>): Prisma__UserOpenAnswerClient<$Result.GetResult<Prisma.$UserOpenAnswerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserOpenAnswers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerCountArgs} args - Arguments to filter UserOpenAnswers to count.
+     * @example
+     * // Count the number of UserOpenAnswers
+     * const count = await prisma.userOpenAnswer.count({
+     *   where: {
+     *     // ... the filter for the UserOpenAnswers we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserOpenAnswerCountArgs>(
+      args?: Subset<T, UserOpenAnswerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserOpenAnswerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserOpenAnswer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserOpenAnswerAggregateArgs>(args: Subset<T, UserOpenAnswerAggregateArgs>): Prisma.PrismaPromise<GetUserOpenAnswerAggregateType<T>>
+
+    /**
+     * Group by UserOpenAnswer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOpenAnswerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserOpenAnswerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserOpenAnswerGroupByArgs['orderBy'] }
+        : { orderBy?: UserOpenAnswerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserOpenAnswerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserOpenAnswerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserOpenAnswer model
+   */
+  readonly fields: UserOpenAnswerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserOpenAnswer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserOpenAnswerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userMatura<T extends UserMaturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserMaturaDefaultArgs<ExtArgs>>): Prisma__UserMaturaClient<$Result.GetResult<Prisma.$UserMaturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    openTask<T extends OpenTasksDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OpenTasksDefaultArgs<ExtArgs>>): Prisma__OpenTasksClient<$Result.GetResult<Prisma.$OpenTasksPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserOpenAnswer model
+   */
+  interface UserOpenAnswerFieldRefs {
+    readonly id: FieldRef<"UserOpenAnswer", 'String'>
+    readonly userMaturaId: FieldRef<"UserOpenAnswer", 'String'>
+    readonly openTaskId: FieldRef<"UserOpenAnswer", 'String'>
+    readonly answer: FieldRef<"UserOpenAnswer", 'String'>
+    readonly isCorrect: FieldRef<"UserOpenAnswer", 'Boolean'>
+    readonly awardedPoints: FieldRef<"UserOpenAnswer", 'Int'>
+    readonly createdAt: FieldRef<"UserOpenAnswer", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserOpenAnswer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserOpenAnswer findUnique
+   */
+  export type UserOpenAnswerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOpenAnswer to fetch.
+     */
+    where: UserOpenAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserOpenAnswer findUniqueOrThrow
+   */
+  export type UserOpenAnswerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOpenAnswer to fetch.
+     */
+    where: UserOpenAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserOpenAnswer findFirst
+   */
+  export type UserOpenAnswerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOpenAnswer to fetch.
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOpenAnswers to fetch.
+     */
+    orderBy?: UserOpenAnswerOrderByWithRelationInput | UserOpenAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserOpenAnswers.
+     */
+    cursor?: UserOpenAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOpenAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOpenAnswers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserOpenAnswers.
+     */
+    distinct?: UserOpenAnswerScalarFieldEnum | UserOpenAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserOpenAnswer findFirstOrThrow
+   */
+  export type UserOpenAnswerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOpenAnswer to fetch.
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOpenAnswers to fetch.
+     */
+    orderBy?: UserOpenAnswerOrderByWithRelationInput | UserOpenAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserOpenAnswers.
+     */
+    cursor?: UserOpenAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOpenAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOpenAnswers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserOpenAnswers.
+     */
+    distinct?: UserOpenAnswerScalarFieldEnum | UserOpenAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserOpenAnswer findMany
+   */
+  export type UserOpenAnswerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOpenAnswers to fetch.
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOpenAnswers to fetch.
+     */
+    orderBy?: UserOpenAnswerOrderByWithRelationInput | UserOpenAnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserOpenAnswers.
+     */
+    cursor?: UserOpenAnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOpenAnswers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOpenAnswers.
+     */
+    skip?: number
+    distinct?: UserOpenAnswerScalarFieldEnum | UserOpenAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * UserOpenAnswer create
+   */
+  export type UserOpenAnswerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserOpenAnswer.
+     */
+    data: XOR<UserOpenAnswerCreateInput, UserOpenAnswerUncheckedCreateInput>
+  }
+
+  /**
+   * UserOpenAnswer createMany
+   */
+  export type UserOpenAnswerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserOpenAnswers.
+     */
+    data: UserOpenAnswerCreateManyInput | UserOpenAnswerCreateManyInput[]
+  }
+
+  /**
+   * UserOpenAnswer createManyAndReturn
+   */
+  export type UserOpenAnswerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserOpenAnswers.
+     */
+    data: UserOpenAnswerCreateManyInput | UserOpenAnswerCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserOpenAnswer update
+   */
+  export type UserOpenAnswerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserOpenAnswer.
+     */
+    data: XOR<UserOpenAnswerUpdateInput, UserOpenAnswerUncheckedUpdateInput>
+    /**
+     * Choose, which UserOpenAnswer to update.
+     */
+    where: UserOpenAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserOpenAnswer updateMany
+   */
+  export type UserOpenAnswerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserOpenAnswers.
+     */
+    data: XOR<UserOpenAnswerUpdateManyMutationInput, UserOpenAnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which UserOpenAnswers to update
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * Limit how many UserOpenAnswers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserOpenAnswer updateManyAndReturn
+   */
+  export type UserOpenAnswerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * The data used to update UserOpenAnswers.
+     */
+    data: XOR<UserOpenAnswerUpdateManyMutationInput, UserOpenAnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which UserOpenAnswers to update
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * Limit how many UserOpenAnswers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserOpenAnswer upsert
+   */
+  export type UserOpenAnswerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserOpenAnswer to update in case it exists.
+     */
+    where: UserOpenAnswerWhereUniqueInput
+    /**
+     * In case the UserOpenAnswer found by the `where` argument doesn't exist, create a new UserOpenAnswer with this data.
+     */
+    create: XOR<UserOpenAnswerCreateInput, UserOpenAnswerUncheckedCreateInput>
+    /**
+     * In case the UserOpenAnswer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserOpenAnswerUpdateInput, UserOpenAnswerUncheckedUpdateInput>
+  }
+
+  /**
+   * UserOpenAnswer delete
+   */
+  export type UserOpenAnswerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
+    /**
+     * Filter which UserOpenAnswer to delete.
+     */
+    where: UserOpenAnswerWhereUniqueInput
+  }
+
+  /**
+   * UserOpenAnswer deleteMany
+   */
+  export type UserOpenAnswerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserOpenAnswers to delete
+     */
+    where?: UserOpenAnswerWhereInput
+    /**
+     * Limit how many UserOpenAnswers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserOpenAnswer without action
+   */
+  export type UserOpenAnswerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOpenAnswer
+     */
+    select?: UserOpenAnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOpenAnswer
+     */
+    omit?: UserOpenAnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOpenAnswerInclude<ExtArgs> | null
   }
 
 
@@ -11676,6 +14398,7 @@ export namespace Prisma {
     name: 'name',
     content: 'content',
     answer: 'answer',
+    points: 'points',
     subSectionId: 'subSectionId',
     openTaskId: 'openTaskId'
   };
@@ -11688,6 +14411,7 @@ export namespace Prisma {
     name: 'name',
     content: 'content',
     correctAnswer: 'correctAnswer',
+    points: 'points',
     subSectionId: 'subSectionId'
   };
 
@@ -11720,10 +14444,38 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     maturaId: 'maturaId',
+    earnedPoints: 'earnedPoints',
     createdAt: 'createdAt'
   };
 
   export type UserMaturaScalarFieldEnum = (typeof UserMaturaScalarFieldEnum)[keyof typeof UserMaturaScalarFieldEnum]
+
+
+  export const UserClosedAnswerScalarFieldEnum: {
+    id: 'id',
+    userMaturaId: 'userMaturaId',
+    closedTaskId: 'closedTaskId',
+    answer: 'answer',
+    isCorrect: 'isCorrect',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserClosedAnswerScalarFieldEnum = (typeof UserClosedAnswerScalarFieldEnum)[keyof typeof UserClosedAnswerScalarFieldEnum]
+
+
+  export const UserOpenAnswerScalarFieldEnum: {
+    id: 'id',
+    userMaturaId: 'userMaturaId',
+    openTaskId: 'openTaskId',
+    answer: 'answer',
+    isCorrect: 'isCorrect',
+    awardedPoints: 'awardedPoints',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserOpenAnswerScalarFieldEnum = (typeof UserOpenAnswerScalarFieldEnum)[keyof typeof UserOpenAnswerScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12009,10 +14761,12 @@ export namespace Prisma {
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
     answer?: StringFilter<"OpenTasks"> | string
+    points?: IntFilter<"OpenTasks"> | number
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
     maturas?: MaturaListRelationFilter
+    userAnswers?: UserOpenAnswerListRelationFilter
   }
 
   export type OpenTasksOrderByWithRelationInput = {
@@ -12020,10 +14774,12 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     answer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrderInput | SortOrder
     subSection?: SubSectionOrderByWithRelationInput
     maturas?: MaturaOrderByRelationAggregateInput
+    userAnswers?: UserOpenAnswerOrderByRelationAggregateInput
   }
 
   export type OpenTasksWhereUniqueInput = Prisma.AtLeast<{
@@ -12034,10 +14790,12 @@ export namespace Prisma {
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
     answer?: StringFilter<"OpenTasks"> | string
+    points?: IntFilter<"OpenTasks"> | number
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
     maturas?: MaturaListRelationFilter
+    userAnswers?: UserOpenAnswerListRelationFilter
   }, "id">
 
   export type OpenTasksOrderByWithAggregationInput = {
@@ -12045,11 +14803,14 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     answer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrderInput | SortOrder
     _count?: OpenTasksCountOrderByAggregateInput
+    _avg?: OpenTasksAvgOrderByAggregateInput
     _max?: OpenTasksMaxOrderByAggregateInput
     _min?: OpenTasksMinOrderByAggregateInput
+    _sum?: OpenTasksSumOrderByAggregateInput
   }
 
   export type OpenTasksScalarWhereWithAggregatesInput = {
@@ -12060,6 +14821,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"OpenTasks"> | string
     content?: StringWithAggregatesFilter<"OpenTasks"> | string
     answer?: StringWithAggregatesFilter<"OpenTasks"> | string
+    points?: IntWithAggregatesFilter<"OpenTasks"> | number
     subSectionId?: StringWithAggregatesFilter<"OpenTasks"> | string
     openTaskId?: StringNullableWithAggregatesFilter<"OpenTasks"> | string | null
   }
@@ -12072,10 +14834,12 @@ export namespace Prisma {
     name?: StringFilter<"ClosedTasks"> | string
     content?: StringFilter<"ClosedTasks"> | string
     correctAnswer?: StringFilter<"ClosedTasks"> | string
+    points?: IntFilter<"ClosedTasks"> | number
     subSectionId?: StringFilter<"ClosedTasks"> | string
     answers?: AnswersListRelationFilter
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
     maturas?: MaturaListRelationFilter
+    userAnswers?: UserClosedAnswerListRelationFilter
   }
 
   export type ClosedTasksOrderByWithRelationInput = {
@@ -12083,10 +14847,12 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     correctAnswer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     answers?: AnswersOrderByRelationAggregateInput
     subSection?: SubSectionOrderByWithRelationInput
     maturas?: MaturaOrderByRelationAggregateInput
+    userAnswers?: UserClosedAnswerOrderByRelationAggregateInput
   }
 
   export type ClosedTasksWhereUniqueInput = Prisma.AtLeast<{
@@ -12097,10 +14863,12 @@ export namespace Prisma {
     name?: StringFilter<"ClosedTasks"> | string
     content?: StringFilter<"ClosedTasks"> | string
     correctAnswer?: StringFilter<"ClosedTasks"> | string
+    points?: IntFilter<"ClosedTasks"> | number
     subSectionId?: StringFilter<"ClosedTasks"> | string
     answers?: AnswersListRelationFilter
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
     maturas?: MaturaListRelationFilter
+    userAnswers?: UserClosedAnswerListRelationFilter
   }, "id">
 
   export type ClosedTasksOrderByWithAggregationInput = {
@@ -12108,10 +14876,13 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     correctAnswer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     _count?: ClosedTasksCountOrderByAggregateInput
+    _avg?: ClosedTasksAvgOrderByAggregateInput
     _max?: ClosedTasksMaxOrderByAggregateInput
     _min?: ClosedTasksMinOrderByAggregateInput
+    _sum?: ClosedTasksSumOrderByAggregateInput
   }
 
   export type ClosedTasksScalarWhereWithAggregatesInput = {
@@ -12122,6 +14893,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"ClosedTasks"> | string
     content?: StringWithAggregatesFilter<"ClosedTasks"> | string
     correctAnswer?: StringWithAggregatesFilter<"ClosedTasks"> | string
+    points?: IntWithAggregatesFilter<"ClosedTasks"> | number
     subSectionId?: StringWithAggregatesFilter<"ClosedTasks"> | string
   }
 
@@ -12248,18 +15020,24 @@ export namespace Prisma {
     id?: StringFilter<"UserMatura"> | string
     userId?: StringFilter<"UserMatura"> | string
     maturaId?: StringFilter<"UserMatura"> | string
+    earnedPoints?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
+    closedAnswers?: UserClosedAnswerListRelationFilter
+    openAnswers?: UserOpenAnswerListRelationFilter
   }
 
   export type UserMaturaOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    earnedPoints?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     matura?: MaturaOrderByWithRelationInput
+    closedAnswers?: UserClosedAnswerOrderByRelationAggregateInput
+    openAnswers?: UserOpenAnswerOrderByRelationAggregateInput
   }
 
   export type UserMaturaWhereUniqueInput = Prisma.AtLeast<{
@@ -12269,19 +15047,25 @@ export namespace Prisma {
     NOT?: UserMaturaWhereInput | UserMaturaWhereInput[]
     userId?: StringFilter<"UserMatura"> | string
     maturaId?: StringFilter<"UserMatura"> | string
+    earnedPoints?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
+    closedAnswers?: UserClosedAnswerListRelationFilter
+    openAnswers?: UserOpenAnswerListRelationFilter
   }, "id">
 
   export type UserMaturaOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    earnedPoints?: SortOrder
     createdAt?: SortOrder
     _count?: UserMaturaCountOrderByAggregateInput
+    _avg?: UserMaturaAvgOrderByAggregateInput
     _max?: UserMaturaMaxOrderByAggregateInput
     _min?: UserMaturaMinOrderByAggregateInput
+    _sum?: UserMaturaSumOrderByAggregateInput
   }
 
   export type UserMaturaScalarWhereWithAggregatesInput = {
@@ -12291,7 +15075,153 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserMatura"> | string
     userId?: StringWithAggregatesFilter<"UserMatura"> | string
     maturaId?: StringWithAggregatesFilter<"UserMatura"> | string
+    earnedPoints?: IntWithAggregatesFilter<"UserMatura"> | number
     createdAt?: DateTimeWithAggregatesFilter<"UserMatura"> | Date | string
+  }
+
+  export type UserClosedAnswerWhereInput = {
+    AND?: UserClosedAnswerWhereInput | UserClosedAnswerWhereInput[]
+    OR?: UserClosedAnswerWhereInput[]
+    NOT?: UserClosedAnswerWhereInput | UserClosedAnswerWhereInput[]
+    id?: StringFilter<"UserClosedAnswer"> | string
+    userMaturaId?: StringFilter<"UserClosedAnswer"> | string
+    closedTaskId?: StringFilter<"UserClosedAnswer"> | string
+    answer?: StringNullableFilter<"UserClosedAnswer"> | string | null
+    isCorrect?: BoolNullableFilter<"UserClosedAnswer"> | boolean | null
+    createdAt?: DateTimeFilter<"UserClosedAnswer"> | Date | string
+    updatedAt?: DateTimeFilter<"UserClosedAnswer"> | Date | string
+    userMatura?: XOR<UserMaturaScalarRelationFilter, UserMaturaWhereInput>
+    closedTask?: XOR<ClosedTasksScalarRelationFilter, ClosedTasksWhereInput>
+  }
+
+  export type UserClosedAnswerOrderByWithRelationInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    closedTaskId?: SortOrder
+    answer?: SortOrderInput | SortOrder
+    isCorrect?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userMatura?: UserMaturaOrderByWithRelationInput
+    closedTask?: ClosedTasksOrderByWithRelationInput
+  }
+
+  export type UserClosedAnswerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userMaturaId_closedTaskId?: UserClosedAnswerUserMaturaIdClosedTaskIdCompoundUniqueInput
+    AND?: UserClosedAnswerWhereInput | UserClosedAnswerWhereInput[]
+    OR?: UserClosedAnswerWhereInput[]
+    NOT?: UserClosedAnswerWhereInput | UserClosedAnswerWhereInput[]
+    userMaturaId?: StringFilter<"UserClosedAnswer"> | string
+    closedTaskId?: StringFilter<"UserClosedAnswer"> | string
+    answer?: StringNullableFilter<"UserClosedAnswer"> | string | null
+    isCorrect?: BoolNullableFilter<"UserClosedAnswer"> | boolean | null
+    createdAt?: DateTimeFilter<"UserClosedAnswer"> | Date | string
+    updatedAt?: DateTimeFilter<"UserClosedAnswer"> | Date | string
+    userMatura?: XOR<UserMaturaScalarRelationFilter, UserMaturaWhereInput>
+    closedTask?: XOR<ClosedTasksScalarRelationFilter, ClosedTasksWhereInput>
+  }, "id" | "userMaturaId_closedTaskId">
+
+  export type UserClosedAnswerOrderByWithAggregationInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    closedTaskId?: SortOrder
+    answer?: SortOrderInput | SortOrder
+    isCorrect?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserClosedAnswerCountOrderByAggregateInput
+    _max?: UserClosedAnswerMaxOrderByAggregateInput
+    _min?: UserClosedAnswerMinOrderByAggregateInput
+  }
+
+  export type UserClosedAnswerScalarWhereWithAggregatesInput = {
+    AND?: UserClosedAnswerScalarWhereWithAggregatesInput | UserClosedAnswerScalarWhereWithAggregatesInput[]
+    OR?: UserClosedAnswerScalarWhereWithAggregatesInput[]
+    NOT?: UserClosedAnswerScalarWhereWithAggregatesInput | UserClosedAnswerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserClosedAnswer"> | string
+    userMaturaId?: StringWithAggregatesFilter<"UserClosedAnswer"> | string
+    closedTaskId?: StringWithAggregatesFilter<"UserClosedAnswer"> | string
+    answer?: StringNullableWithAggregatesFilter<"UserClosedAnswer"> | string | null
+    isCorrect?: BoolNullableWithAggregatesFilter<"UserClosedAnswer"> | boolean | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserClosedAnswer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserClosedAnswer"> | Date | string
+  }
+
+  export type UserOpenAnswerWhereInput = {
+    AND?: UserOpenAnswerWhereInput | UserOpenAnswerWhereInput[]
+    OR?: UserOpenAnswerWhereInput[]
+    NOT?: UserOpenAnswerWhereInput | UserOpenAnswerWhereInput[]
+    id?: StringFilter<"UserOpenAnswer"> | string
+    userMaturaId?: StringFilter<"UserOpenAnswer"> | string
+    openTaskId?: StringFilter<"UserOpenAnswer"> | string
+    answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    isCorrect?: BoolNullableFilter<"UserOpenAnswer"> | boolean | null
+    awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
+    createdAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
+    updatedAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
+    userMatura?: XOR<UserMaturaScalarRelationFilter, UserMaturaWhereInput>
+    openTask?: XOR<OpenTasksScalarRelationFilter, OpenTasksWhereInput>
+  }
+
+  export type UserOpenAnswerOrderByWithRelationInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    openTaskId?: SortOrder
+    answer?: SortOrderInput | SortOrder
+    isCorrect?: SortOrderInput | SortOrder
+    awardedPoints?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userMatura?: UserMaturaOrderByWithRelationInput
+    openTask?: OpenTasksOrderByWithRelationInput
+  }
+
+  export type UserOpenAnswerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userMaturaId_openTaskId?: UserOpenAnswerUserMaturaIdOpenTaskIdCompoundUniqueInput
+    AND?: UserOpenAnswerWhereInput | UserOpenAnswerWhereInput[]
+    OR?: UserOpenAnswerWhereInput[]
+    NOT?: UserOpenAnswerWhereInput | UserOpenAnswerWhereInput[]
+    userMaturaId?: StringFilter<"UserOpenAnswer"> | string
+    openTaskId?: StringFilter<"UserOpenAnswer"> | string
+    answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    isCorrect?: BoolNullableFilter<"UserOpenAnswer"> | boolean | null
+    awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
+    createdAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
+    updatedAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
+    userMatura?: XOR<UserMaturaScalarRelationFilter, UserMaturaWhereInput>
+    openTask?: XOR<OpenTasksScalarRelationFilter, OpenTasksWhereInput>
+  }, "id" | "userMaturaId_openTaskId">
+
+  export type UserOpenAnswerOrderByWithAggregationInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    openTaskId?: SortOrder
+    answer?: SortOrderInput | SortOrder
+    isCorrect?: SortOrderInput | SortOrder
+    awardedPoints?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserOpenAnswerCountOrderByAggregateInput
+    _avg?: UserOpenAnswerAvgOrderByAggregateInput
+    _max?: UserOpenAnswerMaxOrderByAggregateInput
+    _min?: UserOpenAnswerMinOrderByAggregateInput
+    _sum?: UserOpenAnswerSumOrderByAggregateInput
+  }
+
+  export type UserOpenAnswerScalarWhereWithAggregatesInput = {
+    AND?: UserOpenAnswerScalarWhereWithAggregatesInput | UserOpenAnswerScalarWhereWithAggregatesInput[]
+    OR?: UserOpenAnswerScalarWhereWithAggregatesInput[]
+    NOT?: UserOpenAnswerScalarWhereWithAggregatesInput | UserOpenAnswerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
+    userMaturaId?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
+    openTaskId?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
+    answer?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
+    isCorrect?: BoolNullableWithAggregatesFilter<"UserOpenAnswer"> | boolean | null
+    awardedPoints?: IntNullableWithAggregatesFilter<"UserOpenAnswer"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserOpenAnswer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserOpenAnswer"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -12520,9 +15450,11 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     openTaskId?: string | null
     subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
     maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
+    userAnswers?: UserOpenAnswerCreateNestedManyWithoutOpenTaskInput
   }
 
   export type OpenTasksUncheckedCreateInput = {
@@ -12530,9 +15462,11 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     subSectionId: string
     openTaskId?: string | null
     maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
+    userAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutOpenTaskInput
   }
 
   export type OpenTasksUpdateInput = {
@@ -12540,9 +15474,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
     maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
+    userAnswers?: UserOpenAnswerUpdateManyWithoutOpenTaskNestedInput
   }
 
   export type OpenTasksUncheckedUpdateInput = {
@@ -12550,9 +15486,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
+    userAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskNestedInput
   }
 
   export type OpenTasksCreateManyInput = {
@@ -12560,6 +15498,7 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     subSectionId: string
     openTaskId?: string | null
   }
@@ -12569,6 +15508,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -12577,6 +15517,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12586,9 +15527,11 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     answers?: AnswersCreateNestedManyWithoutClosedTaskInput
     subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
     maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksUncheckedCreateInput = {
@@ -12596,9 +15539,11 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     subSectionId: string
     answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
     maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksUpdateInput = {
@@ -12606,9 +15551,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
     subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
     maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateInput = {
@@ -12616,9 +15563,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
     maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksCreateManyInput = {
@@ -12626,6 +15575,7 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     subSectionId: string
   }
 
@@ -12634,6 +15584,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClosedTasksUncheckedUpdateManyInput = {
@@ -12641,6 +15592,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12769,41 +15721,55 @@ export namespace Prisma {
 
   export type UserMaturaCreateInput = {
     id?: string
+    earnedPoints?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUserMaturasInput
     matura: MaturaCreateNestedOneWithoutUserMaturasInput
+    closedAnswers?: UserClosedAnswerCreateNestedManyWithoutUserMaturaInput
+    openAnswers?: UserOpenAnswerCreateNestedManyWithoutUserMaturaInput
   }
 
   export type UserMaturaUncheckedCreateInput = {
     id?: string
     userId: string
     maturaId: string
+    earnedPoints?: number
     createdAt?: Date | string
+    closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
+    openAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
   }
 
   export type UserMaturaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
     matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+    closedAnswers?: UserClosedAnswerUpdateManyWithoutUserMaturaNestedInput
+    openAnswers?: UserOpenAnswerUpdateManyWithoutUserMaturaNestedInput
   }
 
   export type UserMaturaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
+    openAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
   }
 
   export type UserMaturaCreateManyInput = {
     id?: string
     userId: string
     maturaId: string
+    earnedPoints?: number
     createdAt?: Date | string
   }
 
   export type UserMaturaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12811,7 +15777,151 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClosedAnswerCreateInput = {
+    id?: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userMatura: UserMaturaCreateNestedOneWithoutClosedAnswersInput
+    closedTask: ClosedTasksCreateNestedOneWithoutUserAnswersInput
+  }
+
+  export type UserClosedAnswerUncheckedCreateInput = {
+    id?: string
+    userMaturaId: string
+    closedTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClosedAnswerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMatura?: UserMaturaUpdateOneRequiredWithoutClosedAnswersNestedInput
+    closedTask?: ClosedTasksUpdateOneRequiredWithoutUserAnswersNestedInput
+  }
+
+  export type UserClosedAnswerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    closedTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClosedAnswerCreateManyInput = {
+    id?: string
+    userMaturaId: string
+    closedTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClosedAnswerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClosedAnswerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    closedTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOpenAnswerCreateInput = {
+    id?: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userMatura: UserMaturaCreateNestedOneWithoutOpenAnswersInput
+    openTask: OpenTasksCreateNestedOneWithoutUserAnswersInput
+  }
+
+  export type UserOpenAnswerUncheckedCreateInput = {
+    id?: string
+    userMaturaId: string
+    openTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserOpenAnswerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMatura?: UserMaturaUpdateOneRequiredWithoutOpenAnswersNestedInput
+    openTask?: OpenTasksUpdateOneRequiredWithoutUserAnswersNestedInput
+  }
+
+  export type UserOpenAnswerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    openTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOpenAnswerCreateManyInput = {
+    id?: string
+    userMaturaId: string
+    openTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserOpenAnswerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOpenAnswerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    openTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -13103,6 +16213,17 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type SubSectionScalarRelationFilter = {
     is?: SubSectionWhereInput
     isNot?: SubSectionWhereInput
@@ -13114,7 +16235,17 @@ export namespace Prisma {
     none?: MaturaWhereInput
   }
 
+  export type UserOpenAnswerListRelationFilter = {
+    every?: UserOpenAnswerWhereInput
+    some?: UserOpenAnswerWhereInput
+    none?: UserOpenAnswerWhereInput
+  }
+
   export type MaturaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOpenAnswerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13123,8 +16254,13 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     answer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
+  }
+
+  export type OpenTasksAvgOrderByAggregateInput = {
+    points?: SortOrder
   }
 
   export type OpenTasksMaxOrderByAggregateInput = {
@@ -13132,6 +16268,7 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     answer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
   }
@@ -13141,8 +16278,29 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     answer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
+  }
+
+  export type OpenTasksSumOrderByAggregateInput = {
+    points?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type AnswersListRelationFilter = {
@@ -13151,7 +16309,17 @@ export namespace Prisma {
     none?: AnswersWhereInput
   }
 
+  export type UserClosedAnswerListRelationFilter = {
+    every?: UserClosedAnswerWhereInput
+    some?: UserClosedAnswerWhereInput
+    none?: UserClosedAnswerWhereInput
+  }
+
   export type AnswersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserClosedAnswerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13160,7 +16328,12 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     correctAnswer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
+  }
+
+  export type ClosedTasksAvgOrderByAggregateInput = {
+    points?: SortOrder
   }
 
   export type ClosedTasksMaxOrderByAggregateInput = {
@@ -13168,6 +16341,7 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     correctAnswer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
   }
 
@@ -13176,7 +16350,12 @@ export namespace Prisma {
     name?: SortOrder
     content?: SortOrder
     correctAnswer?: SortOrder
+    points?: SortOrder
     subSectionId?: SortOrder
+  }
+
+  export type ClosedTasksSumOrderByAggregateInput = {
+    points?: SortOrder
   }
 
   export type ClosedTasksScalarRelationFilter = {
@@ -13246,13 +16425,19 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    earnedPoints?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type UserMaturaAvgOrderByAggregateInput = {
+    earnedPoints?: SortOrder
   }
 
   export type UserMaturaMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    earnedPoints?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13260,7 +16445,116 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    earnedPoints?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type UserMaturaSumOrderByAggregateInput = {
+    earnedPoints?: SortOrder
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type UserMaturaScalarRelationFilter = {
+    is?: UserMaturaWhereInput
+    isNot?: UserMaturaWhereInput
+  }
+
+  export type UserClosedAnswerUserMaturaIdClosedTaskIdCompoundUniqueInput = {
+    userMaturaId: string
+    closedTaskId: string
+  }
+
+  export type UserClosedAnswerCountOrderByAggregateInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    closedTaskId?: SortOrder
+    answer?: SortOrder
+    isCorrect?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserClosedAnswerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    closedTaskId?: SortOrder
+    answer?: SortOrder
+    isCorrect?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserClosedAnswerMinOrderByAggregateInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    closedTaskId?: SortOrder
+    answer?: SortOrder
+    isCorrect?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type OpenTasksScalarRelationFilter = {
+    is?: OpenTasksWhereInput
+    isNot?: OpenTasksWhereInput
+  }
+
+  export type UserOpenAnswerUserMaturaIdOpenTaskIdCompoundUniqueInput = {
+    userMaturaId: string
+    openTaskId: string
+  }
+
+  export type UserOpenAnswerCountOrderByAggregateInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    openTaskId?: SortOrder
+    answer?: SortOrder
+    isCorrect?: SortOrder
+    awardedPoints?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserOpenAnswerAvgOrderByAggregateInput = {
+    awardedPoints?: SortOrder
+  }
+
+  export type UserOpenAnswerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    openTaskId?: SortOrder
+    answer?: SortOrder
+    isCorrect?: SortOrder
+    awardedPoints?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserOpenAnswerMinOrderByAggregateInput = {
+    id?: SortOrder
+    userMaturaId?: SortOrder
+    openTaskId?: SortOrder
+    answer?: SortOrder
+    isCorrect?: SortOrder
+    awardedPoints?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserOpenAnswerSumOrderByAggregateInput = {
+    awardedPoints?: SortOrder
   }
 
   export type UserMaturaCreateNestedManyWithoutUserInput = {
@@ -13537,10 +16831,32 @@ export namespace Prisma {
     connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
   }
 
+  export type UserOpenAnswerCreateNestedManyWithoutOpenTaskInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutOpenTaskInput, UserOpenAnswerUncheckedCreateWithoutOpenTaskInput> | UserOpenAnswerCreateWithoutOpenTaskInput[] | UserOpenAnswerUncheckedCreateWithoutOpenTaskInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutOpenTaskInput | UserOpenAnswerCreateOrConnectWithoutOpenTaskInput[]
+    createMany?: UserOpenAnswerCreateManyOpenTaskInputEnvelope
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+  }
+
   export type MaturaUncheckedCreateNestedManyWithoutOpenTasksInput = {
     create?: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput> | MaturaCreateWithoutOpenTasksInput[] | MaturaUncheckedCreateWithoutOpenTasksInput[]
     connectOrCreate?: MaturaCreateOrConnectWithoutOpenTasksInput | MaturaCreateOrConnectWithoutOpenTasksInput[]
     connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+  }
+
+  export type UserOpenAnswerUncheckedCreateNestedManyWithoutOpenTaskInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutOpenTaskInput, UserOpenAnswerUncheckedCreateWithoutOpenTaskInput> | UserOpenAnswerCreateWithoutOpenTaskInput[] | UserOpenAnswerUncheckedCreateWithoutOpenTaskInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutOpenTaskInput | UserOpenAnswerCreateOrConnectWithoutOpenTaskInput[]
+    createMany?: UserOpenAnswerCreateManyOpenTaskInputEnvelope
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput = {
@@ -13564,6 +16880,20 @@ export namespace Prisma {
     deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
   }
 
+  export type UserOpenAnswerUpdateManyWithoutOpenTaskNestedInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutOpenTaskInput, UserOpenAnswerUncheckedCreateWithoutOpenTaskInput> | UserOpenAnswerCreateWithoutOpenTaskInput[] | UserOpenAnswerUncheckedCreateWithoutOpenTaskInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutOpenTaskInput | UserOpenAnswerCreateOrConnectWithoutOpenTaskInput[]
+    upsert?: UserOpenAnswerUpsertWithWhereUniqueWithoutOpenTaskInput | UserOpenAnswerUpsertWithWhereUniqueWithoutOpenTaskInput[]
+    createMany?: UserOpenAnswerCreateManyOpenTaskInputEnvelope
+    set?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    disconnect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    delete?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    update?: UserOpenAnswerUpdateWithWhereUniqueWithoutOpenTaskInput | UserOpenAnswerUpdateWithWhereUniqueWithoutOpenTaskInput[]
+    updateMany?: UserOpenAnswerUpdateManyWithWhereWithoutOpenTaskInput | UserOpenAnswerUpdateManyWithWhereWithoutOpenTaskInput[]
+    deleteMany?: UserOpenAnswerScalarWhereInput | UserOpenAnswerScalarWhereInput[]
+  }
+
   export type MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput = {
     create?: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput> | MaturaCreateWithoutOpenTasksInput[] | MaturaUncheckedCreateWithoutOpenTasksInput[]
     connectOrCreate?: MaturaCreateOrConnectWithoutOpenTasksInput | MaturaCreateOrConnectWithoutOpenTasksInput[]
@@ -13575,6 +16905,20 @@ export namespace Prisma {
     update?: MaturaUpdateWithWhereUniqueWithoutOpenTasksInput | MaturaUpdateWithWhereUniqueWithoutOpenTasksInput[]
     updateMany?: MaturaUpdateManyWithWhereWithoutOpenTasksInput | MaturaUpdateManyWithWhereWithoutOpenTasksInput[]
     deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+  }
+
+  export type UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskNestedInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutOpenTaskInput, UserOpenAnswerUncheckedCreateWithoutOpenTaskInput> | UserOpenAnswerCreateWithoutOpenTaskInput[] | UserOpenAnswerUncheckedCreateWithoutOpenTaskInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutOpenTaskInput | UserOpenAnswerCreateOrConnectWithoutOpenTaskInput[]
+    upsert?: UserOpenAnswerUpsertWithWhereUniqueWithoutOpenTaskInput | UserOpenAnswerUpsertWithWhereUniqueWithoutOpenTaskInput[]
+    createMany?: UserOpenAnswerCreateManyOpenTaskInputEnvelope
+    set?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    disconnect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    delete?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    update?: UserOpenAnswerUpdateWithWhereUniqueWithoutOpenTaskInput | UserOpenAnswerUpdateWithWhereUniqueWithoutOpenTaskInput[]
+    updateMany?: UserOpenAnswerUpdateManyWithWhereWithoutOpenTaskInput | UserOpenAnswerUpdateManyWithWhereWithoutOpenTaskInput[]
+    deleteMany?: UserOpenAnswerScalarWhereInput | UserOpenAnswerScalarWhereInput[]
   }
 
   export type AnswersCreateNestedManyWithoutClosedTaskInput = {
@@ -13596,6 +16940,13 @@ export namespace Prisma {
     connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
   }
 
+  export type UserClosedAnswerCreateNestedManyWithoutClosedTaskInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutClosedTaskInput, UserClosedAnswerUncheckedCreateWithoutClosedTaskInput> | UserClosedAnswerCreateWithoutClosedTaskInput[] | UserClosedAnswerUncheckedCreateWithoutClosedTaskInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutClosedTaskInput | UserClosedAnswerCreateOrConnectWithoutClosedTaskInput[]
+    createMany?: UserClosedAnswerCreateManyClosedTaskInputEnvelope
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+  }
+
   export type AnswersUncheckedCreateNestedManyWithoutClosedTaskInput = {
     create?: XOR<AnswersCreateWithoutClosedTaskInput, AnswersUncheckedCreateWithoutClosedTaskInput> | AnswersCreateWithoutClosedTaskInput[] | AnswersUncheckedCreateWithoutClosedTaskInput[]
     connectOrCreate?: AnswersCreateOrConnectWithoutClosedTaskInput | AnswersCreateOrConnectWithoutClosedTaskInput[]
@@ -13607,6 +16958,13 @@ export namespace Prisma {
     create?: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput> | MaturaCreateWithoutClosedTasksInput[] | MaturaUncheckedCreateWithoutClosedTasksInput[]
     connectOrCreate?: MaturaCreateOrConnectWithoutClosedTasksInput | MaturaCreateOrConnectWithoutClosedTasksInput[]
     connect?: MaturaWhereUniqueInput | MaturaWhereUniqueInput[]
+  }
+
+  export type UserClosedAnswerUncheckedCreateNestedManyWithoutClosedTaskInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutClosedTaskInput, UserClosedAnswerUncheckedCreateWithoutClosedTaskInput> | UserClosedAnswerCreateWithoutClosedTaskInput[] | UserClosedAnswerUncheckedCreateWithoutClosedTaskInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutClosedTaskInput | UserClosedAnswerCreateOrConnectWithoutClosedTaskInput[]
+    createMany?: UserClosedAnswerCreateManyClosedTaskInputEnvelope
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
   }
 
   export type AnswersUpdateManyWithoutClosedTaskNestedInput = {
@@ -13644,6 +17002,20 @@ export namespace Prisma {
     deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
   }
 
+  export type UserClosedAnswerUpdateManyWithoutClosedTaskNestedInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutClosedTaskInput, UserClosedAnswerUncheckedCreateWithoutClosedTaskInput> | UserClosedAnswerCreateWithoutClosedTaskInput[] | UserClosedAnswerUncheckedCreateWithoutClosedTaskInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutClosedTaskInput | UserClosedAnswerCreateOrConnectWithoutClosedTaskInput[]
+    upsert?: UserClosedAnswerUpsertWithWhereUniqueWithoutClosedTaskInput | UserClosedAnswerUpsertWithWhereUniqueWithoutClosedTaskInput[]
+    createMany?: UserClosedAnswerCreateManyClosedTaskInputEnvelope
+    set?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    disconnect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    delete?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    update?: UserClosedAnswerUpdateWithWhereUniqueWithoutClosedTaskInput | UserClosedAnswerUpdateWithWhereUniqueWithoutClosedTaskInput[]
+    updateMany?: UserClosedAnswerUpdateManyWithWhereWithoutClosedTaskInput | UserClosedAnswerUpdateManyWithWhereWithoutClosedTaskInput[]
+    deleteMany?: UserClosedAnswerScalarWhereInput | UserClosedAnswerScalarWhereInput[]
+  }
+
   export type AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput = {
     create?: XOR<AnswersCreateWithoutClosedTaskInput, AnswersUncheckedCreateWithoutClosedTaskInput> | AnswersCreateWithoutClosedTaskInput[] | AnswersUncheckedCreateWithoutClosedTaskInput[]
     connectOrCreate?: AnswersCreateOrConnectWithoutClosedTaskInput | AnswersCreateOrConnectWithoutClosedTaskInput[]
@@ -13669,6 +17041,20 @@ export namespace Prisma {
     update?: MaturaUpdateWithWhereUniqueWithoutClosedTasksInput | MaturaUpdateWithWhereUniqueWithoutClosedTasksInput[]
     updateMany?: MaturaUpdateManyWithWhereWithoutClosedTasksInput | MaturaUpdateManyWithWhereWithoutClosedTasksInput[]
     deleteMany?: MaturaScalarWhereInput | MaturaScalarWhereInput[]
+  }
+
+  export type UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskNestedInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutClosedTaskInput, UserClosedAnswerUncheckedCreateWithoutClosedTaskInput> | UserClosedAnswerCreateWithoutClosedTaskInput[] | UserClosedAnswerUncheckedCreateWithoutClosedTaskInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutClosedTaskInput | UserClosedAnswerCreateOrConnectWithoutClosedTaskInput[]
+    upsert?: UserClosedAnswerUpsertWithWhereUniqueWithoutClosedTaskInput | UserClosedAnswerUpsertWithWhereUniqueWithoutClosedTaskInput[]
+    createMany?: UserClosedAnswerCreateManyClosedTaskInputEnvelope
+    set?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    disconnect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    delete?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    update?: UserClosedAnswerUpdateWithWhereUniqueWithoutClosedTaskInput | UserClosedAnswerUpdateWithWhereUniqueWithoutClosedTaskInput[]
+    updateMany?: UserClosedAnswerUpdateManyWithWhereWithoutClosedTaskInput | UserClosedAnswerUpdateManyWithWhereWithoutClosedTaskInput[]
+    deleteMany?: UserClosedAnswerScalarWhereInput | UserClosedAnswerScalarWhereInput[]
   }
 
   export type ClosedTasksCreateNestedOneWithoutAnswersInput = {
@@ -13815,6 +17201,34 @@ export namespace Prisma {
     connect?: MaturaWhereUniqueInput
   }
 
+  export type UserClosedAnswerCreateNestedManyWithoutUserMaturaInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutUserMaturaInput, UserClosedAnswerUncheckedCreateWithoutUserMaturaInput> | UserClosedAnswerCreateWithoutUserMaturaInput[] | UserClosedAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutUserMaturaInput | UserClosedAnswerCreateOrConnectWithoutUserMaturaInput[]
+    createMany?: UserClosedAnswerCreateManyUserMaturaInputEnvelope
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+  }
+
+  export type UserOpenAnswerCreateNestedManyWithoutUserMaturaInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutUserMaturaInput, UserOpenAnswerUncheckedCreateWithoutUserMaturaInput> | UserOpenAnswerCreateWithoutUserMaturaInput[] | UserOpenAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutUserMaturaInput | UserOpenAnswerCreateOrConnectWithoutUserMaturaInput[]
+    createMany?: UserOpenAnswerCreateManyUserMaturaInputEnvelope
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+  }
+
+  export type UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutUserMaturaInput, UserClosedAnswerUncheckedCreateWithoutUserMaturaInput> | UserClosedAnswerCreateWithoutUserMaturaInput[] | UserClosedAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutUserMaturaInput | UserClosedAnswerCreateOrConnectWithoutUserMaturaInput[]
+    createMany?: UserClosedAnswerCreateManyUserMaturaInputEnvelope
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+  }
+
+  export type UserOpenAnswerUncheckedCreateNestedManyWithoutUserMaturaInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutUserMaturaInput, UserOpenAnswerUncheckedCreateWithoutUserMaturaInput> | UserOpenAnswerCreateWithoutUserMaturaInput[] | UserOpenAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutUserMaturaInput | UserOpenAnswerCreateOrConnectWithoutUserMaturaInput[]
+    createMany?: UserOpenAnswerCreateManyUserMaturaInputEnvelope
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutUserMaturasNestedInput = {
     create?: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserMaturasInput
@@ -13829,6 +17243,122 @@ export namespace Prisma {
     upsert?: MaturaUpsertWithoutUserMaturasInput
     connect?: MaturaWhereUniqueInput
     update?: XOR<XOR<MaturaUpdateToOneWithWhereWithoutUserMaturasInput, MaturaUpdateWithoutUserMaturasInput>, MaturaUncheckedUpdateWithoutUserMaturasInput>
+  }
+
+  export type UserClosedAnswerUpdateManyWithoutUserMaturaNestedInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutUserMaturaInput, UserClosedAnswerUncheckedCreateWithoutUserMaturaInput> | UserClosedAnswerCreateWithoutUserMaturaInput[] | UserClosedAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutUserMaturaInput | UserClosedAnswerCreateOrConnectWithoutUserMaturaInput[]
+    upsert?: UserClosedAnswerUpsertWithWhereUniqueWithoutUserMaturaInput | UserClosedAnswerUpsertWithWhereUniqueWithoutUserMaturaInput[]
+    createMany?: UserClosedAnswerCreateManyUserMaturaInputEnvelope
+    set?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    disconnect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    delete?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    update?: UserClosedAnswerUpdateWithWhereUniqueWithoutUserMaturaInput | UserClosedAnswerUpdateWithWhereUniqueWithoutUserMaturaInput[]
+    updateMany?: UserClosedAnswerUpdateManyWithWhereWithoutUserMaturaInput | UserClosedAnswerUpdateManyWithWhereWithoutUserMaturaInput[]
+    deleteMany?: UserClosedAnswerScalarWhereInput | UserClosedAnswerScalarWhereInput[]
+  }
+
+  export type UserOpenAnswerUpdateManyWithoutUserMaturaNestedInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutUserMaturaInput, UserOpenAnswerUncheckedCreateWithoutUserMaturaInput> | UserOpenAnswerCreateWithoutUserMaturaInput[] | UserOpenAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutUserMaturaInput | UserOpenAnswerCreateOrConnectWithoutUserMaturaInput[]
+    upsert?: UserOpenAnswerUpsertWithWhereUniqueWithoutUserMaturaInput | UserOpenAnswerUpsertWithWhereUniqueWithoutUserMaturaInput[]
+    createMany?: UserOpenAnswerCreateManyUserMaturaInputEnvelope
+    set?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    disconnect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    delete?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    update?: UserOpenAnswerUpdateWithWhereUniqueWithoutUserMaturaInput | UserOpenAnswerUpdateWithWhereUniqueWithoutUserMaturaInput[]
+    updateMany?: UserOpenAnswerUpdateManyWithWhereWithoutUserMaturaInput | UserOpenAnswerUpdateManyWithWhereWithoutUserMaturaInput[]
+    deleteMany?: UserOpenAnswerScalarWhereInput | UserOpenAnswerScalarWhereInput[]
+  }
+
+  export type UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput = {
+    create?: XOR<UserClosedAnswerCreateWithoutUserMaturaInput, UserClosedAnswerUncheckedCreateWithoutUserMaturaInput> | UserClosedAnswerCreateWithoutUserMaturaInput[] | UserClosedAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserClosedAnswerCreateOrConnectWithoutUserMaturaInput | UserClosedAnswerCreateOrConnectWithoutUserMaturaInput[]
+    upsert?: UserClosedAnswerUpsertWithWhereUniqueWithoutUserMaturaInput | UserClosedAnswerUpsertWithWhereUniqueWithoutUserMaturaInput[]
+    createMany?: UserClosedAnswerCreateManyUserMaturaInputEnvelope
+    set?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    disconnect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    delete?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    connect?: UserClosedAnswerWhereUniqueInput | UserClosedAnswerWhereUniqueInput[]
+    update?: UserClosedAnswerUpdateWithWhereUniqueWithoutUserMaturaInput | UserClosedAnswerUpdateWithWhereUniqueWithoutUserMaturaInput[]
+    updateMany?: UserClosedAnswerUpdateManyWithWhereWithoutUserMaturaInput | UserClosedAnswerUpdateManyWithWhereWithoutUserMaturaInput[]
+    deleteMany?: UserClosedAnswerScalarWhereInput | UserClosedAnswerScalarWhereInput[]
+  }
+
+  export type UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput = {
+    create?: XOR<UserOpenAnswerCreateWithoutUserMaturaInput, UserOpenAnswerUncheckedCreateWithoutUserMaturaInput> | UserOpenAnswerCreateWithoutUserMaturaInput[] | UserOpenAnswerUncheckedCreateWithoutUserMaturaInput[]
+    connectOrCreate?: UserOpenAnswerCreateOrConnectWithoutUserMaturaInput | UserOpenAnswerCreateOrConnectWithoutUserMaturaInput[]
+    upsert?: UserOpenAnswerUpsertWithWhereUniqueWithoutUserMaturaInput | UserOpenAnswerUpsertWithWhereUniqueWithoutUserMaturaInput[]
+    createMany?: UserOpenAnswerCreateManyUserMaturaInputEnvelope
+    set?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    disconnect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    delete?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    connect?: UserOpenAnswerWhereUniqueInput | UserOpenAnswerWhereUniqueInput[]
+    update?: UserOpenAnswerUpdateWithWhereUniqueWithoutUserMaturaInput | UserOpenAnswerUpdateWithWhereUniqueWithoutUserMaturaInput[]
+    updateMany?: UserOpenAnswerUpdateManyWithWhereWithoutUserMaturaInput | UserOpenAnswerUpdateManyWithWhereWithoutUserMaturaInput[]
+    deleteMany?: UserOpenAnswerScalarWhereInput | UserOpenAnswerScalarWhereInput[]
+  }
+
+  export type UserMaturaCreateNestedOneWithoutClosedAnswersInput = {
+    create?: XOR<UserMaturaCreateWithoutClosedAnswersInput, UserMaturaUncheckedCreateWithoutClosedAnswersInput>
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutClosedAnswersInput
+    connect?: UserMaturaWhereUniqueInput
+  }
+
+  export type ClosedTasksCreateNestedOneWithoutUserAnswersInput = {
+    create?: XOR<ClosedTasksCreateWithoutUserAnswersInput, ClosedTasksUncheckedCreateWithoutUserAnswersInput>
+    connectOrCreate?: ClosedTasksCreateOrConnectWithoutUserAnswersInput
+    connect?: ClosedTasksWhereUniqueInput
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type UserMaturaUpdateOneRequiredWithoutClosedAnswersNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutClosedAnswersInput, UserMaturaUncheckedCreateWithoutClosedAnswersInput>
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutClosedAnswersInput
+    upsert?: UserMaturaUpsertWithoutClosedAnswersInput
+    connect?: UserMaturaWhereUniqueInput
+    update?: XOR<XOR<UserMaturaUpdateToOneWithWhereWithoutClosedAnswersInput, UserMaturaUpdateWithoutClosedAnswersInput>, UserMaturaUncheckedUpdateWithoutClosedAnswersInput>
+  }
+
+  export type ClosedTasksUpdateOneRequiredWithoutUserAnswersNestedInput = {
+    create?: XOR<ClosedTasksCreateWithoutUserAnswersInput, ClosedTasksUncheckedCreateWithoutUserAnswersInput>
+    connectOrCreate?: ClosedTasksCreateOrConnectWithoutUserAnswersInput
+    upsert?: ClosedTasksUpsertWithoutUserAnswersInput
+    connect?: ClosedTasksWhereUniqueInput
+    update?: XOR<XOR<ClosedTasksUpdateToOneWithWhereWithoutUserAnswersInput, ClosedTasksUpdateWithoutUserAnswersInput>, ClosedTasksUncheckedUpdateWithoutUserAnswersInput>
+  }
+
+  export type UserMaturaCreateNestedOneWithoutOpenAnswersInput = {
+    create?: XOR<UserMaturaCreateWithoutOpenAnswersInput, UserMaturaUncheckedCreateWithoutOpenAnswersInput>
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutOpenAnswersInput
+    connect?: UserMaturaWhereUniqueInput
+  }
+
+  export type OpenTasksCreateNestedOneWithoutUserAnswersInput = {
+    create?: XOR<OpenTasksCreateWithoutUserAnswersInput, OpenTasksUncheckedCreateWithoutUserAnswersInput>
+    connectOrCreate?: OpenTasksCreateOrConnectWithoutUserAnswersInput
+    connect?: OpenTasksWhereUniqueInput
+  }
+
+  export type UserMaturaUpdateOneRequiredWithoutOpenAnswersNestedInput = {
+    create?: XOR<UserMaturaCreateWithoutOpenAnswersInput, UserMaturaUncheckedCreateWithoutOpenAnswersInput>
+    connectOrCreate?: UserMaturaCreateOrConnectWithoutOpenAnswersInput
+    upsert?: UserMaturaUpsertWithoutOpenAnswersInput
+    connect?: UserMaturaWhereUniqueInput
+    update?: XOR<XOR<UserMaturaUpdateToOneWithWhereWithoutOpenAnswersInput, UserMaturaUpdateWithoutOpenAnswersInput>, UserMaturaUncheckedUpdateWithoutOpenAnswersInput>
+  }
+
+  export type OpenTasksUpdateOneRequiredWithoutUserAnswersNestedInput = {
+    create?: XOR<OpenTasksCreateWithoutUserAnswersInput, OpenTasksUncheckedCreateWithoutUserAnswersInput>
+    connectOrCreate?: OpenTasksCreateOrConnectWithoutUserAnswersInput
+    upsert?: OpenTasksUpsertWithoutUserAnswersInput
+    connect?: OpenTasksWhereUniqueInput
+    update?: XOR<XOR<OpenTasksUpdateToOneWithWhereWithoutUserAnswersInput, OpenTasksUpdateWithoutUserAnswersInput>, OpenTasksUncheckedUpdateWithoutUserAnswersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13980,16 +17510,62 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type UserMaturaCreateWithoutUserInput = {
     id?: string
+    earnedPoints?: number
     createdAt?: Date | string
     matura: MaturaCreateNestedOneWithoutUserMaturasInput
+    closedAnswers?: UserClosedAnswerCreateNestedManyWithoutUserMaturaInput
+    openAnswers?: UserOpenAnswerCreateNestedManyWithoutUserMaturaInput
   }
 
   export type UserMaturaUncheckedCreateWithoutUserInput = {
     id?: string
     maturaId: string
+    earnedPoints?: number
     createdAt?: Date | string
+    closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
+    openAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
   }
 
   export type UserMaturaCreateOrConnectWithoutUserInput = {
@@ -14024,6 +17600,7 @@ export namespace Prisma {
     id?: StringFilter<"UserMatura"> | string
     userId?: StringFilter<"UserMatura"> | string
     maturaId?: StringFilter<"UserMatura"> | string
+    earnedPoints?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
   }
 
@@ -14184,8 +17761,10 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     openTaskId?: string | null
     maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
+    userAnswers?: UserOpenAnswerCreateNestedManyWithoutOpenTaskInput
   }
 
   export type OpenTasksUncheckedCreateWithoutSubSectionInput = {
@@ -14193,8 +17772,10 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     openTaskId?: string | null
     maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
+    userAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutOpenTaskInput
   }
 
   export type OpenTasksCreateOrConnectWithoutSubSectionInput = {
@@ -14211,8 +17792,10 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     answers?: AnswersCreateNestedManyWithoutClosedTaskInput
     maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksUncheckedCreateWithoutSubSectionInput = {
@@ -14220,8 +17803,10 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
     maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksCreateOrConnectWithoutSubSectionInput = {
@@ -14280,6 +17865,7 @@ export namespace Prisma {
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
     answer?: StringFilter<"OpenTasks"> | string
+    points?: IntFilter<"OpenTasks"> | number
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
   }
@@ -14308,6 +17894,7 @@ export namespace Prisma {
     name?: StringFilter<"ClosedTasks"> | string
     content?: StringFilter<"ClosedTasks"> | string
     correctAnswer?: StringFilter<"ClosedTasks"> | string
+    points?: IntFilter<"ClosedTasks"> | number
     subSectionId?: StringFilter<"ClosedTasks"> | string
   }
 
@@ -14357,6 +17944,35 @@ export namespace Prisma {
   export type MaturaCreateOrConnectWithoutOpenTasksInput = {
     where: MaturaWhereUniqueInput
     create: XOR<MaturaCreateWithoutOpenTasksInput, MaturaUncheckedCreateWithoutOpenTasksInput>
+  }
+
+  export type UserOpenAnswerCreateWithoutOpenTaskInput = {
+    id?: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userMatura: UserMaturaCreateNestedOneWithoutOpenAnswersInput
+  }
+
+  export type UserOpenAnswerUncheckedCreateWithoutOpenTaskInput = {
+    id?: string
+    userMaturaId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserOpenAnswerCreateOrConnectWithoutOpenTaskInput = {
+    where: UserOpenAnswerWhereUniqueInput
+    create: XOR<UserOpenAnswerCreateWithoutOpenTaskInput, UserOpenAnswerUncheckedCreateWithoutOpenTaskInput>
+  }
+
+  export type UserOpenAnswerCreateManyOpenTaskInputEnvelope = {
+    data: UserOpenAnswerCreateManyOpenTaskInput | UserOpenAnswerCreateManyOpenTaskInput[]
   }
 
   export type SubSectionUpsertWithoutOpenTasksInput = {
@@ -14414,6 +18030,36 @@ export namespace Prisma {
     name?: StringFilter<"Matura"> | string
     createdAt?: DateTimeFilter<"Matura"> | Date | string
     status?: BoolFilter<"Matura"> | boolean
+  }
+
+  export type UserOpenAnswerUpsertWithWhereUniqueWithoutOpenTaskInput = {
+    where: UserOpenAnswerWhereUniqueInput
+    update: XOR<UserOpenAnswerUpdateWithoutOpenTaskInput, UserOpenAnswerUncheckedUpdateWithoutOpenTaskInput>
+    create: XOR<UserOpenAnswerCreateWithoutOpenTaskInput, UserOpenAnswerUncheckedCreateWithoutOpenTaskInput>
+  }
+
+  export type UserOpenAnswerUpdateWithWhereUniqueWithoutOpenTaskInput = {
+    where: UserOpenAnswerWhereUniqueInput
+    data: XOR<UserOpenAnswerUpdateWithoutOpenTaskInput, UserOpenAnswerUncheckedUpdateWithoutOpenTaskInput>
+  }
+
+  export type UserOpenAnswerUpdateManyWithWhereWithoutOpenTaskInput = {
+    where: UserOpenAnswerScalarWhereInput
+    data: XOR<UserOpenAnswerUpdateManyMutationInput, UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskInput>
+  }
+
+  export type UserOpenAnswerScalarWhereInput = {
+    AND?: UserOpenAnswerScalarWhereInput | UserOpenAnswerScalarWhereInput[]
+    OR?: UserOpenAnswerScalarWhereInput[]
+    NOT?: UserOpenAnswerScalarWhereInput | UserOpenAnswerScalarWhereInput[]
+    id?: StringFilter<"UserOpenAnswer"> | string
+    userMaturaId?: StringFilter<"UserOpenAnswer"> | string
+    openTaskId?: StringFilter<"UserOpenAnswer"> | string
+    answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    isCorrect?: BoolNullableFilter<"UserOpenAnswer"> | boolean | null
+    awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
+    createdAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
+    updatedAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
   }
 
   export type AnswersCreateWithoutClosedTaskInput = {
@@ -14487,6 +18133,33 @@ export namespace Prisma {
   export type MaturaCreateOrConnectWithoutClosedTasksInput = {
     where: MaturaWhereUniqueInput
     create: XOR<MaturaCreateWithoutClosedTasksInput, MaturaUncheckedCreateWithoutClosedTasksInput>
+  }
+
+  export type UserClosedAnswerCreateWithoutClosedTaskInput = {
+    id?: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userMatura: UserMaturaCreateNestedOneWithoutClosedAnswersInput
+  }
+
+  export type UserClosedAnswerUncheckedCreateWithoutClosedTaskInput = {
+    id?: string
+    userMaturaId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClosedAnswerCreateOrConnectWithoutClosedTaskInput = {
+    where: UserClosedAnswerWhereUniqueInput
+    create: XOR<UserClosedAnswerCreateWithoutClosedTaskInput, UserClosedAnswerUncheckedCreateWithoutClosedTaskInput>
+  }
+
+  export type UserClosedAnswerCreateManyClosedTaskInputEnvelope = {
+    data: UserClosedAnswerCreateManyClosedTaskInput | UserClosedAnswerCreateManyClosedTaskInput[]
   }
 
   export type AnswersUpsertWithWhereUniqueWithoutClosedTaskInput = {
@@ -14564,13 +18237,44 @@ export namespace Prisma {
     data: XOR<MaturaUpdateManyMutationInput, MaturaUncheckedUpdateManyWithoutClosedTasksInput>
   }
 
+  export type UserClosedAnswerUpsertWithWhereUniqueWithoutClosedTaskInput = {
+    where: UserClosedAnswerWhereUniqueInput
+    update: XOR<UserClosedAnswerUpdateWithoutClosedTaskInput, UserClosedAnswerUncheckedUpdateWithoutClosedTaskInput>
+    create: XOR<UserClosedAnswerCreateWithoutClosedTaskInput, UserClosedAnswerUncheckedCreateWithoutClosedTaskInput>
+  }
+
+  export type UserClosedAnswerUpdateWithWhereUniqueWithoutClosedTaskInput = {
+    where: UserClosedAnswerWhereUniqueInput
+    data: XOR<UserClosedAnswerUpdateWithoutClosedTaskInput, UserClosedAnswerUncheckedUpdateWithoutClosedTaskInput>
+  }
+
+  export type UserClosedAnswerUpdateManyWithWhereWithoutClosedTaskInput = {
+    where: UserClosedAnswerScalarWhereInput
+    data: XOR<UserClosedAnswerUpdateManyMutationInput, UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskInput>
+  }
+
+  export type UserClosedAnswerScalarWhereInput = {
+    AND?: UserClosedAnswerScalarWhereInput | UserClosedAnswerScalarWhereInput[]
+    OR?: UserClosedAnswerScalarWhereInput[]
+    NOT?: UserClosedAnswerScalarWhereInput | UserClosedAnswerScalarWhereInput[]
+    id?: StringFilter<"UserClosedAnswer"> | string
+    userMaturaId?: StringFilter<"UserClosedAnswer"> | string
+    closedTaskId?: StringFilter<"UserClosedAnswer"> | string
+    answer?: StringNullableFilter<"UserClosedAnswer"> | string | null
+    isCorrect?: BoolNullableFilter<"UserClosedAnswer"> | boolean | null
+    createdAt?: DateTimeFilter<"UserClosedAnswer"> | Date | string
+    updatedAt?: DateTimeFilter<"UserClosedAnswer"> | Date | string
+  }
+
   export type ClosedTasksCreateWithoutAnswersInput = {
     id?: string
     name: string
     content: string
     correctAnswer: string
+    points?: number
     subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
     maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksUncheckedCreateWithoutAnswersInput = {
@@ -14578,8 +18282,10 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     subSectionId: string
     maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksCreateOrConnectWithoutAnswersInput = {
@@ -14603,8 +18309,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
     maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateWithoutAnswersInput = {
@@ -14612,8 +18320,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksCreateWithoutMaturasInput = {
@@ -14621,8 +18331,10 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     answers?: AnswersCreateNestedManyWithoutClosedTaskInput
     subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
+    userAnswers?: UserClosedAnswerCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksUncheckedCreateWithoutMaturasInput = {
@@ -14630,8 +18342,10 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
     subSectionId: string
     answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
+    userAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutClosedTaskInput
   }
 
   export type ClosedTasksCreateOrConnectWithoutMaturasInput = {
@@ -14644,8 +18358,10 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     openTaskId?: string | null
     subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
+    userAnswers?: UserOpenAnswerCreateNestedManyWithoutOpenTaskInput
   }
 
   export type OpenTasksUncheckedCreateWithoutMaturasInput = {
@@ -14653,8 +18369,10 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     subSectionId: string
     openTaskId?: string | null
+    userAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutOpenTaskInput
   }
 
   export type OpenTasksCreateOrConnectWithoutMaturasInput = {
@@ -14664,14 +18382,20 @@ export namespace Prisma {
 
   export type UserMaturaCreateWithoutMaturaInput = {
     id?: string
+    earnedPoints?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUserMaturasInput
+    closedAnswers?: UserClosedAnswerCreateNestedManyWithoutUserMaturaInput
+    openAnswers?: UserOpenAnswerCreateNestedManyWithoutUserMaturaInput
   }
 
   export type UserMaturaUncheckedCreateWithoutMaturaInput = {
     id?: string
     userId: string
+    earnedPoints?: number
     createdAt?: Date | string
+    closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
+    openAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
   }
 
   export type UserMaturaCreateOrConnectWithoutMaturaInput = {
@@ -14779,6 +18503,62 @@ export namespace Prisma {
     create: XOR<MaturaCreateWithoutUserMaturasInput, MaturaUncheckedCreateWithoutUserMaturasInput>
   }
 
+  export type UserClosedAnswerCreateWithoutUserMaturaInput = {
+    id?: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    closedTask: ClosedTasksCreateNestedOneWithoutUserAnswersInput
+  }
+
+  export type UserClosedAnswerUncheckedCreateWithoutUserMaturaInput = {
+    id?: string
+    closedTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClosedAnswerCreateOrConnectWithoutUserMaturaInput = {
+    where: UserClosedAnswerWhereUniqueInput
+    create: XOR<UserClosedAnswerCreateWithoutUserMaturaInput, UserClosedAnswerUncheckedCreateWithoutUserMaturaInput>
+  }
+
+  export type UserClosedAnswerCreateManyUserMaturaInputEnvelope = {
+    data: UserClosedAnswerCreateManyUserMaturaInput | UserClosedAnswerCreateManyUserMaturaInput[]
+  }
+
+  export type UserOpenAnswerCreateWithoutUserMaturaInput = {
+    id?: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    openTask: OpenTasksCreateNestedOneWithoutUserAnswersInput
+  }
+
+  export type UserOpenAnswerUncheckedCreateWithoutUserMaturaInput = {
+    id?: string
+    openTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserOpenAnswerCreateOrConnectWithoutUserMaturaInput = {
+    where: UserOpenAnswerWhereUniqueInput
+    create: XOR<UserOpenAnswerCreateWithoutUserMaturaInput, UserOpenAnswerUncheckedCreateWithoutUserMaturaInput>
+  }
+
+  export type UserOpenAnswerCreateManyUserMaturaInputEnvelope = {
+    data: UserOpenAnswerCreateManyUserMaturaInput | UserOpenAnswerCreateManyUserMaturaInput[]
+  }
+
   export type UserUpsertWithoutUserMaturasInput = {
     update: XOR<UserUpdateWithoutUserMaturasInput, UserUncheckedUpdateWithoutUserMaturasInput>
     create: XOR<UserCreateWithoutUserMaturasInput, UserUncheckedCreateWithoutUserMaturasInput>
@@ -14839,27 +18619,291 @@ export namespace Prisma {
     openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
   }
 
+  export type UserClosedAnswerUpsertWithWhereUniqueWithoutUserMaturaInput = {
+    where: UserClosedAnswerWhereUniqueInput
+    update: XOR<UserClosedAnswerUpdateWithoutUserMaturaInput, UserClosedAnswerUncheckedUpdateWithoutUserMaturaInput>
+    create: XOR<UserClosedAnswerCreateWithoutUserMaturaInput, UserClosedAnswerUncheckedCreateWithoutUserMaturaInput>
+  }
+
+  export type UserClosedAnswerUpdateWithWhereUniqueWithoutUserMaturaInput = {
+    where: UserClosedAnswerWhereUniqueInput
+    data: XOR<UserClosedAnswerUpdateWithoutUserMaturaInput, UserClosedAnswerUncheckedUpdateWithoutUserMaturaInput>
+  }
+
+  export type UserClosedAnswerUpdateManyWithWhereWithoutUserMaturaInput = {
+    where: UserClosedAnswerScalarWhereInput
+    data: XOR<UserClosedAnswerUpdateManyMutationInput, UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaInput>
+  }
+
+  export type UserOpenAnswerUpsertWithWhereUniqueWithoutUserMaturaInput = {
+    where: UserOpenAnswerWhereUniqueInput
+    update: XOR<UserOpenAnswerUpdateWithoutUserMaturaInput, UserOpenAnswerUncheckedUpdateWithoutUserMaturaInput>
+    create: XOR<UserOpenAnswerCreateWithoutUserMaturaInput, UserOpenAnswerUncheckedCreateWithoutUserMaturaInput>
+  }
+
+  export type UserOpenAnswerUpdateWithWhereUniqueWithoutUserMaturaInput = {
+    where: UserOpenAnswerWhereUniqueInput
+    data: XOR<UserOpenAnswerUpdateWithoutUserMaturaInput, UserOpenAnswerUncheckedUpdateWithoutUserMaturaInput>
+  }
+
+  export type UserOpenAnswerUpdateManyWithWhereWithoutUserMaturaInput = {
+    where: UserOpenAnswerScalarWhereInput
+    data: XOR<UserOpenAnswerUpdateManyMutationInput, UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaInput>
+  }
+
+  export type UserMaturaCreateWithoutClosedAnswersInput = {
+    id?: string
+    earnedPoints?: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutUserMaturasInput
+    matura: MaturaCreateNestedOneWithoutUserMaturasInput
+    openAnswers?: UserOpenAnswerCreateNestedManyWithoutUserMaturaInput
+  }
+
+  export type UserMaturaUncheckedCreateWithoutClosedAnswersInput = {
+    id?: string
+    userId: string
+    maturaId: string
+    earnedPoints?: number
+    createdAt?: Date | string
+    openAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
+  }
+
+  export type UserMaturaCreateOrConnectWithoutClosedAnswersInput = {
+    where: UserMaturaWhereUniqueInput
+    create: XOR<UserMaturaCreateWithoutClosedAnswersInput, UserMaturaUncheckedCreateWithoutClosedAnswersInput>
+  }
+
+  export type ClosedTasksCreateWithoutUserAnswersInput = {
+    id?: string
+    name: string
+    content: string
+    correctAnswer: string
+    points?: number
+    answers?: AnswersCreateNestedManyWithoutClosedTaskInput
+    subSection: SubSectionCreateNestedOneWithoutClosedTasksInput
+    maturas?: MaturaCreateNestedManyWithoutClosedTasksInput
+  }
+
+  export type ClosedTasksUncheckedCreateWithoutUserAnswersInput = {
+    id?: string
+    name: string
+    content: string
+    correctAnswer: string
+    points?: number
+    subSectionId: string
+    answers?: AnswersUncheckedCreateNestedManyWithoutClosedTaskInput
+    maturas?: MaturaUncheckedCreateNestedManyWithoutClosedTasksInput
+  }
+
+  export type ClosedTasksCreateOrConnectWithoutUserAnswersInput = {
+    where: ClosedTasksWhereUniqueInput
+    create: XOR<ClosedTasksCreateWithoutUserAnswersInput, ClosedTasksUncheckedCreateWithoutUserAnswersInput>
+  }
+
+  export type UserMaturaUpsertWithoutClosedAnswersInput = {
+    update: XOR<UserMaturaUpdateWithoutClosedAnswersInput, UserMaturaUncheckedUpdateWithoutClosedAnswersInput>
+    create: XOR<UserMaturaCreateWithoutClosedAnswersInput, UserMaturaUncheckedCreateWithoutClosedAnswersInput>
+    where?: UserMaturaWhereInput
+  }
+
+  export type UserMaturaUpdateToOneWithWhereWithoutClosedAnswersInput = {
+    where?: UserMaturaWhereInput
+    data: XOR<UserMaturaUpdateWithoutClosedAnswersInput, UserMaturaUncheckedUpdateWithoutClosedAnswersInput>
+  }
+
+  export type UserMaturaUpdateWithoutClosedAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+    matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+    openAnswers?: UserOpenAnswerUpdateManyWithoutUserMaturaNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateWithoutClosedAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    openAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
+  }
+
+  export type ClosedTasksUpsertWithoutUserAnswersInput = {
+    update: XOR<ClosedTasksUpdateWithoutUserAnswersInput, ClosedTasksUncheckedUpdateWithoutUserAnswersInput>
+    create: XOR<ClosedTasksCreateWithoutUserAnswersInput, ClosedTasksUncheckedCreateWithoutUserAnswersInput>
+    where?: ClosedTasksWhereInput
+  }
+
+  export type ClosedTasksUpdateToOneWithWhereWithoutUserAnswersInput = {
+    where?: ClosedTasksWhereInput
+    data: XOR<ClosedTasksUpdateWithoutUserAnswersInput, ClosedTasksUncheckedUpdateWithoutUserAnswersInput>
+  }
+
+  export type ClosedTasksUpdateWithoutUserAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
+    subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
+    maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
+  }
+
+  export type ClosedTasksUncheckedUpdateWithoutUserAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    subSectionId?: StringFieldUpdateOperationsInput | string
+    answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
+    maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
+  }
+
+  export type UserMaturaCreateWithoutOpenAnswersInput = {
+    id?: string
+    earnedPoints?: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutUserMaturasInput
+    matura: MaturaCreateNestedOneWithoutUserMaturasInput
+    closedAnswers?: UserClosedAnswerCreateNestedManyWithoutUserMaturaInput
+  }
+
+  export type UserMaturaUncheckedCreateWithoutOpenAnswersInput = {
+    id?: string
+    userId: string
+    maturaId: string
+    earnedPoints?: number
+    createdAt?: Date | string
+    closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
+  }
+
+  export type UserMaturaCreateOrConnectWithoutOpenAnswersInput = {
+    where: UserMaturaWhereUniqueInput
+    create: XOR<UserMaturaCreateWithoutOpenAnswersInput, UserMaturaUncheckedCreateWithoutOpenAnswersInput>
+  }
+
+  export type OpenTasksCreateWithoutUserAnswersInput = {
+    id?: string
+    name: string
+    content: string
+    answer: string
+    points?: number
+    openTaskId?: string | null
+    subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
+    maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
+  }
+
+  export type OpenTasksUncheckedCreateWithoutUserAnswersInput = {
+    id?: string
+    name: string
+    content: string
+    answer: string
+    points?: number
+    subSectionId: string
+    openTaskId?: string | null
+    maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
+  }
+
+  export type OpenTasksCreateOrConnectWithoutUserAnswersInput = {
+    where: OpenTasksWhereUniqueInput
+    create: XOR<OpenTasksCreateWithoutUserAnswersInput, OpenTasksUncheckedCreateWithoutUserAnswersInput>
+  }
+
+  export type UserMaturaUpsertWithoutOpenAnswersInput = {
+    update: XOR<UserMaturaUpdateWithoutOpenAnswersInput, UserMaturaUncheckedUpdateWithoutOpenAnswersInput>
+    create: XOR<UserMaturaCreateWithoutOpenAnswersInput, UserMaturaUncheckedCreateWithoutOpenAnswersInput>
+    where?: UserMaturaWhereInput
+  }
+
+  export type UserMaturaUpdateToOneWithWhereWithoutOpenAnswersInput = {
+    where?: UserMaturaWhereInput
+    data: XOR<UserMaturaUpdateWithoutOpenAnswersInput, UserMaturaUncheckedUpdateWithoutOpenAnswersInput>
+  }
+
+  export type UserMaturaUpdateWithoutOpenAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+    matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+    closedAnswers?: UserClosedAnswerUpdateManyWithoutUserMaturaNestedInput
+  }
+
+  export type UserMaturaUncheckedUpdateWithoutOpenAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    maturaId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
+  }
+
+  export type OpenTasksUpsertWithoutUserAnswersInput = {
+    update: XOR<OpenTasksUpdateWithoutUserAnswersInput, OpenTasksUncheckedUpdateWithoutUserAnswersInput>
+    create: XOR<OpenTasksCreateWithoutUserAnswersInput, OpenTasksUncheckedCreateWithoutUserAnswersInput>
+    where?: OpenTasksWhereInput
+  }
+
+  export type OpenTasksUpdateToOneWithWhereWithoutUserAnswersInput = {
+    where?: OpenTasksWhereInput
+    data: XOR<OpenTasksUpdateWithoutUserAnswersInput, OpenTasksUncheckedUpdateWithoutUserAnswersInput>
+  }
+
+  export type OpenTasksUpdateWithoutUserAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
+    maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
+  }
+
+  export type OpenTasksUncheckedUpdateWithoutUserAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    subSectionId?: StringFieldUpdateOperationsInput | string
+    openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
+  }
+
   export type UserMaturaCreateManyUserInput = {
     id?: string
     maturaId: string
+    earnedPoints?: number
     createdAt?: Date | string
   }
 
   export type UserMaturaUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
+    closedAnswers?: UserClosedAnswerUpdateManyWithoutUserMaturaNestedInput
+    openAnswers?: UserOpenAnswerUpdateManyWithoutUserMaturaNestedInput
   }
 
   export type UserMaturaUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
+    openAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
   }
 
   export type UserMaturaUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14926,6 +18970,7 @@ export namespace Prisma {
     name: string
     content: string
     answer: string
+    points?: number
     openTaskId?: string | null
   }
 
@@ -14934,6 +18979,7 @@ export namespace Prisma {
     name: string
     content: string
     correctAnswer: string
+    points?: number
   }
 
   export type OpenTasksUpdateWithoutSubSectionInput = {
@@ -14941,8 +18987,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
+    userAnswers?: UserOpenAnswerUpdateManyWithoutOpenTaskNestedInput
   }
 
   export type OpenTasksUncheckedUpdateWithoutSubSectionInput = {
@@ -14950,8 +18998,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
+    userAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskNestedInput
   }
 
   export type OpenTasksUncheckedUpdateManyWithoutSubSectionInput = {
@@ -14959,6 +19009,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -14967,8 +19018,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
     maturas?: MaturaUpdateManyWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateWithoutSubSectionInput = {
@@ -14976,8 +19029,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
     maturas?: MaturaUncheckedUpdateManyWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateManyWithoutSubSectionInput = {
@@ -14985,6 +19040,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserOpenAnswerCreateManyOpenTaskInput = {
+    id?: string
+    userMaturaId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type MaturaUpdateWithoutOpenTasksInput = {
@@ -15012,12 +19078,51 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type UserOpenAnswerUpdateWithoutOpenTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMatura?: UserMaturaUpdateOneRequiredWithoutOpenAnswersNestedInput
+  }
+
+  export type UserOpenAnswerUncheckedUpdateWithoutOpenTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AnswersCreateManyClosedTaskInput = {
     id?: string
     A: string
     B: string
     C: string
     D: string
+  }
+
+  export type UserClosedAnswerCreateManyClosedTaskInput = {
+    id?: string
+    userMaturaId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AnswersUpdateWithoutClosedTaskInput = {
@@ -15069,9 +19174,37 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type UserClosedAnswerUpdateWithoutClosedTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMatura?: UserMaturaUpdateOneRequiredWithoutClosedAnswersNestedInput
+  }
+
+  export type UserClosedAnswerUncheckedUpdateWithoutClosedTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMaturaId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserMaturaCreateManyMaturaInput = {
     id?: string
     userId: string
+    earnedPoints?: number
     createdAt?: Date | string
   }
 
@@ -15080,8 +19213,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     answers?: AnswersUpdateManyWithoutClosedTaskNestedInput
     subSection?: SubSectionUpdateOneRequiredWithoutClosedTasksNestedInput
+    userAnswers?: UserClosedAnswerUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateWithoutMaturasInput = {
@@ -15089,8 +19224,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     answers?: AnswersUncheckedUpdateManyWithoutClosedTaskNestedInput
+    userAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutClosedTaskNestedInput
   }
 
   export type ClosedTasksUncheckedUpdateManyWithoutMaturasInput = {
@@ -15098,6 +19235,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     correctAnswer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -15106,8 +19244,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
+    userAnswers?: UserOpenAnswerUpdateManyWithoutOpenTaskNestedInput
   }
 
   export type OpenTasksUncheckedUpdateWithoutMaturasInput = {
@@ -15115,8 +19255,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    userAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskNestedInput
   }
 
   export type OpenTasksUncheckedUpdateManyWithoutMaturasInput = {
@@ -15124,26 +19266,110 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserMaturaUpdateWithoutMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
+    closedAnswers?: UserClosedAnswerUpdateManyWithoutUserMaturaNestedInput
+    openAnswers?: UserOpenAnswerUpdateManyWithoutUserMaturaNestedInput
   }
 
   export type UserMaturaUncheckedUpdateWithoutMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
+    openAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
   }
 
   export type UserMaturaUncheckedUpdateManyWithoutMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClosedAnswerCreateManyUserMaturaInput = {
+    id?: string
+    closedTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserOpenAnswerCreateManyUserMaturaInput = {
+    id?: string
+    openTaskId: string
+    answer?: string | null
+    isCorrect?: boolean | null
+    awardedPoints?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClosedAnswerUpdateWithoutUserMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    closedTask?: ClosedTasksUpdateOneRequiredWithoutUserAnswersNestedInput
+  }
+
+  export type UserClosedAnswerUncheckedUpdateWithoutUserMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    closedTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    closedTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOpenAnswerUpdateWithoutUserMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    openTask?: OpenTasksUpdateOneRequiredWithoutUserAnswersNestedInput
+  }
+
+  export type UserOpenAnswerUncheckedUpdateWithoutUserMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    openTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    openTaskId?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

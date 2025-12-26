@@ -16,6 +16,7 @@ model User {
   email       String       @unique
   createDate  DateTime     @default(now())
   updateDate  DateTime     @updatedAt
+
   userMaturas UserMatura[]
 }
 
@@ -49,10 +50,12 @@ model OpenTasks {
   name         String
   content      String
   answer       String
+  points Int @default(2)
   subSectionId String
   subSection   SubSection  @relation(fields: [subSectionId], references: [id])
   openTaskId   String?
   maturas      Matura[]
+  userAnswers  UserOpenAnswer[]
 }
 
 model ClosedTasks {
@@ -61,9 +64,11 @@ model ClosedTasks {
   content       String
   answers       Answers[]
   correctAnswer String
+  points        Int          @default(1)
   subSectionId  String
   subSection    SubSection   @relation(fields: [subSectionId], references: [id])
   maturas       Matura[]
+  userAnswers   UserClosedAnswer[]
 }
 
 model Answers {
@@ -90,7 +95,40 @@ model UserMatura {
   id        String   @id @default(cuid())
   userId    String
   maturaId  String
+  earnedPoints Int      @default(0)
   createdAt DateTime @default(now())
-  user   User   @relation(fields: [userId], references: [id])
-  matura Matura @relation(fields: [maturaId], references: [id])
+  user          User          @relation(fields: [userId], references: [id])
+  matura        Matura        @relation(fields: [maturaId], references: [id])
+  closedAnswers UserClosedAnswer[]
+  openAnswers   UserOpenAnswer[]
+}
+
+model UserClosedAnswer {
+  id           String   @id @default(cuid())
+  userMaturaId String
+  closedTaskId String
+  answer     String?
+  isCorrect    Boolean?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  userMatura   UserMatura  @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
+  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)
+
+  @@unique([userMaturaId, closedTaskId])
+  @@index([closedTaskId])
+}
+
+model UserOpenAnswer {
+  id            String   @id @default(cuid())
+  userMaturaId  String
+  openTaskId    String
+  answer         String?
+  isCorrect     Boolean?
+  awardedPoints Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userMatura    UserMatura @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
+  openTask      OpenTasks  @relation(fields: [openTaskId], references: [id], onDelete: Cascade)
+  @@unique([userMaturaId, openTaskId])
+  @@index([openTaskId])
 }

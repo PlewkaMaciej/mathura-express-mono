@@ -9,13 +9,14 @@ datasource db {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  clerkId     String       @unique
-  firstName   String?
-  lastName    String?
-  email       String       @unique
-  createDate  DateTime     @default(now())
-  updateDate  DateTime     @updatedAt
+  id         String   @id @default(cuid())
+  clerkId    String   @unique
+  firstName  String?
+  lastName   String?
+  email      String   @unique
+  createDate DateTime @default(now())
+  updateDate DateTime @updatedAt
+
   userMaturas UserMatura[]
 }
 
@@ -45,25 +46,29 @@ model SubSection {
 }
 
 model OpenTasks {
-  id           String     @id @default(cuid())
+  id           String           @id @default(cuid())
   name         String
   content      String
   answer       String
+  points       Int              @default(2)
   subSectionId String
-  subSection   SubSection @relation(fields: [subSectionId], references: [id])
+  subSection   SubSection       @relation(fields: [subSectionId], references: [id])
   openTaskId   String?
   maturas      Matura[]
+  userAnswers  UserOpenAnswer[]
 }
 
 model ClosedTasks {
-  id            String     @id @default(cuid())
+  id            String             @id @default(cuid())
   name          String
   content       String
   answers       Answers[]
   correctAnswer String
+  points        Int                @default(1)
   subSectionId  String
-  subSection    SubSection @relation(fields: [subSectionId], references: [id])
+  subSection    SubSection         @relation(fields: [subSectionId], references: [id])
   maturas       Matura[]
+  userAnswers   UserClosedAnswer[]
 }
 
 model Answers {
@@ -87,10 +92,44 @@ model Matura {
 }
 
 model UserMatura {
-  id        String   @id @default(cuid())
-  userId    String
-  maturaId  String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  matura    Matura   @relation(fields: [maturaId], references: [id])
+  id            String             @id @default(cuid())
+  userId        String
+  maturaId      String
+  earnedPoints  Int                @default(0)
+  createdAt     DateTime           @default(now())
+  user          User               @relation(fields: [userId], references: [id])
+  matura        Matura             @relation(fields: [maturaId], references: [id])
+  closedAnswers UserClosedAnswer[]
+  openAnswers   UserOpenAnswer[]
+}
+
+model UserClosedAnswer {
+  id           String      @id @default(cuid())
+  userMaturaId String
+  closedTaskId String
+  answer       String?
+  isCorrect    Boolean?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  userMatura   UserMatura  @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
+  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)
+
+  @@unique([userMaturaId, closedTaskId])
+  @@index([closedTaskId])
+}
+
+model UserOpenAnswer {
+  id            String     @id @default(cuid())
+  userMaturaId  String
+  openTaskId    String
+  answer        String?
+  isCorrect     Boolean?
+  awardedPoints Int?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  userMatura    UserMatura @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
+  openTask      OpenTasks  @relation(fields: [openTaskId], references: [id], onDelete: Cascade)
+
+  @@unique([userMaturaId, openTaskId])
+  @@index([openTaskId])
 }
