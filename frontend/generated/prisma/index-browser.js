@@ -150,8 +150,9 @@ exports.Prisma.OpenTasksScalarFieldEnum = {
   id: 'id',
   name: 'name',
   content: 'content',
-  answer: 'answer',
-  points: 'points',
+  rubric: 'rubric',
+  referenceAnswer: 'referenceAnswer',
+  maxPoints: 'maxPoints',
   subSectionId: 'subSectionId',
   openTaskId: 'openTaskId'
 };
@@ -177,14 +178,14 @@ exports.Prisma.AnswersScalarFieldEnum = {
 exports.Prisma.MaturaScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createdAt: 'createdAt',
-  status: 'status'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.UserMaturaScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   maturaId: 'maturaId',
+  status: 'status',
   earnedPoints: 'earnedPoints',
   createdAt: 'createdAt'
 };
@@ -204,8 +205,10 @@ exports.Prisma.UserOpenAnswerScalarFieldEnum = {
   userMaturaId: 'userMaturaId',
   openTaskId: 'openTaskId',
   answer: 'answer',
-  isCorrect: 'isCorrect',
   awardedPoints: 'awardedPoints',
+  feedback: 'feedback',
+  gradingJson: 'gradingJson',
+  gradedAt: 'gradedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

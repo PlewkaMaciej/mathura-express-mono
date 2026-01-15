@@ -66,20 +66,22 @@ export async function POST(req: Request) {
 
   const isCorrect = answer === task.correctAnswer;
 
-  await prisma.userClosedAnswer.upsert({
+  const existing = await prisma.userClosedAnswer.findUnique({
     where: {
       userMaturaId_closedTaskId: { userMaturaId, closedTaskId },
     },
-    create: {
-      userMaturaId,
-      closedTaskId,
-      answer,
-      isCorrect,
-    },
-    update: {
-      answer,
-      isCorrect,
-    },
+    select: { id: true }, 
+  });
+
+  if (existing) {
+    return NextResponse.json(
+      { ok: false, error: "Już odpowiedziałeś na to zadanie." },
+      { status: 409 }
+    );
+  }
+
+  await prisma.userClosedAnswer.create({
+    data: { userMaturaId, closedTaskId, answer, isCorrect },
   });
 
   const earnedPoints = await recalculateEarnedPoints(userMaturaId);

@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
+    const { id } = params; // ✅ params nie trzeba await
     const { userId: clerkId } = await auth();
 
     if (!clerkId) {
@@ -27,7 +27,9 @@ export async function GET(
       where: { id },
       include: {
         openTasks: true,
-        closedTasks: { include: { answers: true } },
+        closedTasks: {
+          include: { answers: true },
+        },
       },
     });
 
@@ -35,13 +37,34 @@ export async function GET(
       return NextResponse.json({ error: "Matura not found" }, { status: 404 });
     }
 
-    const userMatura = await prisma.userMatura.findFirst({
-      where: { maturaId: id, userId: user.id },
+    const userMatura = await prisma.userMatura.findUnique({
+      where: {
+        userId_maturaId: {
+          userId: user.id,
+          maturaId: id,
+        },
+      },
       select: {
         id: true,
         earnedPoints: true,
+
         closedAnswers: {
-          select: { closedTaskId: true, answer: true, isCorrect: true },
+          select: {
+            closedTaskId: true,
+            answer: true,
+            isCorrect: true,
+          },
+        },
+
+        openAnswers: {
+          select: {
+            openTaskId: true,
+            answer: true,
+            awardedPoints: true,
+            feedback: true,
+            gradingJson: true,
+            gradedAt: true,
+          },
         },
       },
     });

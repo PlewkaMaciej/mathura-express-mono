@@ -6428,19 +6428,20 @@ export namespace Prisma {
   }
 
   export type OpenTasksAvgAggregateOutputType = {
-    points: number | null
+    maxPoints: number | null
   }
 
   export type OpenTasksSumAggregateOutputType = {
-    points: number | null
+    maxPoints: number | null
   }
 
   export type OpenTasksMinAggregateOutputType = {
     id: string | null
     name: string | null
     content: string | null
-    answer: string | null
-    points: number | null
+    rubric: string | null
+    referenceAnswer: string | null
+    maxPoints: number | null
     subSectionId: string | null
     openTaskId: string | null
   }
@@ -6449,8 +6450,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     content: string | null
-    answer: string | null
-    points: number | null
+    rubric: string | null
+    referenceAnswer: string | null
+    maxPoints: number | null
     subSectionId: string | null
     openTaskId: string | null
   }
@@ -6459,8 +6461,9 @@ export namespace Prisma {
     id: number
     name: number
     content: number
-    answer: number
-    points: number
+    rubric: number
+    referenceAnswer: number
+    maxPoints: number
     subSectionId: number
     openTaskId: number
     _all: number
@@ -6468,19 +6471,20 @@ export namespace Prisma {
 
 
   export type OpenTasksAvgAggregateInputType = {
-    points?: true
+    maxPoints?: true
   }
 
   export type OpenTasksSumAggregateInputType = {
-    points?: true
+    maxPoints?: true
   }
 
   export type OpenTasksMinAggregateInputType = {
     id?: true
     name?: true
     content?: true
-    answer?: true
-    points?: true
+    rubric?: true
+    referenceAnswer?: true
+    maxPoints?: true
     subSectionId?: true
     openTaskId?: true
   }
@@ -6489,8 +6493,9 @@ export namespace Prisma {
     id?: true
     name?: true
     content?: true
-    answer?: true
-    points?: true
+    rubric?: true
+    referenceAnswer?: true
+    maxPoints?: true
     subSectionId?: true
     openTaskId?: true
   }
@@ -6499,8 +6504,9 @@ export namespace Prisma {
     id?: true
     name?: true
     content?: true
-    answer?: true
-    points?: true
+    rubric?: true
+    referenceAnswer?: true
+    maxPoints?: true
     subSectionId?: true
     openTaskId?: true
     _all?: true
@@ -6596,8 +6602,9 @@ export namespace Prisma {
     id: string
     name: string
     content: string
-    answer: string
-    points: number
+    rubric: string
+    referenceAnswer: string | null
+    maxPoints: number
     subSectionId: string
     openTaskId: string | null
     _count: OpenTasksCountAggregateOutputType | null
@@ -6625,8 +6632,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     content?: boolean
-    answer?: boolean
-    points?: boolean
+    rubric?: boolean
+    referenceAnswer?: boolean
+    maxPoints?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
@@ -6639,8 +6647,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     content?: boolean
-    answer?: boolean
-    points?: boolean
+    rubric?: boolean
+    referenceAnswer?: boolean
+    maxPoints?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
@@ -6650,8 +6659,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     content?: boolean
-    answer?: boolean
-    points?: boolean
+    rubric?: boolean
+    referenceAnswer?: boolean
+    maxPoints?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
@@ -6661,13 +6671,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     content?: boolean
-    answer?: boolean
-    points?: boolean
+    rubric?: boolean
+    referenceAnswer?: boolean
+    maxPoints?: boolean
     subSectionId?: boolean
     openTaskId?: boolean
   }
 
-  export type OpenTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "answer" | "points" | "subSectionId" | "openTaskId", ExtArgs["result"]["openTasks"]>
+  export type OpenTasksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "rubric" | "referenceAnswer" | "maxPoints" | "subSectionId" | "openTaskId", ExtArgs["result"]["openTasks"]>
   export type OpenTasksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subSection?: boolean | SubSectionDefaultArgs<ExtArgs>
     maturas?: boolean | OpenTasks$maturasArgs<ExtArgs>
@@ -6692,8 +6703,9 @@ export namespace Prisma {
       id: string
       name: string
       content: string
-      answer: string
-      points: number
+      rubric: string
+      referenceAnswer: string | null
+      maxPoints: number
       subSectionId: string
       openTaskId: string | null
     }, ExtArgs["result"]["openTasks"]>
@@ -7125,8 +7137,9 @@ export namespace Prisma {
     readonly id: FieldRef<"OpenTasks", 'String'>
     readonly name: FieldRef<"OpenTasks", 'String'>
     readonly content: FieldRef<"OpenTasks", 'String'>
-    readonly answer: FieldRef<"OpenTasks", 'String'>
-    readonly points: FieldRef<"OpenTasks", 'Int'>
+    readonly rubric: FieldRef<"OpenTasks", 'String'>
+    readonly referenceAnswer: FieldRef<"OpenTasks", 'String'>
+    readonly maxPoints: FieldRef<"OpenTasks", 'Int'>
     readonly subSectionId: FieldRef<"OpenTasks", 'String'>
     readonly openTaskId: FieldRef<"OpenTasks", 'String'>
   }
@@ -9861,21 +9874,18 @@ export namespace Prisma {
     id: string | null
     name: string | null
     createdAt: Date | null
-    status: boolean | null
   }
 
   export type MaturaMaxAggregateOutputType = {
     id: string | null
     name: string | null
     createdAt: Date | null
-    status: boolean | null
   }
 
   export type MaturaCountAggregateOutputType = {
     id: number
     name: number
     createdAt: number
-    status: number
     _all: number
   }
 
@@ -9884,21 +9894,18 @@ export namespace Prisma {
     id?: true
     name?: true
     createdAt?: true
-    status?: true
   }
 
   export type MaturaMaxAggregateInputType = {
     id?: true
     name?: true
     createdAt?: true
-    status?: true
   }
 
   export type MaturaCountAggregateInputType = {
     id?: true
     name?: true
     createdAt?: true
-    status?: true
     _all?: true
   }
 
@@ -9978,7 +9985,6 @@ export namespace Prisma {
     id: string
     name: string
     createdAt: Date
-    status: boolean
     _count: MaturaCountAggregateOutputType | null
     _min: MaturaMinAggregateOutputType | null
     _max: MaturaMaxAggregateOutputType | null
@@ -10002,7 +10008,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     createdAt?: boolean
-    status?: boolean
     closedTasks?: boolean | Matura$closedTasksArgs<ExtArgs>
     openTasks?: boolean | Matura$openTasksArgs<ExtArgs>
     userMaturas?: boolean | Matura$userMaturasArgs<ExtArgs>
@@ -10013,24 +10018,21 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     createdAt?: boolean
-    status?: boolean
   }, ExtArgs["result"]["matura"]>
 
   export type MaturaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     createdAt?: boolean
-    status?: boolean
   }, ExtArgs["result"]["matura"]>
 
   export type MaturaSelectScalar = {
     id?: boolean
     name?: boolean
     createdAt?: boolean
-    status?: boolean
   }
 
-  export type MaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "status", ExtArgs["result"]["matura"]>
+  export type MaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt", ExtArgs["result"]["matura"]>
   export type MaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     closedTasks?: boolean | Matura$closedTasksArgs<ExtArgs>
     openTasks?: boolean | Matura$openTasksArgs<ExtArgs>
@@ -10051,7 +10053,6 @@ export namespace Prisma {
       id: string
       name: string
       createdAt: Date
-      status: boolean
     }, ExtArgs["result"]["matura"]>
     composites: {}
   }
@@ -10481,7 +10482,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Matura", 'String'>
     readonly name: FieldRef<"Matura", 'String'>
     readonly createdAt: FieldRef<"Matura", 'DateTime'>
-    readonly status: FieldRef<"Matura", 'Boolean'>
   }
     
 
@@ -10982,6 +10982,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     maturaId: string | null
+    status: boolean | null
     earnedPoints: number | null
     createdAt: Date | null
   }
@@ -10990,6 +10991,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     maturaId: string | null
+    status: boolean | null
     earnedPoints: number | null
     createdAt: Date | null
   }
@@ -10998,6 +11000,7 @@ export namespace Prisma {
     id: number
     userId: number
     maturaId: number
+    status: number
     earnedPoints: number
     createdAt: number
     _all: number
@@ -11016,6 +11019,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     maturaId?: true
+    status?: true
     earnedPoints?: true
     createdAt?: true
   }
@@ -11024,6 +11028,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     maturaId?: true
+    status?: true
     earnedPoints?: true
     createdAt?: true
   }
@@ -11032,6 +11037,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     maturaId?: true
+    status?: true
     earnedPoints?: true
     createdAt?: true
     _all?: true
@@ -11127,6 +11133,7 @@ export namespace Prisma {
     id: string
     userId: string
     maturaId: string
+    status: boolean
     earnedPoints: number
     createdAt: Date
     _count: UserMaturaCountAggregateOutputType | null
@@ -11154,6 +11161,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    status?: boolean
     earnedPoints?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11167,6 +11175,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    status?: boolean
     earnedPoints?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11177,6 +11186,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    status?: boolean
     earnedPoints?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11187,11 +11197,12 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     maturaId?: boolean
+    status?: boolean
     earnedPoints?: boolean
     createdAt?: boolean
   }
 
-  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "earnedPoints" | "createdAt", ExtArgs["result"]["userMatura"]>
+  export type UserMaturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "maturaId" | "status" | "earnedPoints" | "createdAt", ExtArgs["result"]["userMatura"]>
   export type UserMaturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     matura?: boolean | MaturaDefaultArgs<ExtArgs>
@@ -11220,6 +11231,7 @@ export namespace Prisma {
       id: string
       userId: string
       maturaId: string
+      status: boolean
       earnedPoints: number
       createdAt: Date
     }, ExtArgs["result"]["userMatura"]>
@@ -11652,6 +11664,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserMatura", 'String'>
     readonly userId: FieldRef<"UserMatura", 'String'>
     readonly maturaId: FieldRef<"UserMatura", 'String'>
+    readonly status: FieldRef<"UserMatura", 'Boolean'>
     readonly earnedPoints: FieldRef<"UserMatura", 'Int'>
     readonly createdAt: FieldRef<"UserMatura", 'DateTime'>
   }
@@ -13229,8 +13242,10 @@ export namespace Prisma {
     userMaturaId: string | null
     openTaskId: string | null
     answer: string | null
-    isCorrect: boolean | null
     awardedPoints: number | null
+    feedback: string | null
+    gradingJson: string | null
+    gradedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13240,8 +13255,10 @@ export namespace Prisma {
     userMaturaId: string | null
     openTaskId: string | null
     answer: string | null
-    isCorrect: boolean | null
     awardedPoints: number | null
+    feedback: string | null
+    gradingJson: string | null
+    gradedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13251,8 +13268,10 @@ export namespace Prisma {
     userMaturaId: number
     openTaskId: number
     answer: number
-    isCorrect: number
     awardedPoints: number
+    feedback: number
+    gradingJson: number
+    gradedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -13272,8 +13291,10 @@ export namespace Prisma {
     userMaturaId?: true
     openTaskId?: true
     answer?: true
-    isCorrect?: true
     awardedPoints?: true
+    feedback?: true
+    gradingJson?: true
+    gradedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13283,8 +13304,10 @@ export namespace Prisma {
     userMaturaId?: true
     openTaskId?: true
     answer?: true
-    isCorrect?: true
     awardedPoints?: true
+    feedback?: true
+    gradingJson?: true
+    gradedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13294,8 +13317,10 @@ export namespace Prisma {
     userMaturaId?: true
     openTaskId?: true
     answer?: true
-    isCorrect?: true
     awardedPoints?: true
+    feedback?: true
+    gradingJson?: true
+    gradedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -13392,8 +13417,10 @@ export namespace Prisma {
     userMaturaId: string
     openTaskId: string
     answer: string | null
-    isCorrect: boolean | null
     awardedPoints: number | null
+    feedback: string | null
+    gradingJson: string | null
+    gradedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: UserOpenAnswerCountAggregateOutputType | null
@@ -13422,8 +13449,10 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
-    isCorrect?: boolean
     awardedPoints?: boolean
+    feedback?: boolean
+    gradingJson?: boolean
+    gradedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
@@ -13435,8 +13464,10 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
-    isCorrect?: boolean
     awardedPoints?: boolean
+    feedback?: boolean
+    gradingJson?: boolean
+    gradedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
@@ -13448,8 +13479,10 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
-    isCorrect?: boolean
     awardedPoints?: boolean
+    feedback?: boolean
+    gradingJson?: boolean
+    gradedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
@@ -13461,13 +13494,15 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
-    isCorrect?: boolean
     awardedPoints?: boolean
+    feedback?: boolean
+    gradingJson?: boolean
+    gradedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOpenAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMaturaId" | "openTaskId" | "answer" | "isCorrect" | "awardedPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["userOpenAnswer"]>
+  export type UserOpenAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMaturaId" | "openTaskId" | "answer" | "awardedPoints" | "feedback" | "gradingJson" | "gradedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["userOpenAnswer"]>
   export type UserOpenAnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
     openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
@@ -13492,8 +13527,10 @@ export namespace Prisma {
       userMaturaId: string
       openTaskId: string
       answer: string | null
-      isCorrect: boolean | null
       awardedPoints: number | null
+      feedback: string | null
+      gradingJson: string | null
+      gradedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["userOpenAnswer"]>
@@ -13925,8 +13962,10 @@ export namespace Prisma {
     readonly userMaturaId: FieldRef<"UserOpenAnswer", 'String'>
     readonly openTaskId: FieldRef<"UserOpenAnswer", 'String'>
     readonly answer: FieldRef<"UserOpenAnswer", 'String'>
-    readonly isCorrect: FieldRef<"UserOpenAnswer", 'Boolean'>
     readonly awardedPoints: FieldRef<"UserOpenAnswer", 'Int'>
+    readonly feedback: FieldRef<"UserOpenAnswer", 'String'>
+    readonly gradingJson: FieldRef<"UserOpenAnswer", 'String'>
+    readonly gradedAt: FieldRef<"UserOpenAnswer", 'DateTime'>
     readonly createdAt: FieldRef<"UserOpenAnswer", 'DateTime'>
     readonly updatedAt: FieldRef<"UserOpenAnswer", 'DateTime'>
   }
@@ -14397,8 +14436,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     content: 'content',
-    answer: 'answer',
-    points: 'points',
+    rubric: 'rubric',
+    referenceAnswer: 'referenceAnswer',
+    maxPoints: 'maxPoints',
     subSectionId: 'subSectionId',
     openTaskId: 'openTaskId'
   };
@@ -14433,8 +14473,7 @@ export namespace Prisma {
   export const MaturaScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    createdAt: 'createdAt',
-    status: 'status'
+    createdAt: 'createdAt'
   };
 
   export type MaturaScalarFieldEnum = (typeof MaturaScalarFieldEnum)[keyof typeof MaturaScalarFieldEnum]
@@ -14444,6 +14483,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     maturaId: 'maturaId',
+    status: 'status',
     earnedPoints: 'earnedPoints',
     createdAt: 'createdAt'
   };
@@ -14469,8 +14509,10 @@ export namespace Prisma {
     userMaturaId: 'userMaturaId',
     openTaskId: 'openTaskId',
     answer: 'answer',
-    isCorrect: 'isCorrect',
     awardedPoints: 'awardedPoints',
+    feedback: 'feedback',
+    gradingJson: 'gradingJson',
+    gradedAt: 'gradedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14760,8 +14802,9 @@ export namespace Prisma {
     id?: StringFilter<"OpenTasks"> | string
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
-    answer?: StringFilter<"OpenTasks"> | string
-    points?: IntFilter<"OpenTasks"> | number
+    rubric?: StringFilter<"OpenTasks"> | string
+    referenceAnswer?: StringNullableFilter<"OpenTasks"> | string | null
+    maxPoints?: IntFilter<"OpenTasks"> | number
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
@@ -14773,8 +14816,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     content?: SortOrder
-    answer?: SortOrder
-    points?: SortOrder
+    rubric?: SortOrder
+    referenceAnswer?: SortOrderInput | SortOrder
+    maxPoints?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrderInput | SortOrder
     subSection?: SubSectionOrderByWithRelationInput
@@ -14789,8 +14833,9 @@ export namespace Prisma {
     NOT?: OpenTasksWhereInput | OpenTasksWhereInput[]
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
-    answer?: StringFilter<"OpenTasks"> | string
-    points?: IntFilter<"OpenTasks"> | number
+    rubric?: StringFilter<"OpenTasks"> | string
+    referenceAnswer?: StringNullableFilter<"OpenTasks"> | string | null
+    maxPoints?: IntFilter<"OpenTasks"> | number
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
     subSection?: XOR<SubSectionScalarRelationFilter, SubSectionWhereInput>
@@ -14802,8 +14847,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     content?: SortOrder
-    answer?: SortOrder
-    points?: SortOrder
+    rubric?: SortOrder
+    referenceAnswer?: SortOrderInput | SortOrder
+    maxPoints?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrderInput | SortOrder
     _count?: OpenTasksCountOrderByAggregateInput
@@ -14820,8 +14866,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"OpenTasks"> | string
     name?: StringWithAggregatesFilter<"OpenTasks"> | string
     content?: StringWithAggregatesFilter<"OpenTasks"> | string
-    answer?: StringWithAggregatesFilter<"OpenTasks"> | string
-    points?: IntWithAggregatesFilter<"OpenTasks"> | number
+    rubric?: StringWithAggregatesFilter<"OpenTasks"> | string
+    referenceAnswer?: StringNullableWithAggregatesFilter<"OpenTasks"> | string | null
+    maxPoints?: IntWithAggregatesFilter<"OpenTasks"> | number
     subSectionId?: StringWithAggregatesFilter<"OpenTasks"> | string
     openTaskId?: StringNullableWithAggregatesFilter<"OpenTasks"> | string | null
   }
@@ -14964,7 +15011,6 @@ export namespace Prisma {
     id?: StringFilter<"Matura"> | string
     name?: StringFilter<"Matura"> | string
     createdAt?: DateTimeFilter<"Matura"> | Date | string
-    status?: BoolFilter<"Matura"> | boolean
     closedTasks?: ClosedTasksListRelationFilter
     openTasks?: OpenTasksListRelationFilter
     userMaturas?: UserMaturaListRelationFilter
@@ -14974,7 +15020,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
-    status?: SortOrder
     closedTasks?: ClosedTasksOrderByRelationAggregateInput
     openTasks?: OpenTasksOrderByRelationAggregateInput
     userMaturas?: UserMaturaOrderByRelationAggregateInput
@@ -14987,7 +15032,6 @@ export namespace Prisma {
     NOT?: MaturaWhereInput | MaturaWhereInput[]
     name?: StringFilter<"Matura"> | string
     createdAt?: DateTimeFilter<"Matura"> | Date | string
-    status?: BoolFilter<"Matura"> | boolean
     closedTasks?: ClosedTasksListRelationFilter
     openTasks?: OpenTasksListRelationFilter
     userMaturas?: UserMaturaListRelationFilter
@@ -14997,7 +15041,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
-    status?: SortOrder
     _count?: MaturaCountOrderByAggregateInput
     _max?: MaturaMaxOrderByAggregateInput
     _min?: MaturaMinOrderByAggregateInput
@@ -15010,7 +15053,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Matura"> | string
     name?: StringWithAggregatesFilter<"Matura"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Matura"> | Date | string
-    status?: BoolWithAggregatesFilter<"Matura"> | boolean
   }
 
   export type UserMaturaWhereInput = {
@@ -15020,6 +15062,7 @@ export namespace Prisma {
     id?: StringFilter<"UserMatura"> | string
     userId?: StringFilter<"UserMatura"> | string
     maturaId?: StringFilter<"UserMatura"> | string
+    status?: BoolFilter<"UserMatura"> | boolean
     earnedPoints?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15032,6 +15075,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    status?: SortOrder
     earnedPoints?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -15042,23 +15086,26 @@ export namespace Prisma {
 
   export type UserMaturaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId_maturaId?: UserMaturaUserIdMaturaIdCompoundUniqueInput
     AND?: UserMaturaWhereInput | UserMaturaWhereInput[]
     OR?: UserMaturaWhereInput[]
     NOT?: UserMaturaWhereInput | UserMaturaWhereInput[]
     userId?: StringFilter<"UserMatura"> | string
     maturaId?: StringFilter<"UserMatura"> | string
+    status?: BoolFilter<"UserMatura"> | boolean
     earnedPoints?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     matura?: XOR<MaturaScalarRelationFilter, MaturaWhereInput>
     closedAnswers?: UserClosedAnswerListRelationFilter
     openAnswers?: UserOpenAnswerListRelationFilter
-  }, "id">
+  }, "id" | "userId_maturaId">
 
   export type UserMaturaOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    status?: SortOrder
     earnedPoints?: SortOrder
     createdAt?: SortOrder
     _count?: UserMaturaCountOrderByAggregateInput
@@ -15075,6 +15122,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserMatura"> | string
     userId?: StringWithAggregatesFilter<"UserMatura"> | string
     maturaId?: StringWithAggregatesFilter<"UserMatura"> | string
+    status?: BoolWithAggregatesFilter<"UserMatura"> | boolean
     earnedPoints?: IntWithAggregatesFilter<"UserMatura"> | number
     createdAt?: DateTimeWithAggregatesFilter<"UserMatura"> | Date | string
   }
@@ -15156,8 +15204,10 @@ export namespace Prisma {
     userMaturaId?: StringFilter<"UserOpenAnswer"> | string
     openTaskId?: StringFilter<"UserOpenAnswer"> | string
     answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
-    isCorrect?: BoolNullableFilter<"UserOpenAnswer"> | boolean | null
     awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
+    feedback?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    gradingJson?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    gradedAt?: DateTimeNullableFilter<"UserOpenAnswer"> | Date | string | null
     createdAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
     updatedAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
     userMatura?: XOR<UserMaturaScalarRelationFilter, UserMaturaWhereInput>
@@ -15169,8 +15219,10 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrderInput | SortOrder
-    isCorrect?: SortOrderInput | SortOrder
     awardedPoints?: SortOrderInput | SortOrder
+    feedback?: SortOrderInput | SortOrder
+    gradingJson?: SortOrderInput | SortOrder
+    gradedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userMatura?: UserMaturaOrderByWithRelationInput
@@ -15186,8 +15238,10 @@ export namespace Prisma {
     userMaturaId?: StringFilter<"UserOpenAnswer"> | string
     openTaskId?: StringFilter<"UserOpenAnswer"> | string
     answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
-    isCorrect?: BoolNullableFilter<"UserOpenAnswer"> | boolean | null
     awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
+    feedback?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    gradingJson?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    gradedAt?: DateTimeNullableFilter<"UserOpenAnswer"> | Date | string | null
     createdAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
     updatedAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
     userMatura?: XOR<UserMaturaScalarRelationFilter, UserMaturaWhereInput>
@@ -15199,8 +15253,10 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrderInput | SortOrder
-    isCorrect?: SortOrderInput | SortOrder
     awardedPoints?: SortOrderInput | SortOrder
+    feedback?: SortOrderInput | SortOrder
+    gradingJson?: SortOrderInput | SortOrder
+    gradedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserOpenAnswerCountOrderByAggregateInput
@@ -15218,8 +15274,10 @@ export namespace Prisma {
     userMaturaId?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
     openTaskId?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
     answer?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
-    isCorrect?: BoolNullableWithAggregatesFilter<"UserOpenAnswer"> | boolean | null
     awardedPoints?: IntNullableWithAggregatesFilter<"UserOpenAnswer"> | number | null
+    feedback?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
+    gradingJson?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
+    gradedAt?: DateTimeNullableWithAggregatesFilter<"UserOpenAnswer"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UserOpenAnswer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserOpenAnswer"> | Date | string
   }
@@ -15449,8 +15507,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     openTaskId?: string | null
     subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
     maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
@@ -15461,8 +15520,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     subSectionId: string
     openTaskId?: string | null
     maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
@@ -15473,8 +15533,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
     maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
@@ -15485,8 +15546,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
@@ -15497,8 +15559,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     subSectionId: string
     openTaskId?: string | null
   }
@@ -15507,8 +15570,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -15516,8 +15580,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -15662,7 +15727,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     closedTasks?: ClosedTasksCreateNestedManyWithoutMaturasInput
     openTasks?: OpenTasksCreateNestedManyWithoutMaturasInput
     userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
@@ -15672,7 +15736,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     closedTasks?: ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput
     openTasks?: OpenTasksUncheckedCreateNestedManyWithoutMaturasInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
@@ -15682,7 +15745,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     closedTasks?: ClosedTasksUpdateManyWithoutMaturasNestedInput
     openTasks?: OpenTasksUpdateManyWithoutMaturasNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
@@ -15692,7 +15754,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     closedTasks?: ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput
     openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
@@ -15702,25 +15763,23 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
   }
 
   export type MaturaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MaturaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserMaturaCreateInput = {
     id?: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUserMaturasInput
@@ -15733,6 +15792,7 @@ export namespace Prisma {
     id?: string
     userId: string
     maturaId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
@@ -15741,6 +15801,7 @@ export namespace Prisma {
 
   export type UserMaturaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -15753,6 +15814,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
@@ -15763,12 +15825,14 @@ export namespace Prisma {
     id?: string
     userId: string
     maturaId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
   }
 
   export type UserMaturaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15777,6 +15841,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15852,8 +15917,10 @@ export namespace Prisma {
   export type UserOpenAnswerCreateInput = {
     id?: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userMatura: UserMaturaCreateNestedOneWithoutOpenAnswersInput
@@ -15865,8 +15932,10 @@ export namespace Prisma {
     userMaturaId: string
     openTaskId: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15874,8 +15943,10 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userMatura?: UserMaturaUpdateOneRequiredWithoutOpenAnswersNestedInput
@@ -15887,8 +15958,10 @@ export namespace Prisma {
     userMaturaId?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15898,8 +15971,10 @@ export namespace Prisma {
     userMaturaId: string
     openTaskId: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15907,8 +15982,10 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15918,8 +15995,10 @@ export namespace Prisma {
     userMaturaId?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16253,22 +16332,24 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     content?: SortOrder
-    answer?: SortOrder
-    points?: SortOrder
+    rubric?: SortOrder
+    referenceAnswer?: SortOrder
+    maxPoints?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
   }
 
   export type OpenTasksAvgOrderByAggregateInput = {
-    points?: SortOrder
+    maxPoints?: SortOrder
   }
 
   export type OpenTasksMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     content?: SortOrder
-    answer?: SortOrder
-    points?: SortOrder
+    rubric?: SortOrder
+    referenceAnswer?: SortOrder
+    maxPoints?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
   }
@@ -16277,14 +16358,15 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     content?: SortOrder
-    answer?: SortOrder
-    points?: SortOrder
+    rubric?: SortOrder
+    referenceAnswer?: SortOrder
+    maxPoints?: SortOrder
     subSectionId?: SortOrder
     openTaskId?: SortOrder
   }
 
   export type OpenTasksSumOrderByAggregateInput = {
-    points?: SortOrder
+    maxPoints?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -16394,21 +16476,18 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
-    status?: SortOrder
   }
 
   export type MaturaMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
-    status?: SortOrder
   }
 
   export type MaturaMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
-    status?: SortOrder
   }
 
   export type UserScalarRelationFilter = {
@@ -16421,10 +16500,16 @@ export namespace Prisma {
     isNot?: MaturaWhereInput
   }
 
+  export type UserMaturaUserIdMaturaIdCompoundUniqueInput = {
+    userId: string
+    maturaId: string
+  }
+
   export type UserMaturaCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    status?: SortOrder
     earnedPoints?: SortOrder
     createdAt?: SortOrder
   }
@@ -16437,6 +16522,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    status?: SortOrder
     earnedPoints?: SortOrder
     createdAt?: SortOrder
   }
@@ -16445,6 +16531,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     maturaId?: SortOrder
+    status?: SortOrder
     earnedPoints?: SortOrder
     createdAt?: SortOrder
   }
@@ -16506,6 +16593,17 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type OpenTasksScalarRelationFilter = {
     is?: OpenTasksWhereInput
     isNot?: OpenTasksWhereInput
@@ -16521,8 +16619,10 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrder
-    isCorrect?: SortOrder
     awardedPoints?: SortOrder
+    feedback?: SortOrder
+    gradingJson?: SortOrder
+    gradedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16536,8 +16636,10 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrder
-    isCorrect?: SortOrder
     awardedPoints?: SortOrder
+    feedback?: SortOrder
+    gradingJson?: SortOrder
+    gradedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16547,14 +16649,30 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrder
-    isCorrect?: SortOrder
     awardedPoints?: SortOrder
+    feedback?: SortOrder
+    gradingJson?: SortOrder
+    gradedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserOpenAnswerSumOrderByAggregateInput = {
     awardedPoints?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserMaturaCreateNestedManyWithoutUserInput = {
@@ -17345,6 +17463,10 @@ export namespace Prisma {
     connect?: OpenTasksWhereUniqueInput
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type UserMaturaUpdateOneRequiredWithoutOpenAnswersNestedInput = {
     create?: XOR<UserMaturaCreateWithoutOpenAnswersInput, UserMaturaUncheckedCreateWithoutOpenAnswersInput>
     connectOrCreate?: UserMaturaCreateOrConnectWithoutOpenAnswersInput
@@ -17550,8 +17672,34 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type UserMaturaCreateWithoutUserInput = {
     id?: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     matura: MaturaCreateNestedOneWithoutUserMaturasInput
@@ -17562,6 +17710,7 @@ export namespace Prisma {
   export type UserMaturaUncheckedCreateWithoutUserInput = {
     id?: string
     maturaId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
@@ -17600,6 +17749,7 @@ export namespace Prisma {
     id?: StringFilter<"UserMatura"> | string
     userId?: StringFilter<"UserMatura"> | string
     maturaId?: StringFilter<"UserMatura"> | string
+    status?: BoolFilter<"UserMatura"> | boolean
     earnedPoints?: IntFilter<"UserMatura"> | number
     createdAt?: DateTimeFilter<"UserMatura"> | Date | string
   }
@@ -17760,8 +17910,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     openTaskId?: string | null
     maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
     userAnswers?: UserOpenAnswerCreateNestedManyWithoutOpenTaskInput
@@ -17771,8 +17922,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     openTaskId?: string | null
     maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
     userAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutOpenTaskInput
@@ -17864,8 +18016,9 @@ export namespace Prisma {
     id?: StringFilter<"OpenTasks"> | string
     name?: StringFilter<"OpenTasks"> | string
     content?: StringFilter<"OpenTasks"> | string
-    answer?: StringFilter<"OpenTasks"> | string
-    points?: IntFilter<"OpenTasks"> | number
+    rubric?: StringFilter<"OpenTasks"> | string
+    referenceAnswer?: StringNullableFilter<"OpenTasks"> | string | null
+    maxPoints?: IntFilter<"OpenTasks"> | number
     subSectionId?: StringFilter<"OpenTasks"> | string
     openTaskId?: StringNullableFilter<"OpenTasks"> | string | null
   }
@@ -17927,7 +18080,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     closedTasks?: ClosedTasksCreateNestedManyWithoutMaturasInput
     userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
   }
@@ -17936,7 +18088,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     closedTasks?: ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
   }
@@ -17949,8 +18100,10 @@ export namespace Prisma {
   export type UserOpenAnswerCreateWithoutOpenTaskInput = {
     id?: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userMatura: UserMaturaCreateNestedOneWithoutOpenAnswersInput
@@ -17960,8 +18113,10 @@ export namespace Prisma {
     id?: string
     userMaturaId: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18029,7 +18184,6 @@ export namespace Prisma {
     id?: StringFilter<"Matura"> | string
     name?: StringFilter<"Matura"> | string
     createdAt?: DateTimeFilter<"Matura"> | Date | string
-    status?: BoolFilter<"Matura"> | boolean
   }
 
   export type UserOpenAnswerUpsertWithWhereUniqueWithoutOpenTaskInput = {
@@ -18056,8 +18210,10 @@ export namespace Prisma {
     userMaturaId?: StringFilter<"UserOpenAnswer"> | string
     openTaskId?: StringFilter<"UserOpenAnswer"> | string
     answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
-    isCorrect?: BoolNullableFilter<"UserOpenAnswer"> | boolean | null
     awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
+    feedback?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    gradingJson?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    gradedAt?: DateTimeNullableFilter<"UserOpenAnswer"> | Date | string | null
     createdAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
     updatedAt?: DateTimeFilter<"UserOpenAnswer"> | Date | string
   }
@@ -18116,7 +18272,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     openTasks?: OpenTasksCreateNestedManyWithoutMaturasInput
     userMaturas?: UserMaturaCreateNestedManyWithoutMaturaInput
   }
@@ -18125,7 +18280,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     openTasks?: OpenTasksUncheckedCreateNestedManyWithoutMaturasInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutMaturaInput
   }
@@ -18357,8 +18511,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     openTaskId?: string | null
     subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
     userAnswers?: UserOpenAnswerCreateNestedManyWithoutOpenTaskInput
@@ -18368,8 +18523,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     subSectionId: string
     openTaskId?: string | null
     userAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutOpenTaskInput
@@ -18382,6 +18538,7 @@ export namespace Prisma {
 
   export type UserMaturaCreateWithoutMaturaInput = {
     id?: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUserMaturasInput
@@ -18392,6 +18549,7 @@ export namespace Prisma {
   export type UserMaturaUncheckedCreateWithoutMaturaInput = {
     id?: string
     userId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
@@ -18484,7 +18642,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     closedTasks?: ClosedTasksCreateNestedManyWithoutMaturasInput
     openTasks?: OpenTasksCreateNestedManyWithoutMaturasInput
   }
@@ -18493,7 +18650,6 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    status?: boolean
     closedTasks?: ClosedTasksUncheckedCreateNestedManyWithoutMaturasInput
     openTasks?: OpenTasksUncheckedCreateNestedManyWithoutMaturasInput
   }
@@ -18533,8 +18689,10 @@ export namespace Prisma {
   export type UserOpenAnswerCreateWithoutUserMaturaInput = {
     id?: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     openTask: OpenTasksCreateNestedOneWithoutUserAnswersInput
@@ -18544,8 +18702,10 @@ export namespace Prisma {
     id?: string
     openTaskId: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18605,7 +18765,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     closedTasks?: ClosedTasksUpdateManyWithoutMaturasNestedInput
     openTasks?: OpenTasksUpdateManyWithoutMaturasNestedInput
   }
@@ -18614,7 +18773,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     closedTasks?: ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput
     openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
   }
@@ -18653,6 +18811,7 @@ export namespace Prisma {
 
   export type UserMaturaCreateWithoutClosedAnswersInput = {
     id?: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUserMaturasInput
@@ -18664,6 +18823,7 @@ export namespace Prisma {
     id?: string
     userId: string
     maturaId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     openAnswers?: UserOpenAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
@@ -18714,6 +18874,7 @@ export namespace Prisma {
 
   export type UserMaturaUpdateWithoutClosedAnswersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -18725,6 +18886,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     openAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
@@ -18765,6 +18927,7 @@ export namespace Prisma {
 
   export type UserMaturaCreateWithoutOpenAnswersInput = {
     id?: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUserMaturasInput
@@ -18776,6 +18939,7 @@ export namespace Prisma {
     id?: string
     userId: string
     maturaId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
     closedAnswers?: UserClosedAnswerUncheckedCreateNestedManyWithoutUserMaturaInput
@@ -18790,8 +18954,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     openTaskId?: string | null
     subSection: SubSectionCreateNestedOneWithoutOpenTasksInput
     maturas?: MaturaCreateNestedManyWithoutOpenTasksInput
@@ -18801,8 +18966,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     subSectionId: string
     openTaskId?: string | null
     maturas?: MaturaUncheckedCreateNestedManyWithoutOpenTasksInput
@@ -18826,6 +18992,7 @@ export namespace Prisma {
 
   export type UserMaturaUpdateWithoutOpenAnswersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -18837,6 +19004,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
@@ -18857,8 +19025,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
     maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
@@ -18868,8 +19037,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
@@ -18878,12 +19048,14 @@ export namespace Prisma {
   export type UserMaturaCreateManyUserInput = {
     id?: string
     maturaId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
   }
 
   export type UserMaturaUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     matura?: MaturaUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -18894,6 +19066,7 @@ export namespace Prisma {
   export type UserMaturaUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
@@ -18903,6 +19076,7 @@ export namespace Prisma {
   export type UserMaturaUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     maturaId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18969,8 +19143,9 @@ export namespace Prisma {
     id?: string
     name: string
     content: string
-    answer: string
-    points?: number
+    rubric: string
+    referenceAnswer?: string | null
+    maxPoints?: number
     openTaskId?: string | null
   }
 
@@ -18986,8 +19161,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUpdateManyWithoutOpenTasksNestedInput
     userAnswers?: UserOpenAnswerUpdateManyWithoutOpenTaskNestedInput
@@ -18997,8 +19173,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     maturas?: MaturaUncheckedUpdateManyWithoutOpenTasksNestedInput
     userAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskNestedInput
@@ -19008,8 +19185,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -19047,8 +19225,10 @@ export namespace Prisma {
     id?: string
     userMaturaId: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19057,7 +19237,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     closedTasks?: ClosedTasksUpdateManyWithoutMaturasNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
   }
@@ -19066,7 +19245,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     closedTasks?: ClosedTasksUncheckedUpdateManyWithoutMaturasNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
   }
@@ -19075,14 +19253,15 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserOpenAnswerUpdateWithoutOpenTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userMatura?: UserMaturaUpdateOneRequiredWithoutOpenAnswersNestedInput
@@ -19092,8 +19271,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userMaturaId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19102,8 +19283,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userMaturaId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19153,7 +19336,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     openTasks?: OpenTasksUpdateManyWithoutMaturasNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutMaturaNestedInput
   }
@@ -19162,7 +19344,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
     openTasks?: OpenTasksUncheckedUpdateManyWithoutMaturasNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutMaturaNestedInput
   }
@@ -19171,7 +19352,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserClosedAnswerUpdateWithoutClosedTaskInput = {
@@ -19204,6 +19384,7 @@ export namespace Prisma {
   export type UserMaturaCreateManyMaturaInput = {
     id?: string
     userId: string
+    status?: boolean
     earnedPoints?: number
     createdAt?: Date | string
   }
@@ -19243,8 +19424,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     subSection?: SubSectionUpdateOneRequiredWithoutOpenTasksNestedInput
     userAnswers?: UserOpenAnswerUpdateManyWithoutOpenTaskNestedInput
@@ -19254,8 +19436,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     userAnswers?: UserOpenAnswerUncheckedUpdateManyWithoutOpenTaskNestedInput
@@ -19265,14 +19448,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
+    rubric?: StringFieldUpdateOperationsInput | string
+    referenceAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    maxPoints?: IntFieldUpdateOperationsInput | number
     subSectionId?: StringFieldUpdateOperationsInput | string
     openTaskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserMaturaUpdateWithoutMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserMaturasNestedInput
@@ -19283,6 +19468,7 @@ export namespace Prisma {
   export type UserMaturaUncheckedUpdateWithoutMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     closedAnswers?: UserClosedAnswerUncheckedUpdateManyWithoutUserMaturaNestedInput
@@ -19292,6 +19478,7 @@ export namespace Prisma {
   export type UserMaturaUncheckedUpdateManyWithoutMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     earnedPoints?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19309,8 +19496,10 @@ export namespace Prisma {
     id?: string
     openTaskId: string
     answer?: string | null
-    isCorrect?: boolean | null
     awardedPoints?: number | null
+    feedback?: string | null
+    gradingJson?: string | null
+    gradedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19345,8 +19534,10 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateWithoutUserMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     openTask?: OpenTasksUpdateOneRequiredWithoutUserAnswersNestedInput
@@ -19356,8 +19547,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19366,8 +19559,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
-    isCorrect?: NullableBoolFieldUpdateOperationsInput | boolean | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
+    gradedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

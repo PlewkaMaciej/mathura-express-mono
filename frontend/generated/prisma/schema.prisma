@@ -29,7 +29,7 @@ model Section {
   id          String       @id @default(cuid())
   name        String
   alltasksId  String
-  alltasks    Alltasks     @relation(fields: [alltasksId], references: [id])
+  alltasks    Alltasks     @relation(fields: [alltasksId], references: [id], onDelete: Cascade)
   subsections SubSection[]
 }
 
@@ -37,7 +37,7 @@ model SubSection {
   id                   String        @id @default(cuid())
   name                 String
   sectionId            String
-  section              Section       @relation(fields: [sectionId], references: [id])
+  section              Section       @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   mustBeShuffle        Boolean
   closedTasksToShuffle Int?
   openTasksToShuffle   Int?
@@ -46,16 +46,21 @@ model SubSection {
 }
 
 model OpenTasks {
-  id           String           @id @default(cuid())
-  name         String
-  content      String
-  answer       String
-  points       Int              @default(2)
+  id              String  @id @default(cuid())
+  name            String
+  content         String
+  rubric          String
+  referenceAnswer String?
+  maxPoints       Int     @default(2)
+
   subSectionId String
-  subSection   SubSection       @relation(fields: [subSectionId], references: [id])
+  subSection   SubSection @relation(fields: [subSectionId], references: [id], onDelete: Cascade)
   openTaskId   String?
-  maturas      Matura[]
-  userAnswers  UserOpenAnswer[]
+
+  maturas     Matura[]
+  userAnswers UserOpenAnswer[]
+
+  @@index([subSectionId])
 }
 
 model ClosedTasks {
@@ -66,7 +71,7 @@ model ClosedTasks {
   correctAnswer String
   points        Int                @default(1)
   subSectionId  String
-  subSection    SubSection         @relation(fields: [subSectionId], references: [id])
+  subSection    SubSection         @relation(fields: [subSectionId], references: [id], onDelete: Cascade)
   maturas       Matura[]
   userAnswers   UserClosedAnswer[]
 }
@@ -78,58 +83,68 @@ model Answers {
   C            String
   D            String
   closedTaskId String
-  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id])
+  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)
 }
 
 model Matura {
   id          String        @id @default(cuid())
   name        String
   createdAt   DateTime      @default(now())
-  status      Boolean       @default(false)
   closedTasks ClosedTasks[]
   openTasks   OpenTasks[]
   userMaturas UserMatura[]
 }
 
 model UserMatura {
-  id            String             @id @default(cuid())
-  userId        String
-  maturaId      String
-  earnedPoints  Int                @default(0)
-  createdAt     DateTime           @default(now())
-  user          User               @relation(fields: [userId], references: [id])
-  matura        Matura             @relation(fields: [maturaId], references: [id])
+  id           String   @id @default(cuid())
+  userId       String
+  maturaId     String
+  status       Boolean  @default(false)
+  earnedPoints Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  matura Matura @relation(fields: [maturaId], references: [id], onDelete: Cascade)
+
   closedAnswers UserClosedAnswer[]
   openAnswers   UserOpenAnswer[]
+
+  @@unique([userId, maturaId])
 }
 
 model UserClosedAnswer {
-  id           String      @id @default(cuid())
+  id           String   @id @default(cuid())
   userMaturaId String
   closedTaskId String
   answer       String?
   isCorrect    Boolean?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  userMatura   UserMatura  @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
-  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userMatura UserMatura  @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
+  closedTask ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)
 
   @@unique([userMaturaId, closedTaskId])
   @@index([closedTaskId])
 }
 
 model UserOpenAnswer {
-  id            String     @id @default(cuid())
+  id            String    @id @default(cuid())
   userMaturaId  String
   openTaskId    String
   answer        String?
-  isCorrect     Boolean?
   awardedPoints Int?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  userMatura    UserMatura @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
-  openTask      OpenTasks  @relation(fields: [openTaskId], references: [id], onDelete: Cascade)
+  feedback      String?
+  gradingJson   String?
+  gradedAt      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userMatura UserMatura @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)
+  openTask   OpenTasks  @relation(fields: [openTaskId], references: [id], onDelete: Cascade)
 
   @@unique([userMaturaId, openTaskId])
   @@index([openTaskId])
+  @@index([userMaturaId])
 }

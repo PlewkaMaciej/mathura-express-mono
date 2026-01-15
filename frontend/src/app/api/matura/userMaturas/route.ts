@@ -23,39 +23,43 @@ export async function GET(_req: NextRequest) {
       orderBy: { createdAt: "desc" },
       select: {
         id: true,
+        status: true,
         earnedPoints: true,
         createdAt: true,
         matura: {
           select: {
             id: true,
             name: true,
-            status: true,
             createdAt: true,
             closedTasks: { select: { points: true } },
-            openTasks: { select: { points: true } },
+            openTasks: { select: { maxPoints: true } }, 
           },
         },
       },
     });
 
-    const maturas = userMaturas.map((um) => {
-      const closedMax = um.matura.closedTasks.reduce(
-        (s, t) => s + (t.points ?? 1),
-        0
-      );
-      const openMax = um.matura.openTasks.reduce(
-        (s, t) => s + (t.points ?? 0),
-        0
-      );
+    const maturas = userMaturas.map((userMatura) => {
+      const closedTasks = userMatura.matura.closedTasks;
+      const openTasks = userMatura.matura.openTasks;
+
+      let closedMaxPoints = 0;
+      let openMaxPoints = 0;
+
+      for (const task of closedTasks) {
+        closedMaxPoints += task.points ?? 1;
+      }
+
+      for (const task of openTasks) {
+        openMaxPoints += task.maxPoints ?? 0; // ✅ tu zmiana
+      }
 
       return {
-        id: um.matura.id,
-        name: um.matura.name,
-        status: um.matura.status,
-        createdAt: um.matura.createdAt,
-
-        earnedPoints: um.earnedPoints,
-        maxPoints: closedMax + openMax,
+        id: userMatura.matura.id,
+        name: userMatura.matura.name,
+        status: userMatura.status,
+        createdAt: userMatura.createdAt,
+        earnedPoints: userMatura.earnedPoints,
+        maxPoints: closedMaxPoints + openMaxPoints,
       };
     });
 

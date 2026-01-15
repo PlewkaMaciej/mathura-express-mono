@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { OpenTasksSingleAnswer } from "@/components/OpenTaskSingleAnswer";
 
 type Option = "A" | "B" | "C" | "D";
 
@@ -12,6 +13,25 @@ type ClosedTask = {
   content: string;
   correctAnswer: Option;
   answers?: { A: string; B: string; C: string; D: string }[];
+  points?: number;
+};
+
+export type OpenTask = {
+  id: string;
+  name: string;
+  content: string;
+  maxPoints: number;
+  rubric: string;
+  referenceAnswer?: string | null;
+};
+
+export type OpenAnswerDTO = {
+  openTaskId: string;
+  answer?: string | null;
+  awardedPoints?: number | null;
+  feedback?: string | null;
+  gradingJson?: string | null;
+  gradedAt?: string | null;
 };
 
 type Matura = {
@@ -20,7 +40,7 @@ type Matura = {
   createdAt: string;
   status: boolean;
   closedTasks: ClosedTask[];
-  openTasks: any[];
+  openTasks: OpenTask[];
 };
 
 type ClosedAnswerDTO = {
@@ -33,6 +53,7 @@ type UserMaturaDTO = {
   id: string;
   earnedPoints: number;
   closedAnswers: ClosedAnswerDTO[];
+  openAnswers: OpenAnswerDTO[];
 };
 
 type GetResponse = {
@@ -47,6 +68,8 @@ type SaveResponse = {
   error?: string;
 };
 
+const options: Option[] = ["A", "B", "C", "D"];
+
 export default function MaturaPage() {
   const router = useRouter();
   const { id: maturaId } = useParams<{ id: string }>();
@@ -59,8 +82,8 @@ export default function MaturaPage() {
 
   const [savingTaskId, setSavingTaskId] = useState<string | null>(null);
 
-  
   const [closedAnswers, setClosedAnswers] = useState<ClosedAnswerDTO[]>([]);
+  const [openAnswers, setOpenAnswers] = useState<OpenAnswerDTO[]>([]);
 
   useEffect(() => {
     async function load() {
@@ -69,13 +92,15 @@ export default function MaturaPage() {
         const res = await fetch(`/api/matura/${maturaId}`);
         const data = (await res.json()) as GetResponse;
 
-        if (!res.ok) throw new Error(data as any);
+        if (!res.ok) throw new Error((data as any)?.error ?? "Fetch error");
 
         setMatura(data.matura);
         setUserMaturaId(data.userMatura.id);
         setPoints(data.userMatura.earnedPoints);
         setClosedAnswers(data.userMatura.closedAnswers ?? []);
-      } catch {
+        setOpenAnswers(data.userMatura.openAnswers ?? []);
+      } catch (e) {
+        console.error(e);
         toast.error("Błąd pobierania matury");
       } finally {
         setLoading(false);
@@ -117,7 +142,6 @@ export default function MaturaPage() {
         return;
       }
 
-     
       setClosedAnswers((prev) => [
         ...prev,
         { closedTaskId: task.id, answer: picked, isCorrect: data.isCorrect },
@@ -139,7 +163,6 @@ export default function MaturaPage() {
     const userAnswer = getUserAnswer(task.id);
     const base = "text-left rounded-lg border px-4 py-3 text-sm transition";
 
-   
     if (!userAnswer) {
       return `${base} border-[#2C3B55] bg-[rgba(11,27,43,0.35)] text-[#F3EAD7]/85 hover:border-[#7CF9C2]`;
     }
@@ -147,22 +170,18 @@ export default function MaturaPage() {
     const picked = userAnswer.answer;
     const correct = task.correctAnswer;
 
-   
     if (userAnswer.isCorrect && opt === picked) {
       return `${base} border-green-500/60 bg-green-500/10 text-green-200`;
     }
 
-   
     if (!userAnswer.isCorrect && opt === picked) {
       return `${base} border-red-500/60 bg-red-500/10 text-red-200`;
     }
 
-    
     if (!userAnswer.isCorrect && opt === correct) {
       return `${base} border-green-500/60 bg-green-500/10 text-green-200`;
     }
 
-   
     return `${base} border-[#2C3B55] bg-[rgba(11,27,43,0.25)] text-[#F3EAD7]/50`;
   }
 
@@ -216,14 +235,14 @@ export default function MaturaPage() {
                 <div className="mb-4 whitespace-pre-wrap">{task.content}</div>
 
                 <div className="grid md:grid-cols-2 gap-3">
-                  {(["A", "B", "C", "D"] as Option[]).map((o) => (
+                  {options.map((opt) => (
                     <button
-                      key={o}
+                      key={opt}
                       disabled={alreadyAnswered || savingTaskId === task.id}
-                      onClick={() => answerTask(task, o)}
-                      className={optionClass(task, o)}
+                      onClick={() => answerTask(task, opt)}
+                      className={optionClass(task, opt)}
                     >
-                      <b>{o}:</b> {task.answers?.[0]?.[o]}
+                      <b>{opt}:</b> {task.answers?.[0]?.[opt]}
                     </button>
                   ))}
                 </div>
@@ -231,6 +250,20 @@ export default function MaturaPage() {
             );
           })}
         </section>
+
+        <h2 className="text-2xl font-semibold mt-10 mb-5">Zadania otwarte</h2>
+
+        {userMaturaId && matura.openTasks.length ? (
+          <OpenTasksSingleAnswer
+            openTasks={matura.openTasks}
+            userMaturaId={userMaturaId}
+            openAnswers={openAnswers}
+            setOpenAnswers={setOpenAnswers}
+            onPointsUpdate={(p) => setPoints(p)}
+          />
+        ) : (
+          <div className="text-white/70">Brak zadań otwartych.</div>
+        )}
       </div>
     </main>
   );

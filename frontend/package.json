@@ -21,6 +21,7 @@
     "formik": "^2.4.9",
     "lucide-react": "^0.539.0",
     "next": "15.4.6",
+    "openai": "^6.16.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.6.0",
@@ -39,6 +40,8 @@
     "eslint-config-next": "15.4.6",
     "prisma": "^6.17.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
