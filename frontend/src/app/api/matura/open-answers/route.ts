@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../../../../../lib/prisma";
@@ -102,7 +104,6 @@ export async function POST(req: NextRequest) {
 
     const maxPoints = task.maxPoints ?? 2;
 
-   
     const userOpenAnswer = await prisma.userOpenAnswer.upsert({
       where: {
         userMaturaId_openTaskId: {
@@ -121,8 +122,8 @@ export async function POST(req: NextRequest) {
       select: { id: true },
     });
 
-    
     const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+    const vectorStoreId = process.env.OPENAI_VECTOR_STORE_ID;
 
     const instructions = [
       "Jesteś egzaminatorem polskiej matury (standard CKE).",
@@ -132,6 +133,8 @@ export async function POST(req: NextRequest) {
       "Feedback ma być krótki, rzeczowy, w stylu egzaminatora (bez zdradzania pełnego rozwiązania krok po kroku).",
       "Zwróć WYŁĄCZNIE JSON zgodny ze schematem, bez żadnego dodatkowego tekstu.",
       "criteriaBreakdown: jeśli rubryka ma kilka elementów/kryteriów, rozbij punkty na kryteria; jeśli rubryka jest ogólna, zwróć jedną pozycję criterion='Ocena ogólna'.",
+      "Suma points w criteriaBreakdown MUSI równać się awardedPoints.",
+      "Jeśli masz dostęp do materiałów (file_search), użyj ich przed oceną do znalezienia zasad oceniania/typowych błędów dla tego typu zadania. Użyj ich tylko jako wsparcia interpretacji rubryki (nie dodawaj nowych kryteriów).",
     ].join("\n");
 
     const rubricText =
@@ -163,6 +166,12 @@ export async function POST(req: NextRequest) {
       instructions,
       input,
       store: false,
+
+      // ✅ RAG: w Twojej wersji SDK vector_store_ids musi być w tools
+      tools: vectorStoreId
+        ? [{ type: "file_search", vector_store_ids: [vectorStoreId] }]
+        : undefined,
+
       text: {
         format: {
           type: "json_schema",
@@ -206,7 +215,11 @@ export async function POST(req: NextRequest) {
 
     let grade: GradeJSON;
     try {
-      grade = JSON.parse(ai.output_text) as GradeJSON;
+      const raw =
+        (ai as any).output_text ??
+        (ai as any).output?.[0]?.content?.[0]?.text ??
+        "";
+      grade = JSON.parse(raw) as GradeJSON;
     } catch {
       return NextResponse.json(
         { ok: false, error: "AI zwróciło niepoprawny JSON." },
@@ -225,14 +238,13 @@ export async function POST(req: NextRequest) {
         ? grade.criteriaBreakdown
         : []
       ).map((x) => ({
-        criterion: String(x.criterion ?? "").slice(0, 200),
-        points: clampInt(x.points, 0, maxPoints),
-        maxPoints: clampInt(x.maxPoints, 0, maxPoints),
-        note: String(x.note ?? "").slice(0, 500),
+        criterion: String((x as any)?.criterion ?? "").slice(0, 200),
+        points: clampInt((x as any)?.points, 0, maxPoints),
+        maxPoints: clampInt((x as any)?.maxPoints, 0, maxPoints),
+        note: String((x as any)?.note ?? "").slice(0, 500),
       })),
     };
 
-   
     const result = await prisma.$transaction(async (tx) => {
       await tx.userOpenAnswer.update({
         where: { id: userOpenAnswer.id },

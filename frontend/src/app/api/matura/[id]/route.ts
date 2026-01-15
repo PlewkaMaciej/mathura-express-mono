@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params; // ✅ params nie trzeba await
+    const { id } = await params;
     const { userId: clerkId } = await auth();
 
     if (!clerkId) {
