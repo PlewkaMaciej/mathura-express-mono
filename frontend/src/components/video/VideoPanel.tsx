@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import Question from "./Question";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 import QuestionWithAnswers from "./VideoPlayer/QuestionWithAnswers";
-import { useRouter } from "next/navigation";
+import AllQuestions from "./VideoPlayer/AllQuestion";
+import Description from "./VideoPlayer/Description";
 
 import { VideoType } from "@/components/video/types/video";
-import AllQuestions from "./VideoPlayer/AllQuestion";
 
 export default function Video() {
   const [video, setVideo] = useState<VideoType | null>(null);
   const [buttonStatus, setButtonStatus] = useState<string>("");
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [questionParam, setQuestionParam] = useState<string | null>(null);
-  const router = useRouter();
+  const [showDescription, setShowDescription] = useState<boolean>(false);
 
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const fetchVideo = useCallback(async () => {
@@ -32,16 +33,17 @@ export default function Video() {
       console.error("Błąd przy pobieraniu wideo:", err);
     }
   }, [searchParams]);
+
   useEffect(() => {
     setQuestionParam(searchParams.get("questionId"));
     fetchVideo();
   }, [searchParams, fetchVideo]);
 
   const openQuestion = () => {
-    console.log(video);
     setButtonStatus((prev) =>
       prev === "questionPanel" ? "" : "questionPanel"
     );
+    setShowDescription(false);
   };
 
   return (
@@ -54,22 +56,28 @@ export default function Video() {
           Zapytaj
         </button>
 
-        <button className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition">
+        <button
+          onClick={() => {
+            setShowDescription((prev) => !prev);
+            setButtonStatus("");
+            router.push(
+              `/videoexample/?videoId=${searchParams.get("videoId")}`
+            );
+          }}
+          className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition"
+        >
           Opis
-        </button>
-
-        <button className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition">
-          Notatnik
         </button>
 
         <button
           onClick={(e) => {
             e.stopPropagation();
             router.push(
-              `/videoexample/?videoId=${searchParams?.get(
+              `/videoexample/?videoId=${searchParams.get(
                 "videoId"
               )}&questionId=all`
             );
+            setShowDescription(false);
           }}
           className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition"
         >
@@ -77,11 +85,20 @@ export default function Video() {
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center gap-6">
+      <div className="flex-1 flex flex-col items-center gap-6 relative">
         {video ? (
           <VideoPlayer video={video} onTimeUpdate={setCurrentTime} />
         ) : (
           <p>Ładowanie wideo...</p>
+        )}
+
+        {video?.description && (
+          <div className="w-full max-w-4xl">
+            <Description
+              description={video.description}
+              visible={showDescription}
+            />
+          </div>
         )}
 
         {video?.questions &&
@@ -94,6 +111,7 @@ export default function Video() {
               />
             </div>
           )}
+
         {video?.questions && questionParam === "all" && (
           <div className="w-full max-w-4xl">
             <AllQuestions questions={video.questions} />

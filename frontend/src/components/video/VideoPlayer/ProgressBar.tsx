@@ -38,9 +38,6 @@ export default function ProgressBar({
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  /* =========================
-     Pobranie DB userId
-  ========================= */
   useEffect(() => {
     if (!isLoaded || !clerkId) return;
 
@@ -60,9 +57,6 @@ export default function ProgressBar({
     fetchDbUserId();
   }, [clerkId, isLoaded]);
 
-  /* =========================
-     Drag progress bar
-  ========================= */
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
@@ -94,9 +88,6 @@ export default function ProgressBar({
     setIsDragging(true);
   };
 
-  /* =========================
-     Tooltip handling
-  ========================= */
   const showWithDelay = (index: number) => {
     if (isDragging) return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -114,9 +105,6 @@ export default function ProgressBar({
       ? currentTime / duration
       : 0;
 
-  /* =========================
-     Render
-  ========================= */
   return (
     <div
       ref={containerRef}
@@ -126,16 +114,13 @@ export default function ProgressBar({
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
     >
-      {/* background */}
       <div className="w-full h-full bg-gray-700/50 rounded-full" />
 
-      {/* progress */}
       <div
         className="absolute top-0 left-0 h-full bg-yellow-500 rounded-full"
         style={{ width: `${displayPercent * 100}%` }}
       />
 
-      {/* question markers */}
       {duration > 0 &&
         questions.map((question, i) => {
           const canSee =
