@@ -20,7 +20,7 @@ export default function AllQuestions({ questions }: AllQuestionsProps) {
           key={q.id}
           onClick={() => {
             router.push(
-              `/videoexample/question?videoId=${searchParams?.get(
+              `/videoexample?videoId=${searchParams?.get(
                 "videoId"
               )}&questionId=${q.id}`
             );

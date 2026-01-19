@@ -2388,16 +2388,19 @@ export namespace Prisma {
   export type VideoMinAggregateOutputType = {
     id: number | null
     url: string | null
+    description: string | null
   }
 
   export type VideoMaxAggregateOutputType = {
     id: number | null
     url: string | null
+    description: string | null
   }
 
   export type VideoCountAggregateOutputType = {
     id: number
     url: number
+    description: number
     _all: number
   }
 
@@ -2413,16 +2416,19 @@ export namespace Prisma {
   export type VideoMinAggregateInputType = {
     id?: true
     url?: true
+    description?: true
   }
 
   export type VideoMaxAggregateInputType = {
     id?: true
     url?: true
+    description?: true
   }
 
   export type VideoCountAggregateInputType = {
     id?: true
     url?: true
+    description?: true
     _all?: true
   }
 
@@ -2515,6 +2521,7 @@ export namespace Prisma {
   export type VideoGroupByOutputType = {
     id: number
     url: string
+    description: string | null
     _count: VideoCountAggregateOutputType | null
     _avg: VideoAvgAggregateOutputType | null
     _sum: VideoSumAggregateOutputType | null
@@ -2539,6 +2546,7 @@ export namespace Prisma {
   export type VideoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    description?: boolean
     questions?: boolean | Video$questionsArgs<ExtArgs>
     _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["video"]>
@@ -2546,19 +2554,22 @@ export namespace Prisma {
   export type VideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    description?: boolean
   }, ExtArgs["result"]["video"]>
 
   export type VideoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    description?: boolean
   }, ExtArgs["result"]["video"]>
 
   export type VideoSelectScalar = {
     id?: boolean
     url?: boolean
+    description?: boolean
   }
 
-  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url", ExtArgs["result"]["video"]>
+  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "description", ExtArgs["result"]["video"]>
   export type VideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     questions?: boolean | Video$questionsArgs<ExtArgs>
     _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
@@ -2574,6 +2585,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       url: string
+      description: string | null
     }, ExtArgs["result"]["video"]>
     composites: {}
   }
@@ -3000,6 +3012,7 @@ export namespace Prisma {
   interface VideoFieldRefs {
     readonly id: FieldRef<"Video", 'Int'>
     readonly url: FieldRef<"Video", 'String'>
+    readonly description: FieldRef<"Video", 'String'>
   }
     
 
@@ -5757,7 +5770,8 @@ export namespace Prisma {
 
   export const VideoScalarFieldEnum: {
     id: 'id',
-    url: 'url'
+    url: 'url',
+    description: 'description'
   };
 
   export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
@@ -5923,12 +5937,14 @@ export namespace Prisma {
     NOT?: VideoWhereInput | VideoWhereInput[]
     id?: IntFilter<"Video"> | number
     url?: StringFilter<"Video"> | string
+    description?: StringNullableFilter<"Video"> | string | null
     questions?: QuestionListRelationFilter
   }
 
   export type VideoOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
+    description?: SortOrderInput | SortOrder
     questions?: QuestionOrderByRelationAggregateInput
   }
 
@@ -5938,12 +5954,14 @@ export namespace Prisma {
     OR?: VideoWhereInput[]
     NOT?: VideoWhereInput | VideoWhereInput[]
     url?: StringFilter<"Video"> | string
+    description?: StringNullableFilter<"Video"> | string | null
     questions?: QuestionListRelationFilter
   }, "id">
 
   export type VideoOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
+    description?: SortOrderInput | SortOrder
     _count?: VideoCountOrderByAggregateInput
     _avg?: VideoAvgOrderByAggregateInput
     _max?: VideoMaxOrderByAggregateInput
@@ -5957,6 +5975,7 @@ export namespace Prisma {
     NOT?: VideoScalarWhereWithAggregatesInput | VideoScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Video"> | number
     url?: StringWithAggregatesFilter<"Video"> | string
+    description?: StringNullableWithAggregatesFilter<"Video"> | string | null
   }
 
   export type QuestionWhereInput = {
@@ -6187,38 +6206,45 @@ export namespace Prisma {
 
   export type VideoCreateInput = {
     url: string
+    description?: string | null
     questions?: QuestionCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateInput = {
     id?: number
     url: string
+    description?: string | null
     questions?: QuestionUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUpdateInput = {
     url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     questions?: QuestionUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     questions?: QuestionUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoCreateManyInput = {
     id?: number
     url: string
+    description?: string | null
   }
 
   export type VideoUpdateManyMutationInput = {
     url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VideoUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type QuestionCreateInput = {
@@ -6518,6 +6544,7 @@ export namespace Prisma {
   export type VideoCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    description?: SortOrder
   }
 
   export type VideoAvgOrderByAggregateInput = {
@@ -6527,11 +6554,13 @@ export namespace Prisma {
   export type VideoMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    description?: SortOrder
   }
 
   export type VideoMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    description?: SortOrder
   }
 
   export type VideoSumOrderByAggregateInput = {
@@ -7253,11 +7282,13 @@ export namespace Prisma {
 
   export type VideoCreateWithoutQuestionsInput = {
     url: string
+    description?: string | null
   }
 
   export type VideoUncheckedCreateWithoutQuestionsInput = {
     id?: number
     url: string
+    description?: string | null
   }
 
   export type VideoCreateOrConnectWithoutQuestionsInput = {
@@ -7321,11 +7352,13 @@ export namespace Prisma {
 
   export type VideoUpdateWithoutQuestionsInput = {
     url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VideoUncheckedUpdateWithoutQuestionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUpsertWithoutQuestionsInput = {

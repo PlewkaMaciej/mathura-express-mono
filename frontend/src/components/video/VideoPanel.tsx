@@ -38,6 +38,7 @@ export default function Video() {
   }, [searchParams, fetchVideo]);
 
   const openQuestion = () => {
+    console.log(video);
     setButtonStatus((prev) =>
       prev === "questionPanel" ? "" : "questionPanel"
     );
@@ -65,7 +66,7 @@ export default function Video() {
           onClick={(e) => {
             e.stopPropagation();
             router.push(
-              `/videoexample/question?videoId=${searchParams?.get(
+              `/videoexample/?videoId=${searchParams?.get(
                 "videoId"
               )}&questionId=all`
             );
@@ -82,6 +83,7 @@ export default function Video() {
         ) : (
           <p>Ładowanie wideo...</p>
         )}
+
         {video?.questions &&
           questionParam !== null &&
           questionParam !== "all" && (

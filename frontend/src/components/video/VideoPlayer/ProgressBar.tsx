@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { QuestionType } from "@/components/video/types/video";
 import { cn } from "@/lib/cn";
 import { useRouter } from "next/navigation";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 interface Props {
   visible: boolean;
@@ -24,6 +25,10 @@ export default function ProgressBar({
   const [dragPercent, setDragPercent] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
 
+  const { userId: clerkId, isLoaded } = useAuth();
+  const { user } = useUser();
+  const [dbUserId, setDbUserId] = useState<string | null>(null);
+
   const router = useRouter();
   const searchParams =
     typeof window !== "undefined"
@@ -33,6 +38,31 @@ export default function ProgressBar({
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  /* =========================
+     Pobranie DB userId
+  ========================= */
+  useEffect(() => {
+    if (!isLoaded || !clerkId) return;
+
+    const fetchDbUserId = async () => {
+      try {
+        const res = await fetch(`/api/users/${clerkId}`);
+        if (!res.ok) throw new Error("User not found");
+
+        const data = await res.json();
+        setDbUserId(data.id);
+      } catch (err) {
+        console.error(err);
+        setDbUserId(null);
+      }
+    };
+
+    fetchDbUserId();
+  }, [clerkId, isLoaded]);
+
+  /* =========================
+     Drag progress bar
+  ========================= */
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
@@ -64,6 +94,9 @@ export default function ProgressBar({
     setIsDragging(true);
   };
 
+  /* =========================
+     Tooltip handling
+  ========================= */
   const showWithDelay = (index: number) => {
     if (isDragging) return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -81,6 +114,9 @@ export default function ProgressBar({
       ? currentTime / duration
       : 0;
 
+  /* =========================
+     Render
+  ========================= */
   return (
     <div
       ref={containerRef}
@@ -90,15 +126,22 @@ export default function ProgressBar({
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
     >
+      {/* background */}
       <div className="w-full h-full bg-gray-700/50 rounded-full" />
 
+      {/* progress */}
       <div
         className="absolute top-0 left-0 h-full bg-yellow-500 rounded-full"
         style={{ width: `${displayPercent * 100}%` }}
       />
 
+      {/* question markers */}
       {duration > 0 &&
         questions.map((question, i) => {
+          const canSee =
+            question.isPublic || question.userId !== Number(dbUserId);
+          if (!canSee) return null;
+
           const left = `${(question.time / duration) * 100}%`;
 
           return (
@@ -130,7 +173,7 @@ export default function ProgressBar({
                     onClick={(e) => {
                       e.stopPropagation();
                       router.push(
-                        `/videoexample/question?videoId=${searchParams?.get(
+                        `/videoexample/?videoId=${searchParams?.get(
                           "videoId"
                         )}&questionId=${question.id}`
                       );
@@ -150,6 +193,7 @@ export default function ProgressBar({
           );
         })}
 
+      {/* thumb */}
       <div
         className={cn(
           "absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg -translate-y-1/2 transition-transform duration-100",

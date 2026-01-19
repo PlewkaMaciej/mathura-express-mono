@@ -11,6 +11,7 @@ export interface QuestionType {
   title: string;
   text: string;
   time: number;
+  isPublic?: boolean;
   userName: string;
   lastName?: string;
   userId: number;
@@ -22,4 +23,5 @@ export interface VideoType {
   url: string;
   videoUrl?: string;
   questions: QuestionType[];
+  description?: string | null;
 }
