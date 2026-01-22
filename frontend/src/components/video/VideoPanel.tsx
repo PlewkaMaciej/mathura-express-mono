@@ -41,7 +41,7 @@ export default function Video() {
 
   const openQuestion = () => {
     setButtonStatus((prev) =>
-      prev === "questionPanel" ? "" : "questionPanel"
+      prev === "questionPanel" ? "" : "questionPanel",
     );
     setShowDescription(false);
   };
@@ -61,7 +61,7 @@ export default function Video() {
             setShowDescription((prev) => !prev);
             setButtonStatus("");
             router.push(
-              `/videoexample/?videoId=${searchParams.get("videoId")}`
+              `/videoexample/?videoId=${searchParams.get("videoId")}`,
             );
           }}
           className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition"
@@ -74,8 +74,8 @@ export default function Video() {
             e.stopPropagation();
             router.push(
               `/videoexample/?videoId=${searchParams.get(
-                "videoId"
-              )}&questionId=all`
+                "videoId",
+              )}&questionId=all`,
             );
             setShowDescription(false);
           }}

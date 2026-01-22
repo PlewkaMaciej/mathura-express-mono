@@ -21,9 +21,10 @@ model User {
 }
 
 model Video {
-  id        Int        @id @default(autoincrement())
-  url       String
-  questions Question[] @relation("VideoQuestions")
+  id          Int        @id @default(autoincrement())
+  url         String
+  questions   Question[] @relation("VideoQuestions")
+  description String?
 }
 
 model Question {

@@ -12,7 +12,8 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Video" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "url" TEXT NOT NULL
+    "url" TEXT NOT NULL,
+    "description" TEXT
 );
 
 -- CreateTable
@@ -23,6 +24,9 @@ CREATE TABLE "Question" (
     "videoId" INTEGER NOT NULL,
     "time" INTEGER NOT NULL,
     "userId" TEXT NOT NULL,
+    "isPublic" BOOLEAN NOT NULL DEFAULT false,
+    "userName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
     CONSTRAINT "Question_videoId_fkey" FOREIGN KEY ("videoId") REFERENCES "Video" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Question_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -32,7 +36,11 @@ CREATE TABLE "Answer" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "text" TEXT NOT NULL,
     "questionId" INTEGER NOT NULL,
-    CONSTRAINT "Answer_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "Question" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "userId" TEXT NOT NULL,
+    "userName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    CONSTRAINT "Answer_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "Question" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Answer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

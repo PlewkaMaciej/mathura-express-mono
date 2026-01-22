@@ -48,9 +48,11 @@ model Answer {
   questionId Int
   question   Question @relation("QuestionAnswers", fields: [questionId], references: [id])
 
-<<<<<<< HEAD
+  user    User     @relation(fields: [userId], references: [id])
+userId String
+userName String
+  lastName  String
 }
-
 
 
 model Alltasks {
@@ -107,10 +109,4 @@ model Answers {
   closedTaskId String  
   closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id]) 
 
-=======
-  user    User     @relation(fields: [userId], references: [id])
-userId String
-userName String
-  lastName  String
->>>>>>> video-and-settings
 }

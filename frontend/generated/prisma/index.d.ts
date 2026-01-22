@@ -80,7 +80,7 @@ export type Answers = $Result.DefaultSelection<Prisma.$AnswersPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -112,6 +112,13 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
+
+  /**
+   * Add a middleware
+   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
+   * @see https://pris.ly/d/extensions
+   */
+  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -339,8 +346,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.19.0
-   * Query Engine version: 2ba551f319ab1df4bc874a89965d8b3641056773
+   * Prisma Client JS version: 6.5.0
+   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
    */
   export type PrismaVersion = {
     client: string
@@ -353,7 +360,6 @@ export namespace Prisma {
    */
 
 
-  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -1537,24 +1543,16 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Shorthand for `emit: 'stdout'`
+     * // Defaults to stdout
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events only
+     * // Emit as events
      * log: [
-     *   { emit: 'event', level: 'query' },
-     *   { emit: 'event', level: 'info' },
-     *   { emit: 'event', level: 'warn' }
-     *   { emit: 'event', level: 'error' }
+     *   { emit: 'stdout', level: 'query' },
+     *   { emit: 'stdout', level: 'info' },
+     *   { emit: 'stdout', level: 'warn' }
+     *   { emit: 'stdout', level: 'error' }
      * ]
-     * 
-     * / Emit as events and log to stdout
-     * og: [
-     *  { emit: 'stdout', level: 'query' },
-     *  { emit: 'stdout', level: 'info' },
-     *  { emit: 'stdout', level: 'warn' }
-     *  { emit: 'stdout', level: 'error' }
-     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1569,10 +1567,6 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
-    /**
-     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
-     */
-    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1609,15 +1603,10 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
-
-  export type GetLogType<T> = CheckIsLogLevel<
-    T extends LogDefinition ? T['level'] : T
-  >;
-
-  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
-    ? GetLogType<T[number]>
-    : never;
+  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
+  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
+    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
+    : never
 
   export type QueryEvent = {
     timestamp: Date
@@ -1657,6 +1646,25 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
+
+  /**
+   * These options are being passed into the middleware as "params"
+   */
+  export type MiddlewareParams = {
+    model?: ModelName
+    action: PrismaAction
+    args: any
+    dataPath: string[]
+    runInTransaction: boolean
+  }
+
+  /**
+   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
+   */
+  export type Middleware<T = any> = (
+    params: MiddlewareParams,
+    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
+  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -2575,7 +2583,7 @@ export namespace Prisma {
 
   /**
    * Fields of the User model
-   */
+   */ 
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly clerkId: FieldRef<"User", 'String'>
@@ -3679,7 +3687,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Video model
-   */
+   */ 
   interface VideoFieldRefs {
     readonly id: FieldRef<"Video", 'Int'>
     readonly url: FieldRef<"Video", 'String'>
@@ -4853,7 +4861,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Question model
-   */
+   */ 
   interface QuestionFieldRefs {
     readonly id: FieldRef<"Question", 'Int'>
     readonly title: FieldRef<"Question", 'String'>
@@ -5995,7 +6003,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Answer model
-   */
+   */ 
   interface AnswerFieldRefs {
     readonly id: FieldRef<"Answer", 'Int'>
     readonly text: FieldRef<"Answer", 'String'>
@@ -7000,7 +7008,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Alltasks model
-   */
+   */ 
   interface AlltasksFieldRefs {
     readonly id: FieldRef<"Alltasks", 'String'>
   }
@@ -8050,7 +8058,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Section model
-   */
+   */ 
   interface SectionFieldRefs {
     readonly id: FieldRef<"Section", 'String'>
     readonly name: FieldRef<"Section", 'String'>
@@ -9188,7 +9196,7 @@ export namespace Prisma {
 
   /**
    * Fields of the SubSection model
-   */
+   */ 
   interface SubSectionFieldRefs {
     readonly id: FieldRef<"SubSection", 'String'>
     readonly name: FieldRef<"SubSection", 'String'>
@@ -10339,7 +10347,7 @@ export namespace Prisma {
 
   /**
    * Fields of the OpenTasks model
-   */
+   */ 
   interface OpenTasksFieldRefs {
     readonly id: FieldRef<"OpenTasks", 'String'>
     readonly name: FieldRef<"OpenTasks", 'String'>
@@ -11402,7 +11410,7 @@ export namespace Prisma {
 
   /**
    * Fields of the ClosedTasks model
-   */
+   */ 
   interface ClosedTasksFieldRefs {
     readonly id: FieldRef<"ClosedTasks", 'String'>
     readonly name: FieldRef<"ClosedTasks", 'String'>
@@ -12494,7 +12502,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Answers model
-   */
+   */ 
   interface AnswersFieldRefs {
     readonly id: FieldRef<"Answers", 'String'>
     readonly A: FieldRef<"Answers", 'String'>
@@ -13054,7 +13062,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references
+   * Field references 
    */
 
 
@@ -14645,11 +14653,6 @@ export namespace Prisma {
     alltasksId?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -14721,14 +14724,6 @@ export namespace Prisma {
   export type SubSectionSumOrderByAggregateInput = {
     closedTasksToShuffle?: SortOrder
     openTasksToShuffle?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15093,7 +15088,14 @@ export namespace Prisma {
     update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutAnswersInput, QuestionUpdateWithoutAnswersInput>, QuestionUncheckedUpdateWithoutAnswersInput>
   }
 
-<<<<<<< HEAD
+  export type UserUpdateOneRequiredWithoutAnswersNestedInput = {
+    create?: XOR<UserCreateWithoutAnswersInput, UserUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAnswersInput
+    upsert?: UserUpsertWithoutAnswersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAnswersInput, UserUpdateWithoutAnswersInput>, UserUncheckedUpdateWithoutAnswersInput>
+  }
+
   export type SectionCreateNestedManyWithoutAlltasksInput = {
     create?: XOR<SectionCreateWithoutAlltasksInput, SectionUncheckedCreateWithoutAlltasksInput> | SectionCreateWithoutAlltasksInput[] | SectionUncheckedCreateWithoutAlltasksInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutAlltasksInput | SectionCreateOrConnectWithoutAlltasksInput[]
@@ -15224,10 +15226,6 @@ export namespace Prisma {
     connectOrCreate?: ClosedTasksCreateOrConnectWithoutSubSectionInput | ClosedTasksCreateOrConnectWithoutSubSectionInput[]
     createMany?: ClosedTasksCreateManySubSectionInputEnvelope
     connect?: ClosedTasksWhereUniqueInput | ClosedTasksWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -15384,14 +15382,6 @@ export namespace Prisma {
     upsert?: ClosedTasksUpsertWithoutAnswersInput
     connect?: ClosedTasksWhereUniqueInput
     update?: XOR<XOR<ClosedTasksUpdateToOneWithWhereWithoutAnswersInput, ClosedTasksUpdateWithoutAnswersInput>, ClosedTasksUncheckedUpdateWithoutAnswersInput>
-=======
-  export type UserUpdateOneRequiredWithoutAnswersNestedInput = {
-    create?: XOR<UserCreateWithoutAnswersInput, UserUncheckedCreateWithoutAnswersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAnswersInput
-    upsert?: UserUpsertWithoutAnswersInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAnswersInput, UserUpdateWithoutAnswersInput>, UserUncheckedUpdateWithoutAnswersInput>
->>>>>>> video-and-settings
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -15543,7 +15533,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-<<<<<<< HEAD
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -15571,8 +15560,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-=======
->>>>>>> video-and-settings
   export type QuestionCreateWithoutUserInput = {
     title: string
     text: string
