@@ -43,7 +43,7 @@ export function AdminTaskForm() {
   };
 
   const input = clsx(
-    "w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#7CF9C2] placeholder:text-[#B8FFE2] outline-none focus:border-[#7CF9C2] focus:ring-0"
+    "w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#7CF9C2] placeholder:text-[#B8FFE2] outline-none focus:border-[#7CF9C2] focus:ring-0",
   );
 
   return (
@@ -76,7 +76,7 @@ export function AdminTaskForm() {
         let currentSubsections: SubSectionType[] = [];
 
         const foundSection = sections.find(
-          (section) => section.id === values.sectionId
+          (section) => section.id === values.sectionId,
         );
 
         if (foundSection) {
@@ -104,6 +104,7 @@ export function AdminTaskForm() {
             <button
               type="submit"
               disabled={isSubmitting}
+              data-testid="save-task"
               className="mt-4 inline-flex items-center justify-center rounded-lg bg-[#7CF9C2] px-6 py-3 text-[1.02rem] font-semibold text-[#0B1020] shadow-[0_10px_30px_-10px_rgba(124,249,194,.7)] hover:brightness-95 hover:-translate-y-0.5 active:translate-y-0 transition disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {isSubmitting ? "Zapisywanie..." : "Zapisz zadanie"}

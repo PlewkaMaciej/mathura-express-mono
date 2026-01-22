@@ -13,17 +13,15 @@ export function OpenTaskRubricFields({ input }: Props) {
         Ocenianie zadania otwartego (matura PL)
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-sm mb-1">Maks. punkty (maxPoints)</label>
-          <Field
-            name="maxPoints"
-            type="number"
-            min={0}
-            className={input}
-            placeholder="np. 2"
-          />
-        </div>
+      <div>
+        <label className="block text-sm mb-1">Maks. punkty (maxPoints)</label>
+        <Field
+          name="maxPoints"
+          type="number"
+          min={1}
+          data-testid="max-points"
+          className={input}
+        />
       </div>
 
       <div>
@@ -34,27 +32,22 @@ export function OpenTaskRubricFields({ input }: Props) {
           name="rubric"
           as="textarea"
           rows={4}
+          data-testid="rubric"
           className={input}
-          placeholder="Wpisz schemat punktowania jak w CKE: co jest na 0, 1, 2... pkt, za jakie elementy."
         />
       </div>
 
       <div>
         <label className="block text-sm mb-1">
-          ReferenceAnswer (wzorcowa odpowiedź) – opcjonalnie
+          ReferenceAnswer (opcjonalnie)
         </label>
         <Field
           name="referenceAnswer"
           as="textarea"
           rows={3}
+          data-testid="reference-answer"
           className={input}
-          placeholder="Opcjonalnie: przykładowa odpowiedź / klucz"
         />
-      </div>
-
-      <div className="text-xs text-[#B8FFE2] opacity-80">
-        Tip: im bardziej rubryka jest “po punktach” (0/1/2...), tym stabilniej
-        model oceni.
       </div>
     </div>
   );

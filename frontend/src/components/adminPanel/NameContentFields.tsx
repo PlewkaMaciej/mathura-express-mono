@@ -1,19 +1,12 @@
 "use client";
 
-import clsx from "clsx";
 import { Field, ErrorMessage } from "formik";
-import { twMerge } from "tailwind-merge";
 
 interface NameContentFieldsProps {
   input: string;
 }
 
 export function NameContentFields({ input }: NameContentFieldsProps) {
-  const input1 = twMerge(
-    clsx(
-      "border-[#FFF002] px-3 py-2.5 text-base text-[#FFF002] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0"
-    )
-  );
   return (
     <>
       <div className="space-y-1.5">
@@ -23,6 +16,7 @@ export function NameContentFields({ input }: NameContentFieldsProps) {
         <Field
           name="name"
           type="text"
+          data-testid="task-name"
           className={input}
           placeholder="Np. Równania liniowe – zadanie 1"
         />
@@ -41,6 +35,7 @@ export function NameContentFields({ input }: NameContentFieldsProps) {
           as="textarea"
           name="content"
           rows={5}
+          data-testid="task-content"
           className={`${input} resize-none`}
           placeholder="Wpisz treść zadania..."
         />
