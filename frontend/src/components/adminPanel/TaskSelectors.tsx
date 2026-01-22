@@ -3,8 +3,7 @@
 import { Field, ErrorMessage } from "formik";
 import type React from "react";
 import type { SectionType } from "@/types/sections-task-types";
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+
 interface TaskSelectorsProps {
   sections: SectionType[];
   currentSubsections: { id: string; name: string }[];
@@ -18,7 +17,7 @@ export function TaskSelectors({
   currentSubsections,
   valuesSectionId,
   setFieldValue,
-  input, 
+  input,
 }: TaskSelectorsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -29,6 +28,7 @@ export function TaskSelectors({
         <Field
           as="select"
           name="sectionId"
+          data-testid="section-select"
           className={input}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const id = e.target.value;
@@ -57,6 +57,7 @@ export function TaskSelectors({
         <Field
           as="select"
           name="subSectionId"
+          data-testid="subsection-select"
           className={input}
           disabled={!valuesSectionId}
         >

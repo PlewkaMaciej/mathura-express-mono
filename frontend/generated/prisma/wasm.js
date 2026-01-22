@@ -174,7 +174,9 @@ exports.Prisma.OpenTasksScalarFieldEnum = {
   id: 'id',
   name: 'name',
   content: 'content',
-  answer: 'answer',
+  rubric: 'rubric',
+  referenceAnswer: 'referenceAnswer',
+  maxPoints: 'maxPoints',
   subSectionId: 'subSectionId',
   openTaskId: 'openTaskId'
 };
@@ -184,6 +186,7 @@ exports.Prisma.ClosedTasksScalarFieldEnum = {
   name: 'name',
   content: 'content',
   correctAnswer: 'correctAnswer',
+  points: 'points',
   subSectionId: 'subSectionId'
 };
 
@@ -194,6 +197,44 @@ exports.Prisma.AnswersScalarFieldEnum = {
   C: 'C',
   D: 'D',
   closedTaskId: 'closedTaskId'
+};
+
+exports.Prisma.MaturaScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserMaturaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  maturaId: 'maturaId',
+  status: 'status',
+  earnedPoints: 'earnedPoints',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserClosedAnswerScalarFieldEnum = {
+  id: 'id',
+  userMaturaId: 'userMaturaId',
+  closedTaskId: 'closedTaskId',
+  answer: 'answer',
+  isCorrect: 'isCorrect',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserOpenAnswerScalarFieldEnum = {
+  id: 'id',
+  userMaturaId: 'userMaturaId',
+  openTaskId: 'openTaskId',
+  answer: 'answer',
+  awardedPoints: 'awardedPoints',
+  feedback: 'feedback',
+  gradingJson: 'gradingJson',
+  gradedAt: 'gradedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -217,7 +258,11 @@ exports.Prisma.ModelName = {
   SubSection: 'SubSection',
   OpenTasks: 'OpenTasks',
   ClosedTasks: 'ClosedTasks',
-  Answers: 'Answers'
+  Answers: 'Answers',
+  Matura: 'Matura',
+  UserMatura: 'UserMatura',
+  UserClosedAnswer: 'UserClosedAnswer',
+  UserOpenAnswer: 'UserOpenAnswer'
 };
 
 /**
