@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import prisma from "../../../../../lib/prisma";
-import openai from "../../../../../lib/openai";
+import prisma from "@/lib/prisma";
+import openai from "@/lib/openai";
 
 type Body = { openTaskId: string };
 
@@ -28,13 +28,6 @@ function clampInt(v: unknown, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
 
-/**
- * Naprawia najczęstsze zwiechy KaTeX/remark-math:
- * - doklejone $$ do \Delta (\Delta$$)
- * - brak nowych linii przy $$ (KaTeX lubi $$ w osobnych liniach)
- * - podwójne backslash-e \\Delta -> \Delta
- * - Unicode Δ -> \Delta
- */
 function sanitizeMathMarkdown(text: string) {
   if (!text) return "";
 
@@ -70,7 +63,7 @@ export async function POST(req: NextRequest) {
     if (!clerkId) {
       return NextResponse.json<ApiResponse>(
         { ok: false, error: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -79,11 +72,10 @@ export async function POST(req: NextRequest) {
     if (!openTaskId) {
       return NextResponse.json<ApiResponse>(
         { ok: false, error: "Brak openTaskId." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    // opcjonalnie: sprawdź usera
     const user = await prisma.user.findUnique({
       where: { clerkId },
       select: { id: true },
@@ -91,7 +83,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json<ApiResponse>(
         { ok: false, error: "User not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -111,13 +103,12 @@ export async function POST(req: NextRequest) {
     if (!base) {
       return NextResponse.json<ApiResponse>(
         { ok: false, error: "Nie znaleziono zadania open." },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     const maxPoints = base.maxPoints ?? 2;
 
-    // ---- WYMUSZENIE POPRAWNEJ MATEMATYKI ----
     const formattingRules = `
 FORMAT (OBOWIĄZKOWE — inaczej odpowiedź jest błędna):
 - Zwracaj treści jako MARKDOWN.
@@ -132,8 +123,6 @@ FORMAT (OBOWIĄZKOWE — inaczej odpowiedź jest błędna):
 - Nie doklejaj $$ do \\Delta ani do innych komend LaTeX.
 `;
 
-    // ---- UŻYTKOWNIK CHCE: "samo rozwiązanie, ale w krokach ładnie" ----
-    // (czyli referenceAnswer ma być krótkie i czytelne)
     const solutionStyle = `
 REFERENCEANSWER (ODPOWIEDŹ WZORCOWA) MA ZAWIERAĆ TYLKO:
 - "Krok 1, Krok 2, Krok 3" (max 6 kroków)
@@ -212,7 +201,7 @@ NIE dodawaj rubryki w referenceAnswer. Rubryka ma być osobno w polu "rubric".
     } catch {
       return NextResponse.json<ApiResponse>(
         { ok: false, error: "AI zwróciło niepoprawny JSON." },
-        { status: 502 }
+        { status: 502 },
       );
     }
 
@@ -221,7 +210,7 @@ NIE dodawaj rubryki w referenceAnswer. Rubryka ma być osobno w polu "rubric".
       content: sanitizeMathMarkdown(asString(parsed.content).slice(0, 10_000)),
       rubric: sanitizeMathMarkdown(asString(parsed.rubric).slice(0, 10_000)),
       referenceAnswer: sanitizeMathMarkdown(
-        asString(parsed.referenceAnswer).slice(0, 20_000)
+        asString(parsed.referenceAnswer).slice(0, 20_000),
       ),
       maxPoints: clampInt(parsed.maxPoints, 0, maxPoints) || maxPoints,
       basedOnOpenTaskId: base.id,
@@ -231,19 +220,19 @@ NIE dodawaj rubryki w referenceAnswer. Rubryka ma być osobno w polu "rubric".
     if (!generated.content || !generated.referenceAnswer || !generated.rubric) {
       return NextResponse.json<ApiResponse>(
         { ok: false, error: "AI zwróciło niekompletne dane." },
-        { status: 502 }
+        { status: 502 },
       );
     }
 
     return NextResponse.json<ApiResponse>(
       { ok: true, generated },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (e: any) {
     const msg = String(e?.message ?? "Server error");
     return NextResponse.json<ApiResponse>(
       { ok: false, error: msg },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

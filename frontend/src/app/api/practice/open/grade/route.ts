@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import openai from "../../../../../../lib/openai";
+import openai from "@/lib/openai";
 
 type Body = {
   generatedTask: {
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     if (!clerkId) {
       return NextResponse.json(
         { ok: false, error: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -50,13 +50,13 @@ export async function POST(req: NextRequest) {
     if (!generatedTask?.content || !generatedTask?.maxPoints) {
       return NextResponse.json(
         { ok: false, error: "Brak danych generatedTask." },
-        { status: 400 }
+        { status: 400 },
       );
     }
     if (!answer.trim()) {
       return NextResponse.json(
         { ok: false, error: "Odpowiedź nie może być pusta." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
     } catch {
       return NextResponse.json(
         { ok: false, error: "AI zwróciło niepoprawny JSON." },
-        { status: 502 }
+        { status: 502 },
       );
     }
 
