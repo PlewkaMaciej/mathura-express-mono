@@ -2,8 +2,8 @@ export const runtime = "nodejs";
 
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import prisma from "../../../../../lib/prisma";
-import openai from "../../../../../lib/openai";
+import prisma from "@/lib/prisma";
+import openai from "@/lib/openai";
 
 type Body = {
   userMaturaId: string;
