@@ -110,14 +110,16 @@ export default function ProgressBar({
       ref={containerRef}
       onPointerDown={handleMouseDown}
       className={cn(
-        "absolute left-0 right-0 bottom-8 z-50 h-2 cursor-pointer transition-opacity duration-300",
-        visible ? "opacity-100" : "opacity-0 pointer-events-none"
+        "absolute left-0 right-0 bottom-8 z-50 h-1.5 cursor-pointer transition-opacity duration-300",
+        visible ? "opacity-100" : "opacity-0 pointer-events-none",
       )}
     >
-      <div className="w-full h-full bg-gray-700/50 rounded-full" />
+      {/* track */}
+      <div className="w-full h-full bg-gray-800/50 rounded-full shadow-inner" />
 
+      {/* filled progress */}
       <div
-        className="absolute top-0 left-0 h-full bg-yellow-500 rounded-full"
+        className="absolute top-0 left-0 h-full bg-gradient-to-r from-red-600 to-red-500 rounded-full shadow-md transition-all duration-300 ease-out"
         style={{ width: `${displayPercent * 100}%` }}
       />
 
@@ -134,19 +136,19 @@ export default function ProgressBar({
               key={question.id}
               onMouseEnter={() => showWithDelay(i)}
               onMouseLeave={hideWithDelay}
-              className="absolute top-0 w-3 h-full bg-black rounded-full cursor-default"
-              style={{ left: `calc(${left} - 1px)` }}
+              className="absolute top-0 w-1.5 h-full bg-black rounded-full cursor-default hover:bg-red-500 transition-colors"
+              style={{ left: `calc(${left} - 0.75px)` }}
             >
               <div
                 className={cn(
-                  "absolute -top-24 left-1/2 -translate-x-1/2 w-56 transition-all duration-200 ease-out",
+                  "absolute -top-28 left-1/2 -translate-x-1/2 w-64 transition-all duration-200 ease-out",
                   activeQuestion === i
                     ? "opacity-100 translate-y-0 scale-100"
-                    : "opacity-0 translate-y-2 scale-95 pointer-events-none"
+                    : "opacity-0 translate-y-2 scale-95 pointer-events-none",
                 )}
                 onPointerDown={(e) => e.stopPropagation()}
               >
-                <div className="relative rounded-xl bg-zinc-900 px-4 py-3 text-white shadow-2xl">
+                <div className="relative rounded-xl bg-zinc-900/95 backdrop-blur-sm px-4 py-3 text-white shadow-2xl border border-white/10">
                   <div className="text-sm font-semibold leading-snug line-clamp-2">
                     {question.title}
                   </div>
@@ -159,30 +161,26 @@ export default function ProgressBar({
                       e.stopPropagation();
                       router.push(
                         `/videoexample/?videoId=${searchParams?.get(
-                          "videoId"
-                        )}&questionId=${question.id}`
+                          "videoId",
+                        )}&questionId=${question.id}`,
                       );
                     }}
-                    className={cn(
-                      "w-full rounded-lg bg-yellow-500 px-3 py-1.5 text-xs font-semibold text-black transition-colors",
-                      "hover:bg-yellow-400 active:bg-yellow-600"
-                    )}
+                    className="w-full rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-red-500 active:bg-red-700"
                   >
                     Przejdź do pytania
                   </button>
 
-                  <div className="absolute left-1/2 -bottom-1.5 h-3 w-3 -translate-x-1/2 rotate-45 bg-zinc-900" />
+                  <div className="absolute left-1/2 -bottom-1.5 h-3 w-3 -translate-x-1/2 rotate-45 bg-zinc-900/95" />
                 </div>
               </div>
             </div>
           );
         })}
 
-      {/* thumb */}
       <div
         className={cn(
-          "absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg -translate-y-1/2 transition-transform duration-100",
-          isDragging ? "scale-125" : "scale-100"
+          "absolute top-1/2 w-3 h-3 bg-red-600 rounded-full shadow-lg border-2 border-white/20 -translate-y-1/2 transition-transform duration-150 ease-out",
+          isDragging ? "scale-125" : "scale-110",
         )}
         style={{ left: `${displayPercent * 100}%` }}
       />

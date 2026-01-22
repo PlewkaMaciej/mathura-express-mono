@@ -75,7 +75,7 @@ export default function VideoControls({
       />
 
       <div
-        className={`absolute left-0 right-0 bottom-0 px-4 py-2 flex justify-between items-center transition-opacity duration-300 ${
+        className={`absolute left-0 right-0 bottom-0 px-4 py-1 flex justify-between items-center transition-opacity duration-300 ${
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -92,11 +92,12 @@ export default function VideoControls({
             step={0.01}
             value={volume}
             onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-            className="w-28 h-1 accent-yellow-500 rounded-lg cursor-pointer"
+            className="w-28 h-1 rounded-full cursor-pointer accent-red-600 hover:accent-red-500 transition-colors"
           />
+
           <button
             onClick={handleFullscreen}
-            className="text-black text-xl hover:text-yellow-500 transition-colors"
+            className="text-black text-xl hover:text-red-600 transition-colors"
           >
             ⛶
           </button>
