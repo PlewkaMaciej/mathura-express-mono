@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
       const userId = sessionData.user_id;
       const sessionId = sessionData.id;
-      const createdAt = sessionData.created_at;
+      const createdAt = sessionData.created_at;   
 
       const user = await prisma.user.findUnique({
         where: { clerkId: userId },

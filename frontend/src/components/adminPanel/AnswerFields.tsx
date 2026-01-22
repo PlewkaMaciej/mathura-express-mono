@@ -44,25 +44,6 @@ export function AnswerFields({ values, input }: AnswerFieldsProps) {
         />
       </div>
 
-      {values.taskType === "open" && (
-        <div className="space-y-1.5">
-          <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
-            Poprawna odpowiedź
-          </label>
-          <Field
-            name="openAnswer"
-            type="text"
-            className={input}
-            placeholder="Np. 4"
-          />
-          <ErrorMessage
-            name="openAnswer"
-            component="div"
-            className="text-xs text-[#f97373] mt-1"
-          />
-        </div>
-      )}
-
       {values.taskType === "closed" && (
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

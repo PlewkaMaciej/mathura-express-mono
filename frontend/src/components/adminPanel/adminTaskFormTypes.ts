@@ -1,15 +1,18 @@
 export type TaskType = "open" | "closed";
 
-export interface FormValues {
+export type FormValues = {
   name: string;
   content: string;
   taskType: TaskType;
   sectionId: string;
   subSectionId: string;
-  openAnswer?: string;
-  answerA?: string;
-  answerB?: string;
-  answerC?: string;
-  answerD?: string;
-  correctAnswer?: string;
-}
+  rubric: string;
+  referenceAnswer: string;
+  maxPoints: number;
+  answerA: string;
+  answerB: string;
+  answerC: string;
+  answerD: string;
+  correctAnswer: string;
+  points: number;
+};
