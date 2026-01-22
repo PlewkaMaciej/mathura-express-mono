@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     if (!clerkId) {
       return NextResponse.json(
         { ok: false, error: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -49,14 +49,14 @@ export async function POST(req: NextRequest) {
     if (!userMaturaId || !openTaskId) {
       return NextResponse.json(
         { ok: false, error: "Brak wymaganych pól: userMaturaId, openTaskId." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!answer.trim()) {
       return NextResponse.json(
         { ok: false, error: "Odpowiedź nie może być pusta." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { ok: false, error: "User not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
     if (!userMatura || userMatura.userId !== user.id) {
       return NextResponse.json(
         { ok: false, error: "Brak dostępu." },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     if (!task) {
       return NextResponse.json(
         { ok: false, error: "Nie znaleziono zadania open." },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -167,7 +167,6 @@ export async function POST(req: NextRequest) {
       input,
       store: false,
 
-      // ✅ RAG: w Twojej wersji SDK vector_store_ids musi być w tools
       tools: vectorStoreId
         ? [{ type: "file_search", vector_store_ids: [vectorStoreId] }]
         : undefined,
@@ -223,7 +222,7 @@ export async function POST(req: NextRequest) {
     } catch {
       return NextResponse.json(
         { ok: false, error: "AI zwróciło niepoprawny JSON." },
-        { status: 502 }
+        { status: 502 },
       );
     }
 
@@ -245,7 +244,7 @@ export async function POST(req: NextRequest) {
       })),
     };
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       await tx.userOpenAnswer.update({
         where: { id: userOpenAnswer.id },
         data: {
@@ -268,8 +267,8 @@ export async function POST(req: NextRequest) {
       });
 
       const closedSum = closedCorrect.reduce(
-        (acc, x) => acc + (x.closedTask?.points ?? 0),
-        0
+        (acc: number, x: any) => acc + (x.closedTask?.points ?? 0),
+        0,
       );
 
       const earnedPoints = openSum + closedSum;

@@ -1,4 +1,4 @@
-import prisma from "../lib/prisma";
+import prisma from "@/lib/prisma";
 
 // 👉 TU WPISZ ID SWOICH ZADAŃ WZORCOWYCH
 const CLOSED_TASK_ID = "cmkfni57w0001w1c8uvd0msez";

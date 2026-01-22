@@ -32,13 +32,13 @@ export async function GET(_req: NextRequest) {
             name: true,
             createdAt: true,
             closedTasks: { select: { points: true } },
-            openTasks: { select: { maxPoints: true } }, 
+            openTasks: { select: { maxPoints: true } },
           },
         },
       },
     });
 
-    const maturas = userMaturas.map((userMatura) => {
+    const maturas = userMaturas.map((userMatura: any) => {
       const closedTasks = userMatura.matura.closedTasks;
       const openTasks = userMatura.matura.openTasks;
 
@@ -50,7 +50,7 @@ export async function GET(_req: NextRequest) {
       }
 
       for (const task of openTasks) {
-        openMaxPoints += task.maxPoints ?? 0; // ✅ tu zmiana
+        openMaxPoints += task.maxPoints ?? 0;
       }
 
       return {
@@ -68,7 +68,7 @@ export async function GET(_req: NextRequest) {
     console.error("GET USER MATURAS ERROR:", e);
     return NextResponse.json(
       { error: "Internal server error", details: e?.message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

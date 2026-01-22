@@ -7,7 +7,7 @@ const OPEN_TASK_TARGET = 5;
 
 function pickRandom<T extends { id: string }>(
   items: T[],
-  count: number
+  count: number,
 ): string[] {
   const arr = [...items];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     if (!name || typeof name !== "string") {
       return NextResponse.json(
         { error: "Pole 'name' jest wymagane." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       ) {
         const ids = pickRandom(
           singleSubsection.closedTasks,
-          singleSubsection.closedTasksToShuffle
+          singleSubsection.closedTasksToShuffle,
         );
         selectedClosedTaskIds.push(...ids);
       }
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
       ) {
         const ids = pickRandom(
           singleSubsection.openTasks,
-          singleSubsection.openTasksToShuffle
+          singleSubsection.openTasksToShuffle,
         );
         selectedOpenTaskIds.push(...ids);
       }
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
 
     const closedTasksNeeded = Math.max(
       CLOSED_TASK_TARGET - selectedClosedTaskIds.length,
-      0
+      0,
     );
 
     if (closedTasksNeeded > 0) {
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
 
     const openTasksNeeded = Math.max(
       OPEN_TASK_TARGET - selectedOpenTaskIds.length,
-      0
+      0,
     );
 
     if (openTasksNeeded > 0) {
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
       selectedOpenTaskIds.push(...extraOpenIds);
     }
 
-    const fullMatura = await prisma.$transaction(async (tx) => {
+    const fullMatura = await prisma.$transaction(async (tx: any) => {
       const matura = await tx.matura.create({
         data: {
           name,
@@ -156,7 +156,7 @@ export async function POST(req: NextRequest) {
     console.error("Error generating matura:", error);
     return NextResponse.json(
       { error: "Internal server error", details: error?.message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
