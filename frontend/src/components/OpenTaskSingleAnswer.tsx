@@ -2,12 +2,20 @@
 
 import React, { useMemo, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  PracticeOpenTaskButton,
+  type GeneratedOpenTask,
+} from "@/components/PracticeOpenTaskButton";
+
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 export type OpenTask = {
   id: string;
   name: string;
   content: string;
-
   maxPoints: number;
   rubric: string;
   referenceAnswer?: string | null;
@@ -36,6 +44,18 @@ type SaveOpenAnswerResponse = {
   error?: string;
 };
 
+type PracticeGradeJSON = {
+  awardedPoints: number;
+  feedback: string;
+  justification: string;
+  criteriaBreakdown: Array<{
+    criterion: string;
+    points: number;
+    maxPoints: number;
+    note: string;
+  }>;
+};
+
 type Props = {
   openTasks: OpenTask[];
   userMaturaId: string;
@@ -43,6 +63,50 @@ type Props = {
   setOpenAnswers: React.Dispatch<React.SetStateAction<OpenAnswerDTO[]>>;
   onPointsUpdate: (earned: number) => void;
 };
+
+/**
+ * Fix DELTA:
+ * - AI potrafi zwrócić "\Delta" luzem (bez $...$) -> w UI widać "\Delta"
+ * - Najpewniejsze: wszędzie zamieniamy \Delta / \\Delta -> znak "Δ"
+ */
+function normalizeMath(text: string) {
+  if (!text) return "";
+  let t = text;
+
+  // 1) DELTA jako ZNAK (twardo)
+  t = t.replace(/\\\\Delta/g, "Δ");
+  t = t.replace(/\\Delta/g, "Δ");
+
+  // 2) słowa "delta/delte..." -> znak Δ
+  t = t.replace(/\b(delta|delte|deltę|delty|delcie)\b/gi, "Δ");
+
+  // 3) napraw escaped delimiters jeśli AI je podwoi
+  t = t
+    .replace(/\\\\\(/g, "\\(")
+    .replace(/\\\\\)/g, "\\)")
+    .replace(/\\\\\[/g, "\\[")
+    .replace(/\\\\\]/g, "\\]");
+
+  // 4) zamień \(...\) i \[...\] na markdown $ / $$
+  t = t
+    .replace(/\\\(/g, "$")
+    .replace(/\\\)/g, "$")
+    .replace(/\\\[/g, "$$")
+    .replace(/\\\]/g, "$$");
+
+  return t;
+}
+
+function MathRender({ text }: { text: string }) {
+  const normalized = normalizeMath(text);
+  return (
+    <div className="prose prose-invert max-w-none">
+      <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+        {normalized}
+      </ReactMarkdown>
+    </div>
+  );
+}
 
 function insertAtCursor(
   textarea: HTMLTextAreaElement | null,
@@ -102,7 +166,6 @@ function MathToolbar({ onInsert }: { onInsert: (text: string) => void }) {
       <button type="button" className={btn} onClick={() => onInsert("≥")}>
         ≥
       </button>
-
       <button type="button" className={btn} onClick={() => onInsert("1/2")}>
         1/2
       </button>
@@ -117,7 +180,6 @@ function MathToolbar({ onInsert }: { onInsert: (text: string) => void }) {
       >
         \frac
       </button>
-
       <button type="button" className={btn} onClick={() => onInsert("sin()")}>
         sin
       </button>
@@ -127,7 +189,6 @@ function MathToolbar({ onInsert }: { onInsert: (text: string) => void }) {
       <button type="button" className={btn} onClick={() => onInsert("tan()")}>
         tan
       </button>
-
       <button type="button" className={btn} onClick={() => onInsert("→")}>
         →
       </button>
@@ -146,6 +207,18 @@ export function OpenTasksSingleAnswer({
   onPointsUpdate,
 }: Props) {
   const [savingTaskId, setSavingTaskId] = useState<string | null>(null);
+
+  const [practiceMap, setPracticeMap] = useState<
+    Record<string, GeneratedOpenTask | null>
+  >({});
+
+  // wynik “Sprawdź (ćwiczenia)” per taskId
+  const [practiceGradeMap, setPracticeGradeMap] = useState<
+    Record<string, PracticeGradeJSON | null>
+  >({});
+  const [gradingPracticeId, setGradingPracticeId] = useState<string | null>(
+    null
+  );
 
   const answersMap = useMemo(() => {
     const map = new Map<string, OpenAnswerDTO>();
@@ -172,10 +245,16 @@ export function OpenTasksSingleAnswer({
     return typeof saved?.answer === "string" && saved.answer.trim().length > 0;
   }
 
-  function cardClass(openTaskId: string, maxPoints: number) {
-    const s = getOpenAnswer(openTaskId);
+  // tryb ćwiczeń zawsze neutralny kolor
+  function cardClass(
+    openTaskId: string,
+    maxPoints: number,
+    isPractice: boolean
+  ) {
     const base = "rounded-lg border p-4 bg-[rgba(11,27,43,0.25)]";
+    if (isPractice) return `${base} border-[#2C3B55]`;
 
+    const s = getOpenAnswer(openTaskId);
     if (!s || s.awardedPoints == null) return `${base} border-[#2C3B55]`;
 
     if (s.awardedPoints >= maxPoints)
@@ -192,12 +271,10 @@ export function OpenTasksSingleAnswer({
     setOpenAnswers((prev) => {
       const next = [...prev];
       const idx = next.findIndex((x) => x.openTaskId === openTaskId);
-
       if (idx === -1) {
         next.push({ openTaskId, ...update });
         return next;
       }
-
       next[idx] = { ...next[idx], ...update };
       return next;
     });
@@ -239,7 +316,6 @@ export function OpenTasksSingleAnswer({
           upsertOpenAnswer(openTaskId, { answer: text });
           return;
         }
-
         toast.error(data.error ?? "Błąd zapisu odpowiedzi");
         return;
       }
@@ -265,35 +341,159 @@ export function OpenTasksSingleAnswer({
     }
   }
 
+  async function gradePractice(taskId: string, practice: GeneratedOpenTask) {
+    const ans = draft[taskId] ?? "";
+    if (!ans.trim()) {
+      toast.info("Wpisz odpowiedź do zadania ćwiczeniowego.");
+      return;
+    }
+
+    setGradingPracticeId(taskId);
+    try {
+      const res = await fetch("/api/practice/open/grade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          generatedTask: {
+            name: practice.name,
+            content: practice.content,
+            rubric: practice.rubric,
+            referenceAnswer: practice.referenceAnswer,
+            maxPoints: practice.maxPoints,
+          },
+          answer: ans,
+        }),
+      });
+
+      const data = (await res.json()) as
+        | { ok: true; grade: PracticeGradeJSON }
+        | { ok: false; error: string };
+
+      if (!res.ok || !data.ok) {
+        toast.error(!data.ok ? data.error : "Błąd sprawdzania.");
+        return;
+      }
+
+      setPracticeGradeMap((prev) => ({ ...prev, [taskId]: data.grade }));
+      toast.success("Sprawdzono ✅ (bez zapisu)");
+    } catch {
+      toast.error("Błąd sprawdzania (ćwiczenia)");
+    } finally {
+      setGradingPracticeId(null);
+    }
+  }
+
   return (
     <section className="space-y-5">
       {openTasks.map((task, idx) => {
         const saved = getOpenAnswer(task.id);
         const locked = isLocked(task.id);
-        const disabled = savingTaskId === task.id || locked;
+
+        const practice = practiceMap[task.id] ?? null;
+        const isPractice = !!practice;
+
+        const displayName = practice?.name ?? task.name;
+        const displayContent = practice?.content ?? task.content;
+        const displayMaxPoints = practice?.maxPoints ?? task.maxPoints;
+
+        // w ćwiczeniach ZAWSZE można pisać
+        const textareaDisabled =
+          savingTaskId === task.id || (!isPractice && locked);
+
+        // klasa textarea zależnie od trybu (fix zielonego tekstu)
+        const textareaClass = isPractice
+          ? "mt-3 w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#E9EEF7] placeholder:text-[#B8C4D8] outline-none focus:border-[#7CF9C2] focus:ring-0 disabled:opacity-70"
+          : "mt-3 w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#7CF9C2] placeholder:text-[#B8FFE2] outline-none focus:border-[#7CF9C2] focus:ring-0 disabled:opacity-70";
+
+        const practiceGrade = practiceGradeMap[task.id] ?? null;
 
         return (
           <div key={task.id} className="border border-[#2C3B55] rounded-xl p-5">
             <p className="text-sm opacity-70 mb-2">Zadanie otwarte {idx + 1}</p>
-            <div className="text-lg font-semibold mb-2">{task.name}</div>
-            <div className="mb-4 whitespace-pre-wrap">{task.content}</div>
 
-            <div className={cardClass(task.id, task.maxPoints)}>
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <div className="text-lg font-semibold">{displayName}</div>
+
+              <div className="flex items-center gap-2">
+                {/* generowanie tylko gdy oryginał rozwiązany */}
+                {locked && (
+                  <PracticeOpenTaskButton
+                    openTaskId={task.id}
+                    disabled={savingTaskId === task.id}
+                    onGenerated={(gen) => {
+                      setPracticeMap((prev) => ({ ...prev, [task.id]: gen }));
+                      setDraft((prev) => ({ ...prev, [task.id]: "" }));
+                      setPracticeGradeMap((prev) => ({
+                        ...prev,
+                        [task.id]: null,
+                      }));
+                    }}
+                  />
+                )}
+
+                {practice && (
+                  <button
+                    type="button"
+                    disabled={savingTaskId === task.id}
+                    onClick={() => {
+                      // ✅ wyłącz tryb ćwiczeń
+                      setPracticeMap((prev) => ({ ...prev, [task.id]: null }));
+
+                      // ✅ KLUCZOWA POPRAWKA:
+                      // przywróć draft do zapisanej odpowiedzi z bazy (oryginał)
+                      const originalAnswer = String(saved?.answer ?? "");
+                      setDraft((prev) => ({
+                        ...prev,
+                        [task.id]: originalAnswer,
+                      }));
+
+                      // wyczyść ocenę ćwiczeń
+                      setPracticeGradeMap((prev) => ({
+                        ...prev,
+                        [task.id]: null,
+                      }));
+
+                      toast.info("Przywrócono oryginalne zadanie.");
+                    }}
+                    className="inline-flex items-center justify-center rounded-lg border border-[#2C3B55] bg-[#081524] px-3 py-2 text-sm hover:border-[#7CF9C2] transition disabled:opacity-60"
+                    title="Wróć do wersji z bazy"
+                  >
+                    Wróć do oryginału
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <MathRender text={displayContent} />
+            </div>
+
+            <div className={cardClass(task.id, displayMaxPoints, isPractice)}>
               <div className="flex items-center justify-between gap-3">
                 <div className="font-semibold">
-                  Odpowiedź ucznia{" "}
+                  Odpowiedź{" "}
                   <span className="opacity-70 font-normal">
-                    (max {task.maxPoints} pkt)
+                    (max {displayMaxPoints} pkt)
                   </span>
                 </div>
 
-                {saved?.awardedPoints != null && (
+                {!isPractice && saved?.awardedPoints != null && (
                   <div className="text-sm opacity-80">
                     Przyznano:{" "}
                     <span className="text-[#7CF9C2] font-semibold">
                       {saved.awardedPoints}
                     </span>
-                    /{task.maxPoints}
+                    /{displayMaxPoints}
+                  </div>
+                )}
+
+                {isPractice && practiceGrade && (
+                  <div className="text-sm opacity-80">
+                    Wynik ćwiczeń:{" "}
+                    <span className="text-[#7CF9C2] font-semibold">
+                      {practiceGrade.awardedPoints}
+                    </span>
+                    /{displayMaxPoints}
                   </div>
                 )}
               </div>
@@ -306,9 +506,8 @@ export function OpenTasksSingleAnswer({
                     insertAtCursor(
                       el,
                       txt,
-                      (next) => {
-                        setDraft((prev) => ({ ...prev, [task.id]: next }));
-                      },
+                      (next) =>
+                        setDraft((prev) => ({ ...prev, [task.id]: next })),
                       current
                     );
                   }}
@@ -327,26 +526,39 @@ export function OpenTasksSingleAnswer({
                   }))
                 }
                 rows={6}
-                className="mt-3 w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#7CF9C2] placeholder:text-[#B8FFE2] outline-none focus:border-[#7CF9C2] focus:ring-0 disabled:opacity-70"
-                placeholder="Wpisz odpowiedź… (możesz używać przycisków: √, ułamki, ∠, ° itd.)"
-                disabled={disabled}
+                className={textareaClass}
+                placeholder={"Wpisz odpowiedź…"}
+                disabled={textareaDisabled}
               />
 
               <div className="mt-3 flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  onClick={() => saveOpenAnswer(task.id, task.maxPoints)}
-                  disabled={disabled}
-                  className="inline-flex items-center justify-center rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] hover:brightness-95 transition disabled:opacity-60"
-                >
-                  {locked
-                    ? "Odpowiedź zapisana"
-                    : savingTaskId === task.id
-                    ? "Zapisywanie..."
-                    : "Zapisz odpowiedź"}
-                </button>
+                {!isPractice ? (
+                  <button
+                    type="button"
+                    onClick={() => saveOpenAnswer(task.id, displayMaxPoints)}
+                    disabled={savingTaskId === task.id || locked}
+                    className="inline-flex items-center justify-center rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] hover:brightness-95 transition disabled:opacity-60"
+                  >
+                    {locked
+                      ? "Odpowiedź zapisana"
+                      : savingTaskId === task.id
+                      ? "Zapisywanie..."
+                      : "Zapisz odpowiedź"}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!practice || gradingPracticeId === task.id}
+                    onClick={() => practice && gradePractice(task.id, practice)}
+                    className="inline-flex items-center justify-center rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] hover:brightness-95 transition disabled:opacity-60"
+                  >
+                    {gradingPracticeId === task.id
+                      ? "Sprawdzam..."
+                      : "Sprawdź (ćwiczenia)"}
+                  </button>
+                )}
 
-                {saved?.feedback && (
+                {!isPractice && saved?.feedback && (
                   <div className="text-sm opacity-80">
                     Feedback:{" "}
                     <span className="opacity-90">{saved.feedback}</span>
@@ -354,12 +566,31 @@ export function OpenTasksSingleAnswer({
                 )}
               </div>
 
-              {/* opcjonalnie: pokaż surowy gradingJson */}
-              {/* {saved?.gradingJson && (
-                <pre className="mt-3 text-xs opacity-70 whitespace-pre-wrap">
-                  {saved.gradingJson}
-                </pre>
-              )} */}
+              {isPractice && practiceGrade && (
+                <div className="mt-3 rounded-lg border border-[#2C3B55] bg-[#081524] p-3 text-sm">
+                  <div className="opacity-90">
+                    <span className="font-semibold">Feedback:</span>{" "}
+                    {practiceGrade.feedback}
+                  </div>
+                  {practiceGrade.justification && (
+                    <div className="opacity-80 mt-2">
+                      <span className="font-semibold">Uzasadnienie:</span>{" "}
+                      {practiceGrade.justification}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {practice && (
+                <details className="mt-4 text-sm opacity-90">
+                  <summary className="cursor-pointer opacity-80 hover:opacity-100">
+                    Pokaż odpowiedź wzorcową (ćwiczenia)
+                  </summary>
+                  <div className="mt-2">
+                    <MathRender text={practice.referenceAnswer ?? ""} />
+                  </div>
+                </details>
+              )}
             </div>
           </div>
         );
