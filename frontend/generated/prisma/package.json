@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "prisma-client-7f9a791f624a7407b21a0d3288d92daf276256431d6df453a87e56e803ff4f1c",
+=======
+  "name": "prisma-client-3d50e543f108d0852736ee382a62bc84a5463d6f5d97dbc860f6bd9d63a97655",
+>>>>>>> video-and-settings
   "main": "index.js",
   "types": "index.d.ts",
   "browser": "default.js",

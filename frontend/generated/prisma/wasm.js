@@ -102,7 +102,8 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.VideoScalarFieldEnum = {
   id: 'id',
-  url: 'url'
+  url: 'url',
+  description: 'description'
 };
 
 exports.Prisma.QuestionScalarFieldEnum = {
@@ -111,13 +112,19 @@ exports.Prisma.QuestionScalarFieldEnum = {
   text: 'text',
   videoId: 'videoId',
   time: 'time',
-  userId: 'userId'
+  userId: 'userId',
+  isPublic: 'isPublic',
+  userName: 'userName',
+  lastName: 'lastName'
 };
 
 exports.Prisma.AnswerScalarFieldEnum = {
   id: 'id',
   text: 'text',
-  questionId: 'questionId'
+  questionId: 'questionId',
+  userId: 'userId',
+  userName: 'userName',
+  lastName: 'lastName'
 };
 
 exports.Prisma.AlltasksScalarFieldEnum = {
