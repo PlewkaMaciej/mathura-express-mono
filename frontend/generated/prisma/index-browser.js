@@ -21,12 +21,21 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
+<<<<<<< HEAD
  * Prisma Client JS version: 6.19.0
  * Query Engine version: 2ba551f319ab1df4bc874a89965d8b3641056773
  */
 Prisma.prismaVersion = {
   client: "6.19.0",
   engine: "2ba551f319ab1df4bc874a89965d8b3641056773"
+=======
+ * Prisma Client JS version: 6.17.1
+ * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ */
+Prisma.prismaVersion = {
+  client: "6.17.1",
+  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+>>>>>>> generator
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -171,7 +180,9 @@ exports.Prisma.OpenTasksScalarFieldEnum = {
   id: 'id',
   name: 'name',
   content: 'content',
-  answer: 'answer',
+  rubric: 'rubric',
+  referenceAnswer: 'referenceAnswer',
+  maxPoints: 'maxPoints',
   subSectionId: 'subSectionId',
   openTaskId: 'openTaskId'
 };
@@ -181,6 +192,7 @@ exports.Prisma.ClosedTasksScalarFieldEnum = {
   name: 'name',
   content: 'content',
   correctAnswer: 'correctAnswer',
+  points: 'points',
   subSectionId: 'subSectionId'
 };
 
@@ -191,6 +203,44 @@ exports.Prisma.AnswersScalarFieldEnum = {
   C: 'C',
   D: 'D',
   closedTaskId: 'closedTaskId'
+};
+
+exports.Prisma.MaturaScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserMaturaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  maturaId: 'maturaId',
+  status: 'status',
+  earnedPoints: 'earnedPoints',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserClosedAnswerScalarFieldEnum = {
+  id: 'id',
+  userMaturaId: 'userMaturaId',
+  closedTaskId: 'closedTaskId',
+  answer: 'answer',
+  isCorrect: 'isCorrect',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserOpenAnswerScalarFieldEnum = {
+  id: 'id',
+  userMaturaId: 'userMaturaId',
+  openTaskId: 'openTaskId',
+  answer: 'answer',
+  awardedPoints: 'awardedPoints',
+  feedback: 'feedback',
+  gradingJson: 'gradingJson',
+  gradedAt: 'gradedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -214,7 +264,11 @@ exports.Prisma.ModelName = {
   SubSection: 'SubSection',
   OpenTasks: 'OpenTasks',
   ClosedTasks: 'ClosedTasks',
-  Answers: 'Answers'
+  Answers: 'Answers',
+  Matura: 'Matura',
+  UserMatura: 'UserMatura',
+  UserClosedAnswer: 'UserClosedAnswer',
+  UserOpenAnswer: 'UserOpenAnswer'
 };
 
 /**

@@ -36,12 +36,21 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
+<<<<<<< HEAD
  * Prisma Client JS version: 6.19.0
  * Query Engine version: 2ba551f319ab1df4bc874a89965d8b3641056773
  */
 Prisma.prismaVersion = {
   client: "6.19.0",
   engine: "2ba551f319ab1df4bc874a89965d8b3641056773"
+=======
+ * Prisma Client JS version: 6.17.1
+ * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ */
+Prisma.prismaVersion = {
+  client: "6.17.1",
+  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+>>>>>>> generator
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -143,7 +152,9 @@ exports.Prisma.OpenTasksScalarFieldEnum = {
   id: 'id',
   name: 'name',
   content: 'content',
-  answer: 'answer',
+  rubric: 'rubric',
+  referenceAnswer: 'referenceAnswer',
+  maxPoints: 'maxPoints',
   subSectionId: 'subSectionId',
   openTaskId: 'openTaskId'
 };
@@ -153,6 +164,7 @@ exports.Prisma.ClosedTasksScalarFieldEnum = {
   name: 'name',
   content: 'content',
   correctAnswer: 'correctAnswer',
+  points: 'points',
   subSectionId: 'subSectionId'
 };
 
@@ -163,6 +175,44 @@ exports.Prisma.AnswersScalarFieldEnum = {
   C: 'C',
   D: 'D',
   closedTaskId: 'closedTaskId'
+};
+
+exports.Prisma.MaturaScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserMaturaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  maturaId: 'maturaId',
+  status: 'status',
+  earnedPoints: 'earnedPoints',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserClosedAnswerScalarFieldEnum = {
+  id: 'id',
+  userMaturaId: 'userMaturaId',
+  closedTaskId: 'closedTaskId',
+  answer: 'answer',
+  isCorrect: 'isCorrect',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserOpenAnswerScalarFieldEnum = {
+  id: 'id',
+  userMaturaId: 'userMaturaId',
+  openTaskId: 'openTaskId',
+  answer: 'answer',
+  awardedPoints: 'awardedPoints',
+  feedback: 'feedback',
+  gradingJson: 'gradingJson',
+  gradedAt: 'gradedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -186,7 +236,11 @@ exports.Prisma.ModelName = {
   SubSection: 'SubSection',
   OpenTasks: 'OpenTasks',
   ClosedTasks: 'ClosedTasks',
-  Answers: 'Answers'
+  Answers: 'Answers',
+  Matura: 'Matura',
+  UserMatura: 'UserMatura',
+  UserClosedAnswer: 'UserClosedAnswer',
+  UserOpenAnswer: 'UserOpenAnswer'
 };
 /**
  * Create the Client
@@ -220,8 +274,13 @@ const config = {
     "rootEnvPath": null
   },
   "relativePath": "../../prisma",
+<<<<<<< HEAD
   "clientVersion": "6.19.0",
   "engineVersion": "2ba551f319ab1df4bc874a89965d8b3641056773",
+=======
+  "clientVersion": "6.17.1",
+  "engineVersion": "272a37d34178c2894197e17273bf937f25acdeac",
+>>>>>>> generator
   "datasourceNames": [
     "db"
   ],
@@ -235,13 +294,22 @@ const config = {
       }
     }
   },
+<<<<<<< HEAD
   "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id         String     @id @default(cuid())\n  clerkId    String     @unique\n  firstName  String?\n  lastName   String?\n  email      String     @unique\n  createDate DateTime   @default(now())\n  updateDate DateTime   @updatedAt\n  questions  Question[]\n}\n\nmodel Video {\n  id        Int        @id @default(autoincrement())\n  url       String\n  questions Question[] @relation(\"VideoQuestions\")\n}\n\nmodel Question {\n  id      Int      @id @default(autoincrement())\n  title   String\n  text    String\n  answers Answer[] @relation(\"QuestionAnswers\")\n  videoId Int\n  video   Video    @relation(\"VideoQuestions\", fields: [videoId], references: [id])\n  time    Int\n  userId  String\n  user    User     @relation(fields: [userId], references: [id])\n}\n\nmodel Answer {\n  id         Int      @id @default(autoincrement())\n  text       String\n  questionId Int\n  question   Question @relation(\"QuestionAnswers\", fields: [questionId], references: [id])\n}\n\nmodel Alltasks {\n  id       String    @id @default(cuid())\n  sections Section[]\n}\n\nmodel Section {\n  id          String       @id @default(cuid())\n  name        String\n  alltasksId  String\n  alltasks    Alltasks     @relation(fields: [alltasksId], references: [id])\n  subsections SubSection[]\n}\n\nmodel SubSection {\n  id                   String        @id @default(cuid())\n  name                 String\n  sectionId            String\n  section              Section       @relation(fields: [sectionId], references: [id])\n  mustBeShuffle        Boolean\n  closedTasksToShuffle Int?\n  openTasksToShuffle   Int?\n  openTasks            OpenTasks[]\n  closedTasks          ClosedTasks[]\n}\n\nmodel OpenTasks {\n  id           String     @id @default(cuid())\n  name         String\n  content      String\n  answer       Int\n  subSectionId String\n  subSection   SubSection @relation(fields: [subSectionId], references: [id])\n  openTaskId   String?\n}\n\nmodel ClosedTasks {\n  id            String     @id @default(cuid())\n  name          String\n  content       String\n  answers       Answers[]\n  correctAnswer String\n  subSectionId  String\n  subSection    SubSection @relation(fields: [subSectionId], references: [id])\n}\n\nmodel Answers {\n  id           String      @id @default(cuid())\n  A            String\n  B            String\n  C            String\n  D            String\n  closedTaskId String\n  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id])\n}\n",
   "inlineSchemaHash": "5f6876376dc664f96a162169b3c96279c09948021a5ea73e74a739ddb890023b",
+=======
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id         String   @id @default(cuid())\n  clerkId    String   @unique\n  firstName  String?\n  lastName   String?\n  email      String   @unique\n  createDate DateTime @default(now())\n  updateDate DateTime @updatedAt\n\n  userMaturas UserMatura[]\n}\n\nmodel Alltasks {\n  id       String    @id @default(cuid())\n  sections Section[]\n}\n\nmodel Section {\n  id          String       @id @default(cuid())\n  name        String\n  alltasksId  String\n  alltasks    Alltasks     @relation(fields: [alltasksId], references: [id], onDelete: Cascade)\n  subsections SubSection[]\n}\n\nmodel SubSection {\n  id                   String        @id @default(cuid())\n  name                 String\n  sectionId            String\n  section              Section       @relation(fields: [sectionId], references: [id], onDelete: Cascade)\n  mustBeShuffle        Boolean\n  closedTasksToShuffle Int?\n  openTasksToShuffle   Int?\n  openTasks            OpenTasks[]\n  closedTasks          ClosedTasks[]\n}\n\nmodel OpenTasks {\n  id              String  @id @default(cuid())\n  name            String\n  content         String\n  rubric          String\n  referenceAnswer String?\n  maxPoints       Int     @default(2)\n\n  subSectionId String\n  subSection   SubSection @relation(fields: [subSectionId], references: [id], onDelete: Cascade)\n  openTaskId   String?\n\n  maturas     Matura[]\n  userAnswers UserOpenAnswer[]\n\n  @@index([subSectionId])\n}\n\nmodel ClosedTasks {\n  id            String             @id @default(cuid())\n  name          String\n  content       String\n  answers       Answers[]\n  correctAnswer String\n  points        Int                @default(1)\n  subSectionId  String\n  subSection    SubSection         @relation(fields: [subSectionId], references: [id], onDelete: Cascade)\n  maturas       Matura[]\n  userAnswers   UserClosedAnswer[]\n}\n\nmodel Answers {\n  id           String      @id @default(cuid())\n  A            String\n  B            String\n  C            String\n  D            String\n  closedTaskId String\n  closedTask   ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)\n}\n\nmodel Matura {\n  id          String        @id @default(cuid())\n  name        String\n  createdAt   DateTime      @default(now())\n  closedTasks ClosedTasks[]\n  openTasks   OpenTasks[]\n  userMaturas UserMatura[]\n}\n\nmodel UserMatura {\n  id           String   @id @default(cuid())\n  userId       String\n  maturaId     String\n  status       Boolean  @default(false)\n  earnedPoints Int      @default(0)\n  createdAt    DateTime @default(now())\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  matura Matura @relation(fields: [maturaId], references: [id], onDelete: Cascade)\n\n  closedAnswers UserClosedAnswer[]\n  openAnswers   UserOpenAnswer[]\n\n  @@unique([userId, maturaId])\n}\n\nmodel UserClosedAnswer {\n  id           String   @id @default(cuid())\n  userMaturaId String\n  closedTaskId String\n  answer       String?\n  isCorrect    Boolean?\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  userMatura UserMatura  @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)\n  closedTask ClosedTasks @relation(fields: [closedTaskId], references: [id], onDelete: Cascade)\n\n  @@unique([userMaturaId, closedTaskId])\n  @@index([closedTaskId])\n}\n\nmodel UserOpenAnswer {\n  id            String    @id @default(cuid())\n  userMaturaId  String\n  openTaskId    String\n  answer        String?\n  awardedPoints Int?\n  feedback      String?\n  gradingJson   String?\n  gradedAt      DateTime?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  userMatura UserMatura @relation(fields: [userMaturaId], references: [id], onDelete: Cascade)\n  openTask   OpenTasks  @relation(fields: [openTaskId], references: [id], onDelete: Cascade)\n\n  @@unique([userMaturaId, openTaskId])\n  @@index([openTaskId])\n  @@index([userMaturaId])\n}\n",
+  "inlineSchemaHash": "e218fb4685669513cb86223757717f1e0a6cfed2c6e921d7facbe63407086ce6",
+>>>>>>> generator
   "copyEngine": true
 }
 config.dirname = '/'
 
+<<<<<<< HEAD
 config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"clerkId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updateDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"questions\",\"kind\":\"object\",\"type\":\"Question\",\"relationName\":\"QuestionToUser\"}],\"dbName\":null},\"Video\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"questions\",\"kind\":\"object\",\"type\":\"Question\",\"relationName\":\"VideoQuestions\"}],\"dbName\":null},\"Question\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answers\",\"kind\":\"object\",\"type\":\"Answer\",\"relationName\":\"QuestionAnswers\"},{\"name\":\"videoId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"video\",\"kind\":\"object\",\"type\":\"Video\",\"relationName\":\"VideoQuestions\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"QuestionToUser\"}],\"dbName\":null},\"Answer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"questionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"question\",\"kind\":\"object\",\"type\":\"Question\",\"relationName\":\"QuestionAnswers\"}],\"dbName\":null},\"Alltasks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"AlltasksToSection\"}],\"dbName\":null},\"Section\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"alltasksId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"alltasks\",\"kind\":\"object\",\"type\":\"Alltasks\",\"relationName\":\"AlltasksToSection\"},{\"name\":\"subsections\",\"kind\":\"object\",\"type\":\"SubSection\",\"relationName\":\"SectionToSubSection\"}],\"dbName\":null},\"SubSection\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToSubSection\"},{\"name\":\"mustBeShuffle\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"closedTasksToShuffle\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"openTasksToShuffle\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"openTasks\",\"kind\":\"object\",\"type\":\"OpenTasks\",\"relationName\":\"OpenTasksToSubSection\"},{\"name\":\"closedTasks\",\"kind\":\"object\",\"type\":\"ClosedTasks\",\"relationName\":\"ClosedTasksToSubSection\"}],\"dbName\":null},\"OpenTasks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answer\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"subSectionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subSection\",\"kind\":\"object\",\"type\":\"SubSection\",\"relationName\":\"OpenTasksToSubSection\"},{\"name\":\"openTaskId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"ClosedTasks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answers\",\"kind\":\"object\",\"type\":\"Answers\",\"relationName\":\"AnswersToClosedTasks\"},{\"name\":\"correctAnswer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subSectionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subSection\",\"kind\":\"object\",\"type\":\"SubSection\",\"relationName\":\"ClosedTasksToSubSection\"}],\"dbName\":null},\"Answers\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"A\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"B\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"C\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"D\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"closedTaskId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"closedTask\",\"kind\":\"object\",\"type\":\"ClosedTasks\",\"relationName\":\"AnswersToClosedTasks\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+=======
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"clerkId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updateDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userMaturas\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"UserToUserMatura\"}],\"dbName\":null},\"Alltasks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"AlltasksToSection\"}],\"dbName\":null},\"Section\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"alltasksId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"alltasks\",\"kind\":\"object\",\"type\":\"Alltasks\",\"relationName\":\"AlltasksToSection\"},{\"name\":\"subsections\",\"kind\":\"object\",\"type\":\"SubSection\",\"relationName\":\"SectionToSubSection\"}],\"dbName\":null},\"SubSection\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToSubSection\"},{\"name\":\"mustBeShuffle\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"closedTasksToShuffle\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"openTasksToShuffle\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"openTasks\",\"kind\":\"object\",\"type\":\"OpenTasks\",\"relationName\":\"OpenTasksToSubSection\"},{\"name\":\"closedTasks\",\"kind\":\"object\",\"type\":\"ClosedTasks\",\"relationName\":\"ClosedTasksToSubSection\"}],\"dbName\":null},\"OpenTasks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rubric\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"referenceAnswer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"maxPoints\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"subSectionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subSection\",\"kind\":\"object\",\"type\":\"SubSection\",\"relationName\":\"OpenTasksToSubSection\"},{\"name\":\"openTaskId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"maturas\",\"kind\":\"object\",\"type\":\"Matura\",\"relationName\":\"MaturaToOpenTasks\"},{\"name\":\"userAnswers\",\"kind\":\"object\",\"type\":\"UserOpenAnswer\",\"relationName\":\"OpenTasksToUserOpenAnswer\"}],\"dbName\":null},\"ClosedTasks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answers\",\"kind\":\"object\",\"type\":\"Answers\",\"relationName\":\"AnswersToClosedTasks\"},{\"name\":\"correctAnswer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"points\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"subSectionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subSection\",\"kind\":\"object\",\"type\":\"SubSection\",\"relationName\":\"ClosedTasksToSubSection\"},{\"name\":\"maturas\",\"kind\":\"object\",\"type\":\"Matura\",\"relationName\":\"ClosedTasksToMatura\"},{\"name\":\"userAnswers\",\"kind\":\"object\",\"type\":\"UserClosedAnswer\",\"relationName\":\"ClosedTasksToUserClosedAnswer\"}],\"dbName\":null},\"Answers\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"A\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"B\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"C\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"D\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"closedTaskId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"closedTask\",\"kind\":\"object\",\"type\":\"ClosedTasks\",\"relationName\":\"AnswersToClosedTasks\"}],\"dbName\":null},\"Matura\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"closedTasks\",\"kind\":\"object\",\"type\":\"ClosedTasks\",\"relationName\":\"ClosedTasksToMatura\"},{\"name\":\"openTasks\",\"kind\":\"object\",\"type\":\"OpenTasks\",\"relationName\":\"MaturaToOpenTasks\"},{\"name\":\"userMaturas\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"MaturaToUserMatura\"}],\"dbName\":null},\"UserMatura\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"maturaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"earnedPoints\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserMatura\"},{\"name\":\"matura\",\"kind\":\"object\",\"type\":\"Matura\",\"relationName\":\"MaturaToUserMatura\"},{\"name\":\"closedAnswers\",\"kind\":\"object\",\"type\":\"UserClosedAnswer\",\"relationName\":\"UserClosedAnswerToUserMatura\"},{\"name\":\"openAnswers\",\"kind\":\"object\",\"type\":\"UserOpenAnswer\",\"relationName\":\"UserMaturaToUserOpenAnswer\"}],\"dbName\":null},\"UserClosedAnswer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userMaturaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"closedTaskId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isCorrect\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userMatura\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"UserClosedAnswerToUserMatura\"},{\"name\":\"closedTask\",\"kind\":\"object\",\"type\":\"ClosedTasks\",\"relationName\":\"ClosedTasksToUserClosedAnswer\"}],\"dbName\":null},\"UserOpenAnswer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userMaturaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"openTaskId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"awardedPoints\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"feedback\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gradingJson\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gradedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userMatura\",\"kind\":\"object\",\"type\":\"UserMatura\",\"relationName\":\"UserMaturaToUserOpenAnswer\"},{\"name\":\"openTask\",\"kind\":\"object\",\"type\":\"OpenTasks\",\"relationName\":\"OpenTasksToUserOpenAnswer\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+>>>>>>> generator
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

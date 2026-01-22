@@ -6,7 +6,7 @@ import { useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 const NAV = [
   { href: "/library", label: "Biblioteka" },
-  { href: "/generator", label: "Generator" },
+  { href: "/generator", label: "Generator matur" },
   { href: "/pricing", label: "Cennik" },
   { href: "/sign-in", label: "Zaloguj" },
 ];

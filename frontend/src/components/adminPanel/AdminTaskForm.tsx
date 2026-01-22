@@ -3,15 +3,16 @@
 import { Formik, Form } from "formik";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import type { SectionType } from "@/types/sections-task-types";
+import type { SectionType, SubSectionType } from "@/types/sections-task-types";
 
 import { validationSchema } from "./validation";
 import { FormValues } from "./adminTaskFormTypes";
 import { NameContentFields } from "./NameContentFields";
 import { TaskSelectors } from "./TaskSelectors";
 import { AnswerFields } from "./AnswerFields";
+import { OpenTaskRubricFields } from "./OpenTaskRubricFields";
 import clsx from "clsx";
-import { SubSectionType } from "@/types/sections-task-types";
+
 export function AdminTaskForm() {
   const [sections, setSections] = useState<SectionType[]>([]);
 
@@ -30,16 +31,19 @@ export function AdminTaskForm() {
     taskType: "open",
     sectionId: "",
     subSectionId: "",
-    openAnswer: "",
+    rubric: "",
+    referenceAnswer: "",
+    maxPoints: 2,
     answerA: "",
     answerB: "",
     answerC: "",
     answerD: "",
     correctAnswer: "",
+    points: 1,
   };
 
   const input = clsx(
-    "w-full rounded-lg bg-[#0E1630] border border-[#FFF002] px-3 py-2.5 text-base text-[#FFF002] placeholder:text-[#A7B5DD] outline-none focus:border-[#7CF9C2] focus:ring-0"
+    "w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-base text-[#7CF9C2] placeholder:text-[#B8FFE2] outline-none focus:border-[#7CF9C2] focus:ring-0"
   );
 
   return (
@@ -54,6 +58,12 @@ export function AdminTaskForm() {
             body: JSON.stringify(values),
           });
 
+          if (!res.ok) {
+            const err = await res.json().catch(() => null);
+            toast.error(err?.error ?? "Nie udało się zapisać zadania");
+            return;
+          }
+
           toast.success("Zadanie zostało zapisane!");
           resetForm();
         } catch (e) {
@@ -65,9 +75,9 @@ export function AdminTaskForm() {
       {({ values, isSubmitting, setFieldValue }) => {
         let currentSubsections: SubSectionType[] = [];
 
-        const foundSection = sections.find((section) => {
-          return section.id === values.sectionId;
-        });
+        const foundSection = sections.find(
+          (section) => section.id === values.sectionId
+        );
 
         if (foundSection) {
           currentSubsections = foundSection.subsections;
@@ -86,6 +96,10 @@ export function AdminTaskForm() {
             />
 
             <AnswerFields values={values} input={input} />
+
+            {values.taskType === "open" && (
+              <OpenTaskRubricFields input={input} />
+            )}
 
             <button
               type="submit"
