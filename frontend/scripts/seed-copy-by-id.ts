@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 
 // 👉 TU WPISZ ID SWOICH ZADAŃ WZORCOWYCH
 const CLOSED_TASK_ID = "cmkpn7nkh0003w1bwiypnsy0p";
-const OPEN_TASK_ID = "cmkpn6lvv0001w1bw23xla9vg";
+const OPEN_TASK_ID = "cmku4iit40001w1bo65srmorf";
 
 async function main() {
   // 1️⃣ Pobierz zadania wzorcowe

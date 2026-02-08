@@ -2,12 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: { id: string } },
-) {
+type RouteContext = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export async function GET(_req: NextRequest, context: RouteContext) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
+
     const { userId: clerkId } = await auth();
 
     if (!clerkId) {
@@ -47,7 +51,6 @@ export async function GET(
       select: {
         id: true,
         earnedPoints: true,
-
         closedAnswers: {
           select: {
             closedTaskId: true,
@@ -55,7 +58,6 @@ export async function GET(
             isCorrect: true,
           },
         },
-
         openAnswers: {
           select: {
             openTaskId: true,
@@ -77,10 +79,9 @@ export async function GET(
     }
 
     return NextResponse.json({ matura, userMatura });
-  } catch (e: any) {
-    return NextResponse.json(
-      { error: e?.message ?? "Server error" },
-      { status: 500 },
-    );
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : "Server error";
+
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

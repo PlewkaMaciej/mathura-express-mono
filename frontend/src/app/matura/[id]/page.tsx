@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { OpenTasksSingleAnswer } from "@/components/OpenTaskSingleAnswer";
+import { OpenTasksSingleAnswer } from "@/components/openTask/OpenTaskSingleAnswer";
 
 type Option = "A" | "B" | "C" | "D";
 
@@ -259,7 +259,7 @@ export default function MaturaPage() {
             userMaturaId={userMaturaId}
             openAnswers={openAnswers}
             setOpenAnswers={setOpenAnswers}
-            onPointsUpdate={(p) => setPoints(p)}
+            onPointsUpdate={(p: any) => setPoints(p)}
           />
         ) : (
           <div className="text-white/70">Brak zadań otwartych.</div>

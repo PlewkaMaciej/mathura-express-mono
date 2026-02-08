@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client/scripts/default-index.js";
+import { PrismaClient } from "../../../../../generated/prisma";
 import { NextResponse } from "next/server";
-
 
 const prisma = new PrismaClient();
 
@@ -49,7 +48,7 @@ export async function POST(req: Request) {
   if (!["A", "B", "C", "D"].includes(answer)) {
     return NextResponse.json(
       { error: "Answer must be A/B/C/D" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -61,7 +60,7 @@ export async function POST(req: Request) {
   if (!task) {
     return NextResponse.json(
       { error: "Closed task not found" },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
@@ -71,13 +70,13 @@ export async function POST(req: Request) {
     where: {
       userMaturaId_closedTaskId: { userMaturaId, closedTaskId },
     },
-    select: { id: true }, 
+    select: { id: true },
   });
 
   if (existing) {
     return NextResponse.json(
       { ok: false, error: "Już odpowiedziałeś na to zadanie." },
-      { status: 409 }
+      { status: 409 },
     );
   }
 

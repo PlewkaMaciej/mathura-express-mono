@@ -1,9 +1,14 @@
+"use client";
 import Video from "@/components/video/VideoPanel";
 
-export default function videoexample() {
+import { Suspense } from "react";
+
+export default function VideoExample() {
   return (
-    <div className="flex justify-center items-center h-screen ">
-      <Video />;
+    <div className="flex justify-center items-center h-screen">
+      <Suspense fallback={<div>Ładowanie...</div>}>
+        <Video />
+      </Suspense>
     </div>
   );
 }
