@@ -17,6 +17,7 @@ model User {
   createDate DateTime @default(now())
   updateDate DateTime @updatedAt
   questions  Question[]
+  answers    Answer[]
   userMaturas UserMatura[]
 }
 
@@ -24,6 +25,7 @@ model Video {
   id        Int        @id @default(autoincrement())
   url       String
   questions Question[] @relation("VideoQuestions")
+  description String?
 }
 
 model Question {
@@ -35,6 +37,9 @@ model Question {
   video    Video    @relation("VideoQuestions", fields: [videoId], references: [id])
   time     Int
   userId   String
+  isPublic Boolean  @default(false)
+  userName String
+  lastName  String
   user    User     @relation(fields: [userId], references: [id])
 }
 
@@ -44,8 +49,11 @@ model Answer {
   questionId Int
   question   Question @relation("QuestionAnswers", fields: [questionId], references: [id])
 
+  user    User     @relation(fields: [userId], references: [id])
+userId String
+userName String
+  lastName  String
 }
-
 
 
 model Alltasks {

@@ -1,59 +1,122 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import Button from "../Items/Button";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import Question from "./Question";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
+import QuestionWithAnswers from "./VideoPlayer/QuestionWithAnswers";
+import AllQuestions from "./VideoPlayer/AllQuestion";
+import Description from "./VideoPlayer/Description";
 
-interface VideoType {
-  id: number;
-  url: string;
-  videoUrl: string;
-}
+import { VideoType } from "@/components/video/types/video";
 
 export default function Video() {
   const [video, setVideo] = useState<VideoType | null>(null);
   const [buttonStatus, setButtonStatus] = useState<string>("");
-  const [questionTimes, setQuestionTimes] = useState<number[]>([]);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [questionParam, setQuestionParam] = useState<string | null>(null);
+  const [showDescription, setShowDescription] = useState<boolean>(false);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const fetchVideo = async () => {
-      setQuestionTimes([120, 160, 300]);
+  const fetchVideo = useCallback(async () => {
+    try {
+      const videoId = searchParams.get("videoId");
+      if (!videoId) return;
 
-      try {
-        const res = await fetch(`/api/videos?id=${searchParams.get("id")}`);
-        const data = await res.json();
-        setVideo(data);
-      } catch (err) {
-        console.error("Błąd przy pobieraniu wideo:", err);
-      }
-    };
-
-    fetchVideo();
+      const res = await fetch(`/api/videos?id=${videoId}`);
+      const data = await res.json();
+      setVideo(data);
+    } catch (err) {
+      console.error("Błąd przy pobieraniu wideo:", err);
+    }
   }, [searchParams]);
 
-  const OpenQuestion = () => {
+  useEffect(() => {
+    setQuestionParam(searchParams.get("questionId"));
+    fetchVideo();
+  }, [searchParams, fetchVideo]);
+
+  const openQuestion = () => {
     setButtonStatus((prev) =>
-      prev === "questionPanel" ? "" : "questionPanel"
+      prev === "questionPanel" ? "" : "questionPanel",
     );
+    setShowDescription(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-start py-10 px-4">
-      {video ? (
-        <VideoPlayer video={video} questionTimes={questionTimes} />
-      ) : (
-        <p>Ładowanie wideo...</p>
-      )}
+    <div className="flex flex-row items-start justify-start py-10 px-4 gap-8">
+      <div className="flex flex-col gap-3 w-48 bg-gray-50 p-4 rounded-xl shadow-md">
+        <button
+          onClick={openQuestion}
+          className="w-full text-left px-4 py-3 rounded-lg bg-[#7CF9C2] text-black font-semibold shadow hover:text-gray-700 transition"
+        >
+          Zapytaj
+        </button>
 
-      <div className="flex gap-4">
-        <Button onClick={OpenQuestion}>Zapytaj</Button>
-        <Button>Opis</Button>
-        <Button>Notatnik</Button>
+        <button
+          onClick={() => {
+            setShowDescription((prev) => !prev);
+            setButtonStatus("");
+            router.push(
+              `/videoexample/?videoId=${searchParams.get("videoId")}`,
+            );
+          }}
+          className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition"
+        >
+          Opis
+        </button>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(
+              `/videoexample/?videoId=${searchParams.get(
+                "videoId",
+              )}&questionId=all`,
+            );
+            setShowDescription(false);
+          }}
+          className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-200 text-gray-700 transition"
+        >
+          Pytania
+        </button>
+      </div>
+
+      <div className="flex-1 flex flex-col items-center gap-6 relative">
+        {video ? (
+          <VideoPlayer video={video} onTimeUpdate={setCurrentTime} />
+        ) : (
+          <p>Ładowanie wideo...</p>
+        )}
+
+        {video?.description && (
+          <div className="w-full max-w-4xl">
+            <Description
+              description={video.description}
+              visible={showDescription}
+            />
+          </div>
+        )}
+
+        {video?.questions &&
+          questionParam !== null &&
+          questionParam !== "all" && (
+            <div className="w-full max-w-4xl">
+              <QuestionWithAnswers
+                questions={video.questions}
+                questionParam={questionParam}
+              />
+            </div>
+          )}
+
+        {video?.questions && questionParam === "all" && (
+          <div className="w-full max-w-4xl">
+            <AllQuestions questions={video.questions} />
+          </div>
+        )}
       </div>
 
       {buttonStatus === "questionPanel" && (
@@ -74,8 +137,9 @@ export default function Video() {
 
             <Question
               buttonStateProps={[buttonStatus, setButtonStatus]}
-              time={videoRef.current?.currentTime ?? 0}
-              videoId={searchParams.get("id") ?? ""}
+              time={currentTime}
+              videoId={searchParams.get("videoId") ?? ""}
+              onQuestionSubmitted={fetchVideo}
             />
           </div>
         </div>

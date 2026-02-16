@@ -1,11 +1,16 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
+import { QuestionType } from "@/components/video/types/video";
+import { cn } from "@/lib/cn";
+import { useRouter } from "next/navigation";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 interface Props {
   visible: boolean;
   duration: number;
   currentTime: number;
-  questionTimes: number[];
+  questions: QuestionType[];
   onSeekPercent: (percent: number) => void;
 }
 
@@ -13,27 +18,56 @@ export default function ProgressBar({
   visible,
   duration,
   currentTime,
-  questionTimes,
+  questions,
   onSeekPercent,
 }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPercent, setDragPercent] = useState(0);
+  const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
+
+  const { userId: clerkId, isLoaded } = useAuth();
+  const { user } = useUser();
+  const [dbUserId, setDbUserId] = useState<string | null>(null);
+
+  const router = useRouter();
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : null;
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isLoaded || !clerkId) return;
+
+    const fetchDbUserId = async () => {
+      try {
+        const res = await fetch(`/api/users/${clerkId}`);
+        if (!res.ok) throw new Error("User not found");
+
+        const data = await res.json();
+        setDbUserId(data.id);
+      } catch (err) {
+        console.error(err);
+        setDbUserId(null);
+      }
+    };
+
+    fetchDbUserId();
+  }, [clerkId, isLoaded]);
 
   const getPercentFromClientX = (clientX: number) => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
-    const percent = (clientX - rect.left) / rect.width;
-    return Math.min(1, Math.max(0, percent));
+    return Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
   };
 
   useEffect(() => {
     if (!isDragging) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const newPercent = getPercentFromClientX(e.clientX);
-      setDragPercent(newPercent);
-    };
+    const handleMouseMove = (e: MouseEvent) =>
+      setDragPercent(getPercentFromClientX(e.clientX));
 
     const handleMouseUp = () => {
       setIsDragging(false);
@@ -50,9 +84,19 @@ export default function ProgressBar({
   }, [isDragging, dragPercent, onSeekPercent]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const percent = getPercentFromClientX(e.clientX);
-    setDragPercent(percent);
+    setDragPercent(getPercentFromClientX(e.clientX));
     setIsDragging(true);
+  };
+
+  const showWithDelay = (index: number) => {
+    if (isDragging) return;
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setActiveQuestion(index), 500);
+  };
+
+  const hideWithDelay = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setActiveQuestion(null), 1200);
   };
 
   const displayPercent = isDragging
@@ -65,33 +109,79 @@ export default function ProgressBar({
     <div
       ref={containerRef}
       onPointerDown={handleMouseDown}
-      className={`absolute left-0 z-50 right-0 bottom-8 h-2 cursor-pointer transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className={cn(
+        "absolute left-0 right-0 bottom-8 z-50 h-1.5 cursor-pointer transition-opacity duration-300",
+        visible ? "opacity-100" : "opacity-0 pointer-events-none",
+      )}
     >
-      <div className="w-full h-full bg-gray-700/50 rounded-full" />
+      {/* track */}
+      <div className="w-full h-full bg-gray-800/50 rounded-full shadow-inner" />
 
+      {/* filled progress */}
       <div
-        className="absolute top-0 left-0 h-full bg-yellow-500 rounded-full"
+        className="absolute top-0 left-0 h-full bg-gradient-to-r from-red-600 to-red-500 rounded-full shadow-md transition-all duration-300 ease-out"
         style={{ width: `${displayPercent * 100}%` }}
       />
 
       {duration > 0 &&
-        questionTimes.map((t, i) => {
-          const left = `${(t / duration) * 100}%`;
+        questions.map((question, i) => {
+          const canSee =
+            question.isPublic || question.userId !== Number(dbUserId);
+          if (!canSee) return null;
+
+          const left = `${(question.time / duration) * 100}%`;
+
           return (
             <div
-              key={i}
-              className="absolute top-0 w-1 h-full bg-black rounded-full pointer-events-none"
-              style={{ left: `calc(${left} - 0.5px)` }}
-            />
+              key={question.id}
+              onMouseEnter={() => showWithDelay(i)}
+              onMouseLeave={hideWithDelay}
+              className="absolute top-0 w-1.5 h-full bg-black rounded-full cursor-default hover:bg-red-500 transition-colors"
+              style={{ left: `calc(${left} - 0.75px)` }}
+            >
+              <div
+                className={cn(
+                  "absolute -top-28 left-1/2 -translate-x-1/2 w-64 transition-all duration-200 ease-out",
+                  activeQuestion === i
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 translate-y-2 scale-95 pointer-events-none",
+                )}
+                onPointerDown={(e) => e.stopPropagation()}
+              >
+                <div className="relative rounded-xl bg-zinc-900/95 backdrop-blur-sm px-4 py-3 text-white shadow-2xl border border-white/10">
+                  <div className="text-sm font-semibold leading-snug line-clamp-2">
+                    {question.title}
+                  </div>
+
+                  <div className="my-2 h-px bg-white/10" />
+
+                  <button
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(
+                        `/videoexample/?videoId=${searchParams?.get(
+                          "videoId",
+                        )}&questionId=${question.id}`,
+                      );
+                    }}
+                    className="w-full rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-red-500 active:bg-red-700"
+                  >
+                    Przejdź do pytania
+                  </button>
+
+                  <div className="absolute left-1/2 -bottom-1.5 h-3 w-3 -translate-x-1/2 rotate-45 bg-zinc-900/95" />
+                </div>
+              </div>
+            </div>
           );
         })}
 
       <div
-        className={`absolute top-1/2 w-3 h-3 bg-black rounded-full shadow-lg -translate-y-1/2 transform transition-transform duration-100 ${
-          isDragging ? "scale-125" : "scale-100"
-        }`}
+        className={cn(
+          "absolute top-1/2 w-3 h-3 bg-red-600 rounded-full shadow-lg border-2 border-white/20 -translate-y-1/2 transition-transform duration-150 ease-out",
+          isDragging ? "scale-125" : "scale-110",
+        )}
         style={{ left: `${displayPercent * 100}%` }}
       />
     </div>
