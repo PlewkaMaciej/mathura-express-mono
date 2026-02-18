@@ -124,7 +124,8 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   email: 'email',
   createDate: 'createDate',
-  updateDate: 'updateDate'
+  updateDate: 'updateDate',
+  role: 'role'
 };
 
 exports.Prisma.VideoScalarFieldEnum = {

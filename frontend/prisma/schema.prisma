@@ -19,6 +19,7 @@ model User {
   questions  Question[]
   answers    Answer[]
   userMaturas UserMatura[]
+  role      String   @default("USER") 
 }
 
 model Video {

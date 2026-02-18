@@ -126,10 +126,10 @@ export async function POST(req: NextRequest) {
       });
 
       uploadedUrl = upload.url;
-      screenshot = uploadedUrl; // teraz screenshot = prawdziwy URL
+      screenshot = uploadedUrl; 
     }
 
-    // 🔥 ZAPIS ODPOWIEDZI + SCREENSHOT
+  
     const userOpenAnswer = await prisma.userOpenAnswer.upsert({
       where: {
         userMaturaId_openTaskId: {
@@ -239,7 +239,7 @@ ${answer || "(odpowiedź w formie obrazu)"}
               { type: "input_text", text: inputText },
               {
                 type: "input_image",
-                image_url: screenshot!, // 🔥 teraz URL z ImageKit
+                image_url: screenshot!,
               },
             ],
           },

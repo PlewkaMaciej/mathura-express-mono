@@ -2451,6 +2451,7 @@ export namespace Prisma {
     email: string | null
     createDate: Date | null
     updateDate: Date | null
+    role: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2461,6 +2462,7 @@ export namespace Prisma {
     email: string | null
     createDate: Date | null
     updateDate: Date | null
+    role: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2471,6 +2473,7 @@ export namespace Prisma {
     email: number
     createDate: number
     updateDate: number
+    role: number
     _all: number
   }
 
@@ -2483,6 +2486,7 @@ export namespace Prisma {
     email?: true
     createDate?: true
     updateDate?: true
+    role?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2493,6 +2497,7 @@ export namespace Prisma {
     email?: true
     createDate?: true
     updateDate?: true
+    role?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2503,6 +2508,7 @@ export namespace Prisma {
     email?: true
     createDate?: true
     updateDate?: true
+    role?: true
     _all?: true
   }
 
@@ -2586,6 +2592,7 @@ export namespace Prisma {
     email: string
     createDate: Date
     updateDate: Date
+    role: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2613,6 +2620,7 @@ export namespace Prisma {
     email?: boolean
     createDate?: boolean
     updateDate?: boolean
+    role?: boolean
     questions?: boolean | User$questionsArgs<ExtArgs>
     answers?: boolean | User$answersArgs<ExtArgs>
     userMaturas?: boolean | User$userMaturasArgs<ExtArgs>
@@ -2627,6 +2635,7 @@ export namespace Prisma {
     email?: boolean
     createDate?: boolean
     updateDate?: boolean
+    role?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2637,6 +2646,7 @@ export namespace Prisma {
     email?: boolean
     createDate?: boolean
     updateDate?: boolean
+    role?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2647,9 +2657,10 @@ export namespace Prisma {
     email?: boolean
     createDate?: boolean
     updateDate?: boolean
+    role?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     questions?: boolean | User$questionsArgs<ExtArgs>
     answers?: boolean | User$answersArgs<ExtArgs>
@@ -2674,6 +2685,7 @@ export namespace Prisma {
       email: string
       createDate: Date
       updateDate: Date
+      role: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3107,6 +3119,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly createDate: FieldRef<"User", 'DateTime'>
     readonly updateDate: FieldRef<"User", 'DateTime'>
+    readonly role: FieldRef<"User", 'String'>
   }
     
 
@@ -18199,7 +18212,8 @@ export namespace Prisma {
     lastName: 'lastName',
     email: 'email',
     createDate: 'createDate',
-    updateDate: 'updateDate'
+    updateDate: 'updateDate',
+    role: 'role'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18428,6 +18442,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
+    role?: StringFilter<"User"> | string
     questions?: QuestionListRelationFilter
     answers?: AnswerListRelationFilter
     userMaturas?: UserMaturaListRelationFilter
@@ -18441,6 +18456,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
+    role?: SortOrder
     questions?: QuestionOrderByRelationAggregateInput
     answers?: AnswerOrderByRelationAggregateInput
     userMaturas?: UserMaturaOrderByRelationAggregateInput
@@ -18457,6 +18473,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
+    role?: StringFilter<"User"> | string
     questions?: QuestionListRelationFilter
     answers?: AnswerListRelationFilter
     userMaturas?: UserMaturaListRelationFilter
@@ -18470,6 +18487,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
+    role?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -18486,6 +18504,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     createDate?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateDate?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    role?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type VideoWhereInput = {
@@ -19334,6 +19353,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     questions?: QuestionCreateNestedManyWithoutUserInput
     answers?: AnswerCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
@@ -19347,6 +19367,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
     answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
@@ -19360,6 +19381,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     questions?: QuestionUpdateManyWithoutUserNestedInput
     answers?: AnswerUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
@@ -19373,6 +19395,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
@@ -19386,6 +19409,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19396,6 +19420,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -19406,6 +19431,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
   }
 
   export type VideoCreateInput = {
@@ -20328,6 +20354,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -20338,6 +20365,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -20348,6 +20376,7 @@ export namespace Prisma {
     email?: SortOrder
     createDate?: SortOrder
     updateDate?: SortOrder
+    role?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -22576,6 +22605,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     answers?: AnswerCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
   }
@@ -22588,6 +22618,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22654,6 +22685,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
   }
@@ -22666,6 +22698,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22706,6 +22739,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     questions?: QuestionCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
   }
@@ -22718,6 +22752,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22780,6 +22815,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     questions?: QuestionUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
   }
@@ -22792,6 +22828,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23666,6 +23703,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     questions?: QuestionCreateNestedManyWithoutUserInput
     answers?: AnswerCreateNestedManyWithoutUserInput
   }
@@ -23678,6 +23716,7 @@ export namespace Prisma {
     email: string
     createDate?: Date | string
     updateDate?: Date | string
+    role?: string
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
     answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23789,6 +23828,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     questions?: QuestionUpdateManyWithoutUserNestedInput
     answers?: AnswerUpdateManyWithoutUserNestedInput
   }
@@ -23801,6 +23841,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
   }
