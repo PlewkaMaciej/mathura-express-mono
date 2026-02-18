@@ -4,11 +4,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import openai from "@/lib/openai";
+import ImageKit from "imagekit";
+
+const imagekit = new ImageKit({
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
+});
 
 type Body = {
   userMaturaId: string;
   openTaskId: string;
-  answer: string;
+  answer?: string;
+  screenshot?: string | null;
 };
 
 type GradeJSON = {
@@ -42,18 +50,20 @@ export async function POST(req: NextRequest) {
     }
 
     const body = (await req.json()) as Partial<Body>;
+
     const userMaturaId = String(body.userMaturaId ?? "");
     const openTaskId = String(body.openTaskId ?? "");
     const answer = String(body.answer ?? "");
+    let screenshot = body.screenshot ?? null;
 
     if (!userMaturaId || !openTaskId) {
       return NextResponse.json(
-        { ok: false, error: "Brak wymaganych pól: userMaturaId, openTaskId." },
+        { ok: false, error: "Brak wymaganych pól." },
         { status: 400 },
       );
     }
 
-    if (!answer.trim()) {
+    if (!answer.trim() && !screenshot) {
       return NextResponse.json(
         { ok: false, error: "Odpowiedź nie może być pusta." },
         { status: 400 },
@@ -87,7 +97,6 @@ export async function POST(req: NextRequest) {
     const task = await prisma.openTasks.findUnique({
       where: { id: openTaskId },
       select: {
-        id: true,
         content: true,
         rubric: true,
         referenceAnswer: true,
@@ -97,13 +106,30 @@ export async function POST(req: NextRequest) {
 
     if (!task) {
       return NextResponse.json(
-        { ok: false, error: "Nie znaleziono zadania open." },
+        { ok: false, error: "Nie znaleziono zadania." },
         { status: 404 },
       );
     }
 
     const maxPoints = task.maxPoints ?? 2;
 
+    // 🔥 UPLOAD DO IMAGEKIT (jeśli base64)
+    let uploadedUrl: string | null = null;
+
+    if (screenshot?.startsWith("data:image")) {
+      const base64Data = screenshot.split(",")[1];
+
+      const upload = await imagekit.upload({
+        file: base64Data,
+        fileName: `matura-${Date.now()}.jpg`,
+        folder: "/matura",
+      });
+
+      uploadedUrl = upload.url;
+      screenshot = uploadedUrl; // teraz screenshot = prawdziwy URL
+    }
+
+    // 🔥 ZAPIS ODPOWIEDZI + SCREENSHOT
     const userOpenAnswer = await prisma.userOpenAnswer.upsert({
       where: {
         userMaturaId_openTaskId: {
@@ -114,111 +140,130 @@ export async function POST(req: NextRequest) {
       create: {
         userMaturaId,
         openTaskId,
-        answer,
+        answer: answer.trim() ? answer : null,
+        screenshotUrl: uploadedUrl ?? null,
       },
       update: {
-        answer,
+        answer: answer.trim() ? answer : null,
+        screenshotUrl: uploadedUrl ?? null,
       },
       select: { id: true },
     });
 
-    const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
-    const vectorStoreId = process.env.OPENAI_VECTOR_STORE_ID;
-
-    const instructions = [
-      "Jesteś egzaminatorem polskiej matury (standard CKE).",
-      "Oceniasz odpowiedź ucznia punktowo WYŁĄCZNIE na podstawie przekazanej rubryki/kryteriów.",
-      "Nie dodawaj własnych kryteriów.",
-      `Maksymalna liczba punktów: ${maxPoints}. Przyznaj liczbę całkowitą 0..${maxPoints}.`,
-      "Feedback ma być krótki, rzeczowy, w stylu egzaminatora (bez zdradzania pełnego rozwiązania krok po kroku).",
-      "Zwróć WYŁĄCZNIE JSON zgodny ze schematem, bez żadnego dodatkowego tekstu.",
-      "criteriaBreakdown: jeśli rubryka ma kilka elementów/kryteriów, rozbij punkty na kryteria; jeśli rubryka jest ogólna, zwróć jedną pozycję criterion='Ocena ogólna'.",
-      "Suma points w criteriaBreakdown MUSI równać się awardedPoints.",
-      "Jeśli masz dostęp do materiałów (file_search), użyj ich przed oceną do znalezienia zasad oceniania/typowych błędów dla tego typu zadania. Użyj ich tylko jako wsparcia interpretacji rubryki (nie dodawaj nowych kryteriów).",
-    ].join("\n");
+    const instructions = `
+Jesteś egzaminatorem polskiej matury (CKE).
+Oceniasz wyłącznie według podanej rubryki.
+Nie dodawaj własnych kryteriów.
+Przyznaj 0..${maxPoints} punktów.
+Suma criteriaBreakdown.points MUSI równać się awardedPoints.
+Zwróć WYŁĄCZNIE JSON zgodny ze schematem.
+`;
 
     const rubricText =
-      task.rubric && task.rubric.trim()
-        ? task.rubric.trim()
-        : "Oceń zgodność odpowiedzi z poleceniem. Przyznaj 0..maxPoints za poprawność i kompletność.";
+      task.rubric?.trim() || "Oceń zgodność odpowiedzi z poleceniem.";
 
-    const referenceText =
-      task.referenceAnswer && task.referenceAnswer.trim()
-        ? task.referenceAnswer.trim()
-        : null;
+    const referenceText = task.referenceAnswer?.trim() || "(brak)";
 
-    const input = [
-      "### Treść zadania (polecenie)",
-      task.content,
-      "",
-      "### Kryteria oceniania (rubryka / schemat punktowania)",
-      rubricText,
-      "",
-      "### Odpowiedź wzorcowa / wskazówki (opcjonalnie)",
-      referenceText ?? "(brak)",
-      "",
-      "### Odpowiedź ucznia",
-      answer,
-    ].join("\n");
+    const inputText = `
+### Treść zadania
+${task.content}
 
-    const ai = await openai.responses.create({
-      model,
-      instructions,
-      input,
-      store: false,
+### Kryteria
+${rubricText}
 
-      tools: vectorStoreId
-        ? [{ type: "file_search", vector_store_ids: [vectorStoreId] }]
-        : undefined,
+### Odpowiedź wzorcowa
+${referenceText}
 
-      text: {
-        format: {
-          type: "json_schema",
-          name: "matura_open_grade",
-          schema: {
+### Odpowiedź ucznia
+${answer || "(odpowiedź w formie obrazu)"}
+`;
+
+    const schema = {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        awardedPoints: {
+          type: "integer",
+          minimum: 0,
+          maximum: maxPoints,
+        },
+        feedback: { type: "string" },
+        justification: { type: "string" },
+        criteriaBreakdown: {
+          type: "array",
+          items: {
             type: "object",
             additionalProperties: false,
             properties: {
-              awardedPoints: {
-                type: "integer",
-                minimum: 0,
-                maximum: maxPoints,
-              },
-              feedback: { type: "string" },
-              justification: { type: "string" },
-              criteriaBreakdown: {
-                type: "array",
-                items: {
-                  type: "object",
-                  additionalProperties: false,
-                  properties: {
-                    criterion: { type: "string" },
-                    points: { type: "integer", minimum: 0 },
-                    maxPoints: { type: "integer", minimum: 0 },
-                    note: { type: "string" },
-                  },
-                  required: ["criterion", "points", "maxPoints", "note"],
-                },
-              },
+              criterion: { type: "string" },
+              points: { type: "integer" },
+              maxPoints: { type: "integer" },
+              note: { type: "string" },
             },
-            required: [
-              "awardedPoints",
-              "feedback",
-              "justification",
-              "criteriaBreakdown",
-            ],
+            required: ["criterion", "points", "maxPoints", "note"],
           },
         },
       },
-    });
+      required: [
+        "awardedPoints",
+        "feedback",
+        "justification",
+        "criteriaBreakdown",
+      ],
+    };
+
+    let ai;
+
+    if (answer.trim()) {
+      ai = await openai.responses.create({
+        model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+        instructions,
+        input: inputText,
+        store: false,
+        text: {
+          format: {
+            type: "json_schema",
+            name: "matura_open_grade",
+            schema,
+          },
+        },
+      });
+    } else {
+      ai = await openai.responses.create({
+        model: "gpt-4o",
+        instructions,
+        input: [
+          {
+            role: "user",
+            content: [
+              { type: "input_text", text: inputText },
+              {
+                type: "input_image",
+                image_url: screenshot!, // 🔥 teraz URL z ImageKit
+              },
+            ],
+          },
+        ] as any,
+        store: false,
+        text: {
+          format: {
+            type: "json_schema",
+            name: "matura_open_grade",
+            schema,
+          },
+        },
+      });
+    }
+
+    const raw =
+      (ai as any).output_text ??
+      (ai as any).output?.[0]?.content?.[0]?.text ??
+      "";
 
     let grade: GradeJSON;
+
     try {
-      const raw =
-        (ai as any).output_text ??
-        (ai as any).output?.[0]?.content?.[0]?.text ??
-        "";
-      grade = JSON.parse(raw) as GradeJSON;
+      grade = JSON.parse(raw);
     } catch {
       return NextResponse.json(
         { ok: false, error: "AI zwróciło niepoprawny JSON." },
@@ -227,30 +272,26 @@ export async function POST(req: NextRequest) {
     }
 
     const awardedPoints = clampInt(grade.awardedPoints, 0, maxPoints);
-    const feedback = String(grade.feedback ?? "").slice(0, 1000);
 
-    const finalGradeForStore: GradeJSON = {
+    const finalGrade: GradeJSON = {
       awardedPoints,
-      feedback,
+      feedback: String(grade.feedback ?? "").slice(0, 1000),
       justification: String(grade.justification ?? "").slice(0, 3000),
-      criteriaBreakdown: (Array.isArray(grade.criteriaBreakdown)
-        ? grade.criteriaBreakdown
-        : []
-      ).map((x) => ({
-        criterion: String((x as any)?.criterion ?? "").slice(0, 200),
-        points: clampInt((x as any)?.points, 0, maxPoints),
-        maxPoints: clampInt((x as any)?.maxPoints, 0, maxPoints),
-        note: String((x as any)?.note ?? "").slice(0, 500),
+      criteriaBreakdown: (grade.criteriaBreakdown ?? []).map((x) => ({
+        criterion: String(x.criterion ?? "").slice(0, 200),
+        points: clampInt(x.points, 0, maxPoints),
+        maxPoints: clampInt(x.maxPoints, 0, maxPoints),
+        note: String(x.note ?? "").slice(0, 500),
       })),
     };
 
-    const result = await prisma.$transaction(async (tx: any) => {
+    const result = await prisma.$transaction(async (tx) => {
       await tx.userOpenAnswer.update({
         where: { id: userOpenAnswer.id },
         data: {
           awardedPoints,
-          feedback,
-          gradingJson: JSON.stringify(finalGradeForStore).slice(0, 20_000),
+          feedback: finalGrade.feedback,
+          gradingJson: JSON.stringify(finalGrade),
           gradedAt: new Date(),
         },
       });
@@ -259,6 +300,7 @@ export async function POST(req: NextRequest) {
         where: { userMaturaId },
         _sum: { awardedPoints: true },
       });
+
       const openSum = openAgg._sum.awardedPoints ?? 0;
 
       const closedCorrect = await tx.userClosedAnswer.findMany({
@@ -267,7 +309,7 @@ export async function POST(req: NextRequest) {
       });
 
       const closedSum = closedCorrect.reduce(
-        (acc: number, x: any) => acc + (x.closedTask?.points ?? 0),
+        (acc, x) => acc + (x.closedTask?.points ?? 0),
         0,
       );
 
@@ -284,10 +326,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       earnedPoints: result.earnedPoints,
-      open: { openTaskId, awardedPoints, feedback },
+      open: {
+        openTaskId,
+        awardedPoints,
+        feedback: finalGrade.feedback,
+        gradingJson: finalGrade,
+        screenshotUrl: uploadedUrl,
+      },
     });
   } catch (e: any) {
-    const msg = String(e?.message ?? "Server error");
-    return NextResponse.json({ ok: false, error: msg }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: String(e?.message ?? "Server error") },
+      { status: 500 },
+    );
   }
 }

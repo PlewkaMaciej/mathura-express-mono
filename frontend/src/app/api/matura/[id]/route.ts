@@ -62,6 +62,7 @@ export async function GET(_req: NextRequest, context: RouteContext) {
           select: {
             openTaskId: true,
             answer: true,
+            screenshotUrl: true, // 🔥 TO BYŁO BRAKUJĄCE
             awardedPoints: true,
             feedback: true,
             gradingJson: true,

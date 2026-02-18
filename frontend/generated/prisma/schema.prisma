@@ -168,6 +168,7 @@ model UserOpenAnswer {
   userMaturaId  String
   openTaskId    String
   answer        String?
+  screenshotUrl String?
   awardedPoints Int?
   feedback      String?
   gradingJson   String?

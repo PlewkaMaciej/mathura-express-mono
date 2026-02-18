@@ -14,6 +14,7 @@ export type OpenAnswerDTO = {
   feedback?: string | null;
   gradingJson?: string | null;
   gradedAt?: string | null;
+  screenshotUrl?: string | null;
 };
 
 export type GeneratedOpenTask = {

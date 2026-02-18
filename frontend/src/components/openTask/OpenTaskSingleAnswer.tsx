@@ -32,7 +32,6 @@ export function OpenTasksSingleAnswer({
     setOpenAnswers,
   });
 
-  // 🔥 KLUCZOWY STAN – TO GO WCZEŚNIEJ UCIĄŁEŚ
   const [practiceMap, setPracticeMap] = useState<
     Record<string, GeneratedOpenTask | null>
   >({});
@@ -60,11 +59,12 @@ export function OpenTasksSingleAnswer({
                 [task.id]: (p[task.id] ?? "") + t,
               }))
             }
-            onSave={() =>
+            onSave={(screenshot, text) =>
               save(
                 task.id,
-                draft[task.id] ?? "",
+                text ?? "",
                 practice?.maxPoints ?? task.maxPoints,
+                screenshot,
               )
             }
             onGeneratePractice={(gen) => {

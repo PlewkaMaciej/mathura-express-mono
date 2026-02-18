@@ -11,6 +11,7 @@ import { NameContentFields } from "./NameContentFields";
 import { TaskSelectors } from "./TaskSelectors";
 import { AnswerFields } from "./AnswerFields";
 import { OpenTaskRubricFields } from "./OpenTaskRubricFields";
+import { ClosedTaskFields } from "./ClosedTaskFields"; // 🔥 NOWE
 import clsx from "clsx";
 
 export function AdminTaskForm() {
@@ -97,9 +98,13 @@ export function AdminTaskForm() {
 
             <AnswerFields values={values} input={input} />
 
+            {/* 🔥 OTWARTE */}
             {values.taskType === "open" && (
               <OpenTaskRubricFields input={input} />
             )}
+
+            {/* 🔥 ZAMKNIĘTE (ABCD) */}
+            {values.taskType === "closed" && <ClosedTaskFields input={input} />}
 
             <button
               type="submit"

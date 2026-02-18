@@ -23,9 +23,18 @@ export function useOpenAnswers(
     return init;
   });
 
+  // 🔥 TERAZ blokuje gdy:
+  // - jest tekst
+  // - jest screenshot
+  // - są przyznane punkty
   function isLocked(openTaskId: string) {
     const saved = answersMap.get(openTaskId);
-    return Boolean(saved?.answer && saved.answer.trim().length > 0);
+
+    return Boolean(
+      saved?.answer?.trim().length ||
+      saved?.screenshotUrl ||
+      saved?.awardedPoints !== undefined,
+    );
   }
 
   function upsertOpenAnswer(

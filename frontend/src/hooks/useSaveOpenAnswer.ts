@@ -15,9 +15,14 @@ export function useSaveOpenAnswer({
 }: Props) {
   const [savingTaskId, setSavingTaskId] = useState<string | null>(null);
 
-  async function save(openTaskId: string, answer: string, maxPoints: number) {
-    if (!answer.trim()) {
-      toast.info("Wpisz odpowiedź przed zapisaniem.");
+  async function save(
+    openTaskId: string,
+    answer: string,
+    maxPoints: number,
+    screenshot?: string | null,
+  ) {
+    if (!answer.trim() && !screenshot) {
+      toast.info("Dodaj odpowiedź tekstową lub rysunek.");
       return;
     }
 
@@ -31,6 +36,7 @@ export function useSaveOpenAnswer({
           userMaturaId,
           openTaskId,
           answer,
+          screenshot,
         }),
       });
 
@@ -47,23 +53,25 @@ export function useSaveOpenAnswer({
         const next = [...prev];
         const idx = next.findIndex((x) => x.openTaskId === openTaskId);
 
+        const updated: OpenAnswerDTO = {
+          openTaskId,
+
+          // 🔥 NAJWAŻNIEJSZE
+          answer: answer ?? null,
+          screenshotUrl: data.open.screenshotUrl ?? null,
+
+          awardedPoints: data.open.awardedPoints,
+          feedback: data.open.feedback ?? null,
+          gradingJson: data.open.gradingJson ?? null,
+          gradedAt: data.open.gradedAt ?? new Date().toISOString(),
+        };
+
         if (idx === -1) {
-          next.push({
-            openTaskId,
-            answer,
-            awardedPoints: data.open.awardedPoints,
-            feedback: data.open.feedback ?? null,
-            gradingJson: data.open.gradingJson ?? null,
-            gradedAt: data.open.gradedAt ?? null,
-          });
+          next.push(updated);
         } else {
           next[idx] = {
             ...next[idx],
-            answer,
-            awardedPoints: data.open.awardedPoints,
-            feedback: data.open.feedback ?? null,
-            gradingJson: data.open.gradingJson ?? null,
-            gradedAt: data.open.gradedAt ?? null,
+            ...updated,
           };
         }
 
@@ -71,6 +79,7 @@ export function useSaveOpenAnswer({
       });
 
       const ap = data.open.awardedPoints;
+
       if (ap >= maxPoints) toast.success(`Zaliczone ✅ (+${ap} pkt)`);
       else if (ap > 0) toast.info(`Częściowo ✅ (+${ap} pkt)`);
       else toast.error(`Nie zaliczone ❌ (+${ap} pkt)`);

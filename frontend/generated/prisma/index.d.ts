@@ -100,7 +100,7 @@ export type UserOpenAnswer = $Result.DefaultSelection<Prisma.$UserOpenAnswerPayl
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -132,13 +132,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -406,8 +399,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.5.0
-   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+   * Prisma Client JS version: 6.17.1
+   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
    */
   export type PrismaVersion = {
     client: string
@@ -1903,16 +1896,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1927,6 +1928,10 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1967,10 +1972,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -2010,25 +2020,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -3107,7 +3098,7 @@ export namespace Prisma {
 
   /**
    * Fields of the User model
-   */ 
+   */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly clerkId: FieldRef<"User", 'String'>
@@ -4235,7 +4226,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Video model
-   */ 
+   */
   interface VideoFieldRefs {
     readonly id: FieldRef<"Video", 'Int'>
     readonly url: FieldRef<"Video", 'String'>
@@ -5409,7 +5400,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Question model
-   */ 
+   */
   interface QuestionFieldRefs {
     readonly id: FieldRef<"Question", 'Int'>
     readonly title: FieldRef<"Question", 'String'>
@@ -6551,7 +6542,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Answer model
-   */ 
+   */
   interface AnswerFieldRefs {
     readonly id: FieldRef<"Answer", 'Int'>
     readonly text: FieldRef<"Answer", 'String'>
@@ -7556,7 +7547,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Alltasks model
-   */ 
+   */
   interface AlltasksFieldRefs {
     readonly id: FieldRef<"Alltasks", 'String'>
   }
@@ -8606,7 +8597,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Section model
-   */ 
+   */
   interface SectionFieldRefs {
     readonly id: FieldRef<"Section", 'String'>
     readonly name: FieldRef<"Section", 'String'>
@@ -9744,7 +9735,7 @@ export namespace Prisma {
 
   /**
    * Fields of the SubSection model
-   */ 
+   */
   interface SubSectionFieldRefs {
     readonly id: FieldRef<"SubSection", 'String'>
     readonly name: FieldRef<"SubSection", 'String'>
@@ -10929,7 +10920,7 @@ export namespace Prisma {
 
   /**
    * Fields of the OpenTasks model
-   */ 
+   */
   interface OpenTasksFieldRefs {
     readonly id: FieldRef<"OpenTasks", 'String'>
     readonly name: FieldRef<"OpenTasks", 'String'>
@@ -12096,7 +12087,7 @@ export namespace Prisma {
 
   /**
    * Fields of the ClosedTasks model
-   */ 
+   */
   interface ClosedTasksFieldRefs {
     readonly id: FieldRef<"ClosedTasks", 'String'>
     readonly name: FieldRef<"ClosedTasks", 'String'>
@@ -13237,7 +13228,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Answers model
-   */ 
+   */
   interface AnswersFieldRefs {
     readonly id: FieldRef<"Answers", 'String'>
     readonly A: FieldRef<"Answers", 'String'>
@@ -14274,7 +14265,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Matura model
-   */ 
+   */
   interface MaturaFieldRefs {
     readonly id: FieldRef<"Matura", 'String'>
     readonly name: FieldRef<"Matura", 'String'>
@@ -15456,7 +15447,7 @@ export namespace Prisma {
 
   /**
    * Fields of the UserMatura model
-   */ 
+   */
   interface UserMaturaFieldRefs {
     readonly id: FieldRef<"UserMatura", 'String'>
     readonly userId: FieldRef<"UserMatura", 'String'>
@@ -16593,7 +16584,7 @@ export namespace Prisma {
 
   /**
    * Fields of the UserClosedAnswer model
-   */ 
+   */
   interface UserClosedAnswerFieldRefs {
     readonly id: FieldRef<"UserClosedAnswer", 'String'>
     readonly userMaturaId: FieldRef<"UserClosedAnswer", 'String'>
@@ -17039,6 +17030,7 @@ export namespace Prisma {
     userMaturaId: string | null
     openTaskId: string | null
     answer: string | null
+    screenshotUrl: string | null
     awardedPoints: number | null
     feedback: string | null
     gradingJson: string | null
@@ -17052,6 +17044,7 @@ export namespace Prisma {
     userMaturaId: string | null
     openTaskId: string | null
     answer: string | null
+    screenshotUrl: string | null
     awardedPoints: number | null
     feedback: string | null
     gradingJson: string | null
@@ -17065,6 +17058,7 @@ export namespace Prisma {
     userMaturaId: number
     openTaskId: number
     answer: number
+    screenshotUrl: number
     awardedPoints: number
     feedback: number
     gradingJson: number
@@ -17088,6 +17082,7 @@ export namespace Prisma {
     userMaturaId?: true
     openTaskId?: true
     answer?: true
+    screenshotUrl?: true
     awardedPoints?: true
     feedback?: true
     gradingJson?: true
@@ -17101,6 +17096,7 @@ export namespace Prisma {
     userMaturaId?: true
     openTaskId?: true
     answer?: true
+    screenshotUrl?: true
     awardedPoints?: true
     feedback?: true
     gradingJson?: true
@@ -17114,6 +17110,7 @@ export namespace Prisma {
     userMaturaId?: true
     openTaskId?: true
     answer?: true
+    screenshotUrl?: true
     awardedPoints?: true
     feedback?: true
     gradingJson?: true
@@ -17214,6 +17211,7 @@ export namespace Prisma {
     userMaturaId: string
     openTaskId: string
     answer: string | null
+    screenshotUrl: string | null
     awardedPoints: number | null
     feedback: string | null
     gradingJson: string | null
@@ -17246,6 +17244,7 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
+    screenshotUrl?: boolean
     awardedPoints?: boolean
     feedback?: boolean
     gradingJson?: boolean
@@ -17261,6 +17260,7 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
+    screenshotUrl?: boolean
     awardedPoints?: boolean
     feedback?: boolean
     gradingJson?: boolean
@@ -17276,6 +17276,7 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
+    screenshotUrl?: boolean
     awardedPoints?: boolean
     feedback?: boolean
     gradingJson?: boolean
@@ -17291,6 +17292,7 @@ export namespace Prisma {
     userMaturaId?: boolean
     openTaskId?: boolean
     answer?: boolean
+    screenshotUrl?: boolean
     awardedPoints?: boolean
     feedback?: boolean
     gradingJson?: boolean
@@ -17299,7 +17301,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOpenAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMaturaId" | "openTaskId" | "answer" | "awardedPoints" | "feedback" | "gradingJson" | "gradedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["userOpenAnswer"]>
+  export type UserOpenAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMaturaId" | "openTaskId" | "answer" | "screenshotUrl" | "awardedPoints" | "feedback" | "gradingJson" | "gradedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["userOpenAnswer"]>
   export type UserOpenAnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userMatura?: boolean | UserMaturaDefaultArgs<ExtArgs>
     openTask?: boolean | OpenTasksDefaultArgs<ExtArgs>
@@ -17324,6 +17326,7 @@ export namespace Prisma {
       userMaturaId: string
       openTaskId: string
       answer: string | null
+      screenshotUrl: string | null
       awardedPoints: number | null
       feedback: string | null
       gradingJson: string | null
@@ -17753,12 +17756,13 @@ export namespace Prisma {
 
   /**
    * Fields of the UserOpenAnswer model
-   */ 
+   */
   interface UserOpenAnswerFieldRefs {
     readonly id: FieldRef<"UserOpenAnswer", 'String'>
     readonly userMaturaId: FieldRef<"UserOpenAnswer", 'String'>
     readonly openTaskId: FieldRef<"UserOpenAnswer", 'String'>
     readonly answer: FieldRef<"UserOpenAnswer", 'String'>
+    readonly screenshotUrl: FieldRef<"UserOpenAnswer", 'String'>
     readonly awardedPoints: FieldRef<"UserOpenAnswer", 'Int'>
     readonly feedback: FieldRef<"UserOpenAnswer", 'String'>
     readonly gradingJson: FieldRef<"UserOpenAnswer", 'String'>
@@ -18342,6 +18346,7 @@ export namespace Prisma {
     userMaturaId: 'userMaturaId',
     openTaskId: 'openTaskId',
     answer: 'answer',
+    screenshotUrl: 'screenshotUrl',
     awardedPoints: 'awardedPoints',
     feedback: 'feedback',
     gradingJson: 'gradingJson',
@@ -18370,7 +18375,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references 
+   * Field references
    */
 
 
@@ -19238,6 +19243,7 @@ export namespace Prisma {
     userMaturaId?: StringFilter<"UserOpenAnswer"> | string
     openTaskId?: StringFilter<"UserOpenAnswer"> | string
     answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    screenshotUrl?: StringNullableFilter<"UserOpenAnswer"> | string | null
     awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
     feedback?: StringNullableFilter<"UserOpenAnswer"> | string | null
     gradingJson?: StringNullableFilter<"UserOpenAnswer"> | string | null
@@ -19253,6 +19259,7 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrderInput | SortOrder
+    screenshotUrl?: SortOrderInput | SortOrder
     awardedPoints?: SortOrderInput | SortOrder
     feedback?: SortOrderInput | SortOrder
     gradingJson?: SortOrderInput | SortOrder
@@ -19272,6 +19279,7 @@ export namespace Prisma {
     userMaturaId?: StringFilter<"UserOpenAnswer"> | string
     openTaskId?: StringFilter<"UserOpenAnswer"> | string
     answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    screenshotUrl?: StringNullableFilter<"UserOpenAnswer"> | string | null
     awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
     feedback?: StringNullableFilter<"UserOpenAnswer"> | string | null
     gradingJson?: StringNullableFilter<"UserOpenAnswer"> | string | null
@@ -19287,6 +19295,7 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrderInput | SortOrder
+    screenshotUrl?: SortOrderInput | SortOrder
     awardedPoints?: SortOrderInput | SortOrder
     feedback?: SortOrderInput | SortOrder
     gradingJson?: SortOrderInput | SortOrder
@@ -19308,6 +19317,7 @@ export namespace Prisma {
     userMaturaId?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
     openTaskId?: StringWithAggregatesFilter<"UserOpenAnswer"> | string
     answer?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
+    screenshotUrl?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
     awardedPoints?: IntNullableWithAggregatesFilter<"UserOpenAnswer"> | number | null
     feedback?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
     gradingJson?: StringNullableWithAggregatesFilter<"UserOpenAnswer"> | string | null
@@ -20143,6 +20153,7 @@ export namespace Prisma {
   export type UserOpenAnswerCreateInput = {
     id?: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -20158,6 +20169,7 @@ export namespace Prisma {
     userMaturaId: string
     openTaskId: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -20169,6 +20181,7 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20184,6 +20197,7 @@ export namespace Prisma {
     userMaturaId?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20197,6 +20211,7 @@ export namespace Prisma {
     userMaturaId: string
     openTaskId: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -20208,6 +20223,7 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20221,6 +20237,7 @@ export namespace Prisma {
     userMaturaId?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20986,6 +21003,7 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrder
+    screenshotUrl?: SortOrder
     awardedPoints?: SortOrder
     feedback?: SortOrder
     gradingJson?: SortOrder
@@ -21003,6 +21021,7 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrder
+    screenshotUrl?: SortOrder
     awardedPoints?: SortOrder
     feedback?: SortOrder
     gradingJson?: SortOrder
@@ -21016,6 +21035,7 @@ export namespace Prisma {
     userMaturaId?: SortOrder
     openTaskId?: SortOrder
     answer?: SortOrder
+    screenshotUrl?: SortOrder
     awardedPoints?: SortOrder
     feedback?: SortOrder
     gradingJson?: SortOrder
@@ -23122,6 +23142,7 @@ export namespace Prisma {
   export type UserOpenAnswerCreateWithoutOpenTaskInput = {
     id?: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -23135,6 +23156,7 @@ export namespace Prisma {
     id?: string
     userMaturaId: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -23232,6 +23254,7 @@ export namespace Prisma {
     userMaturaId?: StringFilter<"UserOpenAnswer"> | string
     openTaskId?: StringFilter<"UserOpenAnswer"> | string
     answer?: StringNullableFilter<"UserOpenAnswer"> | string | null
+    screenshotUrl?: StringNullableFilter<"UserOpenAnswer"> | string | null
     awardedPoints?: IntNullableFilter<"UserOpenAnswer"> | number | null
     feedback?: StringNullableFilter<"UserOpenAnswer"> | string | null
     gradingJson?: StringNullableFilter<"UserOpenAnswer"> | string | null
@@ -23715,6 +23738,7 @@ export namespace Prisma {
   export type UserOpenAnswerCreateWithoutUserMaturaInput = {
     id?: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -23728,6 +23752,7 @@ export namespace Prisma {
     id?: string
     openTaskId: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -24407,6 +24432,7 @@ export namespace Prisma {
     id?: string
     userMaturaId: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -24440,6 +24466,7 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateWithoutOpenTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24453,6 +24480,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userMaturaId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24465,6 +24493,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userMaturaId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24678,6 +24707,7 @@ export namespace Prisma {
     id?: string
     openTaskId: string
     answer?: string | null
+    screenshotUrl?: string | null
     awardedPoints?: number | null
     feedback?: string | null
     gradingJson?: string | null
@@ -24716,6 +24746,7 @@ export namespace Prisma {
   export type UserOpenAnswerUpdateWithoutUserMaturaInput = {
     id?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24729,6 +24760,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24741,6 +24773,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     openTaskId?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshotUrl?: NullableStringFieldUpdateOperationsInput | string | null
     awardedPoints?: NullableIntFieldUpdateOperationsInput | number | null
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     gradingJson?: NullableStringFieldUpdateOperationsInput | string | null
