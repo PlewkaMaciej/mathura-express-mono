@@ -1,18 +1,13 @@
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
 import { AdminTaskForm } from "@/components/adminPanel/AdminTaskForm";
 
 export default async function AdminPanelPage() {
-  const { userId } = await auth();
+  const user = await currentUser();
 
-  if (!userId) redirect("/");
+  const isAdmin = user?.publicMetadata?.role === "admin";
 
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
-  });
-
-  if (!user || user.role !== "ADMIN") {
+  if (!isAdmin) {
     redirect("/");
   }
 

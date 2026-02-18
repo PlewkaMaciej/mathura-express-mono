@@ -1,47 +1,23 @@
-import { test as setup } from "@playwright/test";
-import { createClerkClient } from "@clerk/backend";
-
-const clerk = createClerkClient({
-  secretKey: process.env.CLERK_SECRET_KEY!,
-});
+import { test as setup, expect } from "@playwright/test";
 
 setup("authenticate admin", async ({ page }) => {
-  const users = await clerk.users.getUserList({
-    emailAddress: ["plewkamaciej9@gmail.com"],
-  });
+  await page.goto("http://localhost:3000/sign-in");
 
-  const admin = users.data[0];
+  await page
+    .getByPlaceholder("Wprowadź adres email")
+    .fill(process.env.E2E_ADMIN_EMAIL!);
 
-  if (!admin) {
-    throw new Error("Admin user not found in Clerk");
-  }
+  await page.getByRole("button", { name: "Kontynuuj", exact: true }).click();
 
-  await clerk.users.updateUser(admin.id, {
-    publicMetadata: { role: "admin" },
-  });
+  await expect(page.getByText(/wprowadź swoje hasło/i)).toBeVisible();
 
-  const sessions = await clerk.sessions.getSessionList({
-    userId: admin.id,
-  });
+  await page
+    .getByPlaceholder("Wprowadź swoje hasło")
+    .fill(process.env.E2E_ADMIN_PASSWORD!);
 
-  for (const s of sessions.data) {
-    await clerk.sessions.revokeSession(s.id);
-  }
+  await page.getByRole("button", { name: "Kontynuuj", exact: true }).click();
 
-  const session = await clerk.sessions.createSession({
-    userId: admin.id,
-  });
-
-  const token = await clerk.sessions.getToken(session.id);
-
-  await page.context().addCookies([
-    {
-      name: "__session",
-      value: token.jwt,
-      url: "http://localhost:3000",
-      httpOnly: true,
-    },
-  ]);
+  await page.waitForURL("**/");
 
   await page.context().storageState({ path: "admin-auth.json" });
 });
