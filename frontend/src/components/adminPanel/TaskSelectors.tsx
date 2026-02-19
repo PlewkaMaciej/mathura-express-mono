@@ -21,15 +21,22 @@ export function TaskSelectors({
 }: TaskSelectorsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* ---------------- Dział ---------------- */}
       <div className="space-y-1.5">
-        <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+        <label
+          htmlFor="sectionId"
+          className="block font-bold text-[#C9D2EE] text-[1.3rem]"
+        >
           Dział
         </label>
+
         <Field
           as="select"
+          id="sectionId"
           name="sectionId"
           data-testid="section-select"
           className={input}
+          aria-describedby="sectionId-error"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const id = e.target.value;
             setFieldValue("sectionId", id);
@@ -43,36 +50,48 @@ export function TaskSelectors({
             </option>
           ))}
         </Field>
+
         <ErrorMessage
           name="sectionId"
           component="div"
+          id="sectionId-error"
           className="text-xs text-[#f97373] mt-1"
         />
       </div>
 
+      {/* ---------------- Poddział ---------------- */}
       <div className="space-y-1.5">
-        <label className="block font-bold text-[#C9D2EE] text-[1.3rem]">
+        <label
+          htmlFor="subSectionId"
+          className="block font-bold text-[#C9D2EE] text-[1.3rem]"
+        >
           Poddział
         </label>
+
         <Field
           as="select"
+          id="subSectionId"
           name="subSectionId"
           data-testid="subsection-select"
           className={input}
           disabled={!valuesSectionId}
+          aria-describedby="subSectionId-error"
         >
           <option value="">
             {valuesSectionId ? "Wybierz poddział" : "Najpierw wybierz dział"}
           </option>
+
           {currentSubsections.map((sub) => (
             <option key={sub.id} value={sub.id}>
               {sub.name}
             </option>
           ))}
         </Field>
+
         <ErrorMessage
           name="subSectionId"
           component="div"
+          id="subSectionId-error"
           className="text-xs text-[#f97373] mt-1"
         />
       </div>
