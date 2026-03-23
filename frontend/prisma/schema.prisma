@@ -20,6 +20,7 @@ model User {
   answers    Answer[]
   userMaturas UserMatura[]
   role      String   @default("USER") 
+  boughtCourse Boolean @default(false)
 }
 
 model Video {

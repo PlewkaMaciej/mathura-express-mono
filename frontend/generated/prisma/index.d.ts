@@ -2452,6 +2452,7 @@ export namespace Prisma {
     createDate: Date | null
     updateDate: Date | null
     role: string | null
+    boughtCourse: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2463,6 +2464,7 @@ export namespace Prisma {
     createDate: Date | null
     updateDate: Date | null
     role: string | null
+    boughtCourse: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2474,6 +2476,7 @@ export namespace Prisma {
     createDate: number
     updateDate: number
     role: number
+    boughtCourse: number
     _all: number
   }
 
@@ -2487,6 +2490,7 @@ export namespace Prisma {
     createDate?: true
     updateDate?: true
     role?: true
+    boughtCourse?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2498,6 +2502,7 @@ export namespace Prisma {
     createDate?: true
     updateDate?: true
     role?: true
+    boughtCourse?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2509,6 +2514,7 @@ export namespace Prisma {
     createDate?: true
     updateDate?: true
     role?: true
+    boughtCourse?: true
     _all?: true
   }
 
@@ -2593,6 +2599,7 @@ export namespace Prisma {
     createDate: Date
     updateDate: Date
     role: string
+    boughtCourse: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2621,6 +2628,7 @@ export namespace Prisma {
     createDate?: boolean
     updateDate?: boolean
     role?: boolean
+    boughtCourse?: boolean
     questions?: boolean | User$questionsArgs<ExtArgs>
     answers?: boolean | User$answersArgs<ExtArgs>
     userMaturas?: boolean | User$userMaturasArgs<ExtArgs>
@@ -2636,6 +2644,7 @@ export namespace Prisma {
     createDate?: boolean
     updateDate?: boolean
     role?: boolean
+    boughtCourse?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2647,6 +2656,7 @@ export namespace Prisma {
     createDate?: boolean
     updateDate?: boolean
     role?: boolean
+    boughtCourse?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2658,9 +2668,10 @@ export namespace Prisma {
     createDate?: boolean
     updateDate?: boolean
     role?: boolean
+    boughtCourse?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate" | "role", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "createDate" | "updateDate" | "role" | "boughtCourse", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     questions?: boolean | User$questionsArgs<ExtArgs>
     answers?: boolean | User$answersArgs<ExtArgs>
@@ -2686,6 +2697,7 @@ export namespace Prisma {
       createDate: Date
       updateDate: Date
       role: string
+      boughtCourse: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3120,6 +3132,7 @@ export namespace Prisma {
     readonly createDate: FieldRef<"User", 'DateTime'>
     readonly updateDate: FieldRef<"User", 'DateTime'>
     readonly role: FieldRef<"User", 'String'>
+    readonly boughtCourse: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -18213,7 +18226,8 @@ export namespace Prisma {
     email: 'email',
     createDate: 'createDate',
     updateDate: 'updateDate',
-    role: 'role'
+    role: 'role',
+    boughtCourse: 'boughtCourse'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18408,16 +18422,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Boolean'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'Int'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
@@ -18443,6 +18457,7 @@ export namespace Prisma {
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
     role?: StringFilter<"User"> | string
+    boughtCourse?: BoolFilter<"User"> | boolean
     questions?: QuestionListRelationFilter
     answers?: AnswerListRelationFilter
     userMaturas?: UserMaturaListRelationFilter
@@ -18457,6 +18472,7 @@ export namespace Prisma {
     createDate?: SortOrder
     updateDate?: SortOrder
     role?: SortOrder
+    boughtCourse?: SortOrder
     questions?: QuestionOrderByRelationAggregateInput
     answers?: AnswerOrderByRelationAggregateInput
     userMaturas?: UserMaturaOrderByRelationAggregateInput
@@ -18474,6 +18490,7 @@ export namespace Prisma {
     createDate?: DateTimeFilter<"User"> | Date | string
     updateDate?: DateTimeFilter<"User"> | Date | string
     role?: StringFilter<"User"> | string
+    boughtCourse?: BoolFilter<"User"> | boolean
     questions?: QuestionListRelationFilter
     answers?: AnswerListRelationFilter
     userMaturas?: UserMaturaListRelationFilter
@@ -18488,6 +18505,7 @@ export namespace Prisma {
     createDate?: SortOrder
     updateDate?: SortOrder
     role?: SortOrder
+    boughtCourse?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -18505,6 +18523,7 @@ export namespace Prisma {
     createDate?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateDate?: DateTimeWithAggregatesFilter<"User"> | Date | string
     role?: StringWithAggregatesFilter<"User"> | string
+    boughtCourse?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type VideoWhereInput = {
@@ -19354,6 +19373,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     questions?: QuestionCreateNestedManyWithoutUserInput
     answers?: AnswerCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
@@ -19368,6 +19388,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
     answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
@@ -19382,6 +19403,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     questions?: QuestionUpdateManyWithoutUserNestedInput
     answers?: AnswerUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
@@ -19396,6 +19418,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
@@ -19410,6 +19433,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19421,6 +19445,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -19432,6 +19457,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VideoCreateInput = {
@@ -20311,6 +20337,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type QuestionListRelationFilter = {
     every?: QuestionWhereInput
     some?: QuestionWhereInput
@@ -20355,6 +20386,7 @@ export namespace Prisma {
     createDate?: SortOrder
     updateDate?: SortOrder
     role?: SortOrder
+    boughtCourse?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -20366,6 +20398,7 @@ export namespace Prisma {
     createDate?: SortOrder
     updateDate?: SortOrder
     role?: SortOrder
+    boughtCourse?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -20377,6 +20410,7 @@ export namespace Prisma {
     createDate?: SortOrder
     updateDate?: SortOrder
     role?: SortOrder
+    boughtCourse?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20425,6 +20459,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -20478,11 +20520,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type VideoScalarRelationFilter = {
@@ -20541,14 +20578,6 @@ export namespace Prisma {
     id?: SortOrder
     videoId?: SortOrder
     time?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type QuestionScalarRelationFilter = {
@@ -21145,6 +21174,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type QuestionUpdateManyWithoutUserNestedInput = {
     create?: XOR<QuestionCreateWithoutUserInput, QuestionUncheckedCreateWithoutUserInput> | QuestionCreateWithoutUserInput[] | QuestionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutUserInput | QuestionCreateOrConnectWithoutUserInput[]
@@ -21303,10 +21336,6 @@ export namespace Prisma {
     connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
     createMany?: AnswerCreateManyQuestionInputEnvelope
     connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type AnswerUpdateManyWithoutQuestionNestedInput = {
@@ -22162,6 +22191,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -22232,6 +22266,14 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -22257,19 +22299,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22606,6 +22635,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     answers?: AnswerCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
   }
@@ -22619,6 +22649,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22686,6 +22717,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     answers?: AnswerUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
   }
@@ -22699,6 +22731,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22740,6 +22773,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     questions?: QuestionCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaCreateNestedManyWithoutUserInput
   }
@@ -22753,6 +22787,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
     userMaturas?: UserMaturaUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22816,6 +22851,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     questions?: QuestionUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUpdateManyWithoutUserNestedInput
   }
@@ -22829,6 +22865,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
     userMaturas?: UserMaturaUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23704,6 +23741,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     questions?: QuestionCreateNestedManyWithoutUserInput
     answers?: AnswerCreateNestedManyWithoutUserInput
   }
@@ -23717,6 +23755,7 @@ export namespace Prisma {
     createDate?: Date | string
     updateDate?: Date | string
     role?: string
+    boughtCourse?: boolean
     questions?: QuestionUncheckedCreateNestedManyWithoutUserInput
     answers?: AnswerUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23829,6 +23868,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     questions?: QuestionUpdateManyWithoutUserNestedInput
     answers?: AnswerUpdateManyWithoutUserNestedInput
   }
@@ -23842,6 +23882,7 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     updateDate?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: StringFieldUpdateOperationsInput | string
+    boughtCourse?: BoolFieldUpdateOperationsInput | boolean
     questions?: QuestionUncheckedUpdateManyWithoutUserNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutUserNestedInput
   }
