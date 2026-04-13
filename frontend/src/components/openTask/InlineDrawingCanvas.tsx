@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { Stage, Layer, Line, Circle } from "react-konva";
 
 type Tool = "pen" | "eraser" | "line" | "circle";
-type EraserMode = "brush" | "click";
 
 type Shape =
   | { id: string; tool: "pen" | "eraser"; points: number[] }
@@ -22,22 +21,49 @@ export function InlineDrawingCanvas({
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [tool, setTool] = useState<Tool>("pen");
-  const [eraserMode, setEraserMode] = useState<EraserMode>("brush");
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [current, setCurrent] = useState<Shape | null>(null);
 
   const stageRef = useRef<any>(null);
 
-  const W = typeof window !== "undefined" ? window.innerWidth * 0.8 : 800;
+  const W = typeof window !== "undefined" ? window.innerWidth * 0.9 : 800;
   const H = typeof window !== "undefined" ? window.innerHeight * 0.7 : 600;
 
-  function handleDown(e: any) {
-    if (disabled) return;
+  const toolNames = {
+    pen: "✏️ Pędzel",
+    line: "📏 Linia",
+    circle: "⭕ Koło",
+    eraser: "🧽 Gumka",
+  };
 
-    const pos = e.target.getStage()?.getPointerPosition();
+  function toolButtonClass(t: Tool) {
+    return `
+      px-3 py-1 rounded-lg text-sm
+      transition
+      ${
+        tool === t
+          ? "bg-[#7CF9C2] text-black"
+          : "bg-[#0f1f33] text-white hover:bg-[#1a2b45]"
+      }
+    `;
+  }
+
+  function getPos() {
+    if (!stageRef.current) return null;
+    return stageRef.current.getPointerPosition();
+  }
+
+  function generateId() {
+    return Date.now().toString() + Math.random().toString(36).substring(2);
+  }
+
+  function handleDown() {
+    if (disabled || !stageRef.current) return;
+
+    const pos = getPos();
     if (!pos) return;
 
-    const id = crypto.randomUUID();
+    const id = generateId();
 
     if (tool === "pen" || tool === "eraser") {
       setCurrent({ id, tool, points: [pos.x, pos.y] });
@@ -52,30 +78,39 @@ export function InlineDrawingCanvas({
     }
 
     if (tool === "circle") {
-      setCurrent({ id, tool: "circle", x: pos.x, y: pos.y, r: 1 });
+      setCurrent({
+        id,
+        tool: "circle",
+        x: pos.x,
+        y: pos.y,
+        r: 1,
+      });
     }
   }
 
-  function handleMove(e: any) {
-    if (disabled || !current) return;
+  function handleMove() {
+    if (disabled || !current || !stageRef.current) return;
 
-    const pos = e.target.getStage()?.getPointerPosition();
+    const pos = getPos();
     if (!pos) return;
 
     if ("points" in current) {
       const pts = [...current.points];
+
       if (current.tool === "line") {
         pts[2] = pos.x;
         pts[3] = pos.y;
       } else {
         pts.push(pos.x, pos.y);
       }
+
       setCurrent({ ...current, points: pts });
     }
 
     if (current.tool === "circle") {
       const dx = pos.x - current.x;
       const dy = pos.y - current.y;
+
       setCurrent({
         ...current,
         r: Math.sqrt(dx * dx + dy * dy),
@@ -93,12 +128,12 @@ export function InlineDrawingCanvas({
   }
 
   function saveDrawing() {
-    if (disabled) return;
+    if (disabled || !stageRef.current) return;
 
-    const uri = stageRef.current?.toDataURL({
+    const uri = stageRef.current.toDataURL({
       pixelRatio: 1,
       mimeType: "image/jpeg",
-      quality: 0.6,
+      quality: 0.7,
     });
 
     if (uri && onScreenshotChange) {
@@ -121,34 +156,72 @@ export function InlineDrawingCanvas({
 
       {isOpen && !disabled && (
         <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
-          <div className="bg-[#081524] border border-[#2C3B55] rounded-xl p-4 w-[90vw] h-[90vh] flex flex-col">
-            <div className="flex gap-2 mb-3 flex-wrap">
-              <button onClick={() => setTool("pen")}>✏️</button>
-              <button onClick={() => setTool("line")}>📏</button>
-              <button onClick={() => setTool("circle")}>⭕</button>
-              <button onClick={() => setTool("eraser")}>🧽</button>
+          <div className="bg-[#081524] border border-[#2C3B55] rounded-xl p-4 w-[95vw] h-[90vh] flex flex-col">
+            {/* TOOLBAR */}
+            <div className="flex gap-2 mb-3 flex-wrap items-center">
+              <button
+                className={toolButtonClass("pen")}
+                onClick={() => setTool("pen")}
+              >
+                ✏️
+              </button>
 
               <button
-                onClick={() => setShapes([])}
-                className="ml-auto text-red-400"
+                className={toolButtonClass("line")}
+                onClick={() => setTool("line")}
               >
+                📏
+              </button>
+
+              <button
+                className={toolButtonClass("circle")}
+                onClick={() => setTool("circle")}
+              >
+                ⭕
+              </button>
+
+              {/* 🧽 OBOK KOŁA */}
+              <button
+                className={toolButtonClass("eraser")}
+                onClick={() => setTool("eraser")}
+              >
+                🧽
+              </button>
+
+              {/* ❌ NA PRAWO */}
+              <div className="ml-auto">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                >
+                  ❌
+                </button>
+              </div>
+
+              {/* LABEL */}
+              <div className="w-full text-sm text-[#7CF9C2] mt-1">
+                Wybrane: {toolNames[tool]}
+              </div>
+
+              {/* DOLNE AKCJE */}
+              <button onClick={() => setShapes([])} className="text-red-400">
                 🗑 Wyczyść
               </button>
 
               <button onClick={saveDrawing} className="text-[#7CF9C2]">
-                💾 Zapisz rysunek
+                💾 Zapisz
               </button>
-
-              <button onClick={() => setIsOpen(false)}>Zamknij</button>
             </div>
 
+            {/* CANVAS */}
             <Stage
               ref={stageRef}
               width={W}
               height={H}
-              onMouseDown={handleDown}
-              onMouseMove={handleMove}
-              onMouseUp={handleUp}
+              onPointerDown={handleDown}
+              onPointerMove={handleMove}
+              onPointerUp={handleUp}
+              style={{ touchAction: "none" }}
             >
               <Layer>
                 {shapes.map((s) => {
@@ -160,7 +233,7 @@ export function InlineDrawingCanvas({
                         y={s.y}
                         radius={s.r}
                         stroke="#7CF9C2"
-                        strokeWidth={2}
+                        strokeWidth={3}
                       />
                     );
                   }
@@ -170,13 +243,14 @@ export function InlineDrawingCanvas({
                       key={s.id}
                       points={s.points}
                       stroke={s.tool === "eraser" ? "#081524" : "#7CF9C2"}
-                      strokeWidth={s.tool === "eraser" ? 18 : 2}
+                      strokeWidth={s.tool === "eraser" ? 20 : 4}
                       lineCap="round"
                       lineJoin="round"
                       tension={0.4}
                     />
                   );
                 })}
+
                 {current &&
                   (current.tool === "circle" ? (
                     <Circle
@@ -184,13 +258,14 @@ export function InlineDrawingCanvas({
                       y={current.y}
                       radius={current.r}
                       stroke="#7CF9C2"
-                      strokeWidth={2}
+                      strokeWidth={3}
                     />
                   ) : (
                     <Line
                       points={current.points}
                       stroke="#7CF9C2"
-                      strokeWidth={2}
+                      strokeWidth={4}
+                      lineCap="round"
                     />
                   ))}
               </Layer>

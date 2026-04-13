@@ -44,6 +44,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # =========================
+# =========================
 # RUNNER
 # =========================
 FROM node:22-bullseye AS runner
@@ -62,10 +63,11 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
-USER nextjs
+# backup bazy poza volume
+COPY --from=builder /app/prisma/dev.db /seed/dev.db
 
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "mkdir -p /app/prisma && [ -f /app/prisma/dev.db ] || cp /seed/dev.db /app/prisma/dev.db; node server.js"]

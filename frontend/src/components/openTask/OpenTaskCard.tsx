@@ -40,15 +40,105 @@ export function OpenTaskCard({
 
   const [answerMode, setAnswerMode] = useState<"text" | "drawing">("text");
   const [localScreenshot, setLocalScreenshot] = useState<string | null>(null);
+  const [practiceResult, setPracticeResult] = useState<any>(null);
+  const [loadingPractice, setLoadingPractice] = useState(false);
 
-  const displayName = practice?.name ?? task.name;
-  const displayContent = practice?.content ?? task.content;
+  function formatName(name: string) {
+    if (!name) return "Ćwiczenie";
+
+    const lower = name.toLowerCase();
+
+    if (
+      lower.includes("practice") ||
+      lower.includes("test") ||
+      lower.includes("task")
+    ) {
+      return "Ćwiczenie";
+    }
+
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  function cleanContent(content: string) {
+    const lines = content
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    if (lines.length <= 1) return content;
+
+    const result: string[] = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const current = lines[i];
+      const prev = result[result.length - 1];
+
+      if (prev) {
+        const prevClean = prev
+          .toLowerCase()
+          .replace("rozwiąż równanie:", "")
+          .replace("rozwiaz rownanie:", "")
+          .trim();
+
+        const currClean = current.toLowerCase().trim();
+
+        if (prevClean === currClean) {
+          continue;
+        }
+      }
+
+      result.push(current);
+    }
+
+    return result.join("\n");
+  }
+
+  const displayName =
+    isPractice && practice?.name ? formatName(practice.name) : task.name;
+
+  const displayContent = practice
+    ? cleanContent(practice.content)
+    : task.content;
+
   const displayMaxPoints = practice?.maxPoints ?? task.maxPoints;
 
   const isAlreadyAnswered =
     !isPractice && (!!saved?.answer || !!saved?.screenshotUrl);
 
   const screenshotUrl = saved?.screenshotUrl ?? null;
+
+  // 🔥 FIXED
+  async function handlePracticeCheck() {
+    if (!practice) return;
+
+    setLoadingPractice(true);
+    try {
+      const res = await fetch("/api/practice/open/grade", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          generatedTask: practice,
+          answer: answerMode === "text" ? draft : "",
+          screenshot: answerMode === "drawing" ? localScreenshot : null,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!data.ok) {
+        console.error(data.error);
+        return;
+      }
+
+      setPracticeResult(data.grade);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoadingPractice(false);
+    }
+  }
 
   return (
     <div className="border border-[#2C3B55] rounded-xl p-5 bg-[#081524]">
@@ -68,8 +158,11 @@ export function OpenTaskCard({
           {isPractice && (
             <button
               type="button"
-              onClick={onRestoreOriginal}
-              className="rounded-lg border border-[#2C3B55] bg-[#081524] px-3 py-2 text-sm hover:border-[#7CF9C2]"
+              onClick={() => {
+                onRestoreOriginal();
+                setPracticeResult(null);
+              }}
+              className="rounded-lg border border-[#2C3B55] px-3 py-2 text-sm hover:border-[#7CF9C2]"
             >
               Wróć do oryginału
             </button>
@@ -123,7 +216,6 @@ export function OpenTaskCard({
 
       {!isAlreadyAnswered && (
         <>
-          {/* TRYB */}
           <div className="flex gap-2 mb-4">
             <button
               type="button"
@@ -131,10 +223,10 @@ export function OpenTaskCard({
                 setAnswerMode("text");
                 setLocalScreenshot(null);
               }}
-              className={`px-3 py-1 rounded-lg border text-sm transition ${
+              className={`px-3 py-1 rounded-lg border text-sm ${
                 answerMode === "text"
                   ? "border-[#7CF9C2] text-[#7CF9C2]"
-                  : "border-[#2C3B55] text-gray-300"
+                  : "border-[#2C3B55]"
               }`}
             >
               ✍️ Tekst
@@ -143,10 +235,10 @@ export function OpenTaskCard({
             <button
               type="button"
               onClick={() => setAnswerMode("drawing")}
-              className={`px-3 py-1 rounded-lg border text-sm transition ${
+              className={`px-3 py-1 rounded-lg border text-sm ${
                 answerMode === "drawing"
                   ? "border-[#7CF9C2] text-[#7CF9C2]"
-                  : "border-[#2C3B55] text-gray-300"
+                  : "border-[#2C3B55]"
               }`}
             >
               🖼 Rysunek
@@ -156,7 +248,7 @@ export function OpenTaskCard({
           {answerMode === "text" && (
             <OpenAnswerTextarea
               value={draft}
-              disabled={saving}
+              disabled={saving || loadingPractice}
               mode="text"
               onChange={onDraftChange}
               onInsert={onInsertMath}
@@ -166,7 +258,7 @@ export function OpenTaskCard({
 
           {answerMode === "drawing" && (
             <OpenAnswerTextarea
-              value=""
+              value={draft}
               disabled={saving}
               mode="drawing"
               onChange={() => {}}
@@ -176,25 +268,49 @@ export function OpenTaskCard({
           )}
 
           <div className="mt-4">
-            <button
-              type="button"
-              onClick={() =>
-                onSave(
-                  answerMode === "drawing" ? localScreenshot : null,
-                  answerMode === "text" ? draft : null,
-                )
-              }
-              disabled={
-                saving ||
-                (answerMode === "drawing" && !localScreenshot) ||
-                (answerMode === "text" && !draft.trim())
-              }
-              className="rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] disabled:opacity-60 transition"
-            >
-              {saving ? "Zapisywanie..." : "Zapisz odpowiedź"}
-            </button>
+            {!isPractice ? (
+              <button
+                type="button"
+                onClick={() =>
+                  onSave(
+                    answerMode === "drawing" ? localScreenshot : null,
+                    answerMode === "text" ? draft : null,
+                  )
+                }
+                disabled={
+                  saving ||
+                  (answerMode === "drawing" && !localScreenshot) ||
+                  (answerMode === "text" && !draft.trim())
+                }
+                className="rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] disabled:opacity-60"
+              >
+                {saving ? "Zapisywanie..." : "Zapisz odpowiedź"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handlePracticeCheck}
+                disabled={
+                  loadingPractice ||
+                  (answerMode === "text" && !draft.trim()) ||
+                  (answerMode === "drawing" && !localScreenshot)
+                }
+                className="rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] disabled:opacity-60"
+              >
+                {loadingPractice ? "Sprawdzam..." : "Sprawdź odpowiedź"}
+              </button>
+            )}
           </div>
         </>
+      )}
+
+      {practiceResult && (
+        <div className="mt-4 p-4 rounded-xl bg-[#0E1F33] border border-[#2C3B55]">
+          <div className="text-[#7CF9C2] font-bold">
+            {practiceResult.awardedPoints}/{displayMaxPoints} pkt
+          </div>
+          <div className="text-sm mt-2">{practiceResult.feedback}</div>
+        </div>
       )}
 
       {!isPractice && saved?.feedback && (
@@ -202,17 +318,13 @@ export function OpenTaskCard({
           <div className="text-sm font-semibold text-[#7CF9C2] mb-2">
             Komentarz egzaminatora:
           </div>
-          <div className="text-sm text-gray-200 leading-relaxed">
-            {saved.feedback}
-          </div>
+          <div className="text-sm">{saved.feedback}</div>
         </div>
       )}
 
       {isPractice && practice?.referenceAnswer && (
-        <details className="mt-4 text-sm opacity-90">
-          <summary className="cursor-pointer opacity-80 hover:opacity-100">
-            Pokaż przykładowe rozwiązanie
-          </summary>
+        <details className="mt-4 text-sm">
+          <summary>Pokaż rozwiązanie</summary>
           <div className="mt-2">
             <MathRender text={practice.referenceAnswer} />
           </div>
