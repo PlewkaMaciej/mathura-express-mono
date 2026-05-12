@@ -1,26 +1,58 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
+
+export const runtime = "nodejs";
 
 export async function GET(_req: NextRequest) {
   try {
     const { userId: clerkId } = await auth();
+
     if (!clerkId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const dbUser = await prisma.user.findUnique({
-      where: { clerkId },
-      select: { id: true },
-    });
+    const clerkUser = await currentUser();
 
-    if (!dbUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!clerkUser) {
+      return NextResponse.json(
+        { error: "Clerk user not found" },
+        { status: 401 },
+      );
     }
 
+    const email =
+      clerkUser.primaryEmailAddress?.emailAddress ??
+      clerkUser.emailAddresses[0]?.emailAddress ??
+      "";
+
+    const dbUser = await prisma.user.upsert({
+      where: {
+        clerkId,
+      },
+      update: {
+        email,
+        firstName: clerkUser.firstName,
+        lastName: clerkUser.lastName,
+      },
+      create: {
+        clerkId,
+        email,
+        firstName: clerkUser.firstName,
+        lastName: clerkUser.lastName,
+      },
+      select: {
+        id: true,
+      },
+    });
+
     const userMaturas = await prisma.userMatura.findMany({
-      where: { userId: dbUser.id },
-      orderBy: { createdAt: "desc" },
+      where: {
+        userId: dbUser.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
       select: {
         id: true,
         status: true,
@@ -31,14 +63,22 @@ export async function GET(_req: NextRequest) {
             id: true,
             name: true,
             createdAt: true,
-            closedTasks: { select: { points: true } },
-            openTasks: { select: { maxPoints: true } },
+            closedTasks: {
+              select: {
+                points: true,
+              },
+            },
+            openTasks: {
+              select: {
+                maxPoints: true,
+              },
+            },
           },
         },
       },
     });
 
-    const maturas = userMaturas.map((userMatura: any) => {
+    const maturas = userMaturas.map((userMatura) => {
       const closedTasks = userMatura.matura.closedTasks;
       const openTasks = userMatura.matura.openTasks;
 
@@ -64,10 +104,16 @@ export async function GET(_req: NextRequest) {
     });
 
     return NextResponse.json({ maturas }, { status: 200 });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error("GET USER MATURAS ERROR:", e);
+
+    const message = e instanceof Error ? e.message : "Unknown error";
+
     return NextResponse.json(
-      { error: "Internal server error", details: e?.message },
+      {
+        error: "Internal server error",
+        details: message,
+      },
       { status: 500 },
     );
   }
