@@ -5,11 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
-const NAV = [
-  { href: "/library", label: "Biblioteka" },
-  { href: "/generator", label: "Generator matur" },
-  { href: "/pricing", label: "Cennik" },
-];
+const NAV = [{ href: "/generator", label: "Generator matur" }];
 
 function NavItem({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
