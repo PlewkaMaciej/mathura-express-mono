@@ -61,9 +61,11 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex lg:gap-8">
-          {NAV.map((item) => (
-            <NavItem key={item.href} {...item} />
-          ))}
+          <SignedIn>
+            {NAV.map((item) => (
+              <NavItem key={item.href} {...item} />
+            ))}
+          </SignedIn>
 
           {isAdmin && (
             <NavItem href="/admin-panel" label="Panel administratora" />
@@ -93,16 +95,18 @@ export default function Header() {
       {open && (
         <div className="border-t border-[#2C3B55] bg-[rgba(11,27,43,0.95)] md:hidden">
           <div className="mx-auto flex w-full max-w-[1600px] flex-col px-6 py-4 2xl:px-10">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="py-3 text-[18px] text-[#F3EAD7]/90 transition hover:text-[#F3EAD7]"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <SignedIn>
+              {NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="py-3 text-[18px] text-[#F3EAD7]/90 transition hover:text-[#F3EAD7]"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </SignedIn>
 
             {isAdmin && (
               <Link
