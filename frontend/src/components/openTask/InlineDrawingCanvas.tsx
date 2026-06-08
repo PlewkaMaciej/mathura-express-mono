@@ -1,7 +1,17 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
+import {
+  Check,
+  Circle as CircleIcon,
+  Eraser,
+  Minus,
+  PenLine,
+  Trash2,
+  X,
+} from "lucide-react";
 import { Stage, Layer, Line, Circle } from "react-konva";
+import { MathRender } from "./MathRender";
 
 type Tool = "pen" | "eraser" | "line" | "circle";
 
@@ -12,11 +22,15 @@ type Shape =
 
 type Props = {
   disabled?: boolean;
+  taskTitle?: string;
+  taskContent?: string;
   onScreenshotChange?: (dataUrl: string | null) => void;
 };
 
 export function InlineDrawingCanvas({
   disabled = false,
+  taskTitle = "Treść zadania",
+  taskContent,
   onScreenshotChange,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,26 +40,37 @@ export function InlineDrawingCanvas({
 
   const stageRef = useRef<any>(null);
 
-  const W = typeof window !== "undefined" ? window.innerWidth * 0.9 : 800;
-  const H = typeof window !== "undefined" ? window.innerHeight * 0.7 : 600;
+  const { width, height } = useMemo(() => {
+    if (typeof window === "undefined") {
+      return { width: 760, height: 520 };
+    }
 
-  const toolNames = {
-    pen: "✏️ Pędzel",
-    line: "📏 Linia",
-    circle: "⭕ Koło",
-    eraser: "🧽 Gumka",
+    return {
+      width: Math.min(Math.max(window.innerWidth * 0.58, 340), 920),
+      height: Math.min(Math.max(window.innerHeight * 0.58, 360), 620),
+    };
+  }, [isOpen]);
+
+  const toolNames: Record<Tool, string> = {
+    pen: "Pędzel",
+    line: "Linia",
+    circle: "Koło",
+    eraser: "Gumka",
   };
 
+  const tools: Array<{ id: Tool; icon: typeof PenLine; label: string }> = [
+    { id: "pen", icon: PenLine, label: "Pędzel" },
+    { id: "line", icon: Minus, label: "Linia" },
+    { id: "circle", icon: CircleIcon, label: "Koło" },
+    { id: "eraser", icon: Eraser, label: "Gumka" },
+  ];
+
   function toolButtonClass(t: Tool) {
-    return `
-      px-3 py-1 rounded-lg text-sm
-      transition
-      ${
-        tool === t
-          ? "bg-[#7CF9C2] text-black"
-          : "bg-[#0f1f33] text-white hover:bg-[#1a2b45]"
-      }
-    `;
+    return `inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${
+      tool === t
+        ? "border-emerald-300 bg-emerald-300 text-slate-950"
+        : "border-white/10 bg-white/[0.05] text-slate-100 hover:bg-white/[0.09]"
+    }`;
   }
 
   function getPos() {
@@ -149,127 +174,146 @@ export function InlineDrawingCanvas({
         type="button"
         disabled={disabled}
         onClick={() => setIsOpen(true)}
-        className="mt-3 rounded-lg border border-[#2C3B55] bg-[#081524] px-3 py-2 text-sm hover:border-[#7CF9C2] disabled:opacity-50"
+        className="mt-3 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-emerald-300/60 hover:bg-white/[0.08] disabled:opacity-50"
       >
-        ✏️ Otwórz rysowanie
+        <PenLine className="h-4 w-4" aria-hidden />
+        Otwórz rysowanie
       </button>
 
       {isOpen && !disabled && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
-          <div className="bg-[#081524] border border-[#2C3B55] rounded-xl p-4 w-[95vw] h-[90vh] flex flex-col">
-            {/* TOOLBAR */}
-            <div className="flex gap-2 mb-3 flex-wrap items-center">
-              <button
-                className={toolButtonClass("pen")}
-                onClick={() => setTool("pen")}
-              >
-                ✏️
-              </button>
+        <div className="fixed inset-0 z-50 bg-black/75 p-3 backdrop-blur-sm md:p-6">
+          <div className="mx-auto flex h-full max-w-[1500px] flex-col overflow-hidden rounded-lg border border-white/10 bg-[#07111f] shadow-[0_40px_120px_-50px_rgba(0,0,0,1)]">
+            <div className="flex flex-wrap items-center gap-2 border-b border-white/10 px-4 py-3">
+              {tools.map((item) => {
+                const Icon = item.icon;
 
-              <button
-                className={toolButtonClass("line")}
-                onClick={() => setTool("line")}
-              >
-                📏
-              </button>
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={toolButtonClass(item.id)}
+                    onClick={() => setTool(item.id)}
+                    title={item.label}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </button>
+                );
+              })}
 
-              <button
-                className={toolButtonClass("circle")}
-                onClick={() => setTool("circle")}
-              >
-                ⭕
-              </button>
-
-              {/* 🧽 OBOK KOŁA */}
-              <button
-                className={toolButtonClass("eraser")}
-                onClick={() => setTool("eraser")}
-              >
-                🧽
-              </button>
-
-              {/* ❌ NA PRAWO */}
-              <div className="ml-auto">
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600"
-                >
-                  ❌
-                </button>
-              </div>
-
-              {/* LABEL */}
-              <div className="w-full text-sm text-[#7CF9C2] mt-1">
+              <div className="ml-0 text-sm font-semibold text-emerald-300 md:ml-2">
                 Wybrane: {toolNames[tool]}
               </div>
 
-              {/* DOLNE AKCJE */}
-              <button onClick={() => setShapes([])} className="text-red-400">
-                🗑 Wyczyść
-              </button>
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShapes([])}
+                  className="inline-flex items-center gap-2 rounded-lg border border-red-400/20 bg-red-500/10 px-3 py-2 text-sm font-semibold text-red-200 transition hover:bg-red-500/15"
+                >
+                  <Trash2 className="h-4 w-4" aria-hidden />
+                  Wyczyść
+                </button>
 
-              <button onClick={saveDrawing} className="text-[#7CF9C2]">
-                💾 Zapisz
-              </button>
+                <button
+                  type="button"
+                  onClick={saveDrawing}
+                  className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-3 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-200"
+                >
+                  <Check className="h-4 w-4" aria-hidden />
+                  Zapisz
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] text-slate-100 transition hover:bg-white/[0.1]"
+                  title="Zamknij"
+                >
+                  <X className="h-5 w-5" aria-hidden />
+                </button>
+              </div>
             </div>
 
-            {/* CANVAS */}
-            <Stage
-              ref={stageRef}
-              width={W}
-              height={H}
-              onPointerDown={handleDown}
-              onPointerMove={handleMove}
-              onPointerUp={handleUp}
-              style={{ touchAction: "none" }}
-            >
-              <Layer>
-                {shapes.map((s) => {
-                  if (s.tool === "circle") {
-                    return (
-                      <Circle
-                        key={s.id}
-                        x={s.x}
-                        y={s.y}
-                        radius={s.r}
-                        stroke="#7CF9C2"
-                        strokeWidth={3}
-                      />
-                    );
-                  }
-
-                  return (
-                    <Line
-                      key={s.id}
-                      points={s.points}
-                      stroke={s.tool === "eraser" ? "#081524" : "#7CF9C2"}
-                      strokeWidth={s.tool === "eraser" ? 20 : 4}
-                      lineCap="round"
-                      lineJoin="round"
-                      tension={0.4}
-                    />
-                  );
-                })}
-
-                {current &&
-                  (current.tool === "circle" ? (
-                    <Circle
-                      x={current.x}
-                      y={current.y}
-                      radius={current.r}
-                      stroke="#7CF9C2"
-                      strokeWidth={3}
-                    />
+            <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-auto p-4 lg:grid-cols-[minmax(280px,380px)_1fr]">
+              <aside className="max-h-[40vh] overflow-auto rounded-lg border border-white/10 bg-white/[0.04] p-4 lg:max-h-none">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+                  Treść zadania
+                </p>
+                <h2 className="mt-2 text-lg font-bold text-white">
+                  {taskTitle}
+                </h2>
+                <div className="mt-4 rounded-lg border border-white/10 bg-[#0b1726] p-4 leading-7 text-slate-100">
+                  {taskContent ? (
+                    <MathRender text={taskContent} />
                   ) : (
-                    <Line
-                      points={current.points}
-                      stroke="#7CF9C2"
-                      strokeWidth={4}
-                      lineCap="round"
-                    />
-                  ))}
-              </Layer>
-            </Stage>
+                    <span className="text-slate-400">
+                      Brak treści zadania do wyświetlenia.
+                    </span>
+                  )}
+                </div>
+              </aside>
+
+              <div className="min-w-0 overflow-auto rounded-lg border border-white/10 bg-white p-2">
+                <Stage
+                  ref={stageRef}
+                  width={width}
+                  height={height}
+                  onPointerDown={handleDown}
+                  onPointerMove={handleMove}
+                  onPointerUp={handleUp}
+                  style={{ touchAction: "none" }}
+                >
+                  <Layer>
+                    {shapes.map((s) => {
+                      if (s.tool === "circle") {
+                        return (
+                          <Circle
+                            key={s.id}
+                            x={s.x}
+                            y={s.y}
+                            radius={s.r}
+                            stroke="#059669"
+                            strokeWidth={3}
+                          />
+                        );
+                      }
+
+                      return (
+                        <Line
+                          key={s.id}
+                          points={s.points}
+                          stroke={s.tool === "eraser" ? "#ffffff" : "#059669"}
+                          strokeWidth={s.tool === "eraser" ? 20 : 4}
+                          lineCap="round"
+                          lineJoin="round"
+                          tension={0.4}
+                        />
+                      );
+                    })}
+
+                    {current &&
+                      (current.tool === "circle" ? (
+                        <Circle
+                          x={current.x}
+                          y={current.y}
+                          radius={current.r}
+                          stroke="#059669"
+                          strokeWidth={3}
+                        />
+                      ) : (
+                        <Line
+                          points={current.points}
+                          stroke={
+                            current.tool === "eraser" ? "#ffffff" : "#059669"
+                          }
+                          strokeWidth={current.tool === "eraser" ? 20 : 4}
+                          lineCap="round"
+                        />
+                      ))}
+                  </Layer>
+                </Stage>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { ArrowLeft, CheckCircle2, Circle, Trophy } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { OpenTasksSingleAnswer } from "@/components/openTask/OpenTaskSingleAnswer";
@@ -109,6 +110,21 @@ export default function MaturaPage() {
     load();
   }, [maturaId]);
 
+  const maxPoints = useMemo(() => {
+    if (!matura) return 0;
+
+    const closed = matura.closedTasks.reduce(
+      (sum, task) => sum + (task.points ?? 1),
+      0,
+    );
+    const open = matura.openTasks.reduce(
+      (sum, task) => sum + task.maxPoints,
+      0,
+    );
+
+    return closed + open;
+  }, [matura]);
+
   function getUserAnswer(taskId: string) {
     return closedAnswers.find((a) => a.closedTaskId === taskId);
   }
@@ -150,8 +166,8 @@ export default function MaturaPage() {
       setPoints(data.earnedPoints);
 
       data.isCorrect
-        ? toast.success("Dobrze! ✅")
-        : toast.error("Źle ❌ (poprawna zaznaczona na zielono)");
+        ? toast.success("Dobrze! Odpowiedź zapisana.")
+        : toast.error("Źle. Poprawna odpowiedź jest zaznaczona na zielono.");
     } catch {
       toast.error("Błąd zapisu odpowiedzi");
     } finally {
@@ -161,109 +177,234 @@ export default function MaturaPage() {
 
   function optionClass(task: ClosedTask, opt: Option) {
     const userAnswer = getUserAnswer(task.id);
-    const base = "text-left rounded-lg border px-4 py-3 text-sm transition";
+    const base =
+      "group flex min-h-[64px] w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm leading-6 transition disabled:cursor-not-allowed";
 
     if (!userAnswer) {
-      return `${base} border-[#2C3B55] bg-[rgba(11,27,43,0.35)] text-[#F3EAD7]/85 hover:border-[#7CF9C2]`;
+      return `${base} border-white/10 bg-white/[0.04] text-slate-200 hover:border-emerald-300/60 hover:bg-white/[0.07]`;
     }
 
     const picked = userAnswer.answer;
     const correct = task.correctAnswer;
 
     if (userAnswer.isCorrect && opt === picked) {
-      return `${base} border-green-500/60 bg-green-500/10 text-green-200`;
+      return `${base} border-emerald-400/60 bg-emerald-400/10 text-emerald-100`;
     }
 
     if (!userAnswer.isCorrect && opt === picked) {
-      return `${base} border-red-500/60 bg-red-500/10 text-red-200`;
+      return `${base} border-red-400/60 bg-red-400/10 text-red-100`;
     }
 
     if (!userAnswer.isCorrect && opt === correct) {
-      return `${base} border-green-500/60 bg-green-500/10 text-green-200`;
+      return `${base} border-emerald-400/60 bg-emerald-400/10 text-emerald-100`;
     }
 
-    return `${base} border-[#2C3B55] bg-[rgba(11,27,43,0.25)] text-[#F3EAD7]/50`;
+    return `${base} border-white/10 bg-white/[0.025] text-slate-500`;
   }
 
   if (loading) {
     return (
-      <main className="bg-[#050E19] min-h-screen text-[#F3EAD7]">
+      <main className="min-h-screen bg-[#07111f] text-slate-50">
         <ToastContainer position="top-center" theme="dark" />
-        <div className="p-10 text-center text-white/70">Ładowanie…</div>
+        <div className="mx-auto grid min-h-[calc(100dvh-5rem)] max-w-[1100px] place-items-center px-6">
+          <div className="rounded-lg border border-white/10 bg-white/[0.05] px-6 py-5 text-slate-300">
+            Ładowanie arkusza...
+          </div>
+        </div>
       </main>
     );
   }
 
   if (!matura) {
     return (
-      <main className="bg-[#050E19] min-h-screen text-[#F3EAD7]">
+      <main className="min-h-screen bg-[#07111f] text-slate-50">
         <ToastContainer position="top-center" theme="dark" />
-        <div className="p-10 text-center text-white/70">
-          Nie znaleziono matury.
+        <div className="mx-auto grid min-h-[calc(100dvh-5rem)] max-w-[1100px] place-items-center px-6">
+          <div className="rounded-lg border border-white/10 bg-white/[0.05] p-8 text-center">
+            <h1 className="text-2xl font-bold text-white">
+              Nie znaleziono matury
+            </h1>
+            <button
+              onClick={() => router.push("/generator")}
+              className="mt-5 rounded-lg bg-emerald-300 px-5 py-3 font-bold text-slate-950 transition hover:bg-emerald-200"
+            >
+              Wróć do generatora
+            </button>
+          </div>
         </div>
       </main>
     );
   }
 
+  const answeredClosed = closedAnswers.length;
+  const totalTasks = matura.closedTasks.length + matura.openTasks.length;
+  const answeredOpen = openAnswers.filter(
+    (answer) => answer.answer || (answer as any).screenshotUrl,
+  ).length;
+
   return (
-    <main className="bg-[#050E19] min-h-screen text-[#F3EAD7]">
+    <main className="min-h-screen bg-[#07111f] text-slate-50">
       <ToastContainer position="top-center" theme="dark" />
 
-      <div className="mx-auto max-w-[1100px] px-6 py-12">
-        <div className="flex justify-between mb-6">
+      <div className="mx-auto w-full max-w-[1180px] px-6 py-8">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <button
             onClick={() => router.back()}
-            className="opacity-70 hover:opacity-100"
+            className="inline-flex w-fit items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/[0.08] hover:text-white"
           >
-            ← Wróć
+            <ArrowLeft className="h-4 w-4" aria-hidden />
+            Wróć
           </button>
-          <div className="text-[#7CF9C2] font-semibold">Punkty: {points}</div>
+
+          <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-emerald-300/20 bg-emerald-300/10 px-4 py-2 text-sm font-bold text-emerald-200">
+            <Trophy className="h-4 w-4" aria-hidden />
+            Punkty: {points}
+            {maxPoints > 0 ? ` / ${maxPoints}` : ""}
+          </div>
         </div>
 
-        <h1 className="text-3xl font-semibold mb-8">{matura.name}</h1>
+        <header className="rounded-lg border border-white/10 bg-[linear-gradient(135deg,rgba(15,35,55,0.9),rgba(18,43,46,0.72))] p-6 shadow-[0_32px_90px_-58px_rgba(0,0,0,1)]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                Arkusz maturalny
+              </p>
+              <h1 className="mt-3 text-3xl font-black leading-tight text-white md:text-4xl">
+                {matura.name}
+              </h1>
+              <p className="mt-3 text-slate-300">
+                Rozwiązuj zadania, zapisuj odpowiedzi i sprawdzaj postęp w
+                jednym widoku.
+              </p>
+            </div>
 
-        <section className="space-y-5">
-          {matura.closedTasks.map((task, idx) => {
-            const alreadyAnswered = !!getUserAnswer(task.id);
-
-            return (
-              <div
-                key={task.id}
-                className="border border-[#2C3B55] rounded-xl p-5"
-              >
-                <p className="text-sm opacity-70 mb-2">Zadanie {idx + 1}</p>
-                <div className="mb-4 whitespace-pre-wrap">{task.content}</div>
-
-                <div className="grid md:grid-cols-2 gap-3">
-                  {options.map((opt) => (
-                    <button
-                      key={opt}
-                      disabled={alreadyAnswered || savingTaskId === task.id}
-                      onClick={() => answerTask(task, opt)}
-                      className={optionClass(task, opt)}
-                    >
-                      <b>{opt}:</b> {task.answers?.[0]?.[opt]}
-                    </button>
-                  ))}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3">
+                <div className="text-xl font-black text-white">
+                  {matura.closedTasks.length}
                 </div>
+                <div className="mt-1 text-xs text-slate-400">zamknięte</div>
               </div>
-            );
-          })}
+              <div className="rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3">
+                <div className="text-xl font-black text-white">
+                  {matura.openTasks.length}
+                </div>
+                <div className="mt-1 text-xs text-slate-400">otwarte</div>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3">
+                <div className="text-xl font-black text-white">
+                  {answeredClosed + answeredOpen}/{totalTasks}
+                </div>
+                <div className="mt-1 text-xs text-slate-400">zrobione</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section className="mt-8">
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+                Część 1
+              </p>
+              <h2 className="mt-1 text-2xl font-black text-white">
+                Zadania zamknięte
+              </h2>
+            </div>
+            <span className="text-sm text-slate-400">
+              {answeredClosed}/{matura.closedTasks.length} odpowiedzi
+            </span>
+          </div>
+
+          <div className="space-y-4">
+            {matura.closedTasks.map((task, idx) => {
+              const alreadyAnswered = !!getUserAnswer(task.id);
+
+              return (
+                <article
+                  key={task.id}
+                  className="rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-[0_24px_70px_-58px_rgba(0,0,0,1)]"
+                >
+                  <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-emerald-300">
+                        Zadanie {idx + 1}
+                      </p>
+                      <div className="mt-2 whitespace-pre-wrap leading-7 text-slate-100">
+                        {task.content}
+                      </div>
+                    </div>
+                    <div className="shrink-0 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-semibold text-slate-300">
+                      {task.points ?? 1} pkt
+                    </div>
+                  </div>
+
+                  <div className="grid gap-3 md:grid-cols-2">
+                    {options.map((opt) => {
+                      const userAnswer = getUserAnswer(task.id);
+                      const isSelected = userAnswer?.answer === opt;
+                      const isCorrectAfterAnswer =
+                        !!userAnswer && task.correctAnswer === opt;
+
+                      return (
+                        <button
+                          key={opt}
+                          disabled={alreadyAnswered || savingTaskId === task.id}
+                          onClick={() => answerTask(task, opt)}
+                          className={optionClass(task, opt)}
+                        >
+                          <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-current text-xs font-black">
+                            {opt}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            {task.answers?.[0]?.[opt]}
+                          </span>
+                          {(isSelected || isCorrectAfterAnswer) &&
+                            (isCorrectAfterAnswer ? (
+                              <CheckCircle2
+                                className="mt-1 h-5 w-5 shrink-0"
+                                aria-hidden
+                              />
+                            ) : (
+                              <Circle
+                                className="mt-1 h-5 w-5 shrink-0"
+                                aria-hidden
+                              />
+                            ))}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </section>
 
-        <h2 className="text-2xl font-semibold mt-10 mb-5">Zadania otwarte</h2>
+        <section className="mt-10">
+          <div className="mb-4">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+              Część 2
+            </p>
+            <h2 className="mt-1 text-2xl font-black text-white">
+              Zadania otwarte
+            </h2>
+          </div>
 
-        {userMaturaId && matura.openTasks.length ? (
-          <OpenTasksSingleAnswer
-            openTasks={matura.openTasks}
-            userMaturaId={userMaturaId}
-            openAnswers={openAnswers}
-            setOpenAnswers={setOpenAnswers}
-            onPointsUpdate={(p: any) => setPoints(p)}
-          />
-        ) : (
-          <div className="text-white/70">Brak zadań otwartych.</div>
-        )}
+          {userMaturaId && matura.openTasks.length ? (
+            <OpenTasksSingleAnswer
+              openTasks={matura.openTasks}
+              userMaturaId={userMaturaId}
+              openAnswers={openAnswers}
+              setOpenAnswers={setOpenAnswers}
+              onPointsUpdate={(p: any) => setPoints(p)}
+            />
+          ) : (
+            <div className="rounded-lg border border-white/10 bg-white/[0.04] p-6 text-slate-300">
+              Brak zadań otwartych.
+            </div>
+          )}
+        </section>
       </div>
     </main>
   );

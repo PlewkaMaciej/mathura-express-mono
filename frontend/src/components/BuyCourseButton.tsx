@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
-export default function BuyCourseButton() {
+type Props = {
+  className?: string;
+};
+
+export default function BuyCourseButton({ className = "" }: Props) {
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
@@ -36,9 +41,10 @@ export default function BuyCourseButton() {
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className="inline-flex items-center justify-center rounded-xl border border-[#FFC857]/70 bg-[rgba(255,200,87,0.08)] px-6 py-3 text-[16px] font-semibold text-[#F3EAD7] shadow-[0_0_12px_rgba(255,200,87,0.12)] transition hover:border-[#FFC857] hover:bg-[rgba(255,200,87,0.16)] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      className={`inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-300 px-6 py-3 text-[16px] font-bold text-slate-950 shadow-[0_20px_50px_-24px_rgba(52,211,153,0.95)] transition hover:-translate-y-0.5 hover:bg-emerald-200 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
     >
       {loading ? "Przetwarzanie..." : "Kup kurs"}
+      {!loading && <ArrowRight className="h-5 w-5" aria-hidden />}
     </button>
   );
 }

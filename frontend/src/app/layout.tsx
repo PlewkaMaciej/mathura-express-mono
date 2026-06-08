@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="pl">
       <body>
         <ClerkProvider localization={clerkLocale}>
-          <div className="min-h-dvh flex flex-col bg-[#0D2238]">
+          <div className="flex min-h-dvh flex-col bg-[#07111f]">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

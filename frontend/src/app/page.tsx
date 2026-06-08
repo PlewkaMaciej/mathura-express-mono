@@ -1,141 +1,179 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2, Play, Cog } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  FileText,
+  Play,
+  Sparkles,
+} from "lucide-react";
 import { auth } from "@clerk/nextjs/server";
+
+const features = [
+  {
+    icon: CheckCircle2,
+    title: "Gotowe rozwiązania",
+    description: "Zadania maturalne z omówieniem krok po kroku.",
+  },
+  {
+    icon: Play,
+    title: "Wideo-tutoriale",
+    description: "Krótkie lekcje prowadzące przez typowe schematy zadań.",
+  },
+  {
+    icon: FileText,
+    title: "Generator matur",
+    description: "Twórz własne arkusze z bazy zadań i ćwicz wybrane działy.",
+  },
+];
+
+const stats = [
+  { value: "3 kroki", label: "od wyboru działu do arkusza" },
+  { value: "Wideo", label: "do najważniejszych typów zadań" },
+  { value: "AI", label: "wsparcie przy ćwiczeniu odpowiedzi" },
+];
 
 export default async function Home() {
   const { userId } = await auth();
 
   return (
-    <main className="bg-[#0B1020] text-[#F5F7FF]">
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(900px_540px_at_20%_0%,#1b2252_22%,transparent_60%),radial-gradient(880px_520px_at_100%_15%,#1e3a8a_18%,transparent_65%)]" />
+    <main className="bg-[#07111f] text-slate-50">
+      <section className="relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#07111f_0%,#0f2337_48%,#122b2e_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#07111f] to-transparent" />
 
-        <div className="mx-auto w-full max-w-[1600px] px-6 2xl:px-10 pt-16 md:pt-24 lg:pt-28 pb-12 relative z-10 flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1 min-w-0">
-            <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight">
-              Nie pozwól, by <span className="text-[#7CF9C2]">matura</span> ci
-              odjechała
-            </h1>
-
-            <p className="mt-4 text-base md:text-lg text-[#C9D2EE] max-w-xl">
-              Kursy maturalne z rozwiązaniami wideo. Generuj arkusze i ćwicz
-              efektywnie.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/buyCourse"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-semibold bg-[#7CF9C2] text-[#0B1020] shadow-[0_10px_30px_-10px_rgba(124,249,194,.7)] transition hover:brightness-95 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                Kup dostęp
-              </Link>
-
-              {userId ? (
-                <Link
-                  href="/generator"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-semibold border border-[#2C335A] text-[#F5F7FF] bg-white/5 hover:bg-white/10 transition"
-                >
-                  Wypróbuj generator za darmo
-                </Link>
-              ) : (
-                <Link
-                  href="/sign-in"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-semibold border border-[#2C335A] text-[#F5F7FF] bg-white/5 hover:bg-white/10 transition"
-                >
-                  Zaloguj się aby użyć generatora
-                </Link>
-              )}
+        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-8 px-6 pb-10 pt-8 md:grid-cols-[1.02fr_0.98fr] md:pb-12 md:pt-12 lg:gap-12 2xl:px-10">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-sm font-medium text-emerald-100 shadow-[0_16px_60px_-36px_rgba(16,185,129,0.75)] backdrop-blur">
+              <Sparkles className="h-4 w-4 text-emerald-300" aria-hidden />
+              Kurs i generator arkuszy do matury z matematyki
             </div>
 
-            <div className="relative h-36 mt-8 md:hidden">
-              <Image
-                src="/images/train.png"
-                alt="Pociąg MathuraExpress"
-                fill
-                sizes="100vw"
-                className="object-contain object-center opacity-90"
-                priority
-              />
+            <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight tracking-normal text-white sm:text-5xl lg:text-6xl">
+              Nie pozwól, by matura z matematyki Ci odjechała
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+              Ćwicz na zadaniach maturalnych, oglądaj rozwiązania wideo i
+              generuj własne arkusze wtedy, kiedy naprawdę ich potrzebujesz.
+            </p>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/buyCourse"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-300 px-6 py-3 text-base font-bold text-slate-950 shadow-[0_20px_50px_-24px_rgba(52,211,153,0.95)] transition hover:-translate-y-0.5 hover:bg-emerald-200 active:translate-y-0"
+              >
+                Kup dostęp
+                <ArrowRight className="h-5 w-5" aria-hidden />
+              </Link>
+
+              <Link
+                href={userId ? "/generator" : "/sign-in"}
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/10 px-6 py-3 text-base font-semibold text-white transition hover:border-white/20 hover:bg-white/15"
+              >
+                {userId
+                  ? "Wypróbuj generator"
+                  : "Zaloguj się, aby użyć generatora"}
+              </Link>
+            </div>
+
+            <div className="mt-8 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
+              {stats.map((item) => (
+                <div
+                  key={item.value}
+                  className="rounded-lg border border-white/10 bg-white/[0.06] p-4 backdrop-blur"
+                >
+                  <div className="text-lg font-bold text-white">
+                    {item.value}
+                  </div>
+                  <div className="mt-1 text-sm leading-5 text-slate-300">
+                    {item.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="flex-1 relative h-64 sm:h-80 lg:h-[420px] hidden md:block">
+          <div className="relative min-h-[300px] overflow-hidden rounded-[8px] border border-white/10 bg-[#0b1726]/70 shadow-[0_40px_90px_-50px_rgba(0,0,0,1)] md:min-h-[420px]">
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]" />
+            <div className="absolute left-5 top-5 z-10 rounded-lg border border-white/10 bg-[#07111f]/80 px-4 py-3 backdrop-blur">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                MathuraExpress
+              </div>
+              <div className="mt-1 text-sm text-slate-300">
+                Nauka, arkusze, rozwiązania
+              </div>
+            </div>
             <Image
               src="/images/train.png"
               alt="Pociąg MathuraExpress"
               fill
-              sizes="(min-width:1024px) 40vw, 100vw"
-              className="object-contain object-center opacity-95"
+              sizes="(min-width: 768px) 46vw, 100vw"
+              className="object-contain object-center p-8 pt-20 md:p-10"
               priority
             />
           </div>
         </div>
+      </section>
 
-        <div className="mx-auto w-full max-w-[1600px] px-6 2xl:px-10 pb-16">
-          <div className="flex flex-col sm:flex-row gap-6">
-            <div className="flex-1 group rounded-xl border border-[#E6E1D0] bg-white p-6 shadow-sm transition hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex items-start gap-4 text-[#0D2238]">
-                <CheckCircle2 className="w-7 h-7 flex-shrink-0" aria-hidden />
+      <section className="mx-auto w-full max-w-[1600px] px-6 py-10 2xl:px-10">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {features.map((item) => {
+            const Icon = item.icon;
 
-                <div>
-                  <div className="font-semibold text-[18px] leading-tight">
-                    Gotowe rozwiązania
-                  </div>
-
-                  <div className="text-sm text-[#334155] mt-1">
-                    Zadania maturalne z omówieniem krok po kroku.
-                  </div>
+            return (
+              <div
+                key={item.title}
+                className="rounded-lg border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_70px_-50px_rgba(0,0,0,1)] transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/[0.07]"
+              >
+                <div className="grid h-11 w-11 place-items-center rounded-lg bg-emerald-300 text-slate-950">
+                  <Icon className="h-5 w-5" aria-hidden />
                 </div>
+                <h2 className="mt-5 text-xl font-bold text-white">
+                  {item.title}
+                </h2>
+                <p className="mt-2 leading-6 text-slate-300">
+                  {item.description}
+                </p>
               </div>
-            </div>
-
-            <div className="flex-1 group rounded-xl border border-[#E6E1D0] bg-white p-6 shadow-sm transition hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex items-start gap-4 text-[#0D2238]">
-                <Play className="w-7 h-7 flex-shrink-0" aria-hidden />
-
-                <div>
-                  <div className="font-semibold text-[18px] leading-tight">
-                    Wideo-tutoriale
-                  </div>
-
-                  <div className="text-sm text-[#334155] mt-1">
-                    Instrukcje wideo krok po kroku.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex-1 group rounded-xl border border-[#E6E1D0] bg-white p-6 shadow-sm transition hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex items-start gap-4 text-[#0D2238]">
-                <Cog className="w-7 h-7 flex-shrink-0" aria-hidden />
-
-                <div>
-                  <div className="font-semibold text-[18px] leading-tight">
-                    Generator matur
-                  </div>
-
-                  <div className="text-sm text-[#334155] mt-1">
-                    Twórz własne arkusze z bazy zadań.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1600px] px-6 2xl:px-10 pb-20">
-        <h3 className="text-center text-2xl md:text-3xl font-extrabold mb-6">
-          Co zawiera kurs?
-        </h3>
+      <section className="mx-auto w-full max-w-[1600px] px-6 pb-14 pt-6 2xl:px-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-300">
+              Podgląd kursu
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-normal text-white md:text-4xl">
+              Wideo i zadania w jednym miejscu
+            </h2>
+            <p className="mt-4 max-w-xl leading-7 text-slate-300">
+              Sekcja kursu może prowadzić ucznia od teorii, przez przykłady, aż
+              do samodzielnego arkusza. Bez przełączania się między notatkami i
+              losowymi materiałami.
+            </p>
+          </div>
 
-        <div className="mx-auto max-w-4xl rounded-xl border border-[#273258] bg-[#0E1630]/60 overflow-hidden">
-          <div className="relative aspect-video">
-            <div className="absolute inset-0 grid place-items-center text-[#A7B5DD]">
-              <div className="rounded-full bg-white/10 p-4 mb-3">▶</div>
-
-              <p className="text-sm">Wstaw player wideo (intro kursu)</p>
+          <div className="overflow-hidden rounded-lg border border-white/10 bg-[#0b1726] shadow-[0_28px_90px_-54px_rgba(0,0,0,1)]">
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-red-400" />
+                <span className="h-3 w-3 rounded-full bg-amber-300" />
+                <span className="h-3 w-3 rounded-full bg-emerald-300" />
+              </div>
+              <span className="text-sm text-slate-400">
+                Intro kursu maturalnego
+              </span>
+            </div>
+            <div className="relative aspect-video">
+              <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(135deg,#0f2337,#07111f)]">
+                <div className="grid h-16 w-16 place-items-center rounded-full bg-emerald-300 text-slate-950 shadow-[0_18px_44px_-22px_rgba(52,211,153,1)]">
+                  <Play className="ml-1 h-7 w-7 fill-current" aria-hidden />
+                </div>
+              </div>
             </div>
           </div>
         </div>

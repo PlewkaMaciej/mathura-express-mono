@@ -7,6 +7,8 @@ type Props = {
   value: string;
   disabled: boolean;
   mode: "text" | "drawing";
+  taskTitle?: string;
+  taskContent?: string;
   textareaRef?: (el: HTMLTextAreaElement | null) => void;
   onChange: (val: string) => void;
   onInsert: (text: string) => void;
@@ -17,13 +19,15 @@ export function OpenAnswerTextarea({
   value,
   disabled,
   mode,
+  taskTitle,
+  taskContent,
   textareaRef,
   onChange,
   onInsert,
   onScreenshotChange,
 }: Props) {
   const cls =
-    "mt-3 w-full rounded-lg bg-[#0B1B2B] border border-[#2C3B55] px-3 py-2.5 text-[#E9EEF7]";
+    "mt-3 w-full rounded-lg border border-white/10 bg-[#07111f] px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-emerald-300/70 disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
     <>
@@ -37,7 +41,7 @@ export function OpenAnswerTextarea({
             disabled={disabled}
             rows={6}
             className={cls}
-            placeholder="Wpisz odpowiedź…"
+            placeholder="Wpisz odpowiedź..."
           />
         </>
       )}
@@ -45,6 +49,8 @@ export function OpenAnswerTextarea({
       {mode === "drawing" && (
         <InlineDrawingCanvas
           disabled={disabled}
+          taskTitle={taskTitle}
+          taskContent={taskContent}
           onScreenshotChange={onScreenshotChange}
         />
       )}

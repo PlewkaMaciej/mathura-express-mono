@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
+import { Edit3, ImageIcon } from "lucide-react";
 import { MathRender } from "./MathRender";
 import { OpenAnswerTextarea } from "./OpenAnswerTextarea";
 import { PracticeOpenTaskButton } from "./PracticeOpenTaskButton";
 import type { OpenTask, OpenAnswerDTO, GeneratedOpenTask } from "./types";
-import { useState } from "react";
 
 type Props = {
   task: OpenTask;
@@ -107,7 +108,6 @@ export function OpenTaskCard({
 
   const screenshotUrl = saved?.screenshotUrl ?? null;
 
-  // 🔥 FIXED
   async function handlePracticeCheck() {
     if (!practice) return;
 
@@ -141,13 +141,20 @@ export function OpenTaskCard({
   }
 
   return (
-    <div className="border border-[#2C3B55] rounded-xl p-5 bg-[#081524]">
-      <p className="text-sm opacity-70 mb-2">Zadanie otwarte {index + 1}</p>
+    <div className="rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-[0_24px_70px_-58px_rgba(0,0,0,1)]">
+      <p className="mb-2 text-sm font-semibold text-emerald-300">
+        Zadanie otwarte {index + 1}
+      </p>
 
-      <div className="flex justify-between items-start mb-3 gap-3">
-        <div className="text-lg font-semibold">{displayName}</div>
+      <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
+        <div>
+          <div className="text-lg font-bold text-white">{displayName}</div>
+          <div className="mt-1 text-sm text-slate-400">
+            Maksymalnie {displayMaxPoints} pkt
+          </div>
+        </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {isLocked && !isPractice && (
             <PracticeOpenTaskButton
               openTaskId={task.id}
@@ -162,7 +169,7 @@ export function OpenTaskCard({
                 onRestoreOriginal();
                 setPracticeResult(null);
               }}
-              className="rounded-lg border border-[#2C3B55] px-3 py-2 text-sm hover:border-[#7CF9C2]"
+              className="rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2 text-sm font-semibold text-slate-100 transition hover:border-emerald-300/60 hover:bg-white/[0.08]"
             >
               Wróć do oryginału
             </button>
@@ -170,7 +177,7 @@ export function OpenTaskCard({
         </div>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-5 rounded-lg border border-white/10 bg-[#07111f] p-4 leading-7 text-slate-100">
         <MathRender text={displayContent} />
       </div>
 
@@ -178,70 +185,76 @@ export function OpenTaskCard({
         <div className="mb-4 space-y-3">
           {screenshotUrl && (
             <>
-              <div className="text-sm opacity-70">Twoja odpowiedź (obraz):</div>
+              <div className="text-sm text-slate-400">
+                Twoja odpowiedź (obraz):
+              </div>
 
               <img
                 src={screenshotUrl}
                 alt="Odpowiedź użytkownika"
-                className="rounded-lg border border-[#2C3B55] max-h-[400px] object-contain"
+                className="max-h-[400px] rounded-lg border border-white/10 object-contain"
               />
             </>
           )}
 
           {saved?.answer && (
             <>
-              <div className="text-sm opacity-70">Twoja odpowiedź (tekst):</div>
+              <div className="text-sm text-slate-400">
+                Twoja odpowiedź (tekst):
+              </div>
 
-              <div className="rounded-lg border border-[#2C3B55] p-3 text-sm">
+              <div className="rounded-lg border border-white/10 bg-[#07111f] p-3 text-sm text-slate-200">
                 {saved.answer}
               </div>
             </>
           )}
 
           {!isPractice && saved?.awardedPoints != null && (
-            <div className="text-sm opacity-80">
+            <div className="text-sm text-slate-300">
               Przyznano:{" "}
-              <span className="text-[#7CF9C2] font-semibold">
+              <span className="font-semibold text-emerald-300">
                 {saved.awardedPoints}
               </span>
               /{displayMaxPoints}
             </div>
           )}
 
-          <div className="text-sm text-[#7CF9C2] font-semibold">
-            Odpowiedź została wysłana. Edycja zablokowana.
+          <div className="rounded-lg border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 text-sm font-semibold text-emerald-200">
+            Odpowiedź została wysłana. Edycja jest zablokowana.
           </div>
         </div>
       )}
 
       {!isAlreadyAnswered && (
         <>
-          <div className="flex gap-2 mb-4">
+          <div className="mb-4 flex gap-2">
             <button
               type="button"
               onClick={() => {
                 setAnswerMode("text");
                 setLocalScreenshot(null);
               }}
-              className={`px-3 py-1 rounded-lg border text-sm ${
+              className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition ${
                 answerMode === "text"
-                  ? "border-[#7CF9C2] text-[#7CF9C2]"
-                  : "border-[#2C3B55]"
+                  ? "border-emerald-300 bg-emerald-300 text-slate-950"
+                  : "border-white/10 bg-white/[0.04] text-slate-200 hover:bg-white/[0.08]"
               }`}
             >
-              ✍️ Tekst
+              <Edit3 className="h-4 w-4" aria-hidden />
+              Tekst
             </button>
 
             <button
               type="button"
               onClick={() => setAnswerMode("drawing")}
-              className={`px-3 py-1 rounded-lg border text-sm ${
+              className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition ${
                 answerMode === "drawing"
-                  ? "border-[#7CF9C2] text-[#7CF9C2]"
-                  : "border-[#2C3B55]"
+                  ? "border-emerald-300 bg-emerald-300 text-slate-950"
+                  : "border-white/10 bg-white/[0.04] text-slate-200 hover:bg-white/[0.08]"
               }`}
             >
-              🖼 Rysunek
+              <ImageIcon className="h-4 w-4" aria-hidden />
+              Rysunek
             </button>
           </div>
 
@@ -250,6 +263,8 @@ export function OpenTaskCard({
               value={draft}
               disabled={saving || loadingPractice}
               mode="text"
+              taskTitle={displayName}
+              taskContent={displayContent}
               onChange={onDraftChange}
               onInsert={onInsertMath}
               onScreenshotChange={() => {}}
@@ -261,6 +276,8 @@ export function OpenTaskCard({
               value={draft}
               disabled={saving}
               mode="drawing"
+              taskTitle={displayName}
+              taskContent={displayContent}
               onChange={() => {}}
               onInsert={() => {}}
               onScreenshotChange={(dataUrl) => setLocalScreenshot(dataUrl)}
@@ -282,7 +299,7 @@ export function OpenTaskCard({
                   (answerMode === "drawing" && !localScreenshot) ||
                   (answerMode === "text" && !draft.trim())
                 }
-                className="rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] disabled:opacity-60"
+                className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {saving ? "Zapisywanie..." : "Zapisz odpowiedź"}
               </button>
@@ -295,7 +312,7 @@ export function OpenTaskCard({
                   (answerMode === "text" && !draft.trim()) ||
                   (answerMode === "drawing" && !localScreenshot)
                 }
-                className="rounded-lg bg-[#7CF9C2] px-4 py-2 text-sm font-semibold text-[#0B1020] disabled:opacity-60"
+                className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loadingPractice ? "Sprawdzam..." : "Sprawdź odpowiedź"}
               </button>
@@ -305,27 +322,31 @@ export function OpenTaskCard({
       )}
 
       {practiceResult && (
-        <div className="mt-4 p-4 rounded-xl bg-[#0E1F33] border border-[#2C3B55]">
-          <div className="text-[#7CF9C2] font-bold">
+        <div className="mt-4 rounded-lg border border-white/10 bg-[#07111f] p-4">
+          <div className="font-bold text-emerald-300">
             {practiceResult.awardedPoints}/{displayMaxPoints} pkt
           </div>
-          <div className="text-sm mt-2">{practiceResult.feedback}</div>
+          <div className="mt-2 text-sm text-slate-200">
+            {practiceResult.feedback}
+          </div>
         </div>
       )}
 
       {!isPractice && saved?.feedback && (
-        <div className="mt-4 p-4 rounded-xl bg-[#0E1F33] border border-[#2C3B55]">
-          <div className="text-sm font-semibold text-[#7CF9C2] mb-2">
+        <div className="mt-4 rounded-lg border border-white/10 bg-[#07111f] p-4">
+          <div className="mb-2 text-sm font-semibold text-emerald-300">
             Komentarz egzaminatora:
           </div>
-          <div className="text-sm">{saved.feedback}</div>
+          <div className="text-sm text-slate-200">{saved.feedback}</div>
         </div>
       )}
 
       {isPractice && practice?.referenceAnswer && (
-        <details className="mt-4 text-sm">
-          <summary>Pokaż rozwiązanie</summary>
-          <div className="mt-2">
+        <details className="mt-4 text-sm text-slate-200">
+          <summary className="cursor-pointer font-semibold text-emerald-300">
+            Pokaż rozwiązanie
+          </summary>
+          <div className="mt-2 rounded-lg border border-white/10 bg-[#07111f] p-4">
             <MathRender text={practice.referenceAnswer} />
           </div>
         </details>

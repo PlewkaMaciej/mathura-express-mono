@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { RefreshCw } from "lucide-react";
 import { toast } from "react-toastify";
 
 export type GeneratedOpenTask = {
@@ -45,13 +46,13 @@ export function PracticeOpenTaskButton({
 
       if (!res.ok || !data.ok) {
         toast.error(
-          !data.ok ? data.error : "Nie udało się wygenerować zadania."
+          !data.ok ? data.error : "Nie udało się wygenerować zadania.",
         );
         return;
       }
 
       onGenerated(data.generated);
-      toast.success("Wygenerowano podobne zadanie ✅");
+      toast.success("Wygenerowano podobne zadanie");
     } catch {
       toast.error("Błąd generowania zadania");
     } finally {
@@ -64,10 +65,14 @@ export function PracticeOpenTaskButton({
       type="button"
       onClick={handleGenerate}
       disabled={disabled || loading}
-      className="inline-flex items-center justify-center rounded-lg border border-[#2C3B55] bg-[#081524] px-4 py-2 text-sm font-semibold hover:border-[#7CF9C2] transition disabled:opacity-60"
+      className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-emerald-300/60 hover:bg-white/[0.08] disabled:opacity-60"
       title="Wygeneruj podobne zadanie do ćwiczeń"
     >
-      {loading ? "Generuję..." : "Wygeneruj podobne (ćwiczenia)"}
+      <RefreshCw
+        className={`h-4 w-4 ${loading ? "animate-spin" : ""}`}
+        aria-hidden
+      />
+      {loading ? "Generuję..." : "Wygeneruj podobne"}
     </button>
   );
 }

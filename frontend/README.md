@@ -1,179 +1,281 @@
-# MathuraExpress - Frontend
+# MathuraExpress
 
-MathuraExpress is an educational platform helping students prepare for mathematics final exams (matura). The application offers ready-made task solutions, video tutorials, and an exam sheet generator.
+MathuraExpress is a web application for preparing for the Polish mathematics matura exam. The project combines a course landing page, Stripe payments, an exam sheet generator, closed and open task solving, OpenAI-based grading for open answers, drawing-based answers, and an admin panel for managing tasks.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-### Frontend Framework
-- **Next.js 15.4.6** - React framework with App Router
-- **React 19.1.0** - UI library
-- **TypeScript 5** - Static typing
+- Next.js 15 with App Router
+- React 19
+- TypeScript
+- Tailwind CSS 3
+- Clerk for authentication
+- Prisma with SQLite
+- Stripe Checkout and Stripe webhooks
+- OpenAI for similar-task generation and open-answer grading
+- ImageKit for storing drawing answers as image files
+- KaTeX / remark-math / rehype-katex for math rendering
+- Konva / react-konva for drawing answers
+- Playwright for end-to-end tests
 
-### Styling & UI
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **Lucide React** - SVG icons
-- **PostCSS** - CSS preprocessing
+## Main Features
 
-### Forms & Validation
-- **Formik 2.4.6** - Form management
-- **Yup 1.7.0** - Schema validation
+### Public Pages
 
-### HTTP Client & Math Rendering
-- **Axios 1.11.0** - HTTP client
-- **better-react-mathjax 2.3.0** - Mathematical formula rendering
+- Modern homepage with course messaging, CTAs, feature cards, and course preview.
+- Shared header and footer.
+- Course purchase page at `/buyCourse`.
+- Payment success page at `/payment/success`.
 
-### Development Tools
-- **ESLint 9** - Code linting
-- **Turbopack** - Fast bundler (dev mode)
+### Authentication
 
-## 🚀 How to Run
+- Sign-in and sign-up are handled by Clerk:
+  - `/sign-in`
+  - `/sign-up`
+- Clerk localization is configured in `clerkStyles/clerkLocale.ts`.
 
-### Prerequisites
-- Node.js 18+ 
-- npm, yarn, pnpm or bun
+### Course Purchase
 
-### Installation & Development
+- The purchase button calls `POST /api/stripe/checkout`.
+- Checkout creates a Stripe session using `STRIPE_COURSE_PRICE_ID`.
+- After payment, Stripe redirects the user to `/payment/success`.
+- The webhook `POST /api/stripe/webhook` marks the user as having course access by setting `boughtCourse: true`.
 
-1. **Install dependencies:**
+### Exam Sheet Generator
+
+- The `/generator` page lets users create matura exam sheets.
+- The user's generated sheets are loaded from `GET /api/matura/userMaturas`.
+- A new sheet is generated with `POST /api/matura/generate`.
+- Clicking a generated sheet opens `/matura/[id]`.
+
+### Exam Sheet and Tasks
+
+- The `/matura/[id]` page displays:
+  - exam sheet header,
+  - number of closed and open tasks,
+  - current score,
+  - solved-task progress.
+- Closed task answers are saved through `POST /api/matura/closed-answers`.
+- Open tasks support:
+  - text answers,
+  - drawing answers,
+  - task content visible inside the drawing modal,
+  - editing lock after submission,
+  - feedback and awarded points.
+- Open answers are saved through `POST /api/matura/open-answers`.
+- Similar open-task practice is generated through `POST /api/practice/open`.
+- Practice answers are graded through `POST /api/practice/open/grade`.
+
+### Admin Panel
+
+- Admin panel route: `/admin-panel`.
+- The admin task form supports:
+  - closed tasks,
+  - open tasks,
+  - sections and subsections,
+  - grading rubric,
+  - reference answer.
+- Sections are loaded from `GET /api/sections`.
+- Tasks are saved through `POST /api/tasks`.
+
+### Video and Questions
+
+- Example video page: `/videoexample`.
+- Related endpoints:
+  - `GET /api/videos`
+  - `GET /api/videos/[id]/questions`
+  - `POST /api/questions/[id]/answers`
+
+## Important Routes
+
+| Route              | Description                     |
+| ------------------ | ------------------------------- |
+| `/`                | Homepage                        |
+| `/buyCourse`       | Course purchase page            |
+| `/payment/success` | Successful payment confirmation |
+| `/generator`       | User exam sheet generator       |
+| `/matura/[id]`     | Solve a specific exam sheet     |
+| `/admin-panel`     | Admin panel                     |
+| `/sign-in`         | Sign in                         |
+| `/sign-up`         | Sign up                         |
+| `/videoexample`    | Example video page              |
+
+## Project Structure
+
+```txt
+src/
+  app/
+    api/                 Application API routes
+    admin-panel/         Admin panel
+    buyCourse/           Purchase page
+    generator/           Exam sheet generator
+    matura/[id]/         Exam sheet solving view
+    payment/success/     Payment success page
+    sign-in/             Clerk sign-in
+    sign-up/             Clerk sign-up
+  components/
+    adminPanel/          Admin form components
+    openTask/            Open tasks, drawing, math rendering
+    video/               Video components
+    Toast/               Toast provider
+  hooks/                 Open-answer hooks
+  lib/                   Prisma, Stripe, OpenAI, Axios
+prisma/
+  schema.prisma          Data model
+  dev.db                 Local SQLite database
+tests/
+  *.spec.ts              Playwright tests
+scripts/
+  *.ts                   OpenAI/vector-store and seed scripts
+```
+
+## Environment Variables
+
+Create a `.env` or `.env.local` file.
+
+```env
+DATABASE_URL="file:./dev.db"
+
+OPENAI_API_KEY=""
+OPENAI_MODEL="gpt-4o-mini"
+OPENAI_VECTOR_STORE_ID=""
+
+STRIPE_SECRET_KEY=""
+STRIPE_COURSE_PRICE_ID=""
+STRIPE_WEBHOOK_SECRET=""
+
+IMAGEKIT_PUBLIC_KEY=""
+IMAGEKIT_PRIVATE_KEY=""
+IMAGEKIT_URL_ENDPOINT=""
+
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
+
+Clerk also requires the standard environment variables for a Next.js Clerk application, depending on the Clerk instance configuration.
+
+## Local Development
+
+1. Install dependencies:
+
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
-2. **Start development server:**
+2. Configure `.env`.
+
+3. Generate the Prisma client if needed:
+
+```bash
+npx prisma generate
+```
+
+4. Start the development server:
+
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-3. **Open the application:**
-   - Go to [http://localhost:3000](http://localhost:3000)
+5. Open:
 
-### Production Build
+```txt
+http://localhost:3000
+```
+
+## Commands
+
+```bash
+npm run dev
+```
+
+Runs Next.js in development mode with Turbopack.
 
 ```bash
 npm run build
+```
+
+Builds the production application.
+
+```bash
 npm run start
 ```
 
-### Linting
+Starts the production build.
 
 ```bash
-npm run lint
+npx tsc --noEmit
 ```
 
-## ✨ Implemented Features
+Runs TypeScript checks without emitting files.
 
-### 🏠 Landing Page
-- **Hero Section** - Main section with CTA buttons
-- **Feature Cards** - Presentation of main features:
-  - Ready-made solutions for exam tasks
-  - Step-by-step video tutorials
-  - Exam sheet generator
-- **Course Preview** - Section with video placeholder
+```bash
+npx playwright test
+```
 
-### 🔐 Authentication System
-- **Registration Page** (`/register`)
-  - Registration form with validation
-  - Fields: email, password
-  - Backend API integration
-- **Login Page** (`/login`)
-  - Login form with validation
-  - Error handling and status management
-  - Redirect after successful login
+Runs end-to-end tests.
 
-### 🧩 Reusable Components
-- **Header** - Navigation with responsive menu
-- **Footer** - Footer with links
-- **FormInput** - Form component with validation
-- **MathJax Integration** - Mathematical formula rendering
+## Tests
 
-### 🎨 UI/UX Features
-- **Responsive Design** - Adaptation to different screen sizes
-- **Dark Theme** - Dark color scheme
-- **Smooth Animations** - Hover effects and transitions
-- **Accessibility** - ARIA labels and semantic HTML
+Playwright is configured in `playwright.config.ts`.
 
-## 📋 Suggested Technical Best Practices
+- `tests/setup-admin.spec.ts` signs in an admin user and stores the browser state in `admin-auth.json`.
+- `tests/home.spec.ts` verifies that the homepage loads.
+- `tests/admin.spec.ts` verifies that the admin panel renders.
+- `tests/addTask.spec.ts` tests adding an open task.
 
-### 🔧 Code Quality & Architecture
-1. **Add Error Boundaries** - Implement React Error Boundaries
-2. **Environment Variables** - Move configuration to `.env.local`
-3. **API Layer Abstraction** - Create dedicated API layer
-4. **Loading States** - Add loading spinners/skeletons
-5. **Type Safety** - Extend TypeScript types for API responses
+The Playwright configuration starts `npm run dev` and uses `http://localhost:3000`.
 
-### 🛡️ Security & Performance
-1. **Input Sanitization** - Input data validation and sanitization
-2. **CSRF Protection** - Implement CSRF tokens
-3. **Image Optimization** - Image optimization (Next.js Image)
-4. **Bundle Analysis** - Bundle size analysis
-5. **Caching Strategy** - Implement caching strategies
+## Database
 
-### 🧪 Testing & Quality Assurance
-1. **Unit Tests** - Unit testing (Jest + Testing Library)
-2. **E2E Tests** - End-to-end testing (Playwright/Cypress)
-3. **Component Documentation** - Storybook for components
-4. **Code Coverage** - Test coverage monitoring
+The project uses SQLite through Prisma.
 
-### 🔄 Development Workflow
-1. **Pre-commit Hooks** - Husky + lint-staged
-2. **Conventional Commits** - Standard commit formats
-3. **CI/CD Pipeline** - Deployment automation
-4. **Code Review Guidelines** - Code review guidelines
+Important models:
 
-## ⚠️ Identified Issues & Inconsistencies
+- `User` - Clerk-linked user, role, and course purchase state.
+- `Matura` - generated exam sheet.
+- `UserMatura` - exam sheet assigned to a user, including score and status.
+- `ClosedTasks` / `OpenTasks` - closed and open tasks.
+- `UserClosedAnswer` / `UserOpenAnswer` - user answers.
+- `Section` / `SubSection` - topic and subtopic structure.
+- `Video`, `Question`, `Answer` - video and question area.
 
-### 🐛 Critical Issues
-1. **Missing Error Handling** - Lack of network error handling in some places
-2. **Incomplete Registration Flow** - RegisterPage doesn't handle registration success
-3. **Missing API Endpoints** - References to non-existent endpoints (`/pricing`, `/library`, `/generator`)
-4. **Hardcoded API URL** - API URL should be in environment variables
+## Stripe
 
-### 🔍 Code Quality Issues
-1. **Inconsistent Error Display** - Different error display styles in forms
-2. **Missing PropTypes/Interfaces** - Some components lack complete types
-3. **Unused Imports** - CheckCircle2 in RegisterPage is not used
-4. **Console.log Statements** - Debug logs in production code
-5. **Missing Display Names** - forwardRef components without displayName
+Checkout is handled by `POST /api/stripe/checkout`.
 
-### 🎨 UI/UX Inconsistencies
-1. **Color Variables** - Mixing CSS custom properties with Tailwind classes
-2. **Responsive Breakpoints** - Inconsistent breakpoint usage
-3. **Focus States** - Missing focus indicators for accessibility
-4. **Loading States** - Missing loading states for async operations
+The webhook handles `checkout.session.completed`. After a paid session, the backend finds the user by `metadata.userId` or `client_reference_id` and sets:
 
-### 📁 Project Structure
-1. **Missing Directories** - Missing folders: `hooks/`, `utils/`, `types/`, `constants/`
-2. **Component Organization** - Components could be better organized
-3. **Missing Tests** - Missing unit and integration tests
+```ts
+boughtCourse: true;
+```
 
-### 🔧 Configuration Issues
-1. **Next.js Config** - Empty Next.js configuration
-2. **Missing Metadata** - Missing SEO metadata in layout
-3. **Missing Favicon** - Missing favicon and other meta tags
+For local webhook testing, use the Stripe CLI and forward events to:
 
-## 📝 Development Notes
+```txt
+http://localhost:3000/api/stripe/webhook
+```
 
-- Project uses the latest versions of React (19) and Next.js (15)
-- Implements App Router instead of Pages Router
-- Uses Turbopack in development mode for faster bundling
-- MathJax is configured for mathematical formula rendering
-- Application is prepared for backend API integration
+## OpenAI and Open Tasks
 
-## 🚀 Next Steps
+OpenAI is used for:
 
-1. Implement missing pages (`/pricing`, `/library`, `/generator`)
-2. Add state management system (Zustand/Redux)
-3. Implement payment system
-4. Add content management system
-5. Implement exam sheet generator
-6. Add comment and rating system
+- generating similar open tasks,
+- grading open answers and returning feedback.
+
+The default model is `gpt-4o-mini` when `OPENAI_MODEL` is not set.
+
+Scripts in `scripts/` can create and populate a vector store:
+
+```bash
+npx tsx scripts/createVectorStore.ts
+npx tsx scripts/uploadToVectorStore.ts
+```
+
+## ImageKit
+
+Drawing answers can be submitted as base64 images. The backend uploads them to ImageKit and stores the resulting URL in `UserOpenAnswer.screenshotUrl`.
+
+## Development Notes
+
+- The repository includes a local database at `prisma/dev.db`. Tests and the running application may modify it.
+- `admin-auth.json` is Playwright session state and may change after tests.
+- Next.js may warn about multiple lockfiles if another `package-lock.json` exists outside this project directory.
+- The `npm run lint` script points to `next lint`, which may require a configuration update in newer Next.js versions.

@@ -3,17 +3,17 @@ import prisma from "@/lib/prisma";
 
 export async function POST(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
     const questionId = Number(id);
 
     if (!id || !Number.isFinite(questionId)) {
       console.error("Invalid question id:", id);
       return NextResponse.json(
         { error: "Invalid question ID" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -23,7 +23,7 @@ export async function POST(
     if (typeof text !== "string" || !text.trim()) {
       return NextResponse.json(
         { error: "Missing or invalid text" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     if (typeof userId !== "string" || !userId) {
