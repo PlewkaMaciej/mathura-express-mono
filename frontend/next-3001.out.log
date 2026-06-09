@@ -13,3 +13,4 @@
  ○ Compiling / ...
  ✓ Compiled / in 2.5s
  GET / 200 in 3016ms
+ GET / 200 in 99ms
