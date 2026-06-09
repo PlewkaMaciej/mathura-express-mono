@@ -1,0 +1,15 @@
+
+> mathura-express@0.1.0 dev
+> next dev --turbopack -p 3001
+
+   ▲ Next.js 15.4.6 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://26.190.20.106:3001
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Compiled middleware in 192ms
+ ✓ Ready in 1416ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2.5s
+ GET / 200 in 3016ms
